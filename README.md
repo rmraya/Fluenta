@@ -2,7 +2,7 @@
 
 ![Fluenta logo](https://www.maxprograms.com/images/fluenta_128.png)
 
-Fluenta is a tool designed to simplify the translation and localization of DITA projects combining two open standards from OASIS: *DITA* and *XLIFF*.
+Fluenta is an open source tool designed to simplify the translation and localization of DITA projects combining two open standards from OASIS: *DITA* and *XLIFF*.
 
 Fluenta implements the workflow described in the article [Use XLIFF to Translate DITA Projects](https://www.maxprograms.com/articles/ditaxliff.html), making it easy to manage the translation side of your DITA projects following the procedure recommended by the *OASIS DITA Adoption Technical Committee* (see the official publication from the TC available in PDF format from [OASIS](https://www.oasis-open.org/committees/download.php/48340/DITA12XLIFFArticle.pdf) and in HTML format at [ditatranslation.com](https://www.ditatranslation.com/articles/ditaxliff.html)).
 
