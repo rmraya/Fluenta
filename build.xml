@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="compile" name="Fluenta">
+    <property name="target" value="11"/>
+    <property name="source" value="11"/>
+    <property name="build.compiler" value="javac10+"/>
+    <path id="Fluenta.classpath">
+        <pathelement location="lib/dtd.jar"/>
+        <pathelement location="lib/h2-1.4.200.jar"/>
+        <pathelement location="lib/json.jar"/>
+        <pathelement location="lib/jsoup.jar"/>
+        <pathelement location="lib/mapdb.jar"/>
+        <pathelement location="lib/openxliff.jar"/>
+        <pathelement location="lib/tmengine.jar"/>
+        <pathelement location="lib/widgets.jar"/>
+        <pathelement location="lib/mac64/swt.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target name="compile" depends="clean,init">
+        <description>Build jar file</description>
+        <delete file="lib/fluenta.jar"/>
+        <javac srcdir="src" destdir="bin" classpathref="Fluenta.classpath" modulepathref="Fluenta.classpath" includeAntRuntime="false"/>
+        <jar destfile="lib/fluenta.jar" basedir="bin"/>
+    </target>
+</project>
