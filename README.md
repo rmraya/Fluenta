@@ -45,6 +45,14 @@ You need JAVA 11 and [Apache Ant 1.10.7](https://ant.apache.org) or newer
 
  - Checkout this repository
  - Point your JAVA_HOME variabe to JDK 11
- - Run `ant compile` to compile the source code
+ - Run `ant ` to compile the source code
 
-Use the `.bat` or `.sh` launchers included in the project to run Conversa.
+### Steps for building
+
+``` bash
+  git clone https://github.com/rmraya/Fluenta.git
+  cd Fluenta
+  ant 
+```
+
+Use the `.bat` or `.sh` launchers included in the project to run Fluenta.
