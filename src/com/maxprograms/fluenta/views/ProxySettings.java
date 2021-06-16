@@ -113,7 +113,7 @@ public class ProxySettings extends Dialog {
 						box.setMessage(ex.getMessage());
 					} else {
 						Logger logger = System.getLogger(ProxySettings.class.getName());
-						logger.log(Level.WARNING, "Error saving proxy settings", e);
+						logger.log(Level.WARNING, "Error saving proxy settings", e); //$NON-NLS-1$
 						box.setMessage(Messages.getString("ProxySettings.15"));						  //$NON-NLS-1$
 					}
 					box.open();

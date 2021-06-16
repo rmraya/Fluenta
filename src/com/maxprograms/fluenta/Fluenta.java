@@ -43,7 +43,6 @@ public class Fluenta {
 	private static FileOutputStream lockStream;
 	private static Display display;
 	private static ResourceManager resourceManager;
-	private static String lang = "en"; //$NON-NLS-1$
 
 	protected static final Logger LOGGER = System.getLogger(Fluenta.class.getName());
 
@@ -51,40 +50,16 @@ public class Fluenta {
 
 		try {
 			checkConfigurations();
-			System.setProperty("user.dir", Preferences.getPreferencesDir().getAbsolutePath());
+			System.setProperty("user.dir", Preferences.getPreferencesDir().getAbsolutePath()); //$NON-NLS-1$
 		} catch (IOException e) {
-			LOGGER.log(Level.ERROR, "Error setting working dir", e);
+			LOGGER.log(Level.ERROR, "Error setting working dir", e); //$NON-NLS-1$
 		}
 
 		if (args.length > 0) {
 			CLI.main(args);
 			return;
 		}
-
-		try {
-			Preferences prefs = Preferences.getInstance(Constants.PREFERENCES);
-			lang = prefs.get("Fluenta", "uiLanguage", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			if (!lang.equals("")) { //$NON-NLS-1$
-				Locale.setDefault(new Locale(lang));
-			} else {
-				Locale locale = Locale.getDefault();
-				if (locale.getLanguage().startsWith(new Locale("de").getLanguage())) { //$NON-NLS-1$
-					Locale.setDefault(new Locale("de")); //$NON-NLS-1$
-					lang = "de"; //$NON-NLS-1$
-				}
-				if (locale.getLanguage().startsWith(new Locale("ja").getLanguage())) { //$NON-NLS-1$
-					Locale.setDefault(new Locale("ja")); //$NON-NLS-1$
-					lang = "ja"; //$NON-NLS-1$
-				}
-				if (locale.getLanguage().startsWith(new Locale("es").getLanguage())) { //$NON-NLS-1$
-					Locale.setDefault(new Locale("es")); //$NON-NLS-1$
-					lang = "es"; //$NON-NLS-1$
-				}
-			}
-		} catch (IOException e1) {
-			LOGGER.log(Level.WARNING, "Error setting locale", e1);
-		}
-
+		Locale.setDefault(new Locale("en")); //$NON-NLS-1$
 		Display.setAppName(Messages.getString("Fluenta.0")); //$NON-NLS-1$
 		Display.setAppVersion(Constants.VERSION);
 		display = Display.getDefault();
@@ -110,7 +85,7 @@ public class Fluenta {
 				}
 				Program.launch(log.getAbsolutePath());
 			} catch (Exception e2) {
-				LOGGER.log(Level.ERROR, "Error writing to log file", e2);
+				LOGGER.log(Level.ERROR, "Error writing to log file", e2); //$NON-NLS-1$
 			}
 		} catch (Exception e) {
 			try {
@@ -120,7 +95,7 @@ public class Fluenta {
 				}
 				Program.launch(log.getAbsolutePath());
 			} catch (Exception e2) {
-				LOGGER.log(Level.ERROR, "Error writing to log file", e2);
+				LOGGER.log(Level.ERROR, "Error writing to log file", e2); //$NON-NLS-1$
 			}
 		}
 	}
@@ -170,10 +145,6 @@ public class Fluenta {
 		return resourceManager;
 	}
 
-	public static String getLanguage() {
-		return lang;
-	}
-
 	public static String getCatalogFile() throws IOException {
 		File preferencesFolder = Preferences.getPreferencesDir();
 		File catalogFolder = new File(preferencesFolder, "catalog"); //$NON-NLS-1$
@@ -211,7 +182,7 @@ public class Fluenta {
 		}
 		return filtersFolder;
 	}
-	
+
 	private static void copyFolder(File sourceFolder, File targetFolder) throws IOException {
 		if (!targetFolder.exists()) {
 			targetFolder.mkdirs();

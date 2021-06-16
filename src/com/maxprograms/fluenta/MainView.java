@@ -13,17 +13,15 @@
 package com.maxprograms.fluenta;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
 
-import com.maxprograms.fluenta.controllers.IController;
 import com.maxprograms.fluenta.controllers.LocalController;
-import com.maxprograms.fluenta.controllers.RemoteController;
 import com.maxprograms.fluenta.views.AboutBox;
-import com.maxprograms.fluenta.views.LoginDialog;
 import com.maxprograms.fluenta.views.MemoriesView;
 import com.maxprograms.fluenta.views.PreferencesDialog;
 import com.maxprograms.fluenta.views.ProjectsView;
@@ -53,9 +51,7 @@ public class MainView {
 	private boolean isMac;
 	protected static MemoriesView memoriesView;
 	protected static ProjectsView projectsView;
-	private static boolean local;
-	protected static IController controller;
-	
+	private static LocalController controller;
 
 	public MainView(Display display) {
 		this.display = display;
@@ -66,27 +62,26 @@ public class MainView {
 		shellLayout.marginHeight = 0;
 		shell.setLayout(shellLayout);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
-		
+
 		shell.addListener(SWT.Close, new Listener() {
-			
+
 			@Override
 			public void handleEvent(Event arg0) {
 				Locator.remember(shell, "MainView"); //$NON-NLS-1$
 				controller.close();
 			}
 		});
-		
+
 		controller = new LocalController();
-		local = true;
 		systemMenu = display.getSystemMenu();
-		
+
 		if (systemMenu != null && System.getProperty("os.name").startsWith("Mac")) { //$NON-NLS-1$ //$NON-NLS-2$
-			
+
 			isMac = true;
-			
+
 			MenuItem sysItem = getItem(systemMenu, SWT.ID_ABOUT);
 			sysItem.addSelectionListener(new SelectionAdapter() {
-				
+
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					AboutBox box = new AboutBox(shell, SWT.DIALOG_TRIM);
@@ -95,7 +90,7 @@ public class MainView {
 			});
 			sysItem = getItem(systemMenu, SWT.ID_QUIT);
 			sysItem.addSelectionListener(new SelectionAdapter() {
-				
+
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					shell.close();
@@ -103,38 +98,38 @@ public class MainView {
 			});
 			sysItem = getItem(systemMenu, SWT.ID_PREFERENCES);
 			sysItem.addSelectionListener(new SelectionAdapter() {
-				
+
 				@Override
 				public void widgetSelected(SelectionEvent e) {
-					PreferencesDialog dialog = new PreferencesDialog(shell, SWT.CLOSE|SWT.RESIZE);
+					PreferencesDialog dialog = new PreferencesDialog(shell, SWT.CLOSE | SWT.RESIZE);
 					dialog.show();
 				}
 			});
 		}
-	
+
 		Menu bar = display.getMenuBar();
 		if (bar == null) {
 			bar = new Menu(shell, SWT.BAR);
 			shell.setMenuBar(bar);
 		}
 		createMenu(bar);
-		
+
 		CTabFolder folder = new CTabFolder(shell, SWT.BORDER);
 		folder.setLayoutData(new GridData(GridData.FILL_BOTH));
-		
+
 		CTabItem projectsTab = new CTabItem(folder, SWT.NONE);
 		projectsTab.setText(Messages.getString("MainView.5")); //$NON-NLS-1$
 		projectsView = new ProjectsView(folder, SWT.NONE);
 		projectsTab.setControl(projectsView);
-		
+
 		CTabItem memoriesTab = new CTabItem(folder, SWT.NONE);
 		memoriesTab.setText(Messages.getString("MainView.6")); //$NON-NLS-1$
 		memoriesView = new MemoriesView(folder, SWT.NONE);
 		memoriesTab.setControl(memoriesView);
-		
+
 		folder.setSelection(projectsTab);
 		projectsView.setFocus();
-		
+
 	}
 
 	public void show() {
@@ -153,299 +148,275 @@ public class MainView {
 		}
 	}
 
-	public static boolean isLocal() {
-		return local;
-	}
-	
-	public static IController getController() {
+	public static LocalController getController() {
 		return controller;
 	}
-	
+
 	static MenuItem getItem(Menu menu, int id) {
 		MenuItem[] items = menu.getItems();
 		for (int i = 0; i < items.length; i++) {
-			if (items[i].getID() == id) return items[i];
+			if (items[i].getID() == id)
+				return items[i];
 		}
 		return null;
 	}
 
 	private void createMenu(Menu bar) {
-		
-		MenuItem file = new MenuItem(bar, SWT.CASCADE);
-		file.setText(Messages.getString("MainView.8")); //$NON-NLS-1$
-		Menu fileMenu = new Menu(file);
-		file.setMenu(fileMenu);
-		
-		MenuItem login = new MenuItem(fileMenu, SWT.PUSH);
-		login.setText(Messages.getString("MainView.9")); //$NON-NLS-1$
-		login.setImage(Fluenta.getResourceManager().getKey());
-		login.addSelectionListener(new SelectionAdapter() {
-			
-			@Override
-			public void widgetSelected(SelectionEvent event) {
-				login();
-			}
-		});
-		
+
 		if (!isMac) {
+			MenuItem file = new MenuItem(bar, SWT.CASCADE);
+			file.setText(Messages.getString("MainView.8")); //$NON-NLS-1$
+			Menu fileMenu = new Menu(file);
+			file.setMenu(fileMenu);
+
 			new MenuItem(fileMenu, SWT.SEPARATOR);
-			
+
 			MenuItem close = new MenuItem(fileMenu, SWT.PUSH);
 			if (System.getProperty("file.separator").equals("\\")) { //$NON-NLS-1$ //$NON-NLS-2$
 				close.setText(Messages.getString("MainView.13")); //$NON-NLS-1$
-				close.setAccelerator(SWT.ALT|SWT.F4);
+				close.setAccelerator(SWT.ALT | SWT.F4);
 			} else {
 				close.setText(Messages.getString("MainView.14")); //$NON-NLS-1$
-				close.setAccelerator(SWT.CTRL|'Q');
+				close.setAccelerator(SWT.CTRL | 'Q');
 			}
 			close.addSelectionListener(new SelectionAdapter() {
-				
+
 				@Override
 				public void widgetSelected(SelectionEvent event) {
 					shell.close();
 				}
 			});
 		}
-		
+
 		MenuItem projects = new MenuItem(bar, SWT.CASCADE);
 		projects.setText(Messages.getString("MainView.15")); //$NON-NLS-1$
 		Menu projectsMenu = new Menu(projects);
 		projects.setMenu(projectsMenu);
-		
+
 		MenuItem createProject = new MenuItem(projectsMenu, SWT.PUSH);
 		createProject.setText(Messages.getString("MainView.16")); //$NON-NLS-1$
 		createProject.setImage(Fluenta.getResourceManager().getAdd());
 		createProject.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				projectsView.addProject();				
+				projectsView.addProject();
 			}
 		});
-		
+
 		MenuItem updateProject = new MenuItem(projectsMenu, SWT.PUSH);
 		updateProject.setText(Messages.getString("MainView.18")); //$NON-NLS-1$
 		updateProject.setImage(Fluenta.getResourceManager().getEdit());
 		updateProject.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				projectsView.updateProject();				
+				projectsView.updateProject();
 			}
 		});
-		
+
 		MenuItem projectDetails = new MenuItem(projectsMenu, SWT.PUSH);
 		projectDetails.setText(Messages.getString("MainView.20")); //$NON-NLS-1$
 		projectDetails.setImage(Fluenta.getResourceManager().getInfo());
 		projectDetails.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				projectsView.projectDetails();				
+				projectsView.projectDetails();
 			}
 		});
-		
+
 		new MenuItem(projectsMenu, SWT.SEPARATOR);
-		
+
 		MenuItem generateXliff = new MenuItem(projectsMenu, SWT.PUSH);
 		generateXliff.setText(Messages.getString("MainView.22")); //$NON-NLS-1$
 		generateXliff.setImage(Fluenta.getResourceManager().getRight());
 		generateXliff.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				projectsView.generateXliff();				
+				projectsView.generateXliff();
 			}
 		});
-		
+
 		MenuItem importXliff = new MenuItem(projectsMenu, SWT.PUSH);
 		importXliff.setText(Messages.getString("MainView.24")); //$NON-NLS-1$
 		importXliff.setImage(Fluenta.getResourceManager().getLeft());
 		importXliff.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				projectsView.importXliff();				
+				projectsView.importXliff();
 			}
 		});
-		
+
 		new MenuItem(projectsMenu, SWT.SEPARATOR);
-		
+
 		MenuItem removeProject = new MenuItem(projectsMenu, SWT.PUSH);
 		removeProject.setText(Messages.getString("MainView.26")); //$NON-NLS-1$
 		removeProject.setImage(Fluenta.getResourceManager().getRemove());
 		removeProject.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				projectsView.removeProject();				
+				projectsView.removeProject();
 			}
 		});
-		
-		
+
 		MenuItem memory = new MenuItem(bar, SWT.CASCADE);
 		memory.setText(Messages.getString("MainView.28")); //$NON-NLS-1$
 		Menu memoryMenu = new Menu(memory);
 		memory.setMenu(memoryMenu);
-		
+
 		MenuItem addMemory = new MenuItem(memoryMenu, SWT.PUSH);
 		addMemory.setText(Messages.getString("MainView.29")); //$NON-NLS-1$
 		addMemory.setImage(Fluenta.getResourceManager().getAdd());
 		addMemory.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				memoriesView.addMemory();				
+				memoriesView.addMemory();
 			}
-		
+
 		});
-		
+
 		MenuItem editMemory = new MenuItem(memoryMenu, SWT.PUSH);
 		editMemory.setText(Messages.getString("MainView.2")); //$NON-NLS-1$
 		editMemory.setImage(Fluenta.getResourceManager().getEdit());
 		editMemory.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				memoriesView.editMemory();
+				try {
+					memoriesView.editMemory();
+				} catch (IOException e) {
+					e.printStackTrace();
+					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
+					box.setMessage(Messages.getString("MainView.3")); //$NON-NLS-1$
+					box.open();
+				}
 			}
 		});
-		
+
 		MenuItem importMemory = new MenuItem(memoryMenu, SWT.PUSH);
 		importMemory.setText(Messages.getString("MainView.31")); //$NON-NLS-1$
 		importMemory.setImage(Fluenta.getResourceManager().getLeft());
 		importMemory.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				memoriesView.importMemory();				
+				memoriesView.importMemory();
 			}
-		
+
 		});
-		
+
 		MenuItem exportMemory = new MenuItem(memoryMenu, SWT.PUSH);
 		exportMemory.setText(Messages.getString("MainView.33")); //$NON-NLS-1$
 		exportMemory.setImage(Fluenta.getResourceManager().getRight());
 		exportMemory.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				memoriesView.exportMemory();				
+				memoriesView.exportMemory();
 			}
-		
+
 		});
-		
+
 		MenuItem removeMemory = new MenuItem(memoryMenu, SWT.PUSH);
 		removeMemory.setText(Messages.getString("MainView.35")); //$NON-NLS-1$
 		removeMemory.setImage(Fluenta.getResourceManager().getRemove());
 		removeMemory.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				memoriesView.removeMemory();				
+				memoriesView.removeMemory();
 			}
-		
+
 		});
-		
+
 		if (!isMac) {
 			MenuItem settings = new MenuItem(bar, SWT.CASCADE);
 			settings.setText(Messages.getString("MainView.37")); //$NON-NLS-1$
 			Menu settingsMenu = new Menu(settings);
 			settings.setMenu(settingsMenu);
-			
+
 			MenuItem preferences = new MenuItem(settingsMenu, SWT.PUSH);
 			preferences.setText(Messages.getString("MainView.38")); //$NON-NLS-1$
 			preferences.addSelectionListener(new SelectionAdapter() {
-				
+
 				@Override
 				public void widgetSelected(SelectionEvent e) {
-					PreferencesDialog dialog = new PreferencesDialog(shell, SWT.CLOSE|SWT.RESIZE);
+					PreferencesDialog dialog = new PreferencesDialog(shell, SWT.CLOSE | SWT.RESIZE);
 					dialog.show();
 				}
-			});	
-			
+			});
+
 		}
-		
+
 		MenuItem help = new MenuItem(bar, SWT.CASCADE);
 		help.setText(Messages.getString("MainView.39")); //$NON-NLS-1$
 		Menu helpMenu = new Menu(help);
 		help.setMenu(helpMenu);
-		
+
 		MenuItem helpItem = new MenuItem(helpMenu, SWT.PUSH);
 		helpItem.setText(Messages.getString("MainView.40")); //$NON-NLS-1$
 		helpItem.setAccelerator(SWT.F1);
 		helpItem.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				try {
 					Program.launch(new File("docs/fluenta.pdf").toURI().toURL().toString()); //$NON-NLS-1$
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
-					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING|SWT.OK);
+					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
 					box.setMessage(Messages.getString("MainView.42")); //$NON-NLS-1$
-					box.open();					
-				}				
+					box.open();
+				}
 			}
 		});
-		
+
 		new MenuItem(helpMenu, SWT.SEPARATOR);
-		
+
 		MenuItem updatesItem = new MenuItem(helpMenu, SWT.PUSH);
 		updatesItem.setText(Messages.getString("MainView.43")); //$NON-NLS-1$
 		updatesItem.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				checkUpdates(false);				
+				checkUpdates(false);
 			}
 		});
-	
+
 		MenuItem releaseHistory = new MenuItem(helpMenu, SWT.PUSH);
 		releaseHistory.setText(Messages.getString("MainView.44")); //$NON-NLS-1$
 		releaseHistory.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				Program.launch("http://www.maxprograms.com/products/fluentalog.html");			 //$NON-NLS-1$
+				Program.launch("http://www.maxprograms.com/products/fluentalog.html"); //$NON-NLS-1$
 			}
 		});
-		
-		new MenuItem(helpMenu, SWT.SEPARATOR);
-		
+
 		if (!isMac) {
 			new MenuItem(helpMenu, SWT.SEPARATOR);
-			
+
 			MenuItem aboutItem = new MenuItem(helpMenu, SWT.PUSH);
 			aboutItem.setText(Messages.getString("MainView.47")); //$NON-NLS-1$
 			aboutItem.addSelectionListener(new SelectionAdapter() {
-				
+
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					AboutBox box = new AboutBox(shell, SWT.DIALOG_TRIM);
 					box.show();
 				}
-			});			
-		}
-	}
-
-	protected void login() {
-		LoginDialog dialog = new LoginDialog(shell, SWT.DIALOG_TRIM);
-		dialog.show();
-		if (!dialog.wasCancelled()) {
-			// TODO check access
-			controller.close();
-			controller = new RemoteController(dialog.getUser(), dialog.getPassword(), dialog.getServer());
-			local = false;
-			// TODO update menu items and toolbars 
-			projectsView.loadProjects();
-			// TODO load memories and glossaries
+			});
 		}
 	}
 
 	protected void checkUpdates(boolean silent) {
 		try {
-			URL url = new URL("http://www.maxprograms.com/fluenta");   //$NON-NLS-1$
+			URL url = new URL("http://www.maxprograms.com/fluenta"); //$NON-NLS-1$
 			URLConnection connection = url.openConnection();
 			connection.setConnectTimeout(10000);
 			byte[] array = new byte[2048];
@@ -453,29 +424,29 @@ public class MainView {
 				input.read(array);
 			}
 			String version = new String(array).trim();
-			if (!version.equals(Constants.VERSION  + " (" + Constants.BUILD + ")")) {  //$NON-NLS-1$ //$NON-NLS-2$
-				MessageBox box = new MessageBox(shell,SWT.ICON_QUESTION|SWT.YES|SWT.NO);
-				MessageFormat mf = new MessageFormat(Messages.getString("MainView.53") + "\n" +   //$NON-NLS-1$ //$NON-NLS-2$
-						Messages.getString("MainView.54") + "\n" +  //$NON-NLS-1$ //$NON-NLS-2$
-						"\n" +  //$NON-NLS-1$
-						Messages.getString("MainView.56"));   //$NON-NLS-1$
-				Object[] args = {Constants.VERSION + " (" + Constants.BUILD + ")",version};  //$NON-NLS-1$ //$NON-NLS-2$
-				box.setMessage(mf.format(args)); 
+			if (!version.equals(Constants.VERSION + " (" + Constants.BUILD + ")")) { //$NON-NLS-1$ //$NON-NLS-2$
+				MessageBox box = new MessageBox(shell, SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+				MessageFormat mf = new MessageFormat(Messages.getString("MainView.53") + "\n" + //$NON-NLS-1$ //$NON-NLS-2$
+						Messages.getString("MainView.54") + "\n" + //$NON-NLS-1$ //$NON-NLS-2$
+						"\n" + //$NON-NLS-1$
+						Messages.getString("MainView.56")); //$NON-NLS-1$
+				Object[] args = { Constants.VERSION + " (" + Constants.BUILD + ")", version }; //$NON-NLS-1$ //$NON-NLS-2$
+				box.setMessage(mf.format(args));
 				if (box.open() == SWT.YES) {
-					Program.launch("http://www.maxprograms.com/downloads/");  //$NON-NLS-1$
+					Program.launch("http://www.maxprograms.com/downloads/"); //$NON-NLS-1$
 				}
 			} else {
 				if (!silent) {
-					MessageBox box = new MessageBox(shell,SWT.ICON_INFORMATION|SWT.OK);
-					box.setMessage(Messages.getString("MainView.60"));   //$NON-NLS-1$
-					box.open();   
+					MessageBox box = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
+					box.setMessage(Messages.getString("MainView.60")); //$NON-NLS-1$
+					box.open();
 				}
 			}
 		} catch (Exception e) {
 			if (!silent) {
-				MessageBox box = new MessageBox(shell,SWT.ICON_WARNING|SWT.OK);
-				box.setMessage(Messages.getString("MainView.61"));   //$NON-NLS-1$
-				box.open();   
+				MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
+				box.setMessage(Messages.getString("MainView.61")); //$NON-NLS-1$
+				box.open();
 			}
 		}
 	}
@@ -487,5 +458,4 @@ public class MainView {
 	public static MemoriesView getMemoriesView() {
 		return memoriesView;
 	}
-
 }

@@ -12,19 +12,20 @@
 
 package com.maxprograms.fluenta.models;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
 import com.maxprograms.languages.Language;
-import com.maxprograms.utils.LanguageUtils;
+import com.maxprograms.languages.LanguageUtils;
 import com.maxprograms.utils.TextUtils;
 
 public class Memory implements Serializable {
 
 	private static final long serialVersionUID = -2993476438052822309L;
-	
+
 	private long id;
 	private String name;
 	private String description;
@@ -34,105 +35,105 @@ public class Memory implements Serializable {
 	private Language srcLanguage;
 	private Vector<Language> tgtLanguages;
 
-	public Memory() {
-		// empty constructor for GWT
+	public Memory() throws IOException {
 		id = 0l;
 		name = ""; //$NON-NLS-1$
 		description = ""; //$NON-NLS-1$
 		creationDate = new Date();
-		srcLanguage = new Language("en-US", LanguageUtils.getLanguageName("en-US")); //$NON-NLS-1$ //$NON-NLS-2$
+		srcLanguage = LanguageUtils.getLanguage("en-US"); //$NON-NLS-1$
 		tgtLanguages = new Vector<Language>();
 	}
 
-	public Memory(long id, String name, String description, String owner, Date creationDate, Date lastUpdate, Language srcLanguage, Vector<Language> tgtLanguages) {
+	public Memory(long id, String name, String description, String owner, Date creationDate, Date lastUpdate,
+			Language srcLanguage, Vector<Language> tgtLanguages) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.owner = owner; 
+		this.owner = owner;
 		this.creationDate = creationDate;
 		this.lastUpdate = lastUpdate;
 		this.srcLanguage = srcLanguage;
 		this.tgtLanguages = tgtLanguages;
 	}
-	
+
 	public long getId() {
 		return id;
 	}
-	
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public String getOwner() {
 		return owner;
 	}
-	
+
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-	
+
 	public Date getCreationDate() {
 		return creationDate;
 	}
-	
+
 	public String getCreationDateString() {
-		Calendar c =Calendar.getInstance();
+		Calendar c = Calendar.getInstance();
 		c.setTime(creationDate);
-		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-" + TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) //$NON-NLS-1$ //$NON-NLS-2$
-		+ " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); //$NON-NLS-1$ //$NON-NLS-2$
+		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-" //$NON-NLS-1$ //$NON-NLS-2$
+				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); //$NON-NLS-1$ //$NON-NLS-2$
 	}
-	
+
 	public String getLastUpdateString() {
 		if (lastUpdate == null) {
 			return ""; //$NON-NLS-1$
 		}
-		Calendar c =Calendar.getInstance();
+		Calendar c = Calendar.getInstance();
 		c.setTime(lastUpdate);
-		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-" + TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) //$NON-NLS-1$ //$NON-NLS-2$
-		+ " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); //$NON-NLS-1$ //$NON-NLS-2$
+		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-" //$NON-NLS-1$ //$NON-NLS-2$
+				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); //$NON-NLS-1$ //$NON-NLS-2$
 	}
-	
+
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
-	
+
 	public Date getLastUpdate() {
 		return lastUpdate;
 	}
-	
+
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
+
 	public Language getSrcLanguage() {
 		return srcLanguage;
 	}
-	
+
 	public void setSrcLanguage(Language srcLanguage) {
 		this.srcLanguage = srcLanguage;
 	}
-	
+
 	public Vector<Language> getTgtLanguages() {
 		return tgtLanguages;
 	}
-	
+
 	public void setTgtLanguages(Vector<Language> tgtLanguages) {
 		this.tgtLanguages = tgtLanguages;
 	}
 }
-

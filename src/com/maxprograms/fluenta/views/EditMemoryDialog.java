@@ -40,7 +40,7 @@ import com.maxprograms.fluenta.Fluenta;
 import com.maxprograms.fluenta.MainView;
 import com.maxprograms.fluenta.models.Memory;
 import com.maxprograms.languages.Language;
-import com.maxprograms.utils.LanguageUtils;
+import com.maxprograms.languages.LanguageUtils;
 import com.maxprograms.utils.Locator;
 import com.maxprograms.utils.TextUtils;
 
@@ -87,7 +87,7 @@ public class EditMemoryDialog  extends Dialog {
 		sourceLanguages.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		try {
 			sourceLanguages.setItems(LanguageUtils.getLanguageNames());
-			sourceLanguages.select(TextUtils.geIndex(sourceLanguages.getItems(), LanguageUtils.getLanguageName(ProjectPreferences.getDefaultSource().getCode())));
+			sourceLanguages.select(TextUtils.geIndex(sourceLanguages.getItems(), LanguageUtils.getLanguage(ProjectPreferences.getDefaultSource().getCode()).getDescription()));
 		} catch (SAXException | IOException | ParserConfigurationException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR|SWT.OK);
@@ -137,8 +137,8 @@ public class EditMemoryDialog  extends Dialog {
 				}
 				Language srcLang;
 				try {
-					srcLang = LanguageUtils.getLanguage(sourceLanguages.getText());
-				} catch (SAXException | IOException | ParserConfigurationException e) {
+					srcLang = LanguageUtils.languageFromName(sourceLanguages.getText());
+				} catch ( IOException | SAXException | ParserConfigurationException  e) {
 					e.printStackTrace();
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING|SWT.OK);
 					box.setMessage(Messages.getString("EditMemoryDialog.4")); //$NON-NLS-1$
@@ -162,10 +162,10 @@ public class EditMemoryDialog  extends Dialog {
 		shell.pack();
 	}
 
-	public void setMemory(Memory memory) {
+	public void setMemory(Memory memory) throws IOException {
 		descText.setText(memory.getName());
 		descriptionText.setText(memory.getDescription());
-		sourceLanguages.select(TextUtils.geIndex(sourceLanguages.getItems(), LanguageUtils.getLanguageName(memory.getSrcLanguage().getCode())));
+		sourceLanguages.select(TextUtils.geIndex(sourceLanguages.getItems(), LanguageUtils.getLanguage(memory.getSrcLanguage().getCode()).getDescription()));
 		this.memory = memory;
 	}
 

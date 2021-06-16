@@ -73,13 +73,13 @@ public class Preferences {
 	
 	public static synchronized File getPreferencesDir() throws IOException {
 		if (workDir == null) {
-			String os = System.getProperty("os.name").toLowerCase();
-			if (os.startsWith("mac")) {
-				workDir = new File(System.getProperty("user.home") + "/Library/Application Support/Fluenta/");
-			} else if (os.startsWith("windows")) {
-				workDir = new File(System.getenv("AppData") + "\\Fluenta\\");
+			String os = System.getProperty("os.name").toLowerCase(); //$NON-NLS-1$
+			if (os.startsWith("mac")) { //$NON-NLS-1$
+				workDir = new File(System.getProperty("user.home") + "/Library/Application Support/Fluenta/"); //$NON-NLS-1$ //$NON-NLS-2$
+			} else if (os.startsWith("windows")) { //$NON-NLS-1$
+				workDir = new File(System.getenv("AppData") + "\\Fluenta\\"); //$NON-NLS-1$ //$NON-NLS-2$
 			} else {
-				workDir = new File(System.getProperty("user.home") + "/.config/Fluenta/");
+				workDir = new File(System.getProperty("user.home") + "/.config/Fluenta/"); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			if (!workDir.exists()) {
 				Files.createDirectories(workDir.toPath());

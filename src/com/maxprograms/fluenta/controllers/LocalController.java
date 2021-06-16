@@ -68,6 +68,7 @@ import com.maxprograms.fluenta.models.ProjectEvent;
 import com.maxprograms.fluenta.views.ProjectPreferences;
 import com.maxprograms.fluenta.views.XmlPreferences;
 import com.maxprograms.languages.Language;
+import com.maxprograms.languages.LanguageUtils;
 import com.maxprograms.stats.RepetitionAnalysis;
 import com.maxprograms.tmengine.IDatabase;
 import com.maxprograms.tmengine.ILogger;
@@ -76,7 +77,6 @@ import com.maxprograms.tmengine.MatchQuality;
 import com.maxprograms.tmengine.TU;
 import com.maxprograms.tmengine.Tuv;
 import com.maxprograms.utils.FileUtils;
-import com.maxprograms.utils.LanguageUtils;
 import com.maxprograms.utils.MemUtils;
 import com.maxprograms.utils.Preferences;
 import com.maxprograms.utils.TMUtils;
@@ -95,7 +95,7 @@ import com.maxprograms.xml.SAXBuilder;
 import com.maxprograms.xml.XMLNode;
 import com.maxprograms.xml.XMLOutputter;
 
-public class LocalController implements IController {
+public class LocalController {
 
 	private DB projectdb;
 	private DB memorydb;
@@ -112,7 +112,6 @@ public class LocalController implements IController {
 	private Hashtable<String, String> xliffbpts;
 	private static double penalty = 1;
 
-	@Override
 	public Vector<Project> getProjects() throws IOException {
 		Vector<Project> result = new Vector<>();
 		if (projectdb == null) {
@@ -153,7 +152,6 @@ public class LocalController implements IController {
 		projectsMap = projectdb.getHashMap("projects"); //$NON-NLS-1$
 	}
 
-	@Override
 	public void close() {
 		if (projectdb != null) {
 			projectdb.commit();
@@ -167,7 +165,6 @@ public class LocalController implements IController {
 		}
 	}
 
-	@Override
 	public void createProject(Project p) throws IOException {
 		if (projectdb == null) {
 			openProjects();
@@ -192,7 +189,6 @@ public class LocalController implements IController {
 		}
 	}
 
-	@Override
 	public void createMemory(Memory m) throws IOException {
 		if (memorydb == null) {
 			openMemories();
@@ -201,7 +197,6 @@ public class LocalController implements IController {
 		memorydb.commit();
 	}
 
-	@Override
 	public Vector<Memory> getMemories() throws IOException {
 		Vector<Memory> result = new Vector<>();
 		if (memorydb == null) {
@@ -242,21 +237,18 @@ public class LocalController implements IController {
 		memoriesMap = memorydb.getHashMap("memories"); //$NON-NLS-1$
 	}
 
-	@Override
 	public void updateProject(Project p) {
 		p.setLastUpdate(new Date());
 		projectsMap.put(p.getId(), p);
 		projectdb.commit();
 	}
 
-	@Override
 	public IDatabase getTMEngine(long memoryId)
 			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
 		File f = new File(Preferences.getPreferencesDir(), "TMEngines"); //$NON-NLS-1$
 		return new InternalDatabase("" + memoryId, f.getAbsolutePath()); //$NON-NLS-1$
 	}
 
-	@Override
 	public void generateXliff(Project project, String xliffFolder, Vector<Language> tgtLangs, boolean useICE,
 			boolean useTM, boolean generateCount, String ditavalFile, boolean useXliff20, ILogger logger) {
 		Hashtable<String, String> params = new Hashtable<>();
@@ -303,7 +295,7 @@ public class LocalController implements IController {
 		params.put("tgtLang", project.getSrcLanguage().getCode()); // use src language in master //$NON-NLS-1$
 		params.put("srcEncoding", EncodingResolver.getEncoding(project.getMap(), FileFormats.DITA).name()); //$NON-NLS-1$
 		params.put("paragraph", "no"); //$NON-NLS-1$ //$NON-NLS-2$
-		params.put("format", FileFormats.DITA);
+		params.put("format", FileFormats.DITA); //$NON-NLS-1$
 		try {
 			params.put("srxFile", ProjectPreferences.getDefaultSRX()); //$NON-NLS-1$
 			params.put("translateComments", XmlPreferences.getTranslateComments() ? "yes" : "no"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -330,7 +322,14 @@ public class LocalController implements IController {
 		logger.setStage(Messages.getString("LocalController.38")); //$NON-NLS-1$
 		MessageFormat mf = new MessageFormat(Messages.getString("LocalController.39")); //$NON-NLS-1$
 		for (int i = 0; i < tgtLangs.size(); i++) {
-			logger.log(mf.format(new Object[] { LanguageUtils.getLanguageName(tgtLangs.get(i).getCode()) }));
+			try {
+				logger.log(mf.format(
+						new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				logger.displayError(Messages.getString("LocalController.4")); //$NON-NLS-1$
+				return;
+			}
 			String newName = getName(map.getName(), tgtLangs.get(i).getCode());
 			File newFile = new File(folder, newName);
 			try {
@@ -351,8 +350,8 @@ public class LocalController implements IController {
 			try {
 				MessageFormat icem = new MessageFormat(Messages.getString("LocalController.40")); //$NON-NLS-1$
 				for (int i = 0; i < tgtLangs.size(); i++) {
-					logger.setStage(
-							icem.format(new Object[] { LanguageUtils.getLanguageName(tgtLangs.get(i).getCode()) })); // $NON-NLS-1$
+					logger.setStage(icem.format(
+							new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() })); // $NON-NLS-1$
 					logger.log(Messages.getString("LocalController.41")); //$NON-NLS-1$
 					String newName = getName(map.getName(), tgtLangs.get(i).getCode());
 					File xliff = new File(folder, newName);
@@ -370,7 +369,15 @@ public class LocalController implements IController {
 		if (useTM) {
 			MessageFormat mftm = new MessageFormat(Messages.getString("LocalController.42")); //$NON-NLS-1$
 			for (int i = 0; i < tgtLangs.size(); i++) {
-				logger.setStage(mftm.format(new Object[] { LanguageUtils.getLanguageName(tgtLangs.get(i).getCode()) }));
+				try {
+					logger.setStage(mftm.format(
+							new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					logger.displayError(Messages.getString("LocalController.5")); //$NON-NLS-1$
+					return;
+				}
+
 				logger.log(Messages.getString("LocalController.43")); //$NON-NLS-1$
 				String targetName = getName(map.getName(), tgtLangs.get(i).getCode());
 				File targetXliff = new File(folder, targetName);
@@ -452,13 +459,21 @@ public class LocalController implements IController {
 		if (generateCount) {
 			MessageFormat mf3 = new MessageFormat(Messages.getString("LocalController.54")); //$NON-NLS-1$
 			for (int i = 0; i < tgtLangs.size(); i++) {
-				logger.setStage(mf3.format(new Object[] { LanguageUtils.getLanguageName(tgtLangs.get(i).getCode()) }));
+				try {
+					logger.setStage(mf3.format(
+							new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					logger.displayError(Messages.getString("LocalController.6")); //$NON-NLS-1$
+					return;
+				}
+
 				String targetName = getName(map.getName(), tgtLangs.get(i).getCode());
 				File targetXliff = new File(folder, targetName);
 				try {
 					RepetitionAnalysis analysis = new RepetitionAnalysis();
 					analysis.analyse(targetXliff.getAbsolutePath(), Fluenta.getCatalogFile());
-				} catch (Exception ex) {
+				} catch (IOException | ParserConfigurationException | SAXException | URISyntaxException ex) {
 					ex.printStackTrace();
 					System.err.println(ex.getMessage());
 					logger.displayError(ex.getMessage());
@@ -727,7 +742,6 @@ public class LocalController implements IController {
 		}
 	}
 
-	@Override
 	public void importXliff(Project project, String xliffDocument, String targetFolder, boolean updateTM,
 			boolean acceptUnapproved, boolean ignoreTagErrors, boolean cleanAttributes, ILogger logger) {
 		try {
@@ -938,10 +952,8 @@ public class LocalController implements IController {
 				File f = new File(workDocument);
 				Files.delete(Paths.get(f.toURI()));
 			}
-			project.getHistory()
-					.add(new ProjectEvent(ProjectEvent.XLIFF_IMPORTED, new Date(),
-							new Language(targetLanguage, LanguageUtils.getLanguageName(targetLanguage)),
-							Integer.parseInt(build)));
+			project.getHistory().add(new ProjectEvent(ProjectEvent.XLIFF_IMPORTED, new Date(),
+					LanguageUtils.getLanguage(targetLanguage), Integer.parseInt(build)));
 			project.setLanguageStatus(targetLanguage, Project.COMPLETED);
 			updateProject(project);
 		} catch (Exception e) {
@@ -1299,7 +1311,7 @@ public class LocalController implements IController {
 					} else {
 						Element internal = mskl.getChild("internal-file"); //$NON-NLS-1$
 						if (internal != null) {
-							File tmp = File.createTempFile("internal", ".skl");
+							File tmp = File.createTempFile("internal", ".skl"); //$NON-NLS-1$ //$NON-NLS-2$
 							tmp.deleteOnExit();
 							Utils.decodeToFile(internal.getText(), tmp.getAbsolutePath());
 							return tmp.getAbsolutePath();
@@ -1461,7 +1473,6 @@ public class LocalController implements IController {
 		out.write(string.getBytes("UTF-8")); //$NON-NLS-1$
 	}
 
-	@Override
 	public void importTMX(Memory memory, String tmxFile, ILogger logger) {
 		try {
 			logger.setStage(Messages.getString("LocalController.272")); //$NON-NLS-1$
@@ -1482,13 +1493,11 @@ public class LocalController implements IController {
 		}
 	}
 
-	@Override
 	public void updateMemory(Memory m) {
 		memoriesMap.put(m.getId(), m);
 		memorydb.commit();
 	}
 
-	@Override
 	public Memory getMemory(long id) throws IOException {
 		if (memorydb == null) {
 			openMemories();
@@ -2081,7 +2090,6 @@ public class LocalController implements IController {
 		return match;
 	}
 
-	@Override
 	public void removeProject(Project project) throws IOException {
 		long id = project.getId();
 		File fluenta = Preferences.getPreferencesDir();
@@ -2096,7 +2104,6 @@ public class LocalController implements IController {
 		}
 	}
 
-	@Override
 	public void removeMemory(long id) throws IOException {
 		Vector<Project> projects = getProjects();
 		for (int i = 0; i < projects.size(); i++) {
@@ -2131,7 +2138,6 @@ public class LocalController implements IController {
 		}
 	}
 
-	@Override
 	public void exportTMX(Memory memory, String file) throws Exception {
 		IDatabase database = getTMEngine(memory.getId());
 		Set<String> languages = database.getAllLanguages();
@@ -2150,7 +2156,6 @@ public class LocalController implements IController {
 		database = null;
 	}
 
-	@Override
 	public Project getProject(long id) throws IOException {
 		if (projectdb == null) {
 			openProjects();

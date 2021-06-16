@@ -42,7 +42,7 @@ import com.maxprograms.fluenta.Fluenta;
 import com.maxprograms.fluenta.MainView;
 import com.maxprograms.fluenta.models.Memory;
 import com.maxprograms.languages.Language;
-import com.maxprograms.utils.LanguageUtils;
+import com.maxprograms.languages.LanguageUtils;
 import com.maxprograms.utils.Locator;
 import com.maxprograms.utils.TextUtils;
 
@@ -88,7 +88,7 @@ public class AddMemoryDialog extends Dialog {
 		try {
 			sourceLanguages.setItems(LanguageUtils.getLanguageNames());
 			sourceLanguages.select(TextUtils.geIndex(sourceLanguages.getItems(),
-					LanguageUtils.getLanguageName(ProjectPreferences.getDefaultSource().getCode())));
+					LanguageUtils.getLanguage(ProjectPreferences.getDefaultSource().getCode()).getDescription()));
 		} catch (SAXException | IOException | ParserConfigurationException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
@@ -138,8 +138,8 @@ public class AddMemoryDialog extends Dialog {
 				}
 				Language srcLang;
 				try {
-					srcLang = LanguageUtils.getLanguage(sourceLanguages.getText());
-				} catch (SAXException | IOException | ParserConfigurationException e) {
+					srcLang = LanguageUtils.languageFromName(sourceLanguages.getText());
+				} catch (IOException | SAXException | ParserConfigurationException e) {
 					e.printStackTrace();
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
 					box.setMessage(Messages.getString("AddMemoryDialog.12")); //$NON-NLS-1$

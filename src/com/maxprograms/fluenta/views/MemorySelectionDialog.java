@@ -129,7 +129,7 @@ public class MemorySelectionDialog extends Dialog {
 			}
 		} catch (IOException e) {
 			Logger logger = System.getLogger(MemorySelectionDialog.class.getName());
-			logger.log(Level.WARNING, "Error selecting memory", e);
+			logger.log(Level.WARNING, "Error selecting memory", e); //$NON-NLS-1$
 			MessageBox box = new MessageBox(shell, SWT.OK|SWT.ICON_ERROR);
 			box.setMessage(Messages.getString("MemorySelectionDialog.7")); //$NON-NLS-1$
 			box.open();

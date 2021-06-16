@@ -58,7 +58,7 @@ public class HTMLViewer extends Dialog {
 			}
 		} catch (SWTError e) {
 			Logger logger = System.getLogger(HTMLViewer.class.getName());
-			logger.log(Level.WARNING, "Error creating browser", e);
+			logger.log(Level.WARNING, "Error creating browser", e); //$NON-NLS-1$
 			String message = "";  //$NON-NLS-1$
 			if (System.getProperty("file.separator").equals("/") ) {  //$NON-NLS-1$ //$NON-NLS-2$
 				if (System.getProperty("os.name").startsWith("Mac")) {  //$NON-NLS-1$ //$NON-NLS-2$

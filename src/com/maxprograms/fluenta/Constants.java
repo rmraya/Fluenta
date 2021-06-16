@@ -20,9 +20,8 @@ public class Constants {
 	
 	public static final String NAME = "Fluenta"; //$NON-NLS-1$
 	public static final String VERSION = "2.0.0"; //$NON-NLS-1$
-	public static final String BUILD = "20210608_0839"; //$NON-NLS-1$
+	public static final String BUILD = "20210616_0936"; //$NON-NLS-1$
 	public static final String PREFERENCES = "Fluenta.pref"; //$NON-NLS-1$
-	public static final String LICFILE = "Fluenta.lic"; //$NON-NLS-1$
 	
 	public static final String SUCCESS = "0"; //$NON-NLS-1$
 }

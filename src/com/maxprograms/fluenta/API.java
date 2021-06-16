@@ -22,34 +22,33 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.maxprograms.fluenta.controllers.LocalController;
 import com.maxprograms.fluenta.models.Memory;
 import com.maxprograms.fluenta.models.Project;
 import com.maxprograms.languages.Language;
-import com.maxprograms.utils.LanguageUtils;
+import com.maxprograms.languages.LanguageUtils;
 import com.maxprograms.utils.SimpleLogger;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class API {
 
-	
 	protected static void addProject(String jsonFile) throws IOException {
 		File projectFile = new File(jsonFile);
 		String string = ""; //$NON-NLS-1$
 		try (FileInputStream input = new FileInputStream(projectFile)) {
-			try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) { 
+			try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) {
 				try (BufferedReader buffer = new BufferedReader(reader)) {
 					String line = ""; //$NON-NLS-1$
 					while ((line = buffer.readLine()) != null) {
-						string = string + line + "\n";  //$NON-NLS-1$
+						string = string + line + "\n"; //$NON-NLS-1$
 					}
 				}
 			}
 		}
-		
+
 		JSONObject jsonObject = new JSONObject(string);
 		long id = jsonObject.getLong("id"); //$NON-NLS-1$
 		String title = jsonObject.getString("title"); //$NON-NLS-1$
@@ -58,7 +57,7 @@ public class API {
 		String srcLang = jsonObject.getString("srcLang"); //$NON-NLS-1$
 		JSONArray tgtArray = jsonObject.getJSONArray("tgtLang"); //$NON-NLS-1$
 		String[] tgtLang = new String[tgtArray.length()];
-		for (int i=0 ; i<tgtArray.length() ; i++) {
+		for (int i = 0; i < tgtArray.length(); i++) {
 			tgtLang[i] = tgtArray.getString(i);
 		}
 		JSONArray memArray = null;
@@ -66,51 +65,52 @@ public class API {
 		try {
 			memArray = jsonObject.getJSONArray("memories"); //$NON-NLS-1$
 			memIds = new long[memArray.length()];
-			for (int i=0 ; i<memArray.length() ; i++) {
+			for (int i = 0; i < memArray.length(); i++) {
 				memIds[i] = memArray.getLong(i);
 			}
 		} catch (JSONException je) {
 			// ignore
 		}
-		
-		addProject( id,  title,  description,  map,  srcLang, tgtLang, memIds);
+
+		addProject(id, title, description, map, srcLang, tgtLang, memIds);
 	}
 
-	public static void addProject(long id, String title, String description, String map, String srcLang, String[] tgtLang, long[] memIds) throws IOException {
-		Language srcLanguage = new Language(srcLang, LanguageUtils.getLanguageName(srcLang));
-		
+	public static void addProject(long id, String title, String description, String map, String srcLang,
+			String[] tgtLang, long[] memIds) throws IOException {
+		Language srcLanguage = LanguageUtils.getLanguage(srcLang);
+
 		Vector<Language> tgtLanguages = new Vector<>();
-		for (int i=0 ; i<tgtLang.length ; i++) {
-			tgtLanguages.add(new Language(tgtLang[i], LanguageUtils.getLanguageName(tgtLang[i])));
+		for (int i = 0; i < tgtLang.length; i++) {
+			tgtLanguages.add(LanguageUtils.getLanguage(tgtLang[i]));
 		}
-		
-		Memory mem = new Memory( id, title, description, System.getProperty("user.name"), new Date(), null, srcLanguage, tgtLanguages); //$NON-NLS-1$
+
+		Memory mem = new Memory(id, title, description, System.getProperty("user.name"), new Date(), null, srcLanguage, //$NON-NLS-1$
+				tgtLanguages);
 		LocalController controller = new LocalController();
 		controller.createMemory(mem);
-		
+
 		Vector<Memory> memories = new Vector<>();
 		memories.add(mem);
-		for (int i=0 ; i<memIds.length ; i++) {
+		for (int i = 0; i < memIds.length; i++) {
 			memories.add(controller.getMemory(memIds[i]));
 		}
-		
-		Project p = new Project(id, title, description, System.getProperty("user.name"), map, new Date(),  //$NON-NLS-1$
+
+		Project p = new Project(id, title, description, System.getProperty("user.name"), map, new Date(), //$NON-NLS-1$
 				Project.NEW, null, srcLanguage, tgtLanguages, memories);
-		
-		
+
 		controller.createProject(p);
 		controller.close();
 	}
-	
+
 	public static String getProjects() throws IOException {
 		LocalController controller = new LocalController();
 		Vector<Project> projects = controller.getProjects();
 		controller.close();
-		
+
 		JSONObject result = new JSONObject();
 		JSONArray array = new JSONArray();
 		result.put("projects", array); //$NON-NLS-1$
-		for (int i=0 ; i<projects.size() ; i++) {
+		for (int i = 0; i < projects.size(); i++) {
 			Project p = projects.get(i);
 			JSONObject proj = new JSONObject();
 			proj.put("id", p.getId()); //$NON-NLS-1$
@@ -124,9 +124,9 @@ public class API {
 			JSONArray tgtArray = new JSONArray();
 			JSONObject statusArray = new JSONObject();
 			Vector<Language> tgtLanguages = p.getTgtLanguages();
-			Iterator<Language> lt =tgtLanguages.iterator();
+			Iterator<Language> lt = tgtLanguages.iterator();
 			while (lt.hasNext()) {
-				Language l= lt.next();
+				Language l = lt.next();
 				tgtArray.put(l.getCode());
 				statusArray.put(l.getCode(), p.getTargetStatus(l.getCode()));
 			}
@@ -153,7 +153,7 @@ public class API {
 		JSONObject result = new JSONObject();
 		JSONArray array = new JSONArray();
 		result.put("memories", array); //$NON-NLS-1$
-		for (int i=0 ; i<memories.size() ; i++) {
+		for (int i = 0; i < memories.size(); i++) {
 			Memory m = memories.get(i);
 			JSONObject mem = new JSONObject();
 			mem.put("id", m.getId()); //$NON-NLS-1$
@@ -180,16 +180,16 @@ public class API {
 		File memoryFile = new File(jsonFile);
 		String string = ""; //$NON-NLS-1$
 		try (FileInputStream input = new FileInputStream(memoryFile)) {
-			try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) { 
+			try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) {
 				try (BufferedReader buffer = new BufferedReader(reader)) {
 					String line = ""; //$NON-NLS-1$
 					while ((line = buffer.readLine()) != null) {
-						string = string + line + "\n";  //$NON-NLS-1$
+						string = string + line + "\n"; //$NON-NLS-1$
 					}
 				}
 			}
 		}
-		
+
 		JSONObject jsonObject = new JSONObject(string);
 		long id = jsonObject.getLong("id"); //$NON-NLS-1$
 		String title = jsonObject.getString("title"); //$NON-NLS-1$
@@ -197,24 +197,26 @@ public class API {
 		String srcLang = jsonObject.getString("srcLang"); //$NON-NLS-1$
 		JSONArray tgtArray = jsonObject.getJSONArray("tgtLang"); //$NON-NLS-1$
 		String[] tgtLang = new String[tgtArray.length()];
-		for (int i=0 ; i<tgtArray.length() ; i++) {
+		for (int i = 0; i < tgtArray.length(); i++) {
 			tgtLang[i] = tgtArray.getString(i);
 		}
-		
-		addMemory( id,  title,  description,  srcLang, tgtLang);
+
+		addMemory(id, title, description, srcLang, tgtLang);
 	}
 
-	public static void addMemory(long id, String title, String description, String srcLang, String[] tgtLang) throws IOException {
-		Language srcLanguage = new Language(srcLang, LanguageUtils.getLanguageName(srcLang));
+	public static void addMemory(long id, String title, String description, String srcLang, String[] tgtLang)
+			throws IOException {
+		Language srcLanguage = LanguageUtils.getLanguage(srcLang);
 		if (tgtLang == null || tgtLang.length == 0) {
 			throw new IOException(Messages.getString("API.174")); //$NON-NLS-1$
 		}
 		Vector<Language> tgtLanguages = new Vector<>();
-		for (int i=0 ; i<tgtLang.length ; i++) {
-			tgtLanguages.add(new Language(tgtLang[i], LanguageUtils.getLanguageName(tgtLang[i])));
+		for (int i = 0; i < tgtLang.length; i++) {
+			tgtLanguages.add(LanguageUtils.getLanguage(tgtLang[i]));
 		}
-		
-		Memory mem = new Memory( id, title, description, System.getProperty("user.name"), new Date(), null, srcLanguage, tgtLanguages); //$NON-NLS-1$
+
+		Memory mem = new Memory(id, title, description, System.getProperty("user.name"), new Date(), null, srcLanguage, //$NON-NLS-1$
+				tgtLanguages);
 		LocalController controller = new LocalController();
 		controller.createMemory(mem);
 		controller.close();
@@ -235,7 +237,7 @@ public class API {
 		}
 		throw new IOException(logger.getError());
 	}
-	
+
 	public static void exportMemory(long id, String tmxFile) throws Exception {
 		LocalController controller = new LocalController();
 		Memory memory = controller.getMemory(id);
@@ -246,8 +248,9 @@ public class API {
 		controller.exportTMX(memory, tmxFile);
 		controller.close();
 	}
-	
-	public static void generateXLIFF(long id, String xliffFolder, String[] tgtLang, boolean useICE, boolean useTM, boolean generateCount, boolean verbose, String ditaval, boolean useXliff20) throws IOException {
+
+	public static void generateXLIFF(long id, String xliffFolder, String[] tgtLang, boolean useICE, boolean useTM,
+			boolean generateCount, boolean verbose, String ditaval, boolean useXliff20) throws IOException {
 		LocalController controller = new LocalController();
 		Project project = controller.getProject(id);
 		if (project == null) {
@@ -262,11 +265,12 @@ public class API {
 			throw new IOException(Messages.getString("API.182")); //$NON-NLS-1$
 		}
 		Vector<Language> langs = new Vector<>();
-		for (int i=0 ; i<tgtLang.length ; i++) {
-			langs.add(new Language(tgtLang[i], LanguageUtils.getLanguageName(tgtLang[i])));
+		for (int i = 0; i < tgtLang.length; i++) {
+			langs.add(LanguageUtils.getLanguage(tgtLang[i]));
 		}
 		SimpleLogger logger = new SimpleLogger(verbose);
-		controller.generateXliff(project, xliffFolder, langs, useICE, useTM, generateCount, ditaval, useXliff20, logger);
+		controller.generateXliff(project, xliffFolder, langs, useICE, useTM, generateCount, ditaval, useXliff20,
+				logger);
 		controller.close();
 		if (logger.getSuccess()) {
 			return;
@@ -278,19 +282,19 @@ public class API {
 		File projectFile = new File(jsonFile);
 		String string = ""; //$NON-NLS-1$
 		try (FileInputStream input = new FileInputStream(projectFile)) {
-			try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) { 
+			try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) {
 				try (BufferedReader buffer = new BufferedReader(reader)) {
 					String line = ""; //$NON-NLS-1$
 					while ((line = buffer.readLine()) != null) {
-						string = string + line + "\n";  //$NON-NLS-1$
+						string = string + line + "\n"; //$NON-NLS-1$
 					}
 				}
 			}
 		}
-		
+
 		JSONObject jsonObject = new JSONObject(string);
 		long id = jsonObject.getLong("id"); //$NON-NLS-1$
-		
+
 		String xliffFolder = jsonObject.getString("xliffFolder"); //$NON-NLS-1$
 		String ditaval = ""; //$NON-NLS-1$
 		try {
@@ -298,22 +302,24 @@ public class API {
 		} catch (JSONException jse) {
 			// ignore
 		}
-		
+
 		boolean useICE = jsonObject.getBoolean("useICE"); //$NON-NLS-1$
 		boolean useTM = jsonObject.getBoolean("useTM"); //$NON-NLS-1$
 		boolean generateCount = jsonObject.getBoolean("generateCount"); //$NON-NLS-1$
 		boolean useXliff20 = jsonObject.getBoolean("useXLIFF20"); //$NON-NLS-1$
-		
+
 		JSONArray tgtArray = jsonObject.getJSONArray("tgtLang"); //$NON-NLS-1$
 		String[] tgtLang = new String[tgtArray.length()];
-		for (int i=0 ; i<tgtArray.length() ; i++) {
+		for (int i = 0; i < tgtArray.length(); i++) {
 			tgtLang[i] = tgtArray.getString(i);
 		}
-	
+
 		generateXLIFF(id, xliffFolder, tgtLang, useICE, useTM, generateCount, verbose, ditaval, useXliff20);
 	}
 
-	public static void importXLIFF(long id, String xliffFile, String outputFolder, boolean updateTM, boolean acceptUnapproved, boolean ignoreTagErrors, boolean cleanAttributes, boolean verbose) throws IOException {
+	public static void importXLIFF(long id, String xliffFile, String outputFolder, boolean updateTM,
+			boolean acceptUnapproved, boolean ignoreTagErrors, boolean cleanAttributes, boolean verbose)
+			throws IOException {
 		LocalController controller = new LocalController();
 		Project project = controller.getProject(id);
 		if (project == null) {
@@ -325,7 +331,8 @@ public class API {
 			f.mkdirs();
 		}
 		SimpleLogger logger = new SimpleLogger(verbose);
-		controller.importXliff(project, xliffFile, outputFolder, updateTM, acceptUnapproved, ignoreTagErrors, cleanAttributes, logger);
+		controller.importXliff(project, xliffFile, outputFolder, updateTM, acceptUnapproved, ignoreTagErrors,
+				cleanAttributes, logger);
 		if (logger.getSuccess()) {
 			return;
 		}
@@ -336,11 +343,11 @@ public class API {
 		File projectFile = new File(jsonFile);
 		String string = ""; //$NON-NLS-1$
 		try (FileInputStream input = new FileInputStream(projectFile)) {
-			try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) { 
+			try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) {
 				try (BufferedReader buffer = new BufferedReader(reader)) {
 					String line = ""; //$NON-NLS-1$
 					while ((line = buffer.readLine()) != null) {
-						string = string + line + "\n";  //$NON-NLS-1$
+						string = string + line + "\n"; //$NON-NLS-1$
 					}
 				}
 			}
@@ -348,14 +355,14 @@ public class API {
 
 		JSONObject jsonObject = new JSONObject(string);
 		long id = jsonObject.getLong("id"); //$NON-NLS-1$
-		
+
 		String xliffFile = jsonObject.getString("xliffFile"); //$NON-NLS-1$
 		String outputFolder = jsonObject.getString("outputFolder"); //$NON-NLS-1$
 		boolean updateTM = jsonObject.getBoolean("updateTM"); //$NON-NLS-1$
 		boolean acceptUnapproved = jsonObject.getBoolean("acceptUnapproved"); //$NON-NLS-1$
 		boolean ignoreTagErrors = jsonObject.getBoolean("ignoreTagErrors"); //$NON-NLS-1$
 		boolean cleanAttributes = jsonObject.getBoolean("cleanAttributes"); //$NON-NLS-1$
-		importXLIFF(id,  xliffFile,  outputFolder, updateTM, acceptUnapproved, ignoreTagErrors, cleanAttributes, verbose);
+		importXLIFF(id, xliffFile, outputFolder, updateTM, acceptUnapproved, ignoreTagErrors, cleanAttributes, verbose);
 	}
 
 	public static void removeProject(long id) throws IOException {

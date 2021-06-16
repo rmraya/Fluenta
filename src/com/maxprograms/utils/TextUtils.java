@@ -134,7 +134,7 @@ public class TextUtils {
 			return calendar.getTimeInMillis();
 		} catch (Exception e) {
 			Logger logger = System.getLogger(TextUtils.class.getName());
-			logger.log(Level.WARNING, "Error getting GMT time", e);
+			logger.log(Level.WARNING, "Error getting GMT time", e); //$NON-NLS-1$
 			return 0l; 
 		}
 	}

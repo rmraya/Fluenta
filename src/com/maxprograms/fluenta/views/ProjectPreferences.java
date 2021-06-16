@@ -46,7 +46,7 @@ import org.xml.sax.SAXException;
 
 import com.maxprograms.fluenta.Constants;
 import com.maxprograms.languages.Language;
-import com.maxprograms.utils.LanguageUtils;
+import com.maxprograms.languages.LanguageUtils;
 import com.maxprograms.utils.Preferences;
 import com.maxprograms.utils.TextUtils;
 
@@ -84,16 +84,16 @@ public class ProjectPreferences extends Composite {
 
 		try {
 			defaultSource = getDefaultSource();
+			if (defaultSource != null) {
+				sourceLangCombo.select(TextUtils.geIndex(sourceLangCombo.getItems(),
+						LanguageUtils.getLanguage(defaultSource.getCode()).getDescription()));
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
 			box.setMessage(Messages.getString("ProjectPreferences.2")); //$NON-NLS-1$
 			box.open();
 			getShell().close();
-		}
-		if (defaultSource != null) {
-			sourceLangCombo.select(TextUtils.geIndex(sourceLangCombo.getItems(),
-					LanguageUtils.getLanguageName(defaultSource.getCode())));
 		}
 
 		Group targetLanguages = new Group(this, SWT.NONE);
@@ -123,18 +123,18 @@ public class ProjectPreferences extends Composite {
 
 		try {
 			defaultTargets = getDefaultTargets();
+			for (int i = 0; i < defaultTargets.size(); i++) {
+				Language l = defaultTargets.get(i);
+				TableItem item = new TableItem(langsTable, SWT.NONE);
+				item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
+				item.setData("language", l); //$NON-NLS-1$
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
 			box.setMessage(Messages.getString("ProjectPreferences.5")); //$NON-NLS-1$
 			box.open();
 			getShell().close();
-		}
-		for (int i = 0; i < defaultTargets.size(); i++) {
-			Language l = defaultTargets.get(i);
-			TableItem item = new TableItem(langsTable, SWT.NONE);
-			item.setText(LanguageUtils.getLanguageName(l.getCode()));
-			item.setData("language", l); //$NON-NLS-1$
 		}
 
 		Composite targetButtons = new Composite(targetLanguages, SWT.NONE);
@@ -151,15 +151,23 @@ public class ProjectPreferences extends Composite {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				LanguageAddDialog dialog = new LanguageAddDialog(getShell(), SWT.DIALOG_TRIM);
-				dialog.show();
-				if (!dialog.wasCancelled()) {
-					Language l = dialog.getLanguage();
-					TableItem item = new TableItem(langsTable, SWT.NONE);
-					item.setText(LanguageUtils.getLanguageName(l.getCode()));
-					item.setData("language", l); //$NON-NLS-1$
-					defaultTargets.add(l);
+				try {
+					LanguageAddDialog dialog = new LanguageAddDialog(getShell(), SWT.DIALOG_TRIM);
+					dialog.show();
+					if (!dialog.wasCancelled()) {
+						Language l = dialog.getLanguage();
+						TableItem item = new TableItem(langsTable, SWT.NONE);
+						item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
+						item.setData("language", l); //$NON-NLS-1$
+						defaultTargets.add(l);
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+					MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
+					box.setMessage(Messages.getString("ProjectPreferences.6")); //$NON-NLS-1$
+					box.open();
 				}
+
 			}
 
 			@Override
@@ -174,20 +182,28 @@ public class ProjectPreferences extends Composite {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				TableItem[] oldItems = langsTable.getItems();
-				defaultTargets.clear();
-				for (int i = 0; i < oldItems.length; i++) {
-					if (!oldItems[i].getChecked()) {
-						defaultTargets.add((Language) oldItems[i].getData("language")); //$NON-NLS-1$
+				try {
+					TableItem[] oldItems = langsTable.getItems();
+					defaultTargets.clear();
+					for (int i = 0; i < oldItems.length; i++) {
+						if (!oldItems[i].getChecked()) {
+							defaultTargets.add((Language) oldItems[i].getData("language")); //$NON-NLS-1$
+						}
 					}
+					langsTable.removeAll();
+					for (int i = 0; i < defaultTargets.size(); i++) {
+						Language l = defaultTargets.get(i);
+						TableItem item = new TableItem(langsTable, SWT.NONE);
+						item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
+						item.setData("language", l); //$NON-NLS-1$
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+					MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
+					box.setMessage(Messages.getString("ProjectPreferences.7")); //$NON-NLS-1$
+					box.open();
 				}
-				langsTable.removeAll();
-				for (int i = 0; i < defaultTargets.size(); i++) {
-					Language l = defaultTargets.get(i);
-					TableItem item = new TableItem(langsTable, SWT.NONE);
-					item.setText(LanguageUtils.getLanguageName(l.getCode()));
-					item.setData("language", l); //$NON-NLS-1$
-				}
+
 			}
 
 			@Override
@@ -273,14 +289,14 @@ public class ProjectPreferences extends Composite {
 					Iterator<Language> it = defaultTargets.iterator();
 					while (it.hasNext()) {
 						Language l = it.next();
-						targetLangs.put(l.getCode(), LanguageUtils.getLanguageName(l.getCode()));
+						targetLangs.put(l.getCode(), LanguageUtils.getLanguage(l.getCode()).getDescription());
 					}
 					prefs.save("DefaultTargetLanguages", targetLangs); //$NON-NLS-1$
 					if (sourceLangCombo.getSelectionIndex() != -1) {
 						Hashtable<String, String> sourceLangs = new Hashtable<>();
 						Language l = LanguageUtils
-								.getLanguage(sourceLangCombo.getItem(sourceLangCombo.getSelectionIndex()));
-						sourceLangs.put(l.getCode(), LanguageUtils.getLanguageName(l.getCode()));
+								.languageFromName(sourceLangCombo.getItem(sourceLangCombo.getSelectionIndex()));
+						sourceLangs.put(l.getCode(), l.getDescription());
 						prefs.save("DefaultSourceLanguages", sourceLangs); //$NON-NLS-1$
 					}
 					Hashtable<String, String> srxTable = new Hashtable<>();
@@ -325,7 +341,7 @@ public class ProjectPreferences extends Composite {
 			String key = keys.nextElement();
 			return new Language(key, table.get(key));
 		}
-		return new Language("en-US", LanguageUtils.getLanguageName("en-US")); //$NON-NLS-1$ //$NON-NLS-2$
+		return LanguageUtils.getLanguage("en-US"); //$NON-NLS-1$
 	}
 
 	public static Vector<Language> getDefaultTargets() throws IOException {
@@ -345,11 +361,11 @@ public class ProjectPreferences extends Composite {
 			tree.add(new Language(key, table.get(key)));
 		}
 		if (tree.size() == 0) {
-			tree.add(new Language("fr", LanguageUtils.getLanguageName("fr"))); //$NON-NLS-1$ //$NON-NLS-2$
-			tree.add(new Language("de", LanguageUtils.getLanguageName("de"))); //$NON-NLS-1$ //$NON-NLS-2$
-			tree.add(new Language("it", LanguageUtils.getLanguageName("it"))); //$NON-NLS-1$ //$NON-NLS-2$
-			tree.add(new Language("es", LanguageUtils.getLanguageName("es"))); //$NON-NLS-1$ //$NON-NLS-2$
-			tree.add(new Language("ja-JP", LanguageUtils.getLanguageName("ja-JP"))); //$NON-NLS-1$ //$NON-NLS-2$
+			tree.add(LanguageUtils.getLanguage("fr")); //$NON-NLS-1$
+			tree.add(LanguageUtils.getLanguage("de")); //$NON-NLS-1$
+			tree.add(LanguageUtils.getLanguage("it")); //$NON-NLS-1$
+			tree.add(LanguageUtils.getLanguage("es")); //$NON-NLS-1$
+			tree.add(LanguageUtils.getLanguage("ja-JP")); //$NON-NLS-1$
 		}
 		Vector<Language> result = new Vector<>();
 		result.addAll(tree);

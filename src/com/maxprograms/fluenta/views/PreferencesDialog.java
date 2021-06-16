@@ -60,11 +60,6 @@ public class PreferencesDialog  {
 		XmlPreferences xmlPreferences = new XmlPreferences(folder, SWT.NONE);
 		xmlItem.setControl(xmlPreferences);
 		
-		CTabItem langsItem = new CTabItem(folder, SWT.NONE);
-		langsItem.setText(Messages.getString("PreferencesDialog.1")); //$NON-NLS-1$
-		LanguagePreferences langPrefs = new LanguagePreferences(folder, SWT.NONE);
-		langsItem.setControl(langPrefs);
-		
 		folder.setSelection(0);
 		projectPreferences.setFocus();
 		

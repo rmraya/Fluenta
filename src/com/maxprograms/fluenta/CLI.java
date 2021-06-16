@@ -17,13 +17,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 
 import com.maxprograms.utils.Preferences;
 
@@ -53,7 +53,7 @@ public class CLI {
 		boolean getMemories = false;
 		boolean verbose = false;
 		boolean removeProject = false;
-		String projectId = "";
+		String projectId = ""; //$NON-NLS-1$
 
 		if (args.length == 0) {
 			LOGGER.log(Level.WARNING, Messages.getString("CLI.0")); //$NON-NLS-1$
@@ -64,7 +64,7 @@ public class CLI {
 			checkLock();
 			lock();
 		} catch (IOException e1) {
-			LOGGER.log(Level.ERROR, "Error locking process", e1);
+			LOGGER.log(Level.ERROR, "Error locking process", e1); //$NON-NLS-1$
 			System.exit(3);
 		}
 
@@ -114,7 +114,7 @@ public class CLI {
 			try {
 				API.addProject(addFile);
 			} catch (IOException e) {
-				LOGGER.log(Level.ERROR, "Error adding project", e);
+				LOGGER.log(Level.ERROR, "Error adding project", e); //$NON-NLS-1$
 				System.exit(3);
 			}
 		}
@@ -123,7 +123,7 @@ public class CLI {
 				long number = Long.parseLong(projectId);
 				API.removeProject(number);
 			} catch (Exception e) {
-				LOGGER.log(Level.ERROR, "Error removing project", e);
+				LOGGER.log(Level.ERROR, "Error removing project", e); //$NON-NLS-1$
 				System.exit(3);
 			}
 		}
@@ -131,7 +131,7 @@ public class CLI {
 			try {
 				API.generateXLIFF(genXliffFile, verbose);
 			} catch (IOException ioe) {
-				LOGGER.log(Level.ERROR, "Error generating XLIFF", ioe);
+				LOGGER.log(Level.ERROR, "Error generating XLIFF", ioe); //$NON-NLS-1$
 				System.exit(3);
 			}
 		}
@@ -139,7 +139,7 @@ public class CLI {
 			try {
 				API.importXLIFF(xliffFile, verbose);
 			} catch (IOException ioe) {
-				LOGGER.log(Level.ERROR, "Error importing XLIFF", ioe);
+				LOGGER.log(Level.ERROR, "Error importing XLIFF", ioe); //$NON-NLS-1$
 				System.exit(3);
 			}
 		}
@@ -147,7 +147,7 @@ public class CLI {
 			try {
 				System.out.println(API.getProjects());
 			} catch (IOException e) {
-				LOGGER.log(Level.ERROR, "Error getting projects", e);
+				LOGGER.log(Level.ERROR, "Error getting projects", e); //$NON-NLS-1$
 				System.exit(3);
 			}
 		}
@@ -155,7 +155,7 @@ public class CLI {
 			try {
 				API.addMemory(addMemFile);
 			} catch (IOException e) {
-				LOGGER.log(Level.ERROR, "Error adding memory", e);
+				LOGGER.log(Level.ERROR, "Error adding memory", e); //$NON-NLS-1$
 				System.exit(3);
 			}
 		}
@@ -163,7 +163,7 @@ public class CLI {
 			try {
 				System.out.println(API.getMemories());
 			} catch (IOException e) {
-				LOGGER.log(Level.ERROR, "Error getting memories", e);
+				LOGGER.log(Level.ERROR, "Error getting memories", e); //$NON-NLS-1$
 				System.exit(3);
 			}
 		}
@@ -213,7 +213,7 @@ public class CLI {
 		try {
 			unlock();
 		} catch (IOException e) {
-			LOGGER.log(Level.ERROR, "Error unlocking process", e);
+			LOGGER.log(Level.ERROR, "Error unlocking process", e); //$NON-NLS-1$
 		}
 	}
 
