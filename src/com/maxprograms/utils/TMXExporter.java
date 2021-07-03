@@ -34,6 +34,7 @@ import com.maxprograms.xml.Element;
 import com.maxprograms.xml.PI;
 import com.maxprograms.xml.SAXBuilder;
 import com.maxprograms.xml.XMLNode;
+import com.maxprograms.xml.XMLUtils;
 
 public class TMXExporter {
 
@@ -55,7 +56,7 @@ public class TMXExporter {
 
 	public static void export(String xliff, String tmx,  boolean acceptUnaproved) throws URISyntaxException, MalformedURLException, SAXException, IOException, ParserConfigurationException {
 		
-        today = TextUtils.getTMXDate();
+        today = TMUtils.TMXDate();
         filenumbr = 0;
         
         SAXBuilder builder = new SAXBuilder();
@@ -200,13 +201,13 @@ public class TMXExporter {
             String subject = docProperties.get("subject"); //$NON-NLS-1$
 
             if (!subject.equals("")){ //$NON-NLS-1$
-            	writeString("<prop type=\"subject\">" + TextUtils.cleanString(subject) + "</prop>\n"); //$NON-NLS-1$ //$NON-NLS-2$
+            	writeString("<prop type=\"subject\">" + XMLUtils.cleanText(subject) + "</prop>\n"); //$NON-NLS-1$ //$NON-NLS-2$
             }
             if (!project.equals("")){             //$NON-NLS-1$
-            	writeString("<prop type=\"project\">" + TextUtils.cleanString(project) + "</prop>\n"); //$NON-NLS-1$ //$NON-NLS-2$
+            	writeString("<prop type=\"project\">" + XMLUtils.cleanText(project) + "</prop>\n"); //$NON-NLS-1$ //$NON-NLS-2$
             }
             if (!customer.equals("")){             //$NON-NLS-1$
-            	writeString("<prop type=\"customer\">" + TextUtils.cleanString(customer) + "</prop>\n"); //$NON-NLS-1$ //$NON-NLS-2$
+            	writeString("<prop type=\"customer\">" + XMLUtils.cleanText(customer) + "</prop>\n"); //$NON-NLS-1$ //$NON-NLS-2$
             }
             
             List<Element> notes = segment.getChildren("note"); //$NON-NLS-1$
@@ -217,7 +218,7 @@ public class TMXExporter {
                 if ( !lang.equals("")) { //$NON-NLS-1$
                     lang = " xml:lang=\"" + lang + "\""; //$NON-NLS-1$ //$NON-NLS-2$
                 }
-                writeString("<note" + lang + ">" + TextUtils.cleanString(note.getText()) + "</note>\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                writeString("<note" + lang + ">" + XMLUtils.cleanText(note.getText()) + "</note>\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             }
 
             if (!segment.getAttributeValue("xml:space","default").equals("preserve")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -260,7 +261,7 @@ public class TMXExporter {
 					}
 					if ( _level1 && ((Element)o).getName().equals("mrk")) { //$NON-NLS-1$
 						Element e = (Element)o;
-						text = text + TextUtils.cleanString(e.getText());
+						text = text + XMLUtils.cleanText(e.getText());
 						e = null;
 					}
 					break;
@@ -303,17 +304,17 @@ public class TMXExporter {
 			Iterator<XMLNode> i = l.iterator();
 			String ctype = src.getAttributeValue("ctype", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			if (!ctype.equals("")) { //$NON-NLS-1$
-				ctype = " type=\"" + TextUtils.cleanString(ctype) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+				ctype = " type=\"" + XMLUtils.cleanText(ctype) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			String assoc = src.getAttributeValue("assoc", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			if (!assoc.equals("")) { //$NON-NLS-1$
-				assoc = " assoc=\"" + TextUtils.cleanString(assoc) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+				assoc = " assoc=\"" + XMLUtils.cleanText(assoc) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			String id = ""; //$NON-NLS-1$
 			if (type.equals("ph")) { //$NON-NLS-1$
 				id = src.getAttributeValue("id", ""); //$NON-NLS-1$ //$NON-NLS-2$
 				if (!id.equals("")) { //$NON-NLS-1$
-					id = " x=\"" + TextUtils.cleanString(id) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+					id = " x=\"" + XMLUtils.cleanText(id) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
 				}
 			}
 			String text = "<ph" + ctype + assoc + id + ">"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -354,7 +355,7 @@ public class TMXExporter {
 				open = open + ">"; //$NON-NLS-1$
 				int i = match;
 				match++;
-				String text =  "<bpt type=\"xliff-"+src.getName()+"\" i=\""+ i +"\">" + TextUtils.cleanString(open) + "</bpt>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				String text =  "<bpt type=\"xliff-"+src.getName()+"\" i=\""+ i +"\">" + XMLUtils.cleanText(open) + "</bpt>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				Iterator<XMLNode> k = l.iterator();
 				while(k.hasNext()) {
 					XMLNode n = k.next();
@@ -366,9 +367,9 @@ public class TMXExporter {
 					}
 				}
 				String close = "</" + src.getName() + ">"; //$NON-NLS-1$ //$NON-NLS-2$
-				return text + "<ept i=\""+ i +"\">" + TextUtils.cleanString(close) + "</ept>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
+				return text + "<ept i=\""+ i +"\">" + XMLUtils.cleanText(close) + "</ept>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
 			} 
-			return "<ph type=\"xliff-"+src.getName()+"\">" + TextUtils.cleanString(open+ "/>") + "</ph>";			 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+			return "<ph type=\"xliff-"+src.getName()+"\">" + XMLUtils.cleanText(open+ "/>") + "</ph>";			 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 		}
 		
 		if (type.equals("it")) { //$NON-NLS-1$
@@ -376,7 +377,7 @@ public class TMXExporter {
 			Iterator<XMLNode> i = l.iterator();
 			String ctype = src.getAttributeValue("ctype", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			if (!ctype.equals("")) { //$NON-NLS-1$
-				ctype = " type=\"" + TextUtils.cleanString(ctype) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+				ctype = " type=\"" + XMLUtils.cleanText(ctype) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			String pos = src.getAttributeValue("pos", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			if (pos.equals("open")) { //$NON-NLS-1$
@@ -405,13 +406,13 @@ public class TMXExporter {
 			Iterator<XMLNode> i = l.iterator();
 			String ctype = src.getAttributeValue("ctype", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			if (!ctype.equals("")) { //$NON-NLS-1$
-				ctype = " type=\"" + TextUtils.cleanString(ctype) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+				ctype = " type=\"" + XMLUtils.cleanText(ctype) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			String rid = src.getAttributeValue("rid", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			if (!rid.equals("")) { //$NON-NLS-1$
-				rid = " i=\"" + TextUtils.cleanString(rid) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+				rid = " i=\"" + XMLUtils.cleanText(rid) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
 			} else {
-				rid = " i=\"" + TextUtils.cleanString(src.getAttributeValue("id", "")) + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				rid = " i=\"" + XMLUtils.cleanText(src.getAttributeValue("id", "")) + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			}
 			String text = "<" + type + ctype + rid + ">"; //$NON-NLS-1$ //$NON-NLS-2$
 			while (i.hasNext()) {
@@ -458,7 +459,7 @@ public class TMXExporter {
 		if( type.equals("mrk")) { //$NON-NLS-1$
 			if (src.getAttributeValue("mtype", "").equals("term")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				// ignore terminology entries
-				return TextUtil.cleanString(src.getText());
+				return XMLUtils.cleanText(src.getText());
 			}
 			if (src.getAttributeValue("mtype", "").equals("protected")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				String ts = src.getAttributeValue("ts", ""); //$NON-NLS-1$ //$NON-NLS-2$
@@ -470,9 +471,9 @@ public class TMXExporter {
 					}
 					name = name + ts.charAt(i);
 				}
-				return "<ph type=\"mrk-protected\" " + " x=\"" + TextUtil.cleanString(src.getAttributeValue("mid","-")) + "\"" +">" + TextUtil.cleanString(ts) + "</ph>" + TextUtil.cleanString(src.getText()) + "<ph type=\"mrk-close\">" + TextUtil.cleanString("</" + name + ">")+ "</ph>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
+				return "<ph type=\"mrk-protected\" " + " x=\"" + XMLUtils.cleanText(src.getAttributeValue("mid","-")) + "\"" +">" + XMLUtils.cleanText(ts) + "</ph>" + XMLUtils.cleanText(src.getText()) + "<ph type=\"mrk-close\">" + XMLUtils.cleanText("</" + name + ">")+ "</ph>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
 			}
-			return "<hi type=\"" + src.getAttributeValue("mtype", "xliff-mrk") + "\">" + TextUtil.cleanString(src.getText()) + "</hi>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+			return "<hi type=\"" + src.getAttributeValue("mtype", "xliff-mrk") + "\">" + XMLUtils.cleanText(src.getText()) + "</hi>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 		}
 		return null;
     }

@@ -81,7 +81,6 @@ import com.maxprograms.utils.MemUtils;
 import com.maxprograms.utils.Preferences;
 import com.maxprograms.utils.TMUtils;
 import com.maxprograms.utils.TMXExporter;
-import com.maxprograms.utils.TextUtils;
 import com.maxprograms.widgets.AsyncLogger;
 import com.maxprograms.xliff2.FromXliff2;
 import com.maxprograms.xliff2.ToXliff2;
@@ -94,8 +93,14 @@ import com.maxprograms.xml.PI;
 import com.maxprograms.xml.SAXBuilder;
 import com.maxprograms.xml.XMLNode;
 import com.maxprograms.xml.XMLOutputter;
+import com.maxprograms.xml.XMLUtils;
+
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
 public class LocalController {
+
+	private static Logger LOGGER = System.getLogger(LocalController.class.getName());
 
 	private DB projectdb;
 	private DB memorydb;
@@ -143,9 +148,11 @@ public class LocalController {
 					}
 					projectdb = DBMaker.newFileDB(out).closeOnJvmShutdown().asyncWriteEnable().make();
 				} catch (IOError ex2) {
+					LOGGER.log(Level.ERROR, ex2);
 					throw new IOException(ex2.getMessage());
 				}
 			} else {
+				LOGGER.log(Level.ERROR, ex);
 				throw new IOException(ex.getMessage());
 			}
 		}
@@ -170,7 +177,6 @@ public class LocalController {
 			openProjects();
 		}
 		projectsMap.put(p.getId(), p);
-		projectdb.commit();
 		Vector<Memory> mems = p.getMemories();
 		Iterator<Memory> it = mems.iterator();
 		while (it.hasNext()) {
@@ -181,7 +187,9 @@ public class LocalController {
 				try {
 					IDatabase database = getTMEngine(m.getId());
 					database.close();
+					projectdb.commit();
 				} catch (Exception e) {
+					LOGGER.log(Level.ERROR, e);
 					throw new IOException(e.getCause());
 				}
 				break;
@@ -228,9 +236,11 @@ public class LocalController {
 					}
 					memorydb = DBMaker.newFileDB(out).closeOnJvmShutdown().asyncWriteEnable().make();
 				} catch (IOError ex2) {
+					LOGGER.log(Level.ERROR, ex2);
 					throw new IOException(ex2.getMessage());
 				}
 			} else {
+				LOGGER.log(Level.ERROR, ex);				
 				throw new IOException(ex.getMessage());
 			}
 		}
@@ -711,13 +721,6 @@ public class LocalController {
 			file.setAttribute("product-name", project.getTitle()); //$NON-NLS-1$
 			file.setAttribute("product-version", "" + project.getId()); //$NON-NLS-1$ //$NON-NLS-2$
 			file.setAttribute("build-num", "" + project.getNextBuild(code)); //$NON-NLS-1$ //$NON-NLS-2$
-			Element tool = new Element("tool"); //$NON-NLS-1$
-			tool.setAttribute("tool-id", "Fluenta"); //$NON-NLS-1$ //$NON-NLS-2$
-			tool.setAttribute("tool-name", "Fluenta DITA Translation Manager"); //$NON-NLS-1$ //$NON-NLS-2$
-			tool.setAttribute("tool-company", "Maxprograms"); //$NON-NLS-1$ //$NON-NLS-2$
-			tool.setAttribute("tool-version", Constants.VERSION); //$NON-NLS-1$
-			file.getChild("header").addContent(tool); //$NON-NLS-1$
-			file.getChild("header").addContent("\n"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		try (FileOutputStream output = new FileOutputStream(newFile)) {
 			XMLOutputter outputter = new XMLOutputter();
@@ -1695,7 +1698,7 @@ public class LocalController {
 					// do nothing
 				}
 			}
-			String ctype = TextUtils.cleanString(e.getAttributeValue("type", "")); //$NON-NLS-1$ //$NON-NLS-2$
+			String ctype = XMLUtils.cleanText(e.getAttributeValue("type", "")); //$NON-NLS-1$ //$NON-NLS-2$
 			if (ctype.equals("mrk-protected")) { //$NON-NLS-1$
 				return "<mrk mtype=\"protected\" mid=\"" + e.getAttributeValue("x", "-") + "\" ts=\"" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 						+ clean(e.getText()) + "\">"; //$NON-NLS-1$
@@ -1710,7 +1713,7 @@ public class LocalController {
 					}
 					ctype = " ctype=\"" + ctype + "\""; //$NON-NLS-1$ //$NON-NLS-2$
 				}
-				String pid = TextUtils.cleanString(e.getAttributeValue("x", "")); //$NON-NLS-1$ //$NON-NLS-2$
+				String pid = XMLUtils.cleanText(e.getAttributeValue("x", "")); //$NON-NLS-1$ //$NON-NLS-2$
 				if (pid.equals("")) { //$NON-NLS-1$
 					pid = newID();
 				}
@@ -1740,18 +1743,18 @@ public class LocalController {
 				return e.toString();
 			}
 			// it from TMX
-			String xid = TextUtils.cleanString(e.getAttributeValue("x", "")); //$NON-NLS-1$ //$NON-NLS-2$
+			String xid = XMLUtils.cleanText(e.getAttributeValue("x", "")); //$NON-NLS-1$ //$NON-NLS-2$
 			if (!xid.equals("")) { //$NON-NLS-1$
 				xid = " xid=\"" + xid + "\""; //$NON-NLS-1$ //$NON-NLS-2$
 			}
-			String ctype = TextUtils.cleanString(e.getAttributeValue("type", "")); //$NON-NLS-1$ //$NON-NLS-2$
+			String ctype = XMLUtils.cleanText(e.getAttributeValue("type", "")); //$NON-NLS-1$ //$NON-NLS-2$
 			if (!ctype.equals("")) { //$NON-NLS-1$
 				if (!validCtypes.containsKey(ctype) && !ctype.startsWith("x-")) { //$NON-NLS-1$
 					ctype = "x-" + ctype; //$NON-NLS-1$
 				}
 				ctype = " ctype=\"" + ctype + "\""; //$NON-NLS-1$ //$NON-NLS-2$
 			}
-			String pos = TextUtils.cleanString(e.getAttributeValue("pos", "")); //$NON-NLS-1$ //$NON-NLS-2$
+			String pos = XMLUtils.cleanText(e.getAttributeValue("pos", "")); //$NON-NLS-1$ //$NON-NLS-2$
 			if (pos.equals("begin")) { //$NON-NLS-1$
 				pos = "open"; //$NON-NLS-1$
 			} else {
@@ -1782,14 +1785,14 @@ public class LocalController {
 			}
 			if (e.getName().equals("bpt") && !e.getAttributeValue("type", "").startsWith("xliff-")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				// bpt from TMX
-				String rid = " rid=\"" + TextUtils.cleanString(e.getAttributeValue("i", "")) + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-				String bid = " id=\"" + TextUtils.cleanString(e.getAttributeValue("i", "")) + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				String rid = " rid=\"" + XMLUtils.cleanText(e.getAttributeValue("i", "")) + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				String bid = " id=\"" + XMLUtils.cleanText(e.getAttributeValue("i", "")) + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				usedIDs.put(e.getAttributeValue("i"), ""); //$NON-NLS-1$ //$NON-NLS-2$
-				String xid = TextUtils.cleanString(e.getAttributeValue("x", "")); //$NON-NLS-1$ //$NON-NLS-2$
+				String xid = XMLUtils.cleanText(e.getAttributeValue("x", "")); //$NON-NLS-1$ //$NON-NLS-2$
 				if (!xid.equals("")) { //$NON-NLS-1$
 					xid = " xid=\"" + xid + "\""; //$NON-NLS-1$ //$NON-NLS-2$
 				}
-				String ctype = TextUtils.cleanString(e.getAttributeValue("type", "")); //$NON-NLS-1$ //$NON-NLS-2$
+				String ctype = XMLUtils.cleanText(e.getAttributeValue("type", "")); //$NON-NLS-1$ //$NON-NLS-2$
 				if (!ctype.equals("")) { //$NON-NLS-1$
 					if (!validCtypes.containsKey(ctype) && !ctype.startsWith("x-")) { //$NON-NLS-1$
 						ctype = "x-" + ctype; //$NON-NLS-1$
@@ -1811,7 +1814,7 @@ public class LocalController {
 			}
 			// ept from TMX
 			if (e.getName().equals("ept")) { //$NON-NLS-1$
-				String eid = TextUtils.cleanString(e.getAttributeValue("i")); //$NON-NLS-1$
+				String eid = XMLUtils.cleanText(e.getAttributeValue("i")); //$NON-NLS-1$
 				if (xliffbpts != null && xliffbpts.containsKey(eid)) {
 					// <ept> that closes a previous <bpt> from xliff
 					xliffbpts = null;
@@ -1858,7 +1861,7 @@ public class LocalController {
 		}
 
 		if (type.equals("hi")) { //$NON-NLS-1$
-			String mtype = TextUtils.cleanString(e.getAttributeValue("type", "")); //$NON-NLS-1$ //$NON-NLS-2$
+			String mtype = XMLUtils.cleanText(e.getAttributeValue("type", "")); //$NON-NLS-1$ //$NON-NLS-2$
 			if (!mtype.equals("")) { //$NON-NLS-1$
 				mtype = " mtype=\"" + mtype + "\""; //$NON-NLS-1$ //$NON-NLS-2$
 			} else {

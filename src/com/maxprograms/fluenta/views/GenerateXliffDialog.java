@@ -18,6 +18,17 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
+import com.maxprograms.fluenta.Fluenta;
+import com.maxprograms.fluenta.MainView;
+import com.maxprograms.fluenta.models.Project;
+import com.maxprograms.languages.Language;
+import com.maxprograms.languages.LanguageUtils;
+import com.maxprograms.tmengine.ILogger;
+import com.maxprograms.utils.Locator;
+import com.maxprograms.utils.Preferences;
+import com.maxprograms.widgets.AsyncLogger;
+import com.maxprograms.widgets.LogPanel;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -38,18 +49,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-
-import com.maxprograms.tmengine.ILogger;
-import com.maxprograms.fluenta.Constants;
-import com.maxprograms.fluenta.Fluenta;
-import com.maxprograms.fluenta.MainView;
-import com.maxprograms.fluenta.models.Project;
-import com.maxprograms.languages.Language;
-import com.maxprograms.languages.LanguageUtils;
-import com.maxprograms.utils.Locator;
-import com.maxprograms.utils.Preferences;
-import com.maxprograms.widgets.AsyncLogger;
-import com.maxprograms.widgets.LogPanel;
 
 public class GenerateXliffDialog extends Dialog implements ILogger {
 
@@ -300,13 +299,13 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 
 	private void loadPreferences() {
 		try {
-			Preferences pref = Preferences.getInstance(Constants.PREFERENCES);
+			Preferences pref = Preferences.getInstance();
 			folderText.setText(pref.get("GenerateXliffDialog", "folderText." + projectId, "")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			ditavalText.setText(pref.get("GenerateXliffDialog", "ditavalText." + projectId, "")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			useICE.setSelection(pref.get("GenerateXliffDialog", "useICE", "yes").equalsIgnoreCase("yes")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			useTM.setSelection(pref.get("GenerateXliffDialog", "useTM", "yes").equalsIgnoreCase("yes")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			generateCount.setSelection(pref.get("GenerateXliffDialog", "generateCount", "no").equalsIgnoreCase("yes")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-			generateCount.setSelection(pref.get("GenerateXliffDialog", "xliff20", "no").equalsIgnoreCase("yes")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+			xliff20.setSelection(pref.get("GenerateXliffDialog", "xliff20", "no").equalsIgnoreCase("yes")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -314,7 +313,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 
 	protected void savePreferences() {
 		try {
-			Preferences pref = Preferences.getInstance(Constants.PREFERENCES);
+			Preferences pref = Preferences.getInstance();
 			pref.save("GenerateXliffDialog", "folderText." + projectId, folderText.getText()); //$NON-NLS-1$ //$NON-NLS-2$
 			pref.save("GenerateXliffDialog", "ditavalText." + projectId, ditavalText.getText()); //$NON-NLS-1$ //$NON-NLS-2$
 			pref.save("GenerateXliffDialog", "useICE", useICE.getSelection() ? "yes" : "no"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$

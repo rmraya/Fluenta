@@ -13,14 +13,12 @@
 package com.maxprograms.utils;
 
 import java.io.IOException;
-import java.util.Hashtable;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Shell;
-
-import com.maxprograms.fluenta.Constants;
+import org.json.JSONObject;
 
 public class Locator {
 	
@@ -28,9 +26,9 @@ public class Locator {
 	
 	public static void setLocation(Shell shell, String type) {
 		try {
-			Hashtable<String, String> values = Preferences.getInstance(Constants.PREFERENCES).get(type);
-			if (values.size() > 0) {
-				Point location = new Point(Integer.parseInt(values.get("X")), Integer.parseInt(values.get("Y"))); //$NON-NLS-1$ //$NON-NLS-2$
+			JSONObject values = Preferences.getInstance().get(type);
+			if (values.has("X") && values.has("Y")) { //$NON-NLS-1$ //$NON-NLS-2$
+				Point location = new Point(Integer.parseInt(values.getString("X")), Integer.parseInt(values.getString("Y"))); //$NON-NLS-1$ //$NON-NLS-2$
 				shell.setLocation(location);
 			}
 		} catch (IOException ioe){
@@ -40,11 +38,13 @@ public class Locator {
 
 	public static void position(Shell shell, String type) {
 		try {
-			Hashtable<String, String> values = Preferences.getInstance(Constants.PREFERENCES).get(type);
-			if (values.size() > 0) {
-				Point location = new Point(Integer.parseInt(values.get("X")), Integer.parseInt(values.get("Y"))); //$NON-NLS-1$ //$NON-NLS-2$
+			JSONObject values = Preferences.getInstance().get(type);
+			if (values.has("X") && values.has("Y")) { //$NON-NLS-1$ //$NON-NLS-2$
+				Point location = new Point(Integer.parseInt(values.getString("X")), Integer.parseInt(values.getString("Y"))); //$NON-NLS-1$ //$NON-NLS-2$
 				shell.setLocation(location);
-				Point size = new Point(Integer.parseInt(values.get("Width")), Integer.parseInt(values.get("Height"))); //$NON-NLS-1$ //$NON-NLS-2$
+			}
+			if (values.has("Width") && values.has("Height")) { //$NON-NLS-1$ //$NON-NLS-2$
+				Point size = new Point(Integer.parseInt(values.getString("Width")), Integer.parseInt(values.getString("Height"))); //$NON-NLS-1$ //$NON-NLS-2$
 				shell.setSize(size);
 			}
 		} catch (IOException ioe){
@@ -54,12 +54,12 @@ public class Locator {
 
 	public static void remember(Shell shell, String type) {
 		try {
-			Hashtable<String, String> values = new Hashtable<String, String>();
+			JSONObject values = new JSONObject();
 			values.put("X", "" + shell.getLocation().x); //$NON-NLS-1$ //$NON-NLS-2$
 			values.put("Y", "" + shell.getLocation().y); //$NON-NLS-1$ //$NON-NLS-2$
 			values.put("Width", "" + shell.getSize().x); //$NON-NLS-1$ //$NON-NLS-2$
 			values.put("Height", "" + shell.getSize().y); //$NON-NLS-1$ //$NON-NLS-2$
-			Preferences.getInstance(Constants.PREFERENCES).save(type, values);
+			Preferences.getInstance().save(type, values);
 		} catch (IOException ioe){
 			LOGGER.log(Level.WARNING, "Error saving location", ioe); //$NON-NLS-1$
 		}

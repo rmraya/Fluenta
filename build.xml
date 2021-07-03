@@ -10,8 +10,6 @@
         <pathelement location="lib/jsoup.jar"/>
         <pathelement location="lib/mapdb.jar"/>
         <pathelement location="lib/openxliff.jar"/>
-        <pathelement location="lib/tmengine.jar"/>
-        <pathelement location="lib/widgets.jar"/>
         <pathelement location="lib/mac64/swt.jar"/>
     </path>
     <target name="init">

@@ -10,17 +10,24 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-package com.maxprograms.fluenta;
+package com.maxprograms.tmx;
 
-public class Constants {
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
-	private Constants() {
-		// private for security
+public class Messages {
+	private static final String BUNDLE_NAME = "com.maxprograms.tmx.tmx"; //$NON-NLS-1$
+
+	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+
+	private Messages() {
 	}
-	
-	public static final String NAME = "Fluenta"; //$NON-NLS-1$
-	public static final String VERSION = "2.0.0"; //$NON-NLS-1$
-	public static final String BUILD = "20210703_1145"; //$NON-NLS-1$
-	
-	public static final String SUCCESS = "0"; //$NON-NLS-1$
+
+	public static String getString(String key) {
+		try {
+			return RESOURCE_BUNDLE.getString(key);
+		} catch (MissingResourceException e) {
+			return '!' + key + '!';
+		}
+	}
 }

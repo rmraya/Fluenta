@@ -10,17 +10,17 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-package com.maxprograms.fluenta;
+ package com.maxprograms.tmengine;
 
-public class Constants {
+import java.util.Vector;
 
-	private Constants() {
-		// private for security
-	}
-	
-	public static final String NAME = "Fluenta"; //$NON-NLS-1$
-	public static final String VERSION = "2.0.0"; //$NON-NLS-1$
-	public static final String BUILD = "20210703_1145"; //$NON-NLS-1$
-	
-	public static final String SUCCESS = "0"; //$NON-NLS-1$
+public interface ILogger {
+
+	public void log(String message);
+	public void setStage(String stage);
+	public boolean isCancelled();
+	public void logError(String error);
+	public Vector<String> getErrors();
+	public void displayError(String string);
+	public void displaySuccess(String string);
 }

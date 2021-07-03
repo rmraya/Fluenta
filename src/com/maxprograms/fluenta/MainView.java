@@ -75,7 +75,7 @@ public class MainView {
 		controller = new LocalController();
 		systemMenu = display.getSystemMenu();
 
-		if (systemMenu != null && System.getProperty("os.name").startsWith("Mac")) { //$NON-NLS-1$ //$NON-NLS-2$
+		if (systemMenu != null && System.getProperty("os.name").toLowerCase().startsWith("mac")) { //$NON-NLS-1$ //$NON-NLS-2$
 
 			isMac = true;
 
@@ -366,7 +366,7 @@ public class MainView {
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				try {
-					Program.launch(new File("docs/fluenta.pdf").toURI().toURL().toString()); //$NON-NLS-1$
+					Program.launch(new File("fluenta.pdf").toURI().toURL().toString()); //$NON-NLS-1$
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
@@ -394,7 +394,7 @@ public class MainView {
 
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				Program.launch("http://www.maxprograms.com/products/fluentalog.html"); //$NON-NLS-1$
+				Program.launch("https://www.maxprograms.com/products/fluentalog.html"); //$NON-NLS-1$
 			}
 		});
 
@@ -416,7 +416,7 @@ public class MainView {
 
 	protected void checkUpdates(boolean silent) {
 		try {
-			URL url = new URL("http://www.maxprograms.com/fluenta"); //$NON-NLS-1$
+			URL url = new URL("https://www.maxprograms.com/fluenta"); //$NON-NLS-1$
 			URLConnection connection = url.openConnection();
 			connection.setConnectTimeout(10000);
 			byte[] array = new byte[2048];
@@ -433,7 +433,7 @@ public class MainView {
 				Object[] args = { Constants.VERSION + " (" + Constants.BUILD + ")", version }; //$NON-NLS-1$ //$NON-NLS-2$
 				box.setMessage(mf.format(args));
 				if (box.open() == SWT.YES) {
-					Program.launch("http://www.maxprograms.com/downloads/"); //$NON-NLS-1$
+					Program.launch("https://www.maxprograms.com/downloads/"); //$NON-NLS-1$
 				}
 			} else {
 				if (!silent) {

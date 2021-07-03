@@ -17,13 +17,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
 import com.maxprograms.utils.Preferences;
 

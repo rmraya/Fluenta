@@ -15,13 +15,16 @@ package com.maxprograms.fluenta.views;
 import java.io.File;
 import java.io.IOException;
 import java.util.Comparator;
-import java.util.Enumeration;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.TreeSet;
 import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import com.maxprograms.languages.Language;
+import com.maxprograms.languages.LanguageUtils;
+import com.maxprograms.utils.Preferences;
+import com.maxprograms.utils.TextUtils;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -42,13 +45,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.json.JSONObject;
 import org.xml.sax.SAXException;
-
-import com.maxprograms.fluenta.Constants;
-import com.maxprograms.languages.Language;
-import com.maxprograms.languages.LanguageUtils;
-import com.maxprograms.utils.Preferences;
-import com.maxprograms.utils.TextUtils;
 
 public class ProjectPreferences extends Composite {
 
@@ -284,8 +282,8 @@ public class ProjectPreferences extends Composite {
 						box.open();
 						return;
 					}
-					Preferences prefs = Preferences.getInstance(Constants.PREFERENCES);
-					Hashtable<String, String> targetLangs = new Hashtable<>();
+					Preferences prefs = Preferences.getInstance();
+					JSONObject targetLangs = new JSONObject();
 					Iterator<Language> it = defaultTargets.iterator();
 					while (it.hasNext()) {
 						Language l = it.next();
@@ -293,13 +291,13 @@ public class ProjectPreferences extends Composite {
 					}
 					prefs.save("DefaultTargetLanguages", targetLangs); //$NON-NLS-1$
 					if (sourceLangCombo.getSelectionIndex() != -1) {
-						Hashtable<String, String> sourceLangs = new Hashtable<>();
+						JSONObject sourceLangs = new JSONObject();
 						Language l = LanguageUtils
 								.languageFromName(sourceLangCombo.getItem(sourceLangCombo.getSelectionIndex()));
-						sourceLangs.put(l.getCode(), l.getDescription());
+						sourceLangs.put("default", l.getCode()); //$NON-NLS-1$
 						prefs.save("DefaultSourceLanguages", sourceLangs); //$NON-NLS-1$
 					}
-					Hashtable<String, String> srxTable = new Hashtable<>();
+					JSONObject srxTable = new JSONObject();
 					srxTable.put("srx", srxText.getText()); //$NON-NLS-1$
 					prefs.save("DefaultSRX", srxTable); //$NON-NLS-1$
 				} catch (IOException | SAXException | ParserConfigurationException e) {
@@ -321,27 +319,15 @@ public class ProjectPreferences extends Composite {
 	}
 
 	public static String getDefaultSRX() throws IOException {
-		Preferences prefs = Preferences.getInstance(Constants.PREFERENCES);
-		Hashtable<String, String> table = prefs.get("DefaultSRX"); //$NON-NLS-1$
-		Enumeration<String> keys = table.keys();
-		while (keys.hasMoreElements()) {
-			String key = keys.nextElement();
-			return table.get(key);
-		}
+		Preferences prefs = Preferences.getInstance();
 		File srxFolder = new File(Preferences.getPreferencesDir(), "srx"); //$NON-NLS-1$
 		File defaultSrx = new File(srxFolder, "default.srx"); //$NON-NLS-1$
-		return defaultSrx.getAbsolutePath();
+		return prefs.get("DefaultSRX", "srx", defaultSrx.getAbsolutePath()); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	public static Language getDefaultSource() throws IOException {
-		Preferences prefs = Preferences.getInstance(Constants.PREFERENCES);
-		Hashtable<String, String> table = prefs.get("DefaultSourceLanguages"); //$NON-NLS-1$
-		Enumeration<String> keys = table.keys();
-		while (keys.hasMoreElements()) {
-			String key = keys.nextElement();
-			return new Language(key, table.get(key));
-		}
-		return LanguageUtils.getLanguage("en-US"); //$NON-NLS-1$
+		Preferences prefs = Preferences.getInstance();
+		return LanguageUtils.getLanguage(prefs.get("DefaultSourceLanguages", "default", "en-US")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 
 	public static Vector<Language> getDefaultTargets() throws IOException {
@@ -353,12 +339,12 @@ public class ProjectPreferences extends Composite {
 			}
 
 		});
-		Preferences prefs = Preferences.getInstance(Constants.PREFERENCES);
-		Hashtable<String, String> table = prefs.get("DefaultTargetLanguages"); //$NON-NLS-1$
-		Enumeration<String> keys = table.keys();
-		while (keys.hasMoreElements()) {
-			String key = keys.nextElement();
-			tree.add(new Language(key, table.get(key)));
+		Preferences prefs = Preferences.getInstance();
+		JSONObject table = prefs.get("DefaultTargetLanguages"); //$NON-NLS-1$
+		Iterator<String> keys = table.keys();
+		while (keys.hasNext()) {
+			String key = keys.next();
+			tree.add(new Language(key, table.getString(key)));
 		}
 		if (tree.size() == 0) {
 			tree.add(LanguageUtils.getLanguage("fr")); //$NON-NLS-1$

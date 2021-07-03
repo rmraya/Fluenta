@@ -26,6 +26,14 @@ import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.maxprograms.fluenta.Fluenta;
+import com.maxprograms.utils.FileUtils;
+import com.maxprograms.utils.Preferences;
+import com.maxprograms.xml.Document;
+import com.maxprograms.xml.Element;
+import com.maxprograms.xml.SAXBuilder;
+import com.maxprograms.xml.XMLOutputter;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
@@ -47,15 +55,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.xml.sax.SAXException;
-
-import com.maxprograms.fluenta.Constants;
-import com.maxprograms.fluenta.Fluenta;
-import com.maxprograms.utils.FileUtils;
-import com.maxprograms.utils.Preferences;
-import com.maxprograms.xml.Document;
-import com.maxprograms.xml.Element;
-import com.maxprograms.xml.SAXBuilder;
-import com.maxprograms.xml.XMLOutputter;
 
 public class XmlPreferences extends Composite {
 
@@ -335,7 +334,7 @@ public class XmlPreferences extends Composite {
 			public void widgetSelected(SelectionEvent arg0) {
 				Preferences prefs;
 				try {
-					prefs = Preferences.getInstance(Constants.PREFERENCES);
+					prefs = Preferences.getInstance();
 					prefs.save("XMLOptions", "TranslateComments", (commentsButton.getSelection() ? "Yes" : "No")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				} catch (IOException e) {
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
@@ -349,7 +348,7 @@ public class XmlPreferences extends Composite {
 	}
 
 	public static boolean getTranslateComments() throws IOException {
-		Preferences prefs = Preferences.getInstance(Constants.PREFERENCES);
+		Preferences prefs = Preferences.getInstance();
 		return prefs.get("XMLOptions", "TranslateComments", "No").equalsIgnoreCase("Yes"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 

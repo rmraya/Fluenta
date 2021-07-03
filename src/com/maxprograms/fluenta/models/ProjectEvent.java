@@ -21,7 +21,6 @@ import com.maxprograms.utils.TextUtils;
 
 public class ProjectEvent implements Serializable {
 	
-
 	private static final long serialVersionUID = -8899002949209768303L;
 
 	public static final String XLIFF_CREATED = "XLIFF Created"; //$NON-NLS-1$

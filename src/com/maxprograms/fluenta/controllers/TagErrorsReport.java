@@ -26,7 +26,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import com.maxprograms.fluenta.Fluenta;
-import com.maxprograms.utils.TextUtils;
 import com.maxprograms.xml.Attribute;
 import com.maxprograms.xml.Catalog;
 import com.maxprograms.xml.Document;
@@ -34,6 +33,7 @@ import com.maxprograms.xml.Element;
 import com.maxprograms.xml.SAXBuilder;
 import com.maxprograms.xml.TextNode;
 import com.maxprograms.xml.XMLNode;
+import com.maxprograms.xml.XMLUtils;
 
 public class TagErrorsReport {
 
@@ -128,7 +128,7 @@ public class TagErrorsReport {
 		writeStr("    </style>\n"); //$NON-NLS-1$
 		writeStr("  </head>\n"); //$NON-NLS-1$
 		writeStr("  <body>\n"); //$NON-NLS-1$
-		writeStr("    <h3>" + TextUtils.cleanString(f.getName()) + "</h3>\n"); //$NON-NLS-1$ //$NON-NLS-2$
+		writeStr("    <h3>" + XMLUtils.cleanText(f.getName()) + "</h3>\n"); //$NON-NLS-1$ //$NON-NLS-2$
 		writeStr("    <table class='analysis'>\n"); //$NON-NLS-1$
 		writeStr("      <tr>\n"); //$NON-NLS-1$
 		writeStr("        <th>#</th>\n"); //$NON-NLS-1$
@@ -201,7 +201,7 @@ public class TagErrorsReport {
 		writeStr("        <td class='center'>" + id + "</td>\n"); //$NON-NLS-1$ //$NON-NLS-2$
 		writeStr("        <td class='left'>" + tag(source) + "</td>\n"); //$NON-NLS-1$ //$NON-NLS-2$
 		writeStr("        <td class='left'>" + tag(target) + "</td>\n"); //$NON-NLS-1$ //$NON-NLS-2$
-		writeStr("        <td class='left'>" + TextUtils.cleanString(description) + "</td>\n"); //$NON-NLS-1$ //$NON-NLS-2$
+		writeStr("        <td class='left'>" + XMLUtils.cleanText(description) + "</td>\n"); //$NON-NLS-1$ //$NON-NLS-2$
 		writeStr("      </tr>\n");		 //$NON-NLS-1$
 	}
 
@@ -212,9 +212,9 @@ public class TagErrorsReport {
 		if (e.getName().equals("mrk") && e.getAttributeValue("mtype", "").equals("protected")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			String ts = unclean(e.getAttributeValue("ts")); //$NON-NLS-1$
 			String end = "</" + getName(ts) + ">"; //$NON-NLS-1$ //$NON-NLS-2$
-			result = result + "<span class='mrk'>" + TextUtils.cleanString(removeClass(ts)) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
-			result = result + "<span class='protected'>" + TextUtils.cleanString(e.getText()) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
-			result = result + "<span class='mrk'>" + TextUtils.cleanString(end) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
+			result = result + "<span class='mrk'>" + XMLUtils.cleanText(removeClass(ts)) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
+			result = result + "<span class='protected'>" + XMLUtils.cleanText(e.getText()) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
+			result = result + "<span class='mrk'>" + XMLUtils.cleanText(end) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
 		}
 			
 		if ( e.getName().equals("g")) {    //$NON-NLS-1$
@@ -228,7 +228,7 @@ public class TagErrorsReport {
 			}
 			t1 = t1 + ">";  //$NON-NLS-1$
 			// add initial tag
-			result = result + "<span>" + TextUtils.cleanString(t1) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
+			result = result + "<span>" + XMLUtils.cleanText(t1) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
 			for (int i=0 ; i<content.size() ; i++) {
 				XMLNode n = content.get(i);
 				switch (n.getNodeType()) {
@@ -240,11 +240,11 @@ public class TagErrorsReport {
 				}
 			}
 			// add closing tag			
-			result = result + "<span>" +TextUtils.cleanString("</" + e.getName() + ">") + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+			result = result + "<span>" +XMLUtils.cleanText("</" + e.getName() + ">") + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			return result;
 		}
 		if (e.getName().equals("ph")) { //$NON-NLS-1$
-			result = result + "<span>" + TextUtils.cleanString(removeClass(e.getText())) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
+			result = result + "<span>" + XMLUtils.cleanText(removeClass(e.getText())) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
 			return result;	
 		}
 		

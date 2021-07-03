@@ -15,6 +15,9 @@ package com.maxprograms.fluenta.views;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 
+import com.maxprograms.fluenta.Fluenta;
+import com.maxprograms.utils.Preferences;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -28,10 +31,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-
-import com.maxprograms.fluenta.Constants;
-import com.maxprograms.fluenta.Fluenta;
-import com.maxprograms.utils.Preferences;
 
 public class ProxySettings extends Dialog {
 
@@ -102,7 +101,7 @@ public class ProxySettings extends Dialog {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				try {
-					Preferences prefs = Preferences.getInstance(Constants.PREFERENCES);
+					Preferences prefs = Preferences.getInstance();
 					prefs.save("proxySettings", "server", server.getText());   //$NON-NLS-1$ //$NON-NLS-2$
 					prefs.save("proxySettings", "port", port.getText());   //$NON-NLS-1$ //$NON-NLS-2$
 					prefs.save("proxySettings", "user", user.getText());   //$NON-NLS-1$ //$NON-NLS-2$
@@ -130,7 +129,7 @@ public class ProxySettings extends Dialog {
 
 	private void loadSettings() {
 		try {
-			Preferences prefs = Preferences.getInstance(Constants.PREFERENCES);
+			Preferences prefs = Preferences.getInstance();
 			server.setText(prefs.get("proxySettings", "server", ""));   //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			port.setText(prefs.get("proxySettings", "port", ""));   //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			user.setText(prefs.get("proxySettings", "user", ""));   //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

@@ -61,7 +61,7 @@ public class HTMLViewer extends Dialog {
 			logger.log(Level.WARNING, "Error creating browser", e); //$NON-NLS-1$
 			String message = "";  //$NON-NLS-1$
 			if (System.getProperty("file.separator").equals("/") ) {  //$NON-NLS-1$ //$NON-NLS-2$
-				if (System.getProperty("os.name").startsWith("Mac")) {  //$NON-NLS-1$ //$NON-NLS-2$
+				if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {  //$NON-NLS-1$ //$NON-NLS-2$
 					// Mac
 					message = Messages.getString("HTMLViewer.8");  //$NON-NLS-1$
 				} else {

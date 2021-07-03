@@ -29,65 +29,6 @@ public class TextUtils {
 		return -1;
 	}
 
-	public static String cleanString(String input) {
-		input = input.replaceAll("&","&amp;");  //$NON-NLS-1$ //$NON-NLS-2$
-		input = input.replaceAll("<","&lt;");  //$NON-NLS-1$ //$NON-NLS-2$
-		input = input.replaceAll(">","&gt;" );  //$NON-NLS-1$ //$NON-NLS-2$
-		return validChars(input);
-	} // end cleanString
-
-	public static String validChars(String input) {
-		// Valid: #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] |
-		// [#x10000-#x10FFFF]
-		// Discouraged: [#x7F-#x84], [#x86-#x9F], [#xFDD0-#xFDDF]
-		//
-		StringBuffer buffer = new StringBuffer();
-		char c;
-		int length = input.length();
-		for (int i = 0; i < length; i++) {
-			c = input.charAt(i);
-			if ( c == '\t' || c == '\n' || c == '\r'
-					|| c >= '\u0020' && c <= '\uD7DF' 
-					|| c >= '\uE000' && c <= '\uFFFD' )
-			{
-				// normal character
-				buffer.append(c);
-			} else  if   (c >= '\u007F' && c <= '\u0084'
-					|| c >= '\u0086' && c <= '\u009F' 
-					|| c >= '\uFDD0' && c <= '\uFDDF') 
-			{
-				// Control character
-				buffer.append("&#x" + Integer.toHexString(c) + ";");  //$NON-NLS-1$ //$NON-NLS-2$
-			} else if (c >= '\uDC00' && c <= '\uDFFF' || c >= '\uD800' && c <= '\uDBFF') {
-				// Multiplane character
-				buffer.append(input.substring(i,i+1));
-			} 
-		}    
-		return buffer.toString();
-	}
-	
-	public static String getTMXDate() {
-		Calendar calendar = Calendar.getInstance( TimeZone.getTimeZone("GMT")); //$NON-NLS-1$
-		String sec =
-			(calendar.get(Calendar.SECOND) < 10 ? "0" : "") //$NON-NLS-1$ //$NON-NLS-2$
-		+ calendar.get(Calendar.SECOND);
-		String min =
-			(calendar.get(Calendar.MINUTE) < 10 ? "0" : "") //$NON-NLS-1$ //$NON-NLS-2$
-		+ calendar.get(Calendar.MINUTE);
-		String hour =
-			(calendar.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "") //$NON-NLS-1$ //$NON-NLS-2$
-		+ calendar.get(Calendar.HOUR_OF_DAY);
-		String mday =
-			(calendar.get(Calendar.DATE) < 10 ? "0" : "") + calendar.get(Calendar.DATE); //$NON-NLS-1$ //$NON-NLS-2$
-		String mon =
-			(calendar.get(Calendar.MONTH) < 9 ? "0" : "") //$NON-NLS-1$ //$NON-NLS-2$
-		+ (calendar.get(Calendar.MONTH) + 1);
-		String longyear = "" + calendar.get(Calendar.YEAR); //$NON-NLS-1$
-
-		String date = longyear + mon + mday + "T" + hour + min + sec + "Z"; //$NON-NLS-1$ //$NON-NLS-2$
-		return date;
-	}
-
 	public static String normalise(String string) {
         return normalise(string,true);
     }
