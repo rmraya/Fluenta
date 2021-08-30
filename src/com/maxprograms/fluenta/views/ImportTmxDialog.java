@@ -14,8 +14,12 @@ package com.maxprograms.fluenta.views;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Vector;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -35,6 +39,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.xml.sax.SAXException;
 
 import com.maxprograms.tmengine.ILogger;
 import com.maxprograms.fluenta.Fluenta;
@@ -162,7 +167,13 @@ public class ImportTmxDialog extends Dialog  implements ILogger {
 				thread = new Thread() {
 					@Override
 					public void run() {
-						MainView.getController().importTMX(memory, tmxFile, alogger);
+						try {
+							MainView.getController().importTMX(memory, tmxFile, alogger);
+						} catch (ClassNotFoundException | SQLException | IOException | SAXException
+								| ParserConfigurationException e) {
+							e.printStackTrace();
+							alogger.displayError(e.getMessage());
+						}
 					}
 				};
 				thread.start();						

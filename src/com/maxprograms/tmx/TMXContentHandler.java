@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
 
 import com.maxprograms.tmengine.ILogger;
-import com.maxprograms.tmengine.IDatabase;
+import com.maxprograms.tmengine.InternalDatabase;
 import com.maxprograms.utils.TMUtils;
 import com.maxprograms.xml.Element;
 
@@ -37,12 +37,12 @@ class TMXContentHandler implements ContentHandler, LexicalHandler {
 	private boolean inCDATA = false;
 	private int count;
 	private int discarded;
-	private IDatabase db;
+	private InternalDatabase db;
 	private String srcLang;
 	private ILogger logger;
 	private MessageFormat mf1;
 	
-	public TMXContentHandler(IDatabase internalDatabase, ILogger logger){
+	public TMXContentHandler(InternalDatabase internalDatabase, ILogger logger){
 		db = internalDatabase;
 		stack = new Stack<>();
 		this.logger = logger;

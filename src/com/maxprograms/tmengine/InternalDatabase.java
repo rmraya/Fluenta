@@ -10,7 +10,7 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
- package com.maxprograms.tmengine;
+package com.maxprograms.tmengine;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -64,7 +64,7 @@ import com.maxprograms.xml.XMLNode;
 import com.maxprograms.xml.XMLOutputter;
 import com.maxprograms.xml.XMLUtils;
 
-public class InternalDatabase implements IDatabase {
+public class InternalDatabase {
 
 	protected static final Logger LOGGER = System.getLogger(InternalDatabase.class.getName());
 
@@ -175,8 +175,7 @@ public class InternalDatabase implements IDatabase {
 		RunScript.execute(conn, new InputStreamReader(url.openStream()));
 	}
 
-	@Override
-	public void close() throws Exception {
+	public void close() throws SQLException {
 		storeTUV.close();
 		storeTUV = null;
 		deleteTUV.close();
@@ -194,12 +193,10 @@ public class InternalDatabase implements IDatabase {
 		tuDb = null;
 	}
 
-	@Override
 	public String getName() {
 		return dbname;
 	}
 
-	@Override
 	public boolean getQuality() throws IOException {
 		return true;
 	}
@@ -208,7 +205,6 @@ public class InternalDatabase implements IDatabase {
 		conn.setAutoCommit(false);
 	}
 
-	@Override
 	synchronized public void commit() throws SQLException {
 		conn.commit();
 		fuzzyIndex.commit();
@@ -221,7 +217,6 @@ public class InternalDatabase implements IDatabase {
 		tuDb.rollback();
 	}
 
-	@Override
 	public int[] storeTMX(String tmxFile, String user, String project, String customer, String subject, boolean update,
 			ILogger logger) {
 		int imported = 0;
@@ -268,7 +263,6 @@ public class InternalDatabase implements IDatabase {
 		return new int[] { imported, failed };
 	}
 
-	@Override
 	public Vector<String> exportDatabase(String tmxfile, String langs, String srcLang,
 			Hashtable<String, Set<String>> propFilters) {
 		boolean filter;
@@ -428,7 +422,6 @@ public class InternalDatabase implements IDatabase {
 				"</header>\n"); //$NON-NLS-1$
 	}
 
-	@Override
 	public Vector<String> flag(String tuid) {
 		Vector<String> result = new Vector<>();
 		Element tu = tuDb.getTu(tuid);
@@ -457,12 +450,10 @@ public class InternalDatabase implements IDatabase {
 		return result;
 	}
 
-	@Override
 	public Set<String> getAllCustomers() {
 		return tuDb.getCustomers();
 	}
 
-	@Override
 	public Set<String> getAllLanguages() {
 		Set<String> result = Collections.synchronizedSortedSet(new TreeSet<>());
 		try {
@@ -479,17 +470,14 @@ public class InternalDatabase implements IDatabase {
 		return result;
 	}
 
-	@Override
 	public Set<String> getAllProjects() {
 		return tuDb.getProjects();
 	}
 
-	@Override
 	public Set<String> getAllSubjects() {
 		return tuDb.getSubjects();
 	}
 
-	@Override
 	public Vector<TU> searchAllTranslations(String searchStr, String srcLang, int similarity, boolean caseSensitive) {
 		// search for TUs with any target language
 		Vector<TU> result = new Vector<>();
@@ -641,7 +629,6 @@ public class InternalDatabase implements IDatabase {
 		return result;
 	}
 
-	@Override
 	public Vector<TU> searchTranslation(String searchStr, String srcLang, String tgtLang, int similarity,
 			boolean caseSensitive) {
 		// search for TUs with a given source and target language
@@ -761,7 +748,6 @@ public class InternalDatabase implements IDatabase {
 		return result;
 	}
 
-	@Override
 	public Vector<TU> concordanceSearch(String searchStr, String srcLang, int limit, boolean isRegexp,
 			boolean caseSensitive) {
 		Vector<TU> result = new Vector<>();
@@ -854,8 +840,7 @@ public class InternalDatabase implements IDatabase {
 		return result;
 	}
 
-	@Override
-	public void storeTU(Element tu, String sourceLang) throws Exception {
+	public void storeTU(Element tu, String sourceLang) throws SQLException, IOException {
 		Set<String> tuLangs = Collections.synchronizedSortedSet(new TreeSet<>());
 		List<Element> tuvs = tu.getChildren("tuv"); //$NON-NLS-1$
 		String tuid = tu.getAttributeValue("tuid", ""); //$NON-NLS-1$ //$NON-NLS-2$
@@ -947,7 +932,7 @@ public class InternalDatabase implements IDatabase {
 					ele = puretext;
 				}
 				if (ele.length() > 6000) {
-					throw new Exception(Messages.getString("InternalDatabase.150")); //$NON-NLS-1$
+					throw new SQLException(Messages.getString("InternalDatabase.150")); //$NON-NLS-1$
 				}
 				int length = puretext.length();
 				storeTUV.setString(2, lang);
@@ -1060,7 +1045,8 @@ public class InternalDatabase implements IDatabase {
 		return text;
 	}
 
-	public static void deleteDb(File workFolder, String name) throws Exception {
+	public static void deleteDb(File workFolder, String name)
+			throws IOException, SAXException, ParserConfigurationException {
 		deleteTree(new File(workFolder, name));
 		if (dblist == null) {
 			loadDbList(workFolder);
@@ -1138,7 +1124,6 @@ public class InternalDatabase implements IDatabase {
 		return dblist;
 	}
 
-	@Override
 	public long getSize() throws SQLException {
 		long result = 0l;
 		String query = "SELECT COUNT(DISTINCT tuid) FROM tuv"; //$NON-NLS-1$
@@ -1152,7 +1137,6 @@ public class InternalDatabase implements IDatabase {
 		return result;
 	}
 
-	@Override
 	public TU getTu(int index, String sortLanguage, boolean ascending) throws SQLException {
 		if (sortLanguage.equals("")) { //$NON-NLS-1$
 			String tuid = ""; //$NON-NLS-1$
@@ -1298,7 +1282,6 @@ public class InternalDatabase implements IDatabase {
 		return getTu(index, sortLanguage, ascending);
 	}
 
-	@Override
 	public Element getTu(String tuid) throws Exception {
 		Element tu = tuDb.getTu(tuid);
 		try (PreparedStatement stmt = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { //$NON-NLS-1$
@@ -1324,7 +1307,6 @@ public class InternalDatabase implements IDatabase {
 		return tu;
 	}
 
-	@Override
 	public Vector<String> exportCSV(String csvFile, String langs, Hashtable<String, Set<String>> propFilters) {
 		boolean filter;
 		Set<String> languages = Collections.synchronizedSet(new HashSet<>());
@@ -1484,7 +1466,6 @@ public class InternalDatabase implements IDatabase {
 		return result;
 	}
 
-	@Override
 	public Vector<String> removeTu(String tuid) {
 		Vector<String> result = new Vector<>();
 		Element tu = tuDb.getTu(tuid);

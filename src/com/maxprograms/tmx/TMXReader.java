@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import com.maxprograms.tmengine.ILogger;
-import com.maxprograms.tmengine.IDatabase;
+import com.maxprograms.tmengine.InternalDatabase;
 import com.maxprograms.xml.CustomErrorHandler;
 import com.maxprograms.xml.EntityHandler;
 
@@ -33,7 +33,7 @@ public class TMXReader {
 	private XMLReader parser;
 	private TMXContentHandler handler;
 
-	public TMXReader(IDatabase database, ILogger logger) throws SAXException, ParserConfigurationException {
+	public TMXReader(InternalDatabase database, ILogger logger) throws SAXException, ParserConfigurationException {
 		database.getAllLanguages();
 		parser = SAXParserFactory.newInstance().newSAXParser().getXMLReader(); 
 		parser.setFeature("http://xml.org/sax/features/namespaces", true); //$NON-NLS-1$

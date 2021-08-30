@@ -283,8 +283,13 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 
 					@Override
 					public void run() {
-						MainView.getController().generateXliff(project, xliffFolder, tgtLangs, useice, usetm, count,
-								ditaval, useXliff20, alogger);
+						try {
+							MainView.getController().generateXliff(project, xliffFolder, tgtLangs, useice, usetm, count,
+									ditaval, useXliff20, alogger);
+						} catch (Exception e) {
+							alogger.displayError(e.getMessage());
+							e.printStackTrace();
+						}
 					}
 
 				};

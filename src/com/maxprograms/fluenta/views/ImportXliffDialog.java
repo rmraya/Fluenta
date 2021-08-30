@@ -14,7 +14,11 @@ package com.maxprograms.fluenta.views;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.Vector;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import com.maxprograms.fluenta.Fluenta;
 import com.maxprograms.fluenta.MainView;
@@ -44,6 +48,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.xml.sax.SAXException;
 
 public class ImportXliffDialog extends Dialog implements ILogger {
 
@@ -242,8 +247,14 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 
 					@Override
 					public void run() {
-						MainView.getController().importXliff(project, xliffDocument, targetFolder, updateTM,
-								acceptUnapproved, ignoreTags, clean, alogger);
+						try {
+							MainView.getController().importXliff(project, xliffDocument, targetFolder, updateTM,
+									acceptUnapproved, ignoreTags, clean, alogger);
+						} catch (NumberFormatException | ClassNotFoundException | IOException | SAXException
+								| ParserConfigurationException | SQLException | URISyntaxException e) {
+							alogger.displayError(e.getMessage());
+							e.printStackTrace();
+						}
 					}
 
 				};

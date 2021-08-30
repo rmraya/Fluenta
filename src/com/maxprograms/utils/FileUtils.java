@@ -14,6 +14,7 @@ package com.maxprograms.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
@@ -23,27 +24,27 @@ import com.maxprograms.converters.MTree;
 
 public class FileUtils {
 
-	public static String getAbsolutePath(String homeFile, String relative) throws IOException{
-	   	File home = new File(homeFile);
-	   	// If home is a file, get the parent
-	   	File result;
-	   	if (!home.isDirectory()){
-	   		home = home.getParentFile();
-	   	}
-	   	result = new File(home, relative);	   		
-	   	return result.getCanonicalPath();
+	public static String getAbsolutePath(String homeFile, String relative) throws IOException {
+		File home = new File(homeFile);
+		// If home is a file, get the parent
+		File result;
+		if (!home.isDirectory()) {
+			home = home.getParentFile();
+		}
+		result = new File(home, relative);
+		return result.getCanonicalPath();
 	}
 
-	public static String getRelativePath(String homeFile, String filename) throws Exception {
+	public static String getRelativePath(String homeFile, String filename) throws IOException {
 		File home = new File(homeFile);
 		// If home is a file, get the parent
 		if (!home.isDirectory()) {
 			if (home.getParent() != null) {
-				home = new File(home.getParent());	
+				home = new File(home.getParent());
 			} else {
-				home = new File(System.getProperty("user.dir"));  //$NON-NLS-1$
+				home = new File(System.getProperty("user.dir")); //$NON-NLS-1$
 			}
-			
+
 		}
 		File file = new File(filename);
 		if (!file.isAbsolute()) {
@@ -51,10 +52,11 @@ public class FileUtils {
 		}
 		// Check for relative path
 		if (!home.isAbsolute()) {
-			File f = new File (home.getAbsolutePath());
+			File f = new File(home.getAbsolutePath());
 			home = f;
 			if (!home.isAbsolute()) {
-				throw new Exception(Messages.getString("FileUtils.1")); //$NON-NLS-1$
+				MessageFormat mf = new MessageFormat(Messages.getString("FileUtils.1")); //$NON-NLS-1$
+				throw new IOException(mf.format(new Object[] { filename }));
 			}
 		}
 		Vector<String> homelist;
@@ -64,50 +66,50 @@ public class FileUtils {
 		filelist = getPathList(file);
 		return matchPathLists(homelist, filelist);
 	}
-	
-	private static Vector<String> getPathList(File file) throws IOException{
+
+	private static Vector<String> getPathList(File file) throws IOException {
 		Vector<String> list = new Vector<>();
 		File r;
 		r = file.getCanonicalFile();
-		while(r != null) {
+		while (r != null) {
 			list.add(r.getName());
 			r = r.getParentFile();
 		}
 		return list;
 	}
-	
+
 	private static String matchPathLists(Vector<String> r, Vector<String> f) {
 		int i;
 		int j;
-		String s = "";  //$NON-NLS-1$
+		String s = ""; //$NON-NLS-1$
 		// start at the beginning of the lists
 		// iterate while both lists are equal
-		i = r.size()-1;
-		j = f.size()-1;
+		i = r.size() - 1;
+		j = f.size() - 1;
 
 		// first eliminate common root
-		while(i >= 0&&j >= 0&&r.get(i).equals(f.get(j))) {
+		while (i >= 0 && j >= 0 && r.get(i).equals(f.get(j))) {
 			i--;
 			j--;
 		}
 
 		// for each remaining level in the home path, add a ..
-		for(;i>=0;i--) {
-			s += ".." + File.separator;  //$NON-NLS-1$
+		for (; i >= 0; i--) {
+			s += ".." + File.separator; //$NON-NLS-1$
 		}
 
 		// for each level in the file path, add the path
-		for(;j>=1;j--) {
+		for (; j >= 1; j--) {
 			s += f.get(j) + File.separator;
 		}
 
 		// file name
-		if ( j>=0 && j<f.size()) {
+		if (j >= 0 && j < f.size()) {
 			s += f.get(j);
 		}
 		return s;
 	}
-	
+
 	public static String findTreeRoot(TreeSet<String> set) {
 		String result = ""; //$NON-NLS-1$
 		MTree<String> tree = filesTree(set);
@@ -115,7 +117,7 @@ public class FileUtils {
 		while (root.size() == 1) {
 			result = result + root.getData();
 			root = root.getChild(0);
-		}		
+		}
 		return result;
 	}
 

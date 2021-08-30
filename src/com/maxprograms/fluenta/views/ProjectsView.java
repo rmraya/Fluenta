@@ -12,6 +12,7 @@
 
 package com.maxprograms.fluenta.views;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.Collator;
 import java.util.Arrays;
@@ -351,7 +352,7 @@ public class ProjectsView extends Composite {
 			return;
 		}
 		ProjectInfoDialog dialog = new ProjectInfoDialog(getShell(), SWT.DIALOG_TRIM | SWT.RESIZE,
-				(Project) table.getSelection()[0].getData("project")); //$NON-NLS-1$
+				(Project) table.getSelection()[0].getData("project")); // $NON-NLS-1$ //$NON-NLS-1$
 		dialog.show();
 	}
 
@@ -359,6 +360,14 @@ public class ProjectsView extends Composite {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
 			box.setMessage(Messages.getString("ProjectsView.24")); //$NON-NLS-1$
+			box.open();
+			return;
+		}
+		Project project = (Project) table.getSelection()[0].getData("project"); // $NON-NLS-1$ //$NON-NLS-1$
+		File map = new File(project.getMap());
+		if (!map.exists()) {
+			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
+			box.setMessage(Messages.getString("ProjectsView.4")); //$NON-NLS-1$
 			box.open();
 			return;
 		}

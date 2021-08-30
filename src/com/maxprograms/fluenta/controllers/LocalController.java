@@ -22,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -70,7 +71,6 @@ import com.maxprograms.fluenta.views.XmlPreferences;
 import com.maxprograms.languages.Language;
 import com.maxprograms.languages.LanguageUtils;
 import com.maxprograms.stats.RepetitionAnalysis;
-import com.maxprograms.tmengine.IDatabase;
 import com.maxprograms.tmengine.ILogger;
 import com.maxprograms.tmengine.InternalDatabase;
 import com.maxprograms.tmengine.MatchQuality;
@@ -172,7 +172,8 @@ public class LocalController {
 		}
 	}
 
-	public void createProject(Project p) throws IOException {
+	public void createProject(Project p)
+			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
 		if (projectdb == null) {
 			openProjects();
 		}
@@ -184,14 +185,9 @@ public class LocalController {
 			if (m.getId() == p.getId()) {
 				memoriesMap.put(m.getId(), m);
 				memorydb.commit();
-				try {
-					IDatabase database = getTMEngine(m.getId());
-					database.close();
-					projectdb.commit();
-				} catch (Exception e) {
-					LOGGER.log(Level.ERROR, e);
-					throw new IOException(e.getCause());
-				}
+				InternalDatabase database = getTMEngine(m.getId());
+				database.close();
+				projectdb.commit();
 				break;
 			}
 		}
@@ -240,7 +236,7 @@ public class LocalController {
 					throw new IOException(ex2.getMessage());
 				}
 			} else {
-				LOGGER.log(Level.ERROR, ex);				
+				LOGGER.log(Level.ERROR, ex);
 				throw new IOException(ex.getMessage());
 			}
 		}
@@ -253,14 +249,16 @@ public class LocalController {
 		projectdb.commit();
 	}
 
-	public IDatabase getTMEngine(long memoryId)
+	public InternalDatabase getTMEngine(long memoryId)
 			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
 		File f = new File(Preferences.getPreferencesDir(), "TMEngines"); //$NON-NLS-1$
 		return new InternalDatabase("" + memoryId, f.getAbsolutePath()); //$NON-NLS-1$
 	}
 
 	public void generateXliff(Project project, String xliffFolder, Vector<Language> tgtLangs, boolean useICE,
-			boolean useTM, boolean generateCount, String ditavalFile, boolean useXliff20, ILogger logger) {
+			boolean useTM, boolean generateCount, String ditavalFile, boolean useXliff20, ILogger logger)
+			throws IOException, SAXException, ParserConfigurationException, URISyntaxException, ClassNotFoundException,
+			SQLException {
 		Hashtable<String, String> params = new Hashtable<>();
 		params.put("source", project.getMap()); //$NON-NLS-1$
 		File map = new File(project.getMap());
@@ -272,32 +270,14 @@ public class LocalController {
 			params.put("ditaval", ditavalFile); //$NON-NLS-1$
 		}
 		File skldir;
-		try {
-			skldir = new File(Preferences.getPreferencesDir(), "" + project.getId()); //$NON-NLS-1$
-		} catch (IOException e2) {
-			e2.printStackTrace();
-			logger.displayError(e2.getMessage());
-			return;
-		}
+		skldir = new File(Preferences.getPreferencesDir(), "" + project.getId()); //$NON-NLS-1$
 		if (!skldir.exists()) {
 			skldir.mkdirs();
 		}
 		File skl;
-		try {
-			skl = File.createTempFile("temp", ".skl", skldir); //$NON-NLS-1$ //$NON-NLS-2$
-		} catch (IOException e2) {
-			e2.printStackTrace();
-			logger.displayError(e2.getMessage());
-			return;
-		}
+		skl = File.createTempFile("temp", ".skl", skldir); //$NON-NLS-1$ //$NON-NLS-2$
 		params.put("skeleton", skl.getAbsolutePath()); //$NON-NLS-1$
-		try {
-			params.put("catalog", Fluenta.getCatalogFile()); //$NON-NLS-1$
-		} catch (IOException e3) {
-			e3.printStackTrace();
-			logger.displayError(e3.getMessage());
-			return;
-		}
+		params.put("catalog", Fluenta.getCatalogFile()); //$NON-NLS-1$
 		params.put("customer", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		params.put("subject", ""); //$NON-NLS-1$ //$NON-NLS-2$
 		params.put("project", project.getTitle()); //$NON-NLS-1$
@@ -306,50 +286,26 @@ public class LocalController {
 		params.put("srcEncoding", EncodingResolver.getEncoding(project.getMap(), FileFormats.DITA).name()); //$NON-NLS-1$
 		params.put("paragraph", "no"); //$NON-NLS-1$ //$NON-NLS-2$
 		params.put("format", FileFormats.DITA); //$NON-NLS-1$
-		try {
-			params.put("srxFile", ProjectPreferences.getDefaultSRX()); //$NON-NLS-1$
-			params.put("translateComments", XmlPreferences.getTranslateComments() ? "yes" : "no"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		} catch (IOException e2) {
-			e2.printStackTrace();
-			logger.displayError(e2.getMessage());
-			return;
-		}
+		params.put("srxFile", ProjectPreferences.getDefaultSRX()); //$NON-NLS-1$
+		params.put("translateComments", XmlPreferences.getTranslateComments() ? "yes" : "no"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		logger.setStage(Messages.getString("LocalController.34")); //$NON-NLS-1$
 		logger.log(Messages.getString("LocalController.35")); //$NON-NLS-1$
 
 		List<String> result = Convert.run(params);
 		if (!result.get(0).equals(Constants.SUCCESS)) {
-			logger.displayError(result.get(1));
-			return;
+			throw new IOException(result.get(1));
 		}
-		try {
-			makeFilesRelative(xliffFile);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-			logger.displayError(Messages.getString("LocalController.37")); //$NON-NLS-1$
-			return;
-		}
+
+		makeFilesRelative(xliffFile);
 		logger.setStage(Messages.getString("LocalController.38")); //$NON-NLS-1$
 		MessageFormat mf = new MessageFormat(Messages.getString("LocalController.39")); //$NON-NLS-1$
 		for (int i = 0; i < tgtLangs.size(); i++) {
-			try {
-				logger.log(mf.format(
-						new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
-			} catch (Exception e1) {
-				e1.printStackTrace();
-				logger.displayError(Messages.getString("LocalController.4")); //$NON-NLS-1$
-				return;
-			}
+			logger.log(
+					mf.format(new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
 			String newName = getName(map.getName(), tgtLangs.get(i).getCode());
 			File newFile = new File(folder, newName);
-			try {
-				Files.copy(xliffFile.toPath(), newFile.toPath());
-				changeTargetLanguage(newFile, tgtLangs.get(i).getCode(), project);
-			} catch (IOException | SAXException | ParserConfigurationException e2) {
-				e2.printStackTrace();
-				logger.displayError(e2.getMessage());
-				return;
-			}
+			Files.copy(xliffFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			changeTargetLanguage(newFile, tgtLangs.get(i).getCode(), project);
 			int build = project.getNextBuild(tgtLangs.get(i).getCode());
 			project.getHistory().add(new ProjectEvent(ProjectEvent.XLIFF_CREATED, new Date(), tgtLangs.get(i), build));
 			project.setLanguageStatus(tgtLangs.get(i).getCode(), Project.IN_PROGRESS);
@@ -357,138 +313,105 @@ public class LocalController {
 		}
 		xliffFile.delete();
 		if (useICE) {
-			try {
-				MessageFormat icem = new MessageFormat(Messages.getString("LocalController.40")); //$NON-NLS-1$
-				for (int i = 0; i < tgtLangs.size(); i++) {
-					logger.setStage(icem.format(
-							new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() })); // $NON-NLS-1$
-					logger.log(Messages.getString("LocalController.41")); //$NON-NLS-1$
-					String newName = getName(map.getName(), tgtLangs.get(i).getCode());
-					File xliff = new File(folder, newName);
-					File previousBuild = getPreviousBuild(project, tgtLangs.get(i).getCode());
-					if (previousBuild != null) {
-						leverage(xliff, previousBuild, tgtLangs.get(i).getCode(), logger);
-					}
+			MessageFormat icem = new MessageFormat(Messages.getString("LocalController.40")); //$NON-NLS-1$
+			for (int i = 0; i < tgtLangs.size(); i++) {
+				logger.setStage(icem.format(
+						new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() })); // $NON-NLS-1$
+				logger.log(Messages.getString("LocalController.41")); //$NON-NLS-1$
+				String newName = getName(map.getName(), tgtLangs.get(i).getCode());
+				File xliff = new File(folder, newName);
+				File previousBuild = getPreviousBuild(project, tgtLangs.get(i).getCode());
+				if (previousBuild != null) {
+					leverage(xliff, previousBuild, tgtLangs.get(i).getCode(), logger);
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				logger.displayError(ex.getMessage());
-				return;
 			}
 		}
 		if (useTM) {
 			MessageFormat mftm = new MessageFormat(Messages.getString("LocalController.42")); //$NON-NLS-1$
 			for (int i = 0; i < tgtLangs.size(); i++) {
-				try {
-					logger.setStage(mftm.format(
-							new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					logger.displayError(Messages.getString("LocalController.5")); //$NON-NLS-1$
-					return;
-				}
+				logger.setStage(mftm.format(
+						new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
 
 				logger.log(Messages.getString("LocalController.43")); //$NON-NLS-1$
 				String targetName = getName(map.getName(), tgtLangs.get(i).getCode());
 				File targetXliff = new File(folder, targetName);
-				try {
-					SAXBuilder builder = new SAXBuilder();
-					builder.setEntityResolver(new Catalog(Fluenta.getCatalogFile()));
-					Document doc1 = builder.build(targetXliff);
-					Element root1 = doc1.getRootElement();
-					Element firstFile = root1.getChild("file"); //$NON-NLS-1$
-					if (firstFile == null) {
-						logger.displayError(Messages.getString("LocalController.45")); //$NON-NLS-1$
-						return;
-					}
-					sourceLang = firstFile.getAttributeValue("source-language"); //$NON-NLS-1$
-					targetLang = firstFile.getAttributeValue("target-language"); //$NON-NLS-1$
-					Vector<Element> segments = new Vector<>();
-					recurse(root1, segments);
-					Vector<Memory> mems = project.getMemories();
-					Vector<IDatabase> dbs = new Vector<>();
-					for (int i2 = 0; i2 < mems.size(); i2++) {
-						dbs.add(getTMEngine(mems.get(i2).getId()));
-					}
-					MessageFormat mf2 = new MessageFormat(Messages.getString("LocalController.46")); //$NON-NLS-1$
-					Iterator<Element> it = segments.iterator();
-					int count = 0;
-					while (it.hasNext()) {
-						if (count % 200 == 0) {
-							logger.log(mf2.format(new Object[] { "" + count, "" + segments.size() })); //$NON-NLS-1$ //$NON-NLS-2$
-						}
-						Element seg = it.next();
-						if (seg.getAttributeValue("approved", "no").equalsIgnoreCase("yes")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-							continue;
-						}
-						Vector<Element> matches = new Vector<>();
-						Vector<Element> res = null;
-						for (int i2 = 0; i2 < dbs.size(); i2++) {
-							res = searchText(dbs.get(i2), seg, sourceLang, targetLang, 70f, true);
-							if (res != null && res.size() > 0) {
-								matches.addAll(res);
-							}
-						}
-						if (matches.size() > 1) {
-							matches = MemUtils.sortMatches(matches);
-						}
-						int max = matches.size();
-						if (max > 10) {
-							max = 10;
-						}
-						for (int i2 = 0; i2 < max; i2++) {
-							Element match = matches.get(i2);
-							try {
-								if (Float.parseFloat(match.getAttributeValue("match-quality")) >= 70) { //$NON-NLS-1$
-									seg.addContent(match);
-								}
-							} catch (Exception e) {
-								// do nothing
-							}
-						}
-						count++;
-					}
-					logger.log(mf2.format(new Object[] { "" + segments.size(), "" + segments.size() })); //$NON-NLS-1$ //$NON-NLS-2$
-					for (int i2 = 0; i2 < dbs.size(); i2++) {
-						IDatabase db = dbs.get(i2);
-						db.close();
-					}
-					try (FileOutputStream out = new FileOutputStream(targetXliff)) {
-						XMLOutputter outputter = new XMLOutputter();
-						outputter.preserveSpace(true);
-						outputter.output(doc1, out);
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-					System.err.println(ex.getMessage());
-					logger.displayError(ex.getMessage());
+				SAXBuilder builder = new SAXBuilder();
+				builder.setEntityResolver(new Catalog(Fluenta.getCatalogFile()));
+				Document doc1 = builder.build(targetXliff);
+				Element root1 = doc1.getRootElement();
+				Element firstFile = root1.getChild("file"); //$NON-NLS-1$
+				if (firstFile == null) {
+					logger.displayError(Messages.getString("LocalController.45")); //$NON-NLS-1$
 					return;
+				}
+				sourceLang = firstFile.getAttributeValue("source-language"); //$NON-NLS-1$
+				targetLang = firstFile.getAttributeValue("target-language"); //$NON-NLS-1$
+				Vector<Element> segments = new Vector<>();
+				recurse(root1, segments);
+				Vector<Memory> mems = project.getMemories();
+				Vector<InternalDatabase> dbs = new Vector<>();
+				for (int i2 = 0; i2 < mems.size(); i2++) {
+					dbs.add(getTMEngine(mems.get(i2).getId()));
+				}
+				MessageFormat mf2 = new MessageFormat(Messages.getString("LocalController.46")); //$NON-NLS-1$
+				Iterator<Element> it = segments.iterator();
+				int count = 0;
+				while (it.hasNext()) {
+					if (count % 200 == 0) {
+						logger.log(mf2.format(new Object[] { "" + count, "" + segments.size() })); //$NON-NLS-1$ //$NON-NLS-2$
+					}
+					Element seg = it.next();
+					if (seg.getAttributeValue("approved", "no").equalsIgnoreCase("yes")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						continue;
+					}
+					Vector<Element> matches = new Vector<>();
+					Vector<Element> res = null;
+					for (int i2 = 0; i2 < dbs.size(); i2++) {
+						res = searchText(dbs.get(i2), seg, sourceLang, targetLang, 70f, true);
+						if (res != null && res.size() > 0) {
+							matches.addAll(res);
+						}
+					}
+					if (matches.size() > 1) {
+						matches = MemUtils.sortMatches(matches);
+					}
+					int max = matches.size();
+					if (max > 10) {
+						max = 10;
+					}
+					for (int i2 = 0; i2 < max; i2++) {
+						Element match = matches.get(i2);
+						try {
+							if (Float.parseFloat(match.getAttributeValue("match-quality")) >= 70) { //$NON-NLS-1$
+								seg.addContent(match);
+							}
+						} catch (Exception e) {
+							// do nothing
+						}
+					}
+					count++;
+				}
+				logger.log(mf2.format(new Object[] { "" + segments.size(), "" + segments.size() })); //$NON-NLS-1$ //$NON-NLS-2$
+				for (int i2 = 0; i2 < dbs.size(); i2++) {
+					InternalDatabase db = dbs.get(i2);
+					db.close();
+				}
+				try (FileOutputStream out = new FileOutputStream(targetXliff)) {
+					XMLOutputter outputter = new XMLOutputter();
+					outputter.preserveSpace(true);
+					outputter.output(doc1, out);
 				}
 			}
 		}
 		if (generateCount) {
 			MessageFormat mf3 = new MessageFormat(Messages.getString("LocalController.54")); //$NON-NLS-1$
 			for (int i = 0; i < tgtLangs.size(); i++) {
-				try {
-					logger.setStage(mf3.format(
-							new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					logger.displayError(Messages.getString("LocalController.6")); //$NON-NLS-1$
-					return;
-				}
-
+				logger.setStage(mf3.format(
+						new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
 				String targetName = getName(map.getName(), tgtLangs.get(i).getCode());
 				File targetXliff = new File(folder, targetName);
-				try {
-					RepetitionAnalysis analysis = new RepetitionAnalysis();
-					analysis.analyse(targetXliff.getAbsolutePath(), Fluenta.getCatalogFile());
-				} catch (IOException | ParserConfigurationException | SAXException | URISyntaxException ex) {
-					ex.printStackTrace();
-					System.err.println(ex.getMessage());
-					logger.displayError(ex.getMessage());
-					return;
-				}
+				RepetitionAnalysis analysis = new RepetitionAnalysis();
+				analysis.analyse(targetXliff.getAbsolutePath(), Fluenta.getCatalogFile());
 			}
 		}
 		logger.displaySuccess(Messages.getString("LocalController.55")); //$NON-NLS-1$
@@ -498,23 +421,16 @@ public class LocalController {
 				String targetName = getName(map.getName(), tgtLangs.get(i).getCode());
 				File targetXliff = new File(folder, targetName);
 				logger.log(targetXliff.getAbsolutePath());
-				try {
-					result = ToXliff2.run(targetXliff, Fluenta.getCatalogFile());
-					if (!result.get(0).equals(Constants.SUCCESS)) { // $NON-NLS-1$
-						logger.displayError(result.get(1));
-						return;
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-					System.err.println(ex.getMessage());
-					logger.displayError(ex.getMessage());
-					return;
+				result = ToXliff2.run(targetXliff, Fluenta.getCatalogFile());
+				if (!result.get(0).equals(Constants.SUCCESS)) { // $NON-NLS-1$
+					throw new IOException(result.get(1));
 				}
 			}
 		}
 	}
 
-	private void leverage(File xliff, File previousBuild, String targetLanguage, ILogger logger) throws Exception {
+	private void leverage(File xliff, File previousBuild, String targetLanguage, ILogger logger)
+			throws IOException, SAXException, ParserConfigurationException {
 
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(xliff);
@@ -678,7 +594,8 @@ public class LocalController {
 		return bestMatch;
 	}
 
-	private static void makeFilesRelative(File xliffFile) throws Exception {
+	private static void makeFilesRelative(File xliffFile)
+			throws IOException, SAXException, ParserConfigurationException {
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(xliffFile);
 		Element root = doc.getRootElement();
@@ -746,228 +663,221 @@ public class LocalController {
 	}
 
 	public void importXliff(Project project, String xliffDocument, String targetFolder, boolean updateTM,
-			boolean acceptUnapproved, boolean ignoreTagErrors, boolean cleanAttributes, ILogger logger) {
-		try {
-			logger.setStage(Messages.getString("LocalController.123")); //$NON-NLS-1$
+			boolean acceptUnapproved, boolean ignoreTagErrors, boolean cleanAttributes, ILogger logger)
+			throws NumberFormatException, IOException, SAXException, ParserConfigurationException,
+			ClassNotFoundException, SQLException, URISyntaxException {
 
-			String workDocument = checkXliffVersion(xliffDocument);
+		logger.setStage(Messages.getString("LocalController.123")); //$NON-NLS-1$
 
-			Document doc = loadXliff(workDocument);
-			Element root = doc.getRootElement();
-			removeAltTrans(root);
-			if (!xliffDocument.equals(workDocument)) {
-				// XLIFF 2.0
-				acceptUnapproved = true;
-			}
-			if (acceptUnapproved) {
-				approveAll(root);
-			}
-			if (!ignoreTagErrors) {
-				String tagErrors = checkTags(root);
-				if (!tagErrors.equals("")) { //$NON-NLS-1$
-					tagErrors = Messages.getString("LocalController.2") + "\n\n"; //$NON-NLS-1$ //$NON-NLS-2$
-					String report = TagErrorsReport.run(workDocument);
-					if (logger instanceof AsyncLogger) {
-						((AsyncLogger) logger).displayReport(tagErrors, report);
-					} else {
-						logger.displayError(tagErrors);
-					}
-					return;
+		String workDocument = checkXliffVersion(xliffDocument);
+
+		Document doc = loadXliff(workDocument);
+		Element root = doc.getRootElement();
+		removeAltTrans(root);
+		if (!xliffDocument.equals(workDocument)) {
+			// XLIFF 2.0
+			acceptUnapproved = true;
+		}
+		if (acceptUnapproved) {
+			approveAll(root);
+		}
+		if (!ignoreTagErrors) {
+			String tagErrors = checkTags(root);
+			if (!tagErrors.equals("")) { //$NON-NLS-1$
+				tagErrors = Messages.getString("LocalController.2") + "\n\n"; //$NON-NLS-1$ //$NON-NLS-2$
+				String report = TagErrorsReport.run(workDocument);
+				if (logger instanceof AsyncLogger) {
+					((AsyncLogger) logger).displayReport(tagErrors, report);
+				} else {
+					logger.displayError(tagErrors);
 				}
+				return;
 			}
-			if (!xliffDocument.equals(workDocument)) {
-				// save changes
-				XMLOutputter outputter = new XMLOutputter();
-				outputter.preserveSpace(true);
-				Indenter.indent(root, 2);
-				try (FileOutputStream outputFile = new FileOutputStream(workDocument)) {
-					outputter.output(doc, outputFile);
-				}
+		}
+		if (!xliffDocument.equals(workDocument)) {
+			// save changes
+			XMLOutputter outputter = new XMLOutputter();
+			outputter.preserveSpace(true);
+			Indenter.indent(root, 2);
+			try (FileOutputStream outputFile = new FileOutputStream(workDocument)) {
+				outputter.output(doc, outputFile);
 			}
-			String[] toolData = getToolData(root);
-			String targetLanguage = toolData[0];
-			Vector<Language> langs = project.getTgtLanguages();
-			boolean found = false;
+		}
+		String[] toolData = getToolData(root);
+		String targetLanguage = toolData[0];
+		Vector<Language> langs = project.getTgtLanguages();
+		boolean found = false;
+		for (int i = 0; i < langs.size(); i++) {
+			Language l = langs.get(i);
+			if (l.getCode().equals(targetLanguage)) {
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
 			for (int i = 0; i < langs.size(); i++) {
 				Language l = langs.get(i);
-				if (l.getCode().equals(targetLanguage)) {
+				if (targetLanguage.toLowerCase().startsWith(l.getCode().toLowerCase())) {
+					targetLanguage = l.getCode();
 					found = true;
 					break;
 				}
 			}
-			if (!found) {
-				for (int i = 0; i < langs.size(); i++) {
-					Language l = langs.get(i);
-					if (targetLanguage.toLowerCase().startsWith(l.getCode().toLowerCase())) {
-						targetLanguage = l.getCode();
-						found = true;
-						break;
-					}
-				}
-			}
-			if (!found) {
-				logger.displayError(Messages.getString("LocalController.0")); //$NON-NLS-1$
-				return;
-			}
-			String projectID = toolData[1];
-			String build = toolData[2];
-			if (!projectID.equals("" + project.getId())) { //$NON-NLS-1$
-				logger.displayError(Messages.getString("LocalController.125")); //$NON-NLS-1$
-				return;
-			}
-			String encoding = getEncoding(root);
-			TreeSet<String> fileSet = getFileSet(root);
-			if (fileSet.size() != 1) {
-				File f = new File(targetFolder);
-				if (f.exists()) {
-					if (!f.isDirectory()) {
-						logger.displayError(Messages.getString("LocalController.126")); //$NON-NLS-1$
-						return;
-					}
-				} else {
-					f.mkdirs();
-				}
-			}
-			Iterator<String> it = fileSet.iterator();
-			Vector<Hashtable<String, String>> paramsList = new Vector<>();
-			logger.setStage(Messages.getString("LocalController.127")); //$NON-NLS-1$
-			Vector<String> targetFiles = new Vector<>();
-			while (it.hasNext()) {
-				if (logger.isCancelled()) {
-					logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
+		}
+		if (!found) {
+			logger.displayError(Messages.getString("LocalController.0")); //$NON-NLS-1$
+			return;
+		}
+		String projectID = toolData[1];
+		String build = toolData[2];
+		if (!projectID.equals("" + project.getId())) { //$NON-NLS-1$
+			logger.displayError(Messages.getString("LocalController.125")); //$NON-NLS-1$
+			return;
+		}
+		String encoding = getEncoding(root);
+		TreeSet<String> fileSet = getFileSet(root);
+		if (fileSet.size() != 1) {
+			File f = new File(targetFolder);
+			if (f.exists()) {
+				if (!f.isDirectory()) {
+					logger.displayError(Messages.getString("LocalController.126")); //$NON-NLS-1$
 					return;
 				}
-				String file = it.next();
-				File xliff = File.createTempFile("temp", ".xlf"); //$NON-NLS-1$ //$NON-NLS-2$
-				encoding = saveXliff(file, xliff, root);
-				Hashtable<String, String> params = new Hashtable<>();
-				params.put("xliff", xliff.getAbsolutePath()); //$NON-NLS-1$
-				if (fileSet.size() == 1) {
-					params.put("backfile", targetFolder); //$NON-NLS-1$
-				} else {
-					String backfile = FileUtils.getAbsolutePath(targetFolder, file);
-					logger.log(backfile);
-					params.put("backfile", backfile); //$NON-NLS-1$
-				}
-				params.put("encoding", encoding); //$NON-NLS-1$
-				params.put("catalog", Fluenta.getCatalogFile()); //$NON-NLS-1$
-				String dataType = root.getChild("file").getAttributeValue("datatype", FileFormats.DITA); //$NON-NLS-1$ //$NON-NLS-2$
-				params.put("format", dataType); //$NON-NLS-1$
-				paramsList.add(params);
-				targetFiles.add(params.get("backfile")); //$NON-NLS-1$
+			} else {
+				f.mkdirs();
 			}
-			logger.setStage(Messages.getString("LocalController.138")); //$NON-NLS-1$
-			for (int i = 0; i < paramsList.size(); i++) {
-				if (logger.isCancelled()) {
-					logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
-					return;
-				}
-				Hashtable<String, String> par = paramsList.get(i);
-				String backfile = par.get("backfile"); //$NON-NLS-1$
-				logger.log(backfile.substring(backfile.lastIndexOf(System.getProperty("file.separator")))); //$NON-NLS-1$
-				List<String> result = xliffToOriginal(par);
-				if (!"0".equals(result.get(0))) { //$NON-NLS-1$
-					String error = result.get(1);
-					if (error == null) {
-						error = Messages.getString("LocalController.142"); //$NON-NLS-1$
-					}
-					root = null;
-					logger.displayError(error);
-					return;
-				}
-				File f = new File(paramsList.get(i).get("xliff")); //$NON-NLS-1$
-				Files.delete(Paths.get(f.toURI()));
-			}
-			if (updateTM) {
-				if (logger.isCancelled()) {
-					logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
-					return;
-				}
-				logger.setStage(Messages.getString("LocalController.144")); //$NON-NLS-1$
-				logger.log(""); //$NON-NLS-1$
-				logger.log(xliffDocument.substring(0, xliffDocument.lastIndexOf('.')) + ".tmx"); //$NON-NLS-1$
-				String tmxFile = xliffDocument.substring(0, xliffDocument.lastIndexOf('.')) + ".tmx"; //$NON-NLS-1$
-				TMXExporter.export(workDocument, tmxFile, acceptUnapproved);
-				logger.setStage(Messages.getString("LocalController.148")); //$NON-NLS-1$
-				Memory m = getMemory(project.getId());
-				if (m != null) {
-					IDatabase database = getTMEngine(m.getId());
-					int[] result = database.storeTMX(tmxFile, System.getProperty("user.name"), project.getTitle(), "", //$NON-NLS-1$ //$NON-NLS-2$
-							"", false, logger); //$NON-NLS-1$
-					database.close();
-					database = null;
-					MessageFormat mf = new MessageFormat(Messages.getString("LocalController.152")); //$NON-NLS-1$
-					logger.log(mf.format(new Object[] { result[0], result[1] }));
-					m.setLastUpdate(new Date());
-					updateMemory(m);
-				} else {
-					logger.displayError(Messages.getString("LocalController.153")); //$NON-NLS-1$
-					return;
-				}
-			}
-			if (cleanAttributes) {
-				logger.setStage(Messages.getString("LocalController.3")); //$NON-NLS-1$
-				logger.log(""); //$NON-NLS-1$
-
-				SAXBuilder builder = new SAXBuilder();
-				Catalog catalog = new Catalog(Fluenta.getCatalogFile());
-				builder.setEntityResolver(catalog);
-
-				XMLOutputter outputter = new XMLOutputter();
-				outputter.preserveSpace(true);
-
-				for (int i = 0; i < targetFiles.size(); i++) {
-					if (logger.isCancelled()) {
-						logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
-						return;
-					}
-					String target = targetFiles.get(i);
-					logger.log(target);
-					Document d = builder.build(target);
-					Element r = d.getRootElement();
-					if (r.getName().equals("svg")) { //$NON-NLS-1$
-						continue;
-					}
-					recurse(r);
-					try (FileOutputStream out = new FileOutputStream(new File(target))) {
-						outputter.output(d, out);
-					}
-				}
-			}
-			File fluenta = Preferences.getPreferencesDir();
-			File projectFolder = new File(fluenta, "" + project.getId()); //$NON-NLS-1$
-			File languageFolder = new File(projectFolder, targetLanguage);
-			if (!languageFolder.exists()) {
-				languageFolder.mkdirs();
-			}
+		}
+		Iterator<String> it = fileSet.iterator();
+		Vector<Hashtable<String, String>> paramsList = new Vector<>();
+		logger.setStage(Messages.getString("LocalController.127")); //$NON-NLS-1$
+		Vector<String> targetFiles = new Vector<>();
+		while (it.hasNext()) {
 			if (logger.isCancelled()) {
 				logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
 				return;
 			}
-			logger.setStage(Messages.getString("LocalController.155")); //$NON-NLS-1$
-			logger.log(Messages.getString("LocalController.156")); //$NON-NLS-1$
-			try (FileOutputStream output = new FileOutputStream(new File(languageFolder, "build_" + build + ".xlf"))) { //$NON-NLS-1$ //$NON-NLS-2$
-				XMLOutputter outputter = new XMLOutputter();
-				outputter.preserveSpace(true);
-				outputter.output(doc, output);
+			String file = it.next();
+			File xliff = File.createTempFile("temp", ".xlf"); //$NON-NLS-1$ //$NON-NLS-2$
+			encoding = saveXliff(file, xliff, root);
+			Hashtable<String, String> params = new Hashtable<>();
+			params.put("xliff", xliff.getAbsolutePath()); //$NON-NLS-1$
+			if (fileSet.size() == 1) {
+				params.put("backfile", targetFolder); //$NON-NLS-1$
+			} else {
+				String backfile = FileUtils.getAbsolutePath(targetFolder, file);
+				logger.log(backfile);
+				params.put("backfile", backfile); //$NON-NLS-1$
 			}
-			if (!xliffDocument.equals(workDocument)) {
-				File f = new File(workDocument);
-				Files.delete(Paths.get(f.toURI()));
+			params.put("encoding", encoding); //$NON-NLS-1$
+			params.put("catalog", Fluenta.getCatalogFile()); //$NON-NLS-1$
+			String dataType = root.getChild("file").getAttributeValue("datatype", FileFormats.DITA); //$NON-NLS-1$ //$NON-NLS-2$
+			params.put("format", dataType); //$NON-NLS-1$
+			paramsList.add(params);
+			targetFiles.add(params.get("backfile")); //$NON-NLS-1$
+		}
+		logger.setStage(Messages.getString("LocalController.138")); //$NON-NLS-1$
+		for (int i = 0; i < paramsList.size(); i++) {
+			if (logger.isCancelled()) {
+				logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
+				return;
 			}
-			project.getHistory().add(new ProjectEvent(ProjectEvent.XLIFF_IMPORTED, new Date(),
-					LanguageUtils.getLanguage(targetLanguage), Integer.parseInt(build)));
-			project.setLanguageStatus(targetLanguage, Project.COMPLETED);
-			updateProject(project);
-		} catch (Exception e) {
-			e.printStackTrace();
-			String error = e.getMessage();
-			if (error == null) {
-				error = Messages.getString("LocalController.159"); //$NON-NLS-1$
+			Hashtable<String, String> par = paramsList.get(i);
+			String backfile = par.get("backfile"); //$NON-NLS-1$
+			logger.log(backfile.substring(backfile.lastIndexOf(System.getProperty("file.separator")))); //$NON-NLS-1$
+			List<String> result = xliffToOriginal(par);
+			if (!"0".equals(result.get(0))) { //$NON-NLS-1$
+				String error = result.get(1);
+				if (error == null) {
+					error = Messages.getString("LocalController.142"); //$NON-NLS-1$
+				}
+				root = null;
+				logger.displayError(error);
+				return;
 			}
-			logger.displayError(error);
+			File f = new File(paramsList.get(i).get("xliff")); //$NON-NLS-1$
+			Files.delete(Paths.get(f.toURI()));
+		}
+		if (updateTM) {
+			if (logger.isCancelled()) {
+				logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
+				return;
+			}
+			logger.setStage(Messages.getString("LocalController.144")); //$NON-NLS-1$
+			logger.log(""); //$NON-NLS-1$
+			logger.log(xliffDocument.substring(0, xliffDocument.lastIndexOf('.')) + ".tmx"); //$NON-NLS-1$
+			String tmxFile = xliffDocument.substring(0, xliffDocument.lastIndexOf('.')) + ".tmx"; //$NON-NLS-1$
+			TMXExporter.export(workDocument, tmxFile, acceptUnapproved);
+			logger.setStage(Messages.getString("LocalController.148")); //$NON-NLS-1$
+			Memory m = getMemory(project.getId());
+			if (m != null) {
+				InternalDatabase database = getTMEngine(m.getId());
+				int[] result = database.storeTMX(tmxFile, System.getProperty("user.name"), project.getTitle(), "", //$NON-NLS-1$ //$NON-NLS-2$
+						"", false, logger); //$NON-NLS-1$
+				database.close();
+				database = null;
+				MessageFormat mf = new MessageFormat(Messages.getString("LocalController.152")); //$NON-NLS-1$
+				logger.log(mf.format(new Object[] { result[0], result[1] }));
+				m.setLastUpdate(new Date());
+				updateMemory(m);
+			} else {
+				logger.displayError(Messages.getString("LocalController.153")); //$NON-NLS-1$
+				return;
+			}
+		}
+		if (cleanAttributes) {
+			logger.setStage(Messages.getString("LocalController.3")); //$NON-NLS-1$
+			logger.log(""); //$NON-NLS-1$
+
+			SAXBuilder builder = new SAXBuilder();
+			Catalog catalog = new Catalog(Fluenta.getCatalogFile());
+			builder.setEntityResolver(catalog);
+
+			XMLOutputter outputter = new XMLOutputter();
+			outputter.preserveSpace(true);
+
+			for (int i = 0; i < targetFiles.size(); i++) {
+				if (logger.isCancelled()) {
+					logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
+					return;
+				}
+				String target = targetFiles.get(i);
+				logger.log(target);
+				Document d = builder.build(target);
+				Element r = d.getRootElement();
+				if (r.getName().equals("svg")) { //$NON-NLS-1$
+					continue;
+				}
+				recurse(r);
+				try (FileOutputStream out = new FileOutputStream(new File(target))) {
+					outputter.output(d, out);
+				}
+			}
+		}
+		File fluenta = Preferences.getPreferencesDir();
+		File projectFolder = new File(fluenta, "" + project.getId()); //$NON-NLS-1$
+		File languageFolder = new File(projectFolder, targetLanguage);
+		if (!languageFolder.exists()) {
+			languageFolder.mkdirs();
+		}
+		if (logger.isCancelled()) {
+			logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
 			return;
 		}
+		logger.setStage(Messages.getString("LocalController.155")); //$NON-NLS-1$
+		logger.log(Messages.getString("LocalController.156")); //$NON-NLS-1$
+		try (FileOutputStream output = new FileOutputStream(new File(languageFolder, "build_" + build + ".xlf"))) { //$NON-NLS-1$ //$NON-NLS-2$
+			XMLOutputter outputter = new XMLOutputter();
+			outputter.preserveSpace(true);
+			outputter.output(doc, output);
+		}
+		if (!xliffDocument.equals(workDocument)) {
+			File f = new File(workDocument);
+			Files.delete(Paths.get(f.toURI()));
+		}
+		project.getHistory().add(new ProjectEvent(ProjectEvent.XLIFF_IMPORTED, new Date(),
+				LanguageUtils.getLanguage(targetLanguage), Integer.parseInt(build)));
+		project.setLanguageStatus(targetLanguage, Project.COMPLETED);
+		updateProject(project);
 		logger.displaySuccess(Messages.getString("LocalController.160")); //$NON-NLS-1$
 	}
 
@@ -1272,7 +1182,7 @@ public class LocalController {
 			if (temporary != null) {
 				Files.delete(Paths.get(temporary.toURI()));
 			}
-		} catch (Exception e) {
+		} catch (IOException | SAXException | ParserConfigurationException | URISyntaxException e) {
 			result.add(0, "1"); //$NON-NLS-1$
 			result.add(1, e.getMessage());
 		}
@@ -1337,7 +1247,7 @@ public class LocalController {
 		return result;
 	}
 
-	private void removeGroups(Element e, Document d) throws Exception {
+	private void removeGroups(Element e, Document d) {
 		List<XMLNode> children = e.getContent();
 		for (int i = 0; i < children.size(); i++) {
 			XMLNode n = children.get(i);
@@ -1366,15 +1276,11 @@ public class LocalController {
 		if (!root.getName().equals("xliff")) { //$NON-NLS-1$
 			throw new IOException(Messages.getString("LocalController.250")); //$NON-NLS-1$
 		}
-		try {
-			Element tool = root.getChild("file").getChild("header").getChild("tool"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			if (tool == null) {
-				throw new IOException(Messages.getString("LocalController.254")); //$NON-NLS-1$
-			}
-			if (!tool.getAttributeValue("tool-id").equals("OpenXLIFF")) { //$NON-NLS-1$ //$NON-NLS-2$
-				throw new IOException(Messages.getString("LocalController.254")); //$NON-NLS-1$
-			}
-		} catch (Exception e) {
+		Element tool = root.getChild("file").getChild("header").getChild("tool"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		if (tool == null) {
+			throw new IOException(Messages.getString("LocalController.254")); //$NON-NLS-1$
+		}
+		if (!tool.getAttributeValue("tool-id").equals("OpenXLIFF")) { //$NON-NLS-1$ //$NON-NLS-2$
 			throw new IOException(Messages.getString("LocalController.254")); //$NON-NLS-1$
 		}
 		checkXliffMarkup(doc.getRootElement());
@@ -1476,24 +1382,20 @@ public class LocalController {
 		out.write(string.getBytes("UTF-8")); //$NON-NLS-1$
 	}
 
-	public void importTMX(Memory memory, String tmxFile, ILogger logger) {
-		try {
-			logger.setStage(Messages.getString("LocalController.272")); //$NON-NLS-1$
-			logger.log(Messages.getString("LocalController.273")); //$NON-NLS-1$
-			IDatabase database = getTMEngine(memory.getId());
-			int[] res = database.storeTMX(tmxFile, System.getProperty("user.name"), "", "", "", false, logger); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-			database.close();
-			database = null;
-			MessageFormat mf = new MessageFormat(
-					Messages.getString("LocalController.278") + "\n" + Messages.getString("LocalController.279")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			String result = mf.format(new Object[] { "" + res[0], "" + res[1] }); //$NON-NLS-1$ //$NON-NLS-2$
-			memory.setLastUpdate(new Date());
-			updateMemory(memory);
-			logger.displaySuccess(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.displayError(Messages.getString("LocalController.281")); //$NON-NLS-1$
-		}
+	public void importTMX(Memory memory, String tmxFile, ILogger logger)
+			throws SQLException, ClassNotFoundException, IOException, SAXException, ParserConfigurationException {
+		logger.setStage(Messages.getString("LocalController.272")); //$NON-NLS-1$
+		logger.log(Messages.getString("LocalController.273")); //$NON-NLS-1$
+		InternalDatabase database = getTMEngine(memory.getId());
+		int[] res = database.storeTMX(tmxFile, System.getProperty("user.name"), "", "", "", false, logger); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		database.close();
+		database = null;
+		MessageFormat mf = new MessageFormat(
+				Messages.getString("LocalController.278") + "\n" + Messages.getString("LocalController.279")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		String result = mf.format(new Object[] { "" + res[0], "" + res[1] }); //$NON-NLS-1$ //$NON-NLS-2$
+		memory.setLastUpdate(new Date());
+		updateMemory(memory);
+		logger.displaySuccess(result);
 	}
 
 	public void updateMemory(Memory m) {
@@ -1508,7 +1410,7 @@ public class LocalController {
 		return memoriesMap.get(id);
 	}
 
-	private Vector<Element> searchText(IDatabase db, Element seg, String sourcelang, String targetlang,
+	private Vector<Element> searchText(InternalDatabase db, Element seg, String sourcelang, String targetlang,
 			float fuzzyLevel, boolean caseSensitive) throws SAXException, IOException, ParserConfigurationException {
 		if (validCtypes == null) {
 			validCtypes = new Hashtable<>();
@@ -1530,7 +1432,7 @@ public class LocalController {
 		return searchTranslations(db, seg, sourcelang, targetlang, fuzzyLevel, caseSensitive);
 	}
 
-	private Vector<Element> searchTranslations(IDatabase database, Element seg, String srcLang, String tgtLang,
+	private Vector<Element> searchTranslations(InternalDatabase database, Element seg, String srcLang, String tgtLang,
 			float fuzzyLevel, boolean caseSensitive) throws SAXException, IOException, ParserConfigurationException {
 
 		Hashtable<String, Element> existingMatches = new Hashtable<>();
@@ -2141,8 +2043,9 @@ public class LocalController {
 		}
 	}
 
-	public void exportTMX(Memory memory, String file) throws Exception {
-		IDatabase database = getTMEngine(memory.getId());
+	public void exportTMX(Memory memory, String file)
+			throws ClassNotFoundException, IOException, SQLException, SAXException, ParserConfigurationException {
+		InternalDatabase database = getTMEngine(memory.getId());
 		Set<String> languages = database.getAllLanguages();
 		String langs = ""; //$NON-NLS-1$
 		Iterator<String> it = languages.iterator();

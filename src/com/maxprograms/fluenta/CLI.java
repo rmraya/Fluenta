@@ -17,15 +17,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import java.net.URISyntaxException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.Date;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import com.maxprograms.utils.Preferences;
+
+import org.xml.sax.SAXException;
 
 public class CLI {
 
@@ -113,7 +119,8 @@ public class CLI {
 		if (addProject) {
 			try {
 				API.addProject(addFile);
-			} catch (IOException e) {
+			} catch (IOException | ClassNotFoundException | SQLException | SAXException
+					| ParserConfigurationException e) {
 				LOGGER.log(Level.ERROR, "Error adding project", e); //$NON-NLS-1$
 				System.exit(3);
 			}
@@ -130,7 +137,8 @@ public class CLI {
 		if (generateXLIFF) {
 			try {
 				API.generateXLIFF(genXliffFile, verbose);
-			} catch (IOException ioe) {
+			} catch (IOException | ClassNotFoundException | SAXException | ParserConfigurationException
+					| URISyntaxException | SQLException ioe) {
 				LOGGER.log(Level.ERROR, "Error generating XLIFF", ioe); //$NON-NLS-1$
 				System.exit(3);
 			}
@@ -138,7 +146,8 @@ public class CLI {
 		if (importXLIFF) {
 			try {
 				API.importXLIFF(xliffFile, verbose);
-			} catch (IOException ioe) {
+			} catch (IOException | NumberFormatException | ClassNotFoundException | SAXException
+					| ParserConfigurationException | SQLException | URISyntaxException ioe) {
 				LOGGER.log(Level.ERROR, "Error importing XLIFF", ioe); //$NON-NLS-1$
 				System.exit(3);
 			}

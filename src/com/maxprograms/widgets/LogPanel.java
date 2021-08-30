@@ -20,6 +20,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 
 import com.maxprograms.tmengine.ILogger;
 
@@ -33,10 +34,10 @@ public class LogPanel extends Composite implements ILogger {
 
 	public LogPanel(Composite parent, int style) {
 		super(parent, style);
-		
+
 		setLayout(new GridLayout());
-		display = parent.getDisplay();		
-		
+		display = parent.getDisplay();
+
 		stage = new Label(this, SWT.NONE);
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = 300;
@@ -59,7 +60,7 @@ public class LogPanel extends Composite implements ILogger {
 		display.update();
 		display.sleep();
 	}
-	
+
 	@Override
 	public void setStage(String value) {
 		stage.setText(value);
@@ -86,12 +87,14 @@ public class LogPanel extends Composite implements ILogger {
 
 	@Override
 	public void displayError(String string) {
-		// do nothing		
+		MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
+		box.setMessage(string);
+		box.open();
 	}
 
 	@Override
 	public void displaySuccess(String string) {
-		// do nothing		
+		// do nothing
 	}
 
 }

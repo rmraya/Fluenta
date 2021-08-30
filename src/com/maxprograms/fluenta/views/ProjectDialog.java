@@ -14,6 +14,7 @@ package com.maxprograms.fluenta.views;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
@@ -486,7 +487,8 @@ public class ProjectDialog extends Dialog {
 					p.getMemories().add(m);
 					try {
 						MainView.getController().createProject(p);
-					} catch (IOException e) {
+					} catch (IOException | ClassNotFoundException | SQLException | SAXException
+							| ParserConfigurationException e) {
 						e.printStackTrace();
 						MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
 						box.setMessage(Messages.getString("ProjectDialog.48")); //$NON-NLS-1$

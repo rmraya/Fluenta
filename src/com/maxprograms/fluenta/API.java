@@ -17,10 +17,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import com.maxprograms.fluenta.controllers.LocalController;
 import com.maxprograms.fluenta.models.Memory;
@@ -32,10 +36,12 @@ import com.maxprograms.utils.SimpleLogger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.SAXException;
 
 public class API {
 
-	protected static void addProject(String jsonFile) throws IOException {
+	protected static void addProject(String jsonFile)
+			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
 		File projectFile = new File(jsonFile);
 		String string = ""; //$NON-NLS-1$
 		try (FileInputStream input = new FileInputStream(projectFile)) {
@@ -76,7 +82,8 @@ public class API {
 	}
 
 	public static void addProject(long id, String title, String description, String map, String srcLang,
-			String[] tgtLang, long[] memIds) throws IOException {
+			String[] tgtLang, long[] memIds)
+			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
 		Language srcLanguage = LanguageUtils.getLanguage(srcLang);
 
 		Vector<Language> tgtLanguages = new Vector<>();
@@ -222,7 +229,8 @@ public class API {
 		controller.close();
 	}
 
-	public static void importMemory(long id, String tmxFile, boolean verbose) throws IOException {
+	public static void importMemory(long id, String tmxFile, boolean verbose)
+			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
 		LocalController controller = new LocalController();
 		Memory memory = controller.getMemory(id);
 		if (memory == null) {
@@ -250,7 +258,8 @@ public class API {
 	}
 
 	public static void generateXLIFF(long id, String xliffFolder, String[] tgtLang, boolean useICE, boolean useTM,
-			boolean generateCount, boolean verbose, String ditaval, boolean useXliff20) throws IOException {
+			boolean generateCount, boolean verbose, String ditaval, boolean useXliff20) throws IOException,
+			ClassNotFoundException, SAXException, ParserConfigurationException, URISyntaxException, SQLException {
 		LocalController controller = new LocalController();
 		Project project = controller.getProject(id);
 		if (project == null) {
@@ -272,13 +281,10 @@ public class API {
 		controller.generateXliff(project, xliffFolder, langs, useICE, useTM, generateCount, ditaval, useXliff20,
 				logger);
 		controller.close();
-		if (logger.getSuccess()) {
-			return;
-		}
-		throw new IOException(logger.getError());
 	}
 
-	protected static void generateXLIFF(String jsonFile, boolean verbose) throws IOException {
+	protected static void generateXLIFF(String jsonFile, boolean verbose) throws IOException, SAXException,
+			ParserConfigurationException, URISyntaxException, ClassNotFoundException, SQLException {
 		File projectFile = new File(jsonFile);
 		String string = ""; //$NON-NLS-1$
 		try (FileInputStream input = new FileInputStream(projectFile)) {
@@ -319,7 +325,8 @@ public class API {
 
 	public static void importXLIFF(long id, String xliffFile, String outputFolder, boolean updateTM,
 			boolean acceptUnapproved, boolean ignoreTagErrors, boolean cleanAttributes, boolean verbose)
-			throws IOException {
+			throws IOException, NumberFormatException, ClassNotFoundException, SAXException,
+			ParserConfigurationException, SQLException, URISyntaxException {
 		LocalController controller = new LocalController();
 		Project project = controller.getProject(id);
 		if (project == null) {
@@ -333,13 +340,10 @@ public class API {
 		SimpleLogger logger = new SimpleLogger(verbose);
 		controller.importXliff(project, xliffFile, outputFolder, updateTM, acceptUnapproved, ignoreTagErrors,
 				cleanAttributes, logger);
-		if (logger.getSuccess()) {
-			return;
-		}
-		throw new IOException(logger.getError());
 	}
 
-	protected static void importXLIFF(String jsonFile, boolean verbose) throws IOException {
+	protected static void importXLIFF(String jsonFile, boolean verbose) throws IOException, NumberFormatException,
+			ClassNotFoundException, SAXException, ParserConfigurationException, SQLException, URISyntaxException {
 		File projectFile = new File(jsonFile);
 		String string = ""; //$NON-NLS-1$
 		try (FileInputStream input = new FileInputStream(projectFile)) {
