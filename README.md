@@ -41,10 +41,10 @@ Technical Support |  Peer support at  [Groups.io](https://groups.io/g/maxprogram
 Ready to use installers are available at https://www.maxprograms.com/products/fluenta.html
 
 ## Building Yourself
-You need JAVA 11 and [Apache Ant 1.10.7](https://ant.apache.org) or newer
+You need JAVA 17 and [Apache Ant 1.10.7](https://ant.apache.org) or newer
 
  - Checkout this repository
- - Point your JAVA_HOME variabe to JDK 11
+ - Point your JAVA_HOME variabe to JDK 17
  - Run `ant ` to compile the source code
 
 ### Steps for building
