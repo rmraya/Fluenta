@@ -109,4 +109,8 @@ public class HTMLViewer extends Dialog {
 	public void setTitle(String title) {
 		shell.setText(title);
 	}
+
+	public void setContent(String content) {
+		browser.setText(content);
+	}
 }

@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -53,6 +54,7 @@ import org.xml.sax.SAXException;
 public class ImportXliffDialog extends Dialog implements ILogger {
 
 	protected Shell shell;
+	protected Shell parentShell;
 	private Display display;
 	protected Text folderText;
 	protected Text xliffText;
@@ -71,6 +73,7 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 
 	public ImportXliffDialog(Shell parent, int style, Project project) {
 		super(parent, style);
+		parentShell = parent;
 
 		projectId = project.getId();
 
@@ -351,14 +354,34 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 			@Override
 			public void run() {
 				shell.removeListener(SWT.Close, closeListener);
+				MainView.getProjectsView().loadProjects();
 				MessageBox box = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
 				box.setMessage(string);
 				box.open();
+				Vector<String> errors = alogger.getErrors();
+				if (errors != null) {
+					try {
+						HTMLViewer viewer = new HTMLViewer(parentShell);
+						StringBuilder sb = new StringBuilder();
+						sb.append("<pre>\n");
+						Iterator<String> it = errors.iterator();
+						while (it.hasNext()) {
+							sb.append(it.next() + "\n"); //$NON-NLS-1$
+						}
+						sb.append("</pre>");
+						viewer.setContent(sb.toString());
+						viewer.show();
+					} catch (Exception e) {
+						e.printStackTrace();
+						MessageBox box2 = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
+						box2.setMessage(Messages.getString("GenerateXliffDialog.31")); //$NON-NLS-1$
+						box2.open();
+					}
+				}
 				savePreferences();
 				shell.close();
 			}
 		});
-
 	}
 
 	public void displayReport(String string, String report) {

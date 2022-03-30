@@ -13,7 +13,6 @@
 package com.maxprograms.fluenta.views;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
@@ -35,7 +34,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Dialog;
@@ -53,6 +51,7 @@ import org.eclipse.swt.widgets.Text;
 public class GenerateXliffDialog extends Dialog implements ILogger {
 
 	protected Shell shell;
+	protected Shell parentShell;
 	private Display display;
 	protected Text folderText;
 	protected Button[] targets;
@@ -70,6 +69,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 
 	public GenerateXliffDialog(Shell parent, int style, Project project) {
 		super(parent, style);
+		parentShell = parent;
 
 		projectId = project.getId();
 
@@ -398,16 +398,16 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 				Vector<String> errors = alogger.getErrors();
 				if (errors != null) {
 					try {
-						File out = File.createTempFile(Messages.getString("GenerateXliffDialog.27"), ".log"); //$NON-NLS-1$ //$NON-NLS-2$
-						out.deleteOnExit();
-						FileOutputStream output = new FileOutputStream(out);
+						HTMLViewer viewer = new HTMLViewer(parentShell);
+						StringBuilder sb = new StringBuilder();
+						sb.append("<pre>\n");
 						Iterator<String> it = errors.iterator();
 						while (it.hasNext()) {
-							String error = it.next() + "\r\n"; //$NON-NLS-1$
-							output.write(error.getBytes("UTF-8")); //$NON-NLS-1$
+							sb.append(it.next() + "\n"); //$NON-NLS-1$
 						}
-						output.close();
-						Program.launch(out.toURI().toURL().toString());
+						sb.append("</pre>");
+						viewer.setContent(sb.toString());
+						viewer.show();
 					} catch (Exception e) {
 						e.printStackTrace();
 						MessageBox box2 = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
@@ -419,7 +419,6 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 				shell.close();
 			}
 		});
-
 	}
 
 }

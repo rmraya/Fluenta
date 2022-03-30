@@ -327,7 +327,7 @@ public class TagErrorsReport {
     			throw new IOException(Messages.getString("TagErrorsReport.151"));    //$NON-NLS-1$
     		}
     		String toolId = tool.getAttributeValue("tool-id",""); //$NON-NLS-1$ //$NON-NLS-2$
-    		if (!toolId.equals("Fluenta")) {     //$NON-NLS-1$
+    		if (!toolId.equals("OpenXLIFF")) {     //$NON-NLS-1$
     			throw new IOException(Messages.getString("TagErrorsReport.151"));    //$NON-NLS-1$
     		}  
     	} catch (Exception e) {
