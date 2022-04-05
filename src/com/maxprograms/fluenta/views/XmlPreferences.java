@@ -13,11 +13,10 @@
 package com.maxprograms.fluenta.views;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.List;
@@ -60,7 +59,7 @@ public class XmlPreferences extends Composite {
 
 	private static Document catalogDoc;
 	protected Table catalogTable;
-	private Vector<Element> holder;
+	private List<Element> holder;
 	private int count;
 	protected Table filesTable;
 
@@ -115,7 +114,6 @@ public class XmlPreferences extends Composite {
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
 					box.setMessage(ioe.getMessage());
 					box.open();
-					return;
 				}
 			}
 		});
@@ -193,7 +191,6 @@ public class XmlPreferences extends Composite {
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
 					box.setMessage(ioe.getMessage());
 					box.open();
-					return;
 				}
 
 			}
@@ -219,15 +216,13 @@ public class XmlPreferences extends Composite {
 					Object[] args = { name };
 					box.setMessage(mf.format(args));
 					if (box.open() == SWT.YES) {
-						File file = new File(name);
-						file.delete();
+						Files.delete(new File(name).toPath());
 						fillFilesTable();
 					}
 				} catch (IOException ioe) {
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
 					box.setMessage(ioe.getMessage());
 					box.open();
-					return;
 				}
 			}
 		});
@@ -358,7 +353,7 @@ public class XmlPreferences extends Composite {
 		catalogDoc = builder.build(catalogueFile);
 	}
 
-	private static void saveCatalog() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+	private static void saveCatalog() throws IOException {
 		XMLOutputter outputter = new XMLOutputter();
 		outputter.preserveSpace(true);
 		try (FileOutputStream output = new FileOutputStream(Fluenta.getCatalogFile())) {
@@ -431,7 +426,6 @@ public class XmlPreferences extends Composite {
 				remove(child, e);
 			}
 		}
-
 	}
 
 	protected void editConfigurationFile() throws IOException {
@@ -476,10 +470,7 @@ public class XmlPreferences extends Composite {
 
 			@Override
 			public boolean accept(File dir, String name) {
-				if (name.startsWith("config_") && name.endsWith(".xml")) { //$NON-NLS-1$ //$NON-NLS-2$
-					return true;
-				}
-				return false;
+				return name.startsWith("config_") && name.endsWith(".xml"); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		});
 		TreeSet<String> set = new TreeSet<>();

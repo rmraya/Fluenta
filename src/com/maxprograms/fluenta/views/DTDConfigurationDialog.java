@@ -261,7 +261,7 @@ public class DTDConfigurationDialog extends Dialog {
                 } else if (type.equals("no")) {  //$NON-NLS-1$
                 	type = "inline";  //$NON-NLS-1$
                 }
-                String array[] = new String[5];
+                String[] array = new String[5];
                 array[0] = e.getText();
                 array[1] = type;  
                 array[2] = e.getAttributeValue("ctype", "");     //$NON-NLS-1$//$NON-NLS-2$

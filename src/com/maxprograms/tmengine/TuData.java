@@ -13,44 +13,45 @@
 package com.maxprograms.tmengine;
 
 import java.io.Serializable;
-import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 
 public class TuData implements Serializable {
 
 	private static final long serialVersionUID = -4527612217830153690L;
 	private Set<String> langs;
-	private Hashtable<String, String> props;
-	private Vector<String> notes;
+	private Map<String, String> props;
+	private List<String> notes;
 	private String creationdate;
 	private String userid;
 
-	public TuData(String userid, String creationdate, Set<String> langs, Hashtable<String,String> props, Vector<String> notes) {
+	public TuData(String userid, String creationdate, Set<String> langs, Map<String, String> props,
+			List<String> notes) {
 		this.userid = userid;
 		this.creationdate = creationdate;
 		this.langs = langs;
 		this.props = props;
 		this.notes = notes;
 	}
-		
+
 	public String getUser() {
 		return userid;
 	}
-	
+
 	public String getCreationDate() {
 		return creationdate;
 	}
-	
+
 	public Set<String> getLangs() {
 		return langs;
 	}
-	
-	public Hashtable<String,String> getProps() {
+
+	public Map<String, String> getProps() {
 		return props;
 	}
-	
-	public Vector<String> getNotes() {
+
+	public List<String> getNotes() {
 		return notes;
 	}
 }

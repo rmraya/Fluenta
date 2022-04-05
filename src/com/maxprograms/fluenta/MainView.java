@@ -76,35 +76,39 @@ public class MainView {
 		systemMenu = display.getSystemMenu();
 
 		if (systemMenu != null && System.getProperty("os.name").toLowerCase().startsWith("mac")) { //$NON-NLS-1$ //$NON-NLS-2$
-
 			isMac = true;
+			MenuItem aboutItem = getItem(systemMenu, SWT.ID_ABOUT);
+			if (aboutItem != null) {
+				aboutItem.addSelectionListener(new SelectionAdapter() {
 
-			MenuItem sysItem = getItem(systemMenu, SWT.ID_ABOUT);
-			sysItem.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						AboutBox box = new AboutBox(shell, SWT.DIALOG_TRIM);
+						box.show();
+					}
+				});
+			}
+			MenuItem quitItem = getItem(systemMenu, SWT.ID_QUIT);
+			if (quitItem != null) {
+				quitItem.addSelectionListener(new SelectionAdapter() {
 
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					AboutBox box = new AboutBox(shell, SWT.DIALOG_TRIM);
-					box.show();
-				}
-			});
-			sysItem = getItem(systemMenu, SWT.ID_QUIT);
-			sysItem.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						shell.close();
+					}
+				});
+			}
+			MenuItem preferencesItem = getItem(systemMenu, SWT.ID_PREFERENCES);
+			if (preferencesItem != null) {
+				preferencesItem.addSelectionListener(new SelectionAdapter() {
 
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					shell.close();
-				}
-			});
-			sysItem = getItem(systemMenu, SWT.ID_PREFERENCES);
-			sysItem.addSelectionListener(new SelectionAdapter() {
-
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					PreferencesDialog dialog = new PreferencesDialog(shell, SWT.CLOSE | SWT.RESIZE);
-					dialog.show();
-				}
-			});
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						PreferencesDialog dialog = new PreferencesDialog(shell, SWT.CLOSE | SWT.RESIZE);
+						dialog.show();
+					}
+				});
+			}
 		}
 
 		Menu bar = display.getMenuBar();
@@ -421,7 +425,10 @@ public class MainView {
 			connection.setConnectTimeout(10000);
 			byte[] array = new byte[2048];
 			try (InputStream input = connection.getInputStream()) {
-				input.read(array);
+				int read = input.read(array);
+				if (read == 0) {
+					throw new IOException("Erro reading server response");
+				}
 			}
 			String version = new String(array).trim();
 			if (!version.equals(Constants.VERSION + " (" + Constants.BUILD + ")")) { //$NON-NLS-1$ //$NON-NLS-2$

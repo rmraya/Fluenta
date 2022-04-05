@@ -15,16 +15,18 @@ package com.maxprograms.tmengine;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
 public class TU {
 	private Set<String> langs;
-	private Hashtable<String, String> props;
-	private Vector<String> notes;
+	private Map<String, String> props;
+	private List<String> notes;
 	private String creationdate;
 	private String userid;
-	Hashtable<String, Tuv> tuvs;
+	Map<String, Tuv> tuvs;
 	
 	public TU() {
 		langs = Collections.synchronizedSet(new HashSet<>());
@@ -42,7 +44,7 @@ public class TU {
 		userid = data.getUser();
 	}
 
-	public void setProps(Hashtable<String,String> values) {
+	public void setProps(Map<String,String> values) {
 		props = values;
 		if (creationdate != null && props != null) {
 			props.put("creationdate", creationdate); //$NON-NLS-1$
@@ -68,11 +70,11 @@ public class TU {
 		return langs;
 	}
 	
-	public Hashtable<String,String> getProps() {
+	public Map<String,String> getProps() {
 		return props;
 	}
 	
-	public Vector<String> getNotes() {
+	public List<String> getNotes() {
 		return notes;
 	}
 
@@ -89,7 +91,7 @@ public class TU {
 		langs = set;
 	}
 
-	public void setTuvs(Hashtable<String, Tuv> values) {
+	public void setTuvs(Map<String, Tuv> values) {
 		tuvs = values;
 	}
 
@@ -101,11 +103,11 @@ public class TU {
 		return props.get(name);
 	}
 
-	public Hashtable<String, Tuv> getTuvs() {
+	public Map<String, Tuv> getTuvs() {
 		return tuvs;
 	}
 	
-	public void setNotes(Vector<String> vector) {
+	public void setNotes(List<String> vector) {
 		notes = vector;
 	}
 }

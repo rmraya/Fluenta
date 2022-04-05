@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Vector;
 
@@ -34,34 +35,33 @@ import com.maxprograms.xml.SilentErrorHandler;
 public class DitaUtils {
 
 	private static Hashtable<String, String> filesTable;
-	private static Vector<String> filesMap;
+	private static List<String> filesMap;
 
-
-	public static TreeSet<String> getFiles(String map) {
-		filesMap = new Vector<String>();
-		filesTable = new Hashtable<String,String>();
+	public static SortedSet<String> getFiles(String map) {
+		filesMap = new Vector<>();
+		filesTable = new Hashtable<>();
 		File f = new File(map);
 		parseMap(map, f.getParent());
-		TreeSet<String> filesTree = new TreeSet<String>();
+		TreeSet<String> filesTree = new TreeSet<>();
 		filesTree.addAll(filesMap);
 		return filesTree;
 	}
 
 	private static void parseMap(String map, String home) {
-		if (map.startsWith("#")) {  //$NON-NLS-1$
+		if (map.startsWith("#")) { //$NON-NLS-1$
 			// self file
 			return;
-		}		
+		}
 		try {
-			String path = map; 
+			String path = map;
 			File f = new File(map);
-			if (!f.isAbsolute()) { 
-				if (map.indexOf("#") != -1) {  //$NON-NLS-1$
-					path = FileUtils.getAbsolutePath(home, map.substring(0,map.indexOf("#")));  //$NON-NLS-1$
+			if (!f.isAbsolute()) {
+				if (map.indexOf("#") != -1) { //$NON-NLS-1$
+					path = FileUtils.getAbsolutePath(home, map.substring(0, map.indexOf("#"))); //$NON-NLS-1$
 				} else {
 					path = FileUtils.getAbsolutePath(home, map);
 				}
-				f = new File(path);				
+				f = new File(path);
 			}
 			if (!f.exists()) {
 				return;
@@ -72,10 +72,10 @@ public class DitaUtils {
 			SAXBuilder builder = new SAXBuilder();
 			builder.setEntityResolver(new Catalog(Fluenta.getCatalogFile()));
 			builder.setErrorHandler(new SilentErrorHandler());
-			Document doc = builder.build(path); 
+			Document doc = builder.build(path);
 			Element mapRoot = doc.getRootElement();
 			if (!filesTable.containsKey(path)) {
-				filesTable.put(path,"");  //$NON-NLS-1$
+				filesTable.put(path, ""); //$NON-NLS-1$
 				filesMap.add(path);
 			} else {
 				return;
@@ -85,16 +85,17 @@ public class DitaUtils {
 			// do nothing
 		}
 	}
-	
-	private static void recurse(Element root, String parent) throws SAXException, IOException, ParserConfigurationException {
-		String href = root.getAttributeValue("href","");   //$NON-NLS-1$ //$NON-NLS-2$
-		if (!href.equals("")) {  //$NON-NLS-1$
+
+	private static void recurse(Element root, String parent)
+			throws SAXException, IOException, ParserConfigurationException {
+		String href = root.getAttributeValue("href"); //$NON-NLS-1$
+		if (!href.equals("")) { //$NON-NLS-1$
 			parseMap(href, parent);
 		}
-		String conref = root.getAttributeValue("conref","");   //$NON-NLS-1$ //$NON-NLS-2$
-		if (!conref.equals("")) {  //$NON-NLS-1$
-			if (conref.indexOf("#") != -1) {  //$NON-NLS-1$
-				conref = conref.substring(0,conref.indexOf("#"));  //$NON-NLS-1$
+		String conref = root.getAttributeValue("conref"); //$NON-NLS-1$
+		if (!conref.equals("")) { //$NON-NLS-1$
+			if (conref.indexOf("#") != -1) { //$NON-NLS-1$
+				conref = conref.substring(0, conref.indexOf("#")); //$NON-NLS-1$
 			}
 			parseMap(conref, parent);
 		}
@@ -105,5 +106,4 @@ public class DitaUtils {
 		}
 	}
 
-	
 }

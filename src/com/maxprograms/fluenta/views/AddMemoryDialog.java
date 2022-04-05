@@ -149,7 +149,7 @@ public class AddMemoryDialog extends Dialog {
 				long id = System.currentTimeMillis();
 				Date now = new Date();
 				Memory mem = new Memory(id, descText.getText(), descriptionText.getText(),
-						System.getProperty("user.name"), now, null, srcLang, new Vector<Language>()); //$NON-NLS-1$
+						System.getProperty("user.name"), now, null, srcLang, new Vector<>()); //$NON-NLS-1$
 				try {
 					MainView.getController().createMemory(mem);
 				} catch (IOException e) {

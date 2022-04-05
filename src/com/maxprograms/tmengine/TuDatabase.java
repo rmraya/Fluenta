@@ -17,12 +17,11 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.Vector;
 
+import com.maxprograms.xml.Element;
+
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
 import org.mapdb.HTreeMap;
-
-import com.maxprograms.xml.Element;
-import com.maxprograms.xml.XMLNode;
 
 public class TuDatabase {
 
@@ -34,7 +33,7 @@ public class TuDatabase {
 
 	public TuDatabase(File folder) throws IOException {
 		try {
-			mapdb =  DBMaker.newFileDB(new File(folder, "tudata")).closeOnJvmShutdown().asyncWriteEnable().make(); //$NON-NLS-1$
+			mapdb = DBMaker.newFileDB(new File(folder, "tudata")).closeOnJvmShutdown().asyncWriteEnable().make(); //$NON-NLS-1$
 			tumap = mapdb.getHashMap("tuvmap"); //$NON-NLS-1$
 			projects = mapdb.getHashSet("projects"); //$NON-NLS-1$
 			subjects = mapdb.getHashSet("subjects"); //$NON-NLS-1$
@@ -44,27 +43,27 @@ public class TuDatabase {
 		}
 	}
 
-	synchronized public void commit() {
+	public synchronized void commit() {
 		mapdb.commit();
 	}
 
 	public void compact() {
 		mapdb.compact();
 	}
-	
-	synchronized public void close() {
+
+	public synchronized void close() {
 		mapdb.close();
 		mapdb = null;
 	}
 
-	synchronized public void store(String tuid, Element tu) {
+	public synchronized void store(String tuid, Element tu) {
 		tu.removeChild("tuv"); //$NON-NLS-1$
 		if (tu.getChildren().isEmpty()) {
-			tu.setContent(new Vector<XMLNode>());
+			tu.setContent(new Vector<>());
 		}
-		tumap.put(tuid.hashCode(),tu);
+		tumap.put(tuid.hashCode(), tu);
 	}
-	
+
 	public Element getTu(String tuid) {
 		return tumap.get(tuid.hashCode());
 	}

@@ -64,7 +64,7 @@ public class TMUtils {
 			} 
 			return null;	
 		}
-		lang = lang.replaceAll("_", "-"); //$NON-NLS-1$ //$NON-NLS-2$
+		lang = lang.replace("_", "-"); //$NON-NLS-1$ //$NON-NLS-2$
 		String[] parts = lang.split("-"); //$NON-NLS-1$
 		
 		if (parts.length == 2) {

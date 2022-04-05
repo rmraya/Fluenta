@@ -13,10 +13,15 @@
 package com.maxprograms.fluenta.views;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Vector;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+
+import com.maxprograms.fluenta.MainView;
+import com.maxprograms.fluenta.models.Memory;
+import com.maxprograms.utils.Locator;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
@@ -38,19 +43,15 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
-import com.maxprograms.fluenta.MainView;
-import com.maxprograms.fluenta.models.Memory;
-import com.maxprograms.utils.Locator;
-
 public class MemorySelectionDialog extends Dialog {
 
 	protected Shell shell;
 	private Display display;
 	protected boolean cancelled = true;
 	protected Table table;
-	protected Vector<Memory> selected;
+	protected List<Memory> selected;
 
-	public MemorySelectionDialog(Shell parent, int style, Vector<Memory> existing) {
+	public MemorySelectionDialog(Shell parent, int style, List<Memory> existing) {
 		super(parent, style);
 		shell = new Shell(parent, style);
 		shell.setText(Messages.getString("MemorySelectionDialog.0")); //$NON-NLS-1$
@@ -109,7 +110,7 @@ public class MemorySelectionDialog extends Dialog {
 		});
 		
 		try {
-			Vector<Memory> memories = MainView.getController().getMemories();
+			List<Memory> memories = MainView.getController().getMemories();
 			Iterator<Memory> it = memories.iterator();
 			while (it.hasNext()) {
 				Memory mem = it.next();
@@ -154,7 +155,7 @@ public class MemorySelectionDialog extends Dialog {
 		return cancelled ;
 	}
 
-	public Vector<Memory> getSelected() {
+	public List<Memory> getSelected() {
 		return selected;
 	}
 }

@@ -15,6 +15,7 @@ package com.maxprograms.fluenta.views;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import com.maxprograms.fluenta.Fluenta;
@@ -191,7 +192,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 		targetGroup.setLayoutData(targetData);
 
 		try {
-			Vector<Language> languages = project.getLanguages();
+			List<Language> languages = project.getLanguages();
 			targets = new Button[languages.size()];
 			for (int i = 0; i < languages.size(); i++) {
 				targets[i] = new Button(targetGroup, SWT.CHECK);
@@ -249,13 +250,13 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 				if (!f.exists()) {
 					f.mkdirs();
 				}
-				Vector<Language> tgtLangs = new Vector<Language>();
+				List<Language> tgtLangs = new Vector<>();
 				for (int i = 0; i < targets.length; i++) {
 					if (targets[i].getSelection()) {
 						tgtLangs.add((Language) targets[i].getData("language")); //$NON-NLS-1$
 					}
 				}
-				if (tgtLangs.size() == 0) {
+				if (tgtLangs.isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
 					box.setMessage(Messages.getString("GenerateXliffDialog.24")); //$NON-NLS-1$
 					box.open();
@@ -361,7 +362,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 	}
 
 	@Override
-	public Vector<String> getErrors() {
+	public List<String> getErrors() {
 		return logger.getErrors();
 	}
 
@@ -395,17 +396,17 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 				MessageBox box = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
 				box.setMessage(string);
 				box.open();
-				Vector<String> errors = alogger.getErrors();
+				List<String> errors = alogger.getErrors();
 				if (errors != null) {
 					try {
 						HTMLViewer viewer = new HTMLViewer(parentShell);
 						StringBuilder sb = new StringBuilder();
-						sb.append("<pre>\n");
+						sb.append("<pre>\n"); //$NON-NLS-1$
 						Iterator<String> it = errors.iterator();
 						while (it.hasNext()) {
 							sb.append(it.next() + "\n"); //$NON-NLS-1$
 						}
-						sb.append("</pre>");
+						sb.append("</pre>"); //$NON-NLS-1$
 						viewer.setContent(sb.toString());
 						viewer.show();
 					} catch (Exception e) {

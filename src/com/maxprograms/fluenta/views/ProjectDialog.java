@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -203,10 +204,10 @@ public class ProjectDialog extends Dialog {
 		langsTable.setLayoutData(langData);
 
 		TableColumn langColumn = new TableColumn(langsTable, SWT.FILL);
-
-		if (project.getTgtLanguages().size() > 0) {
+		if (!project.getLanguages().isEmpty()) {
 			try {
-				Iterator<Language> it = project.getTgtLanguages().iterator();
+				List<Language> tgtLangs = project.getLanguages();
+				Iterator<Language> it = tgtLangs.iterator();
 				while (it.hasNext()) {
 					Language l = it.next();
 					TableItem item = new TableItem(langsTable, SWT.NONE);
@@ -223,7 +224,7 @@ public class ProjectDialog extends Dialog {
 
 		} else {
 			try {
-				Vector<Language> defaultTargets = ProjectPreferences.getDefaultTargets();
+				List<Language> defaultTargets = ProjectPreferences.getDefaultTargets();
 				Iterator<Language> it = defaultTargets.iterator();
 				while (it.hasNext()) {
 					Language l = it.next();
@@ -269,6 +270,16 @@ public class ProjectDialog extends Dialog {
 					dialog.show();
 					if (!dialog.wasCancelled()) {
 						Language l = dialog.getLanguage();
+						TableItem[] oldItems = langsTable.getItems();
+						for (int i = 0; i < oldItems.length; i++) {
+							Language lang = (Language) oldItems[i].getData("language"); //$NON-NLS-1$
+							if (l.getCode().equals(lang.getCode())) {
+								MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
+								box.setMessage(Messages.getString("ProjectDialog.7")); //$NON-NLS-1$
+								box.open();
+								return;
+							}
+						}
 						TableItem item = new TableItem(langsTable, SWT.NONE);
 						item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
 						item.setData("language", l); //$NON-NLS-1$
@@ -297,7 +308,7 @@ public class ProjectDialog extends Dialog {
 			public void widgetSelected(SelectionEvent arg0) {
 				try {
 					TableItem[] oldItems = langsTable.getItems();
-					Vector<Language> defaultTargets = new Vector<Language>();
+					List<Language> defaultTargets = new Vector<>();
 					for (int i = 0; i < oldItems.length; i++) {
 						if (!oldItems[i].getChecked()) {
 							defaultTargets.add((Language) oldItems[i].getData("language")); //$NON-NLS-1$
@@ -342,7 +353,7 @@ public class ProjectDialog extends Dialog {
 		memoriesTable.setLayoutData(memData);
 
 		TableColumn memColumn = new TableColumn(memoriesTable, SWT.FILL);
-		Vector<Memory> memories = project.getMemories();
+		List<Memory> memories = project.getMemories();
 		for (int i = 0; i < memories.size(); i++) {
 			Memory m = memories.get(i);
 			TableItem item = new TableItem(memoriesTable, SWT.NONE);
@@ -369,7 +380,7 @@ public class ProjectDialog extends Dialog {
 				MemorySelectionDialog dialog = new MemorySelectionDialog(shell, SWT.DIALOG_TRIM, project.getMemories());
 				dialog.show();
 				if (!dialog.wasCancelled()) {
-					Vector<Memory> selected = dialog.getSelected();
+					List<Memory> selected = dialog.getSelected();
 					for (int i = 0; i < selected.size(); i++) {
 						Memory m = selected.get(i);
 						TableItem item = new TableItem(memoriesTable, SWT.NONE);
@@ -388,8 +399,8 @@ public class ProjectDialog extends Dialog {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				Vector<Integer> indices = new Vector<Integer>();
-				Vector<Memory> newMems = new Vector<Memory>();
+				List<Integer> indices = new Vector<>();
+				List<Memory> newMems = new Vector<>();
 				for (int i = 0; i < memoriesTable.getItemCount(); i++) {
 					if (memoriesTable.getItem(i).getChecked()) {
 						newMems.add((Memory) memoriesTable.getItem(i).getData("memory")); //$NON-NLS-1$
@@ -401,7 +412,7 @@ public class ProjectDialog extends Dialog {
 				project.getMemories().removeAll(newMems);
 			}
 
-			private int[] toArray(Vector<Integer> indices) {
+			private int[] toArray(List<Integer> indices) {
 				int[] array = new int[indices.size()];
 				for (int i = 0; i < indices.size(); i++) {
 					array[i] = indices.get(i);
@@ -473,7 +484,7 @@ public class ProjectDialog extends Dialog {
 					box.open();
 					return;
 				}
-				Vector<Language> targetLangs = new Vector<Language>();
+				List<Language> targetLangs = new Vector<>();
 				for (int i = 0; i < items.length; i++) {
 					targetLangs.add((Language) items[i].getData("language")); //$NON-NLS-1$
 				}
@@ -481,9 +492,9 @@ public class ProjectDialog extends Dialog {
 					long id = System.currentTimeMillis();
 					Project p = new Project(id, titleText.getText(), descriptionText.getText(),
 							System.getProperty("user.name"), mapText.getText(), new Date(), //$NON-NLS-1$
-							Project.NEW, null, srcLang, targetLangs, new Vector<Memory>());
+							Project.NEW, null, srcLang, targetLangs, new Vector<>());
 					Memory m = new Memory(id, p.getTitle(), p.getDescription(), p.getOwner(), new Date(), null,
-							p.getSrcLanguage(), new Vector<Language>());
+							p.getSrcLanguage(), new Vector<>());
 					p.getMemories().add(m);
 					try {
 						MainView.getController().createProject(p);

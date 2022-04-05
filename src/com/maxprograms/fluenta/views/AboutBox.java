@@ -161,8 +161,8 @@ public class AboutBox {
 			LOGGER.log(Level.WARNING, "Error setting license link", e); //$NON-NLS-1$
 		}
 
-		Label H2DB = new Label(licenses, SWT.NONE);
-		H2DB.setText("H2"); //$NON-NLS-1$
+		Label h2db = new Label(licenses, SWT.NONE);
+		h2db.setText("H2"); //$NON-NLS-1$
 
 		CustomLink h2Link = new CustomLink(licenses, SWT.NONE);
 		h2Link.setText("Eclipse Public License Version 1.0"); //$NON-NLS-1$

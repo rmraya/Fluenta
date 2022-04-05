@@ -17,6 +17,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -36,20 +38,14 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.NavigableSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 import java.util.Vector;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import org.h2.tools.RunScript;
-import org.mapdb.Fun;
-import org.mapdb.Fun.Tuple2;
-import org.xml.sax.SAXException;
 
 import com.maxprograms.converters.Constants;
 import com.maxprograms.languages.RegistryParser;
@@ -63,6 +59,11 @@ import com.maxprograms.xml.TextNode;
 import com.maxprograms.xml.XMLNode;
 import com.maxprograms.xml.XMLOutputter;
 import com.maxprograms.xml.XMLUtils;
+
+import org.h2.tools.RunScript;
+import org.mapdb.Fun;
+import org.mapdb.Fun.Tuple2;
+import org.xml.sax.SAXException;
 
 public class InternalDatabase {
 
@@ -86,7 +87,7 @@ public class InternalDatabase {
 	private static RegistryParser registry;
 
 	public InternalDatabase(String dbname, String workFolder)
-			throws SQLException, IOException, ClassNotFoundException, SAXException, ParserConfigurationException {
+			throws SQLException, IOException, SAXException, ParserConfigurationException {
 		this.dbname = dbname;
 		creationDate = TMUtils.TMXDate();
 
@@ -205,7 +206,7 @@ public class InternalDatabase {
 		conn.setAutoCommit(false);
 	}
 
-	synchronized public void commit() throws SQLException {
+	public synchronized void commit() throws SQLException {
 		conn.commit();
 		fuzzyIndex.commit();
 		tuDb.commit();
@@ -263,8 +264,8 @@ public class InternalDatabase {
 		return new int[] { imported, failed };
 	}
 
-	public Vector<String> exportDatabase(String tmxfile, String langs, String srcLang,
-			Hashtable<String, Set<String>> propFilters) {
+	public List<String> exportDatabase(String tmxfile, String langs, String srcLang,
+			Map<String, Set<String>> propFilters) {
 		boolean filter;
 		Set<String> languages = Collections.synchronizedSet(new HashSet<>());
 		if (langs.equals("")) { //$NON-NLS-1$
@@ -283,7 +284,7 @@ public class InternalDatabase {
 				}
 			}
 		}
-		Vector<String> result = new Vector<>();
+		List<String> result = new Vector<>();
 
 		try {
 
@@ -394,11 +395,11 @@ public class InternalDatabase {
 	}
 
 	private void writeString(String string) throws IOException {
-		output.write(string.getBytes(StandardCharsets.UTF_8)); // $NON-NLS-1$
+		output.write(string.getBytes(StandardCharsets.UTF_8));
 	}
 
 	private void writeString16(String string) throws IOException {
-		output.write(string.getBytes("UTF-16LE")); //$NON-NLS-1$
+		output.write(string.getBytes(StandardCharsets.UTF_16LE));
 	}
 
 	private void writeHeader(String srcLang) throws IOException {
@@ -422,8 +423,8 @@ public class InternalDatabase {
 				"</header>\n"); //$NON-NLS-1$
 	}
 
-	public Vector<String> flag(String tuid) {
-		Vector<String> result = new Vector<>();
+	public List<String> flag(String tuid) {
+		List<String> result = new Vector<>();
 		Element tu = tuDb.getTu(tuid);
 		if (tu != null) {
 			Element prop = new Element("prop"); //$NON-NLS-1$
@@ -478,9 +479,9 @@ public class InternalDatabase {
 		return tuDb.getSubjects();
 	}
 
-	public Vector<TU> searchAllTranslations(String searchStr, String srcLang, int similarity, boolean caseSensitive) {
+	public List<TU> searchAllTranslations(String searchStr, String srcLang, int similarity, boolean caseSensitive) {
 		// search for TUs with any target language
-		Vector<TU> result = new Vector<>();
+		List<TU> result = new Vector<>();
 		try {
 			int[] ngrams = null;
 			ngrams = NGrams.getNGrams(searchStr, true);
@@ -613,7 +614,7 @@ public class InternalDatabase {
 			Element prop = kt.next();
 			props.put(prop.getAttributeValue("type"), prop.getText()); //$NON-NLS-1$
 		}
-		Vector<String> notes = new Vector<>();
+		List<String> notes = new Vector<>();
 		List<Element> children = tu.getChildren("note"); //$NON-NLS-1$
 		Iterator<Element> nt = children.iterator();
 		while (nt.hasNext()) {
@@ -629,10 +630,10 @@ public class InternalDatabase {
 		return result;
 	}
 
-	public Vector<TU> searchTranslation(String searchStr, String srcLang, String tgtLang, int similarity,
+	public List<TU> searchTranslation(String searchStr, String srcLang, String tgtLang, int similarity,
 			boolean caseSensitive) {
 		// search for TUs with a given source and target language
-		Vector<TU> result = new Vector<>();
+		List<TU> result = new Vector<>();
 		try {
 			int[] ngrams = null;
 			ngrams = NGrams.getNGrams(searchStr, true);
@@ -748,10 +749,10 @@ public class InternalDatabase {
 		return result;
 	}
 
-	public Vector<TU> concordanceSearch(String searchStr, String srcLang, int limit, boolean isRegexp,
+	public List<TU> concordanceSearch(String searchStr, String srcLang, int limit, boolean isRegexp,
 			boolean caseSensitive) {
-		Vector<TU> result = new Vector<>();
-		Vector<String> candidates = new Vector<>();
+		List<TU> result = new Vector<>();
+		List<String> candidates = new Vector<>();
 		if (isRegexp) {
 			try {
 				try (PreparedStatement stmt = conn.prepareStatement(
@@ -977,7 +978,7 @@ public class InternalDatabase {
 			}
 			return null;
 		}
-		lang = lang.replaceAll("_", "-"); //$NON-NLS-1$ //$NON-NLS-2$
+		lang = lang.replace("_", "-"); //$NON-NLS-1$ //$NON-NLS-2$
 		String[] parts = lang.split("-"); //$NON-NLS-1$
 
 		if (parts.length == 2) {
@@ -1057,7 +1058,7 @@ public class InternalDatabase {
 		}
 	}
 
-	static private void deleteTree(File file) throws IOException {
+	private static void deleteTree(File file) throws IOException {
 		if (file.isDirectory()) {
 			String[] files = file.list();
 			for (int i = 0; i < files.length; i++) {
@@ -1307,7 +1308,7 @@ public class InternalDatabase {
 		return tu;
 	}
 
-	public Vector<String> exportCSV(String csvFile, String langs, Hashtable<String, Set<String>> propFilters) {
+	public List<String> exportCSV(String csvFile, String langs, Map<String, Set<String>> propFilters) {
 		boolean filter;
 		Set<String> languages = Collections.synchronizedSet(new HashSet<>());
 		if (langs.equals("")) { //$NON-NLS-1$
@@ -1327,7 +1328,7 @@ public class InternalDatabase {
 				}
 			}
 		}
-		Vector<String> result = new Vector<>();
+		List<String> result = new Vector<>();
 
 		try {
 
@@ -1466,8 +1467,8 @@ public class InternalDatabase {
 		return result;
 	}
 
-	public Vector<String> removeTu(String tuid) {
-		Vector<String> result = new Vector<>();
+	public List<String> removeTu(String tuid) {
+		List<String> result = new Vector<>();
 		Element tu = tuDb.getTu(tuid);
 		if (tu != null) {
 			try {

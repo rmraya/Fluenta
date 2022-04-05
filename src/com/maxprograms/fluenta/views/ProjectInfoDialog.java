@@ -14,7 +14,15 @@ package com.maxprograms.fluenta.views;
 
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.Vector;
+import java.util.List;
+
+import com.maxprograms.fluenta.Fluenta;
+import com.maxprograms.fluenta.MainView;
+import com.maxprograms.fluenta.models.Project;
+import com.maxprograms.fluenta.models.ProjectEvent;
+import com.maxprograms.languages.Language;
+import com.maxprograms.languages.LanguageUtils;
+import com.maxprograms.utils.Locator;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -35,14 +43,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-
-import com.maxprograms.fluenta.Fluenta;
-import com.maxprograms.fluenta.MainView;
-import com.maxprograms.fluenta.models.Project;
-import com.maxprograms.fluenta.models.ProjectEvent;
-import com.maxprograms.languages.Language;
-import com.maxprograms.languages.LanguageUtils;
-import com.maxprograms.utils.Locator;
 
 public class ProjectInfoDialog extends Dialog {
 
@@ -174,7 +174,7 @@ public class ProjectInfoDialog extends Dialog {
 		events.setWidth(130);
 
 		try {
-			Vector<ProjectEvent> history = project.getHistory();
+			List<ProjectEvent> history = project.getHistory();
 			Iterator<ProjectEvent> it = history.iterator();
 			while (it.hasNext()) {
 				ProjectEvent event = it.next();
@@ -198,7 +198,7 @@ public class ProjectInfoDialog extends Dialog {
 
 	protected void populateStatusTable(Project project) throws IOException {
 		statusTable.removeAll();
-		Vector<Language> tgtLangs = project.getTgtLanguages();
+		List<Language> tgtLangs = project.getLanguages();
 		Iterator<Language> tl = tgtLangs.iterator();
 		while (tl.hasNext()) {
 			Language l = tl.next();

@@ -12,9 +12,11 @@
 
 package com.maxprograms.tmengine;
 
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -29,8 +31,8 @@ public class NGrams {
     public static int[] getNGrams(String source, boolean quality) {
 		String src = source.toLowerCase();
 		// src = normalise(src);
-		Vector<String> words = buildWordList(src);
-		Hashtable<String, String> table = new Hashtable<>();		
+		List<String> words = buildWordList(src);
+		Map<String, String> table = new Hashtable<>();		
 		
 		if (quality) {
 			Iterator<String> it = words.iterator();
@@ -59,17 +61,18 @@ public class NGrams {
 				table.put("" + words.get(i).hashCode(), ""); //$NON-NLS-1$ //$NON-NLS-2$			    
 			}
 		}
-		Enumeration<String> keys = table.keys();
+		Set<String> keySet = table.keySet();
+		Iterator<String> kt = keySet.iterator();
 		int[] result = new int[table.size()];
 		int idx = 0;
-		while (keys.hasMoreElements()) {			
-			result[idx++] = Integer.parseInt(keys.nextElement());
+		while (kt.hasNext()) {			
+			result[idx++] = Integer.parseInt(kt.next());
 		}
 		return result;
 	}
 
-    private static Vector<String> buildWordList(String src) {
-        Vector<String> result = new Vector<>();
+    private static List<String> buildWordList(String src) {
+        List<String> result = new Vector<>();
         StringTokenizer tokenizer = new StringTokenizer(src,SEPARATORS);
         while (tokenizer.hasMoreElements()) {
             result.add(tokenizer.nextToken());

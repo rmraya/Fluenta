@@ -12,7 +12,10 @@
 
 package com.maxprograms.widgets;
 
+import java.util.List;
 import java.util.Vector;
+
+import com.maxprograms.tmengine.ILogger;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -22,27 +25,25 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 
-import com.maxprograms.tmengine.ILogger;
-
 public class LogPanel extends Composite implements ILogger {
 
-	private Display display;
+	private Display panelDisplay;
 	private Label stage;
 	private Label log;
 	private String home = System.getProperty("user.home"); //$NON-NLS-1$
-	private Vector<String> errors;
+	private List<String> errors;
 
 	public LogPanel(Composite parent, int style) {
 		super(parent, style);
 
 		setLayout(new GridLayout());
-		display = parent.getDisplay();
+		panelDisplay = parent.getDisplay();
 
 		stage = new Label(this, SWT.NONE);
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = 300;
 		stage.setLayoutData(data);
-		stage.setBackground(display.getSystemColor(SWT.COLOR_LIST_SELECTION));
+		stage.setBackground(panelDisplay.getSystemColor(SWT.COLOR_LIST_SELECTION));
 
 		log = new Label(this, SWT.NONE);
 		log.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -57,14 +58,14 @@ public class LogPanel extends Composite implements ILogger {
 			message = message.substring(0, 6) + " ... " + message.substring(message.length() - 45); //$NON-NLS-1$
 		}
 		log.setText(message);
-		display.update();
-		display.sleep();
+		panelDisplay.update();
+		panelDisplay.sleep();
 	}
 
 	@Override
 	public void setStage(String value) {
 		stage.setText(value);
-		display.update();
+		panelDisplay.update();
 	}
 
 	@Override
@@ -75,13 +76,13 @@ public class LogPanel extends Composite implements ILogger {
 	@Override
 	public void logError(String error) {
 		if (errors == null) {
-			errors = new Vector<String>();
+			errors = new Vector<>();
 		}
 		errors.add(error);
 	}
 
 	@Override
-	public Vector<String> getErrors() {
+	public List<String> getErrors() {
 		return errors;
 	}
 

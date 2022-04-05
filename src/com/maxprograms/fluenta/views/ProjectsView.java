@@ -17,8 +17,14 @@ import java.io.IOException;
 import java.text.Collator;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
-import java.util.Vector;
+
+import com.maxprograms.fluenta.Fluenta;
+import com.maxprograms.fluenta.MainView;
+import com.maxprograms.fluenta.models.Project;
+import com.maxprograms.widgets.CustomBar;
+import com.maxprograms.widgets.CustomItem;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -32,12 +38,6 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-
-import com.maxprograms.fluenta.Fluenta;
-import com.maxprograms.fluenta.MainView;
-import com.maxprograms.fluenta.models.Project;
-import com.maxprograms.widgets.CustomBar;
-import com.maxprograms.widgets.CustomItem;
 
 public class ProjectsView extends Composite {
 
@@ -271,7 +271,7 @@ public class ProjectsView extends Composite {
 	public void loadProjects() {
 		table.removeAll();
 		try {
-			Vector<Project> projects = MainView.getController().getProjects();
+			List<Project> projects = MainView.getController().getProjects();
 			Project[] array = projects.toArray(new Project[projects.size()]);
 			final Collator collator = Collator.getInstance(new Locale("en")); //$NON-NLS-1$
 			Arrays.sort(array, new Comparator<Project>() {
@@ -323,7 +323,6 @@ public class ProjectsView extends Composite {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
 			box.setMessage(Messages.getString("ProjectsView.19")); //$NON-NLS-1$
 			box.open();
-			return;
 		}
 	}
 

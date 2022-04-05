@@ -20,11 +20,10 @@ import java.io.FileReader;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -36,12 +35,14 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.maxprograms.converters.Constants;
 import com.maxprograms.converters.EncodingResolver;
 import com.maxprograms.converters.FileFormats;
 import com.maxprograms.converters.Utils;
@@ -60,7 +61,6 @@ import com.maxprograms.converters.sdlxliff.Xliff2Sdl;
 import com.maxprograms.converters.ts.Xliff2Ts;
 import com.maxprograms.converters.txml.Xliff2Txml;
 import com.maxprograms.converters.xml.Xliff2Xml;
-import com.maxprograms.fluenta.Constants;
 import com.maxprograms.fluenta.Fluenta;
 import com.maxprograms.fluenta.models.Memory;
 import com.maxprograms.fluenta.models.Project;
@@ -118,8 +118,8 @@ public class LocalController {
 	private Hashtable<String, String> xliffbpts;
 	private static double penalty = 1;
 
-	public Vector<Project> getProjects() throws IOException {
-		Vector<Project> result = new Vector<>();
+	public List<Project> getProjects() throws IOException {
+		List<Project> result = new Vector<>();
 		if (projectdb == null) {
 			openProjects();
 		}
@@ -179,7 +179,7 @@ public class LocalController {
 			openProjects();
 		}
 		projectsMap.put(p.getId(), p);
-		Vector<Memory> mems = p.getMemories();
+		List<Memory> mems = p.getMemories();
 		Iterator<Memory> it = mems.iterator();
 		while (it.hasNext()) {
 			Memory m = it.next();
@@ -202,8 +202,8 @@ public class LocalController {
 		memorydb.commit();
 	}
 
-	public Vector<Memory> getMemories() throws IOException {
-		Vector<Memory> result = new Vector<>();
+	public List<Memory> getMemories() throws IOException {
+		List<Memory> result = new Vector<>();
 		if (memorydb == null) {
 			openMemories();
 		}
@@ -256,13 +256,13 @@ public class LocalController {
 		return new InternalDatabase("" + memoryId, f.getAbsolutePath()); //$NON-NLS-1$
 	}
 
-	public void generateXliff(Project project, String xliffFolder, Vector<Language> tgtLangs, boolean useICE,
+	public void generateXliff(Project project, String xliffFolder, List<Language> tgtLangs, boolean useICE,
 			boolean useTM, boolean generateCount, String ditavalFile, boolean useXliff20, ILogger logger)
 			throws IOException, SAXException, ParserConfigurationException, URISyntaxException, ClassNotFoundException,
 			SQLException {
 		PrintStream oldErr = System.err;
 		try (PrintStream newErr = new PrintStream(
-				new File(Preferences.getPreferencesDir(), "errors.txt"))) {
+				new File(Preferences.getPreferencesDir(), "errors.txt"))) { //$NON-NLS-1$
 			System.setErr(newErr);
 			Hashtable<String, String> params = new Hashtable<>();
 			params.put("source", project.getMap()); //$NON-NLS-1$
@@ -318,7 +318,7 @@ public class LocalController {
 				project.setLanguageStatus(tgtLangs.get(i).getCode(), Project.IN_PROGRESS);
 				updateProject(project);
 			}
-			xliffFile.delete();
+			Files.deleteIfExists(xliffFile.toPath());
 			if (useICE) {
 				MessageFormat icem = new MessageFormat(Messages.getString("LocalController.40")); //$NON-NLS-1$
 				for (int i = 0; i < tgtLangs.size(); i++) {
@@ -353,10 +353,10 @@ public class LocalController {
 					}
 					sourceLang = firstFile.getAttributeValue("source-language"); //$NON-NLS-1$
 					targetLang = firstFile.getAttributeValue("target-language"); //$NON-NLS-1$
-					Vector<Element> segments = new Vector<>();
+					List<Element> segments = new Vector<>();
 					recurse(root1, segments);
-					Vector<Memory> mems = project.getMemories();
-					Vector<InternalDatabase> dbs = new Vector<>();
+					List<Memory> mems = project.getMemories();
+					List<InternalDatabase> dbs = new Vector<>();
 					for (int i2 = 0; i2 < mems.size(); i2++) {
 						dbs.add(getTMEngine(mems.get(i2).getId()));
 					}
@@ -371,11 +371,11 @@ public class LocalController {
 						if (seg.getAttributeValue("approved", "no").equalsIgnoreCase("yes")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 							continue;
 						}
-						Vector<Element> matches = new Vector<>();
-						Vector<Element> res = null;
+						List<Element> matches = new Vector<>();
+						List<Element> res = null;
 						for (int i2 = 0; i2 < dbs.size(); i2++) {
 							res = searchText(dbs.get(i2), seg, sourceLang, targetLang, 70f, true);
-							if (res != null && res.size() > 0) {
+							if (res != null && !res.isEmpty()) {
 								matches.addAll(res);
 							}
 						}
@@ -440,13 +440,13 @@ public class LocalController {
 	}
 
 	private void collectErrors(ILogger logger) throws IOException {
-		File errors = new File(Preferences.getPreferencesDir(), "errors.txt");
+		File errors = new File(Preferences.getPreferencesDir(), "errors.txt"); //$NON-NLS-1$
 		try (FileReader reader = new FileReader(errors)) {
 			try (BufferedReader buffer = new BufferedReader(reader)) {
-				String line = "";
+				String line = ""; //$NON-NLS-1$
 				while ((line = buffer.readLine()) != null) {
-					if (line.startsWith("WARNING:") || line.startsWith("SEVERE:")
-							|| line.startsWith("INFO:")) {
+					if (line.startsWith("WARNING:") || line.startsWith("SEVERE:") //$NON-NLS-1$ //$NON-NLS-2$
+							|| line.startsWith("INFO:")) { //$NON-NLS-1$
 						logger.logError(line);
 					}
 				}
@@ -460,11 +460,11 @@ public class LocalController {
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(xliff);
 		Element root = doc.getRootElement();
-		Vector<Element> segments = new Vector<>();
+		List<Element> segments = new Vector<>();
 
 		Document doc2 = builder.build(previousBuild);
 		Element root2 = doc2.getRootElement();
-		Vector<Element> leveraged = new Vector<>();
+		List<Element> leveraged = new Vector<>();
 
 		List<Element> originalFiles = root.getChildren("file"); //$NON-NLS-1$
 		List<Element> oldFiles = root2.getChildren("file"); //$NON-NLS-1$
@@ -487,10 +487,10 @@ public class LocalController {
 			if (oldFile == null) {
 				continue;
 			}
-			segments.removeAllElements();
+			segments.clear();
 			recurseSegments(currentFile, segments);
 
-			leveraged.removeAllElements();
+			leveraged.clear();
 			recurseSegments(oldFile, leveraged);
 
 			Element previous = null;
@@ -583,7 +583,7 @@ public class LocalController {
 		el.setContent(content);
 	}
 
-	private void recurseSegments(Element root, Vector<Element> segments) {
+	private void recurseSegments(Element root, List<Element> segments) {
 		if (root.getName().equals("trans-unit")) { //$NON-NLS-1$
 			segments.add(root);
 		} else {
@@ -647,11 +647,11 @@ public class LocalController {
 
 	private static String getName(String name, String code) {
 		String result = name.substring(0, name.lastIndexOf('.')) + "@@@@" + name.substring(name.lastIndexOf('.')); //$NON-NLS-1$
-		return result.replaceAll("@@@@", "_" + code) + ".xlf"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return result.replace("@@@@", "_" + code) + ".xlf"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 
 	private static void changeTargetLanguage(File newFile, String code, Project project)
-			throws MalformedURLException, SAXException, IOException, ParserConfigurationException {
+			throws SAXException, IOException, ParserConfigurationException {
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(newFile);
 		Element root = doc.getRootElement();
@@ -671,7 +671,7 @@ public class LocalController {
 		}
 	}
 
-	private void recurse(Element e, Vector<Element> segments) {
+	private void recurse(Element e, List<Element> segments) {
 		if (e.getName().equals("trans-unit")) { //$NON-NLS-1$
 			if (e.getAttributeValue("translate", "yes").equals("yes")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				if (!e.getAttributeValue("approved", "no").equals("yes")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -694,7 +694,7 @@ public class LocalController {
 
 		PrintStream oldErr = System.err;
 		try (PrintStream newErr = new PrintStream(
-				new File(Preferences.getPreferencesDir(), "errors.txt"))) {
+				new File(Preferences.getPreferencesDir(), "errors.txt"))) { //$NON-NLS-1$
 			System.setErr(newErr);
 
 			logger.setStage(Messages.getString("LocalController.123")); //$NON-NLS-1$
@@ -735,7 +735,7 @@ public class LocalController {
 			}
 			String[] toolData = getToolData(root);
 			String targetLanguage = toolData[0];
-			Vector<Language> langs = project.getTgtLanguages();
+			List<Language> langs = project.getLanguages();
 			boolean found = false;
 			for (int i = 0; i < langs.size(); i++) {
 				Language l = langs.get(i);
@@ -778,9 +778,9 @@ public class LocalController {
 				}
 			}
 			Iterator<String> it = fileSet.iterator();
-			Vector<Hashtable<String, String>> paramsList = new Vector<>();
+			List<Hashtable<String, String>> paramsList = new Vector<>();
 			logger.setStage(Messages.getString("LocalController.127")); //$NON-NLS-1$
-			Vector<String> targetFiles = new Vector<>();
+			List<String> targetFiles = new Vector<>();
 			while (it.hasNext()) {
 				if (logger.isCancelled()) {
 					logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
@@ -977,7 +977,7 @@ public class LocalController {
 			trglist = buildTagList(target);
 
 			/* check empty target */
-			if (trglist.size() != 0) {
+			if (!trglist.isEmpty()) {
 				int tLength = trglist.size();
 				int j;
 				if (tLength > srclist.size()) {
@@ -1011,7 +1011,7 @@ public class LocalController {
 				}
 			} else {
 				// empty target
-				if (srclist.size() > 0) {
+				if (!srclist.isEmpty()) {
 					result = result + (i + 1) + ": " + Messages.getString("LocalController.21") + "\n"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				}
 			}
@@ -1032,8 +1032,8 @@ public class LocalController {
 		}
 	}
 
-	public static Vector<String> buildTagList(Element e) {
-		Vector<String> result = new Vector<>();
+	public static List<String> buildTagList(Element e) {
+		List<String> result = new Vector<>();
 		List<XMLNode> content = e.getContent();
 		Iterator<XMLNode> i = content.iterator();
 		while (i.hasNext()) {
@@ -1045,12 +1045,12 @@ public class LocalController {
 						|| el.getName().equals("ept") //$NON-NLS-1$
 						|| el.getName().equals("it")) //$NON-NLS-1$
 				{
-					if (el.getChildren().size() > 0) {
+					if (!el.getChildren().isEmpty()) {
 						String open = "<" + el.getName() + " "; //$NON-NLS-1$ //$NON-NLS-2$
 						List<Attribute> att = el.getAttributes();
 						for (int j = 0; j < att.size(); j++) {
 							Attribute a = att.get(j);
-							open = open + a.getName() + "=\"" + a.getValue().replaceAll("\"", "&quot;") + "\" "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+							open = open + a.getName() + "=\"" + a.getValue().replace("\"", "&quot;") + "\" "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 						}
 						result.add(open.substring(0, open.length() - 1) + ">"); //$NON-NLS-1$
 						List<XMLNode> list = el.getContent();
@@ -1072,7 +1072,7 @@ public class LocalController {
 					List<Attribute> att = el.getAttributes();
 					for (int j = 0; j < att.size(); j++) {
 						Attribute a = att.get(j);
-						open = open + a.getName() + "=\"" + a.getValue().replaceAll("\"", "&quot;") + "\" "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						open = open + a.getName() + "=\"" + a.getValue().replace("\"", "&quot;") + "\" "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 					}
 					result.add(open.substring(0, open.length() - 1) + ">"); //$NON-NLS-1$
 					List<XMLNode> list = el.getContent();
@@ -1097,7 +1097,7 @@ public class LocalController {
 	private void removeAltTrans(Element e) {
 		List<Element> children = e.getChildren();
 		List<Element> matches = e.getChildren("alt-trans"); //$NON-NLS-1$
-		if (matches.size() > 0) {
+		if (!matches.isEmpty()) {
 			for (int i = 0; i < matches.size(); i++) {
 				e.removeChild(matches.get(i));
 			}
@@ -1110,9 +1110,8 @@ public class LocalController {
 
 	private static String[] getToolData(Element root) {
 		Element file = root.getChild("file"); //$NON-NLS-1$
-		String[] result = new String[] { file.getAttributeValue("target-language", ""), //$NON-NLS-1$ //$NON-NLS-2$
+		return new String[] { file.getAttributeValue("target-language", ""), //$NON-NLS-1$ //$NON-NLS-2$
 				file.getAttributeValue("product-version", ""), file.getAttributeValue("build-num", "") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-		return result;
 	}
 
 	private static Element joinGroup(Element child) {
@@ -1163,7 +1162,7 @@ public class LocalController {
 			Document doc = loadXliff(params.get("xliff")); //$NON-NLS-1$
 			Element root = doc.getRootElement();
 			params.put("skeleton", getSkeleton(root)); //$NON-NLS-1$
-			if (checkGroups(root) == true) {
+			if (checkGroups(root)) {
 				temporary = File.createTempFile("group", ".xlf"); //$NON-NLS-1$ //$NON-NLS-2$
 				removeGroups(root, doc);
 				try (FileOutputStream out = new FileOutputStream(temporary.getAbsolutePath())) {
@@ -1249,11 +1248,11 @@ public class LocalController {
 					Element external = mskl.getChild("external-file"); //$NON-NLS-1$
 					if (external != null) {
 						result = external.getAttributeValue("href"); //$NON-NLS-1$
-						result = result.replaceAll("&amp;", "&"); //$NON-NLS-1$ //$NON-NLS-2$
-						result = result.replaceAll("&lt;", "<"); //$NON-NLS-1$ //$NON-NLS-2$
-						result = result.replaceAll("&gt;", ">"); //$NON-NLS-1$ //$NON-NLS-2$
-						result = result.replaceAll("&apos;", "\'"); //$NON-NLS-1$ //$NON-NLS-2$
-						result = result.replaceAll("&quot;", "\""); //$NON-NLS-1$ //$NON-NLS-2$
+						result = result.replace("&amp;", "&"); //$NON-NLS-1$ //$NON-NLS-2$
+						result = result.replace("&lt;", "<"); //$NON-NLS-1$ //$NON-NLS-2$
+						result = result.replace("&gt;", ">"); //$NON-NLS-1$ //$NON-NLS-2$
+						result = result.replace("&apos;", "\'"); //$NON-NLS-1$ //$NON-NLS-2$
+						result = result.replace("&quot;", "\""); //$NON-NLS-1$ //$NON-NLS-2$
 					} else {
 						Element internal = mskl.getChild("internal-file"); //$NON-NLS-1$
 						if (internal != null) {
@@ -1343,7 +1342,7 @@ public class LocalController {
 		if (target == null) {
 			return;
 		}
-		Vector<XMLNode> vector = new Vector<>();
+		List<XMLNode> vector = new Vector<>();
 		List<XMLNode> content = target.getContent();
 		for (int i = 0; i < content.size(); i++) {
 			XMLNode node = content.get(i);
@@ -1377,16 +1376,16 @@ public class LocalController {
 	}
 
 	private static String getEncoding(Element root) {
-		String encoding = "UTF-8"; //$NON-NLS-1$
+		String encoding = StandardCharsets.UTF_8.name();
 		List<PI> pis = root.getPI("encoding"); //$NON-NLS-1$
-		if (pis.size() > 0) {
+		if (!pis.isEmpty()) {
 			encoding = pis.get(0).getData();
 		}
 		return encoding;
 	}
 
 	private static String saveXliff(String fileName, File xliff, Element root) throws IOException {
-		String encoding = "UTF-8"; //$NON-NLS-1$
+		String encoding = StandardCharsets.UTF_8.name();
 		try (FileOutputStream out = new FileOutputStream(xliff)) {
 			writeStr(out, "<xliff version=\"1.2\">\n"); //$NON-NLS-1$
 			List<Element> files = root.getChildren("file"); //$NON-NLS-1$
@@ -1411,8 +1410,8 @@ public class LocalController {
 		return encoding;
 	}
 
-	private static void writeStr(FileOutputStream out, String string) throws UnsupportedEncodingException, IOException {
-		out.write(string.getBytes("UTF-8")); //$NON-NLS-1$
+	private static void writeStr(FileOutputStream out, String string) throws IOException {
+		out.write(string.getBytes(StandardCharsets.UTF_8));
 	}
 
 	public void importTMX(Memory memory, String tmxFile, ILogger logger)
@@ -1443,7 +1442,7 @@ public class LocalController {
 		return memoriesMap.get(id);
 	}
 
-	private Vector<Element> searchText(InternalDatabase db, Element seg, String sourcelang, String targetlang,
+	private List<Element> searchText(InternalDatabase db, Element seg, String sourcelang, String targetlang,
 			float fuzzyLevel, boolean caseSensitive) throws SAXException, IOException, ParserConfigurationException {
 		if (validCtypes == null) {
 			validCtypes = new Hashtable<>();
@@ -1465,7 +1464,7 @@ public class LocalController {
 		return searchTranslations(db, seg, sourcelang, targetlang, fuzzyLevel, caseSensitive);
 	}
 
-	private Vector<Element> searchTranslations(InternalDatabase database, Element seg, String srcLang, String tgtLang,
+	private List<Element> searchTranslations(InternalDatabase database, Element seg, String srcLang, String tgtLang,
 			float fuzzyLevel, boolean caseSensitive) throws SAXException, IOException, ParserConfigurationException {
 
 		Hashtable<String, Element> existingMatches = new Hashtable<>();
@@ -1475,7 +1474,7 @@ public class LocalController {
 			Element trans = t.next();
 			if (!trans.getAttributeValue("tool", "TM Search").equals("TT")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				List<PI> pis = trans.getPI("id"); //$NON-NLS-1$
-				if (pis.size() == 0) {
+				if (pis.isEmpty()) {
 					trans.addContent(new PI("id", MemUtils.createId())); //$NON-NLS-1$
 					pis = trans.getPI("id"); //$NON-NLS-1$
 				}
@@ -1486,7 +1485,7 @@ public class LocalController {
 			}
 		}
 
-		Vector<TU> res = database.searchTranslation(MemUtils.pureText(seg.getChild("source")), //$NON-NLS-1$
+		List<TU> res = database.searchTranslation(MemUtils.pureText(seg.getChild("source")), //$NON-NLS-1$
 				srcLang, tgtLang, (int) fuzzyLevel, caseSensitive);
 
 		Iterator<TU> r = res.iterator();
@@ -1525,7 +1524,7 @@ public class LocalController {
 			alttrans.setAttribute("xml:space", "default"); //$NON-NLS-1$ //$NON-NLS-2$
 			alttrans.setAttribute("origin", database.getName()); //$NON-NLS-1$
 
-			Hashtable<String, String> props = tu.getProps();
+			Map<String, String> props = tu.getProps();
 			if (props.containsKey("similarity")) { //$NON-NLS-1$
 				props.remove("similarity"); //$NON-NLS-1$
 			}
@@ -1534,9 +1533,10 @@ public class LocalController {
 				Element group = new Element("prop-group"); //$NON-NLS-1$
 				alttrans.addContent(group);
 				alttrans.addContent("\n"); //$NON-NLS-1$
-				Enumeration<String> keys = props.keys();
-				while (keys.hasMoreElements()) {
-					String key = keys.nextElement();
+				Set<String> keys = props.keySet();
+				Iterator<String> kt = keys.iterator();
+				while (kt.hasNext()) {
+					String key = kt.next();
 					if (!key.equals("similarity")) { //$NON-NLS-1$
 						Element prop = new Element("prop"); //$NON-NLS-1$
 						prop.setAttribute("prop-type", key); //$NON-NLS-1$
@@ -1556,7 +1556,7 @@ public class LocalController {
 			tgt = null;
 		}
 
-		Vector<Element> result = new Vector<>();
+		List<Element> result = new Vector<>();
 		Enumeration<Element> en = existingMatches.elements();
 		while (en.hasMoreElements()) {
 			Element e = en.nextElement();
@@ -1564,7 +1564,7 @@ public class LocalController {
 		}
 		existingMatches = null;
 
-		if (result.size() > 0) {
+		if (!result.isEmpty()) {
 			return MemUtils.sortMatches(result);
 		}
 		return null;
@@ -1572,7 +1572,7 @@ public class LocalController {
 
 	private Element buildElement(String src) throws SAXException, IOException, ParserConfigurationException {
 
-		ByteArrayInputStream stream = new ByteArrayInputStream(src.getBytes("UTF-8")); //$NON-NLS-1$
+		ByteArrayInputStream stream = new ByteArrayInputStream(src.getBytes(StandardCharsets.UTF_8));
 		SAXBuilder bld = new SAXBuilder(false);
 
 		Document d = bld.build(stream);
@@ -1582,7 +1582,7 @@ public class LocalController {
 
 		Element e = d.getRootElement();
 		String transformed = tmx2xlf(e);
-		stream = new ByteArrayInputStream(transformed.getBytes("UTF-8")); //$NON-NLS-1$
+		stream = new ByteArrayInputStream(transformed.getBytes(StandardCharsets.UTF_8));
 		d = bld.build(stream);
 		e = d.getRootElement();
 		return e;
@@ -1616,7 +1616,7 @@ public class LocalController {
 				// may come from an old TM
 				try {
 					String s = e.getText();
-					ByteArrayInputStream stream = new ByteArrayInputStream(s.getBytes("UTF-8")); //$NON-NLS-1$
+					ByteArrayInputStream stream = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
 					SAXBuilder bld = new SAXBuilder(false);
 					Document d = bld.build(stream);
 					Element r = d.getRootElement();
@@ -1820,9 +1820,9 @@ public class LocalController {
 	}
 
 	private static String clean(String string) {
-		String result = string.replaceAll("<", TMXExporter.MATHLT); //$NON-NLS-1$
-		result = result.replaceAll(">", TMXExporter.MATHGT); //$NON-NLS-1$
-		result = result.replaceAll("\"", TMXExporter.DOUBLEPRIME); //$NON-NLS-1$
+		String result = string.replace("<", TMXExporter.MATHLT); //$NON-NLS-1$
+		result = result.replace(">", TMXExporter.MATHGT); //$NON-NLS-1$
+		result = result.replace("\"", TMXExporter.DOUBLEPRIME); //$NON-NLS-1$
 		return replaceAmp(result);
 	}
 
@@ -1883,7 +1883,7 @@ public class LocalController {
 	}
 
 	private static double wrongTags(Element x, Element y, double tagPenalty) {
-		Vector<Element> tags = new Vector<>();
+		List<Element> tags = new Vector<>();
 		int count = 0;
 		int errors = 0;
 		List<XMLNode> content = x.getContent();
@@ -1936,7 +1936,7 @@ public class LocalController {
 			cleanCtype(match);
 			return match;
 		}
-		if (srcList.size() == 1 && altSrcList.size() == 0) {
+		if (srcList.size() == 1 && altSrcList.isEmpty()) {
 			// source has one tag more than alt-source
 			List<XMLNode> content = src.getContent();
 			XMLNode initial = content.get(0);
@@ -1969,11 +1969,11 @@ public class LocalController {
 			cleanCtype(match);
 			return match;
 		}
-		if (srcList.size() == 0 && altSrcList.size() > 0) {
+		if (srcList.isEmpty() && !altSrcList.isEmpty()) {
 			// remove all tags from the match
 			List<XMLNode> content = altSrc.getContent();
 			Iterator<XMLNode> i = content.iterator();
-			Vector<XMLNode> newContent = new Vector<>();
+			List<XMLNode> newContent = new Vector<>();
 			while (i.hasNext()) {
 				XMLNode o = i.next();
 				if (o.getNodeType() != XMLNode.ELEMENT_NODE) {
@@ -2043,9 +2043,9 @@ public class LocalController {
 	}
 
 	public void removeMemory(long id) throws IOException {
-		Vector<Project> projects = getProjects();
+		List<Project> projects = getProjects();
 		for (int i = 0; i < projects.size(); i++) {
-			Vector<Memory> memories = projects.get(i).getMemories();
+			List<Memory> memories = projects.get(i).getMemories();
 			for (int j = 0; j < memories.size(); j++) {
 				if (memories.get(j).getId() == id) {
 					throw new IOException(Messages.getString("LocalController.50")); //$NON-NLS-1$

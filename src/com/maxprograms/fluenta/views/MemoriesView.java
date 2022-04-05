@@ -16,8 +16,14 @@ import java.io.IOException;
 import java.text.Collator;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
-import java.util.Vector;
+
+import com.maxprograms.fluenta.Fluenta;
+import com.maxprograms.fluenta.MainView;
+import com.maxprograms.fluenta.models.Memory;
+import com.maxprograms.widgets.CustomBar;
+import com.maxprograms.widgets.CustomItem;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -33,12 +39,6 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-
-import com.maxprograms.fluenta.Fluenta;
-import com.maxprograms.fluenta.MainView;
-import com.maxprograms.fluenta.models.Memory;
-import com.maxprograms.widgets.CustomBar;
-import com.maxprograms.widgets.CustomItem;
 
 public class MemoriesView extends Composite {
 
@@ -298,7 +298,7 @@ public class MemoriesView extends Composite {
 	public void loadMemories() {
 		table.removeAll();
 		try {
-			Vector<Memory> memories = MainView.getController().getMemories();
+			List<Memory> memories = MainView.getController().getMemories();
 			Memory[] array = memories.toArray(new Memory[memories.size()]);
 			final Collator collator = Collator.getInstance(new Locale("en")); //$NON-NLS-1$
 			Arrays.sort(array, new Comparator<Memory>() {
@@ -333,7 +333,7 @@ public class MemoriesView extends Composite {
 				TableItem item = new TableItem(table, SWT.NONE);
 				item.setData("memory", m); //$NON-NLS-1$
 				item.setText(
-						new String[] { m.getName(), m.getCreationDateString().toString(), m.getLastUpdateString() });
+						new String[] { m.getName(), m.getCreationDateString(), m.getLastUpdateString() });
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

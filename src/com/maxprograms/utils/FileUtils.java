@@ -16,8 +16,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Iterator;
+import java.util.List;
+import java.util.SortedSet;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 import java.util.Vector;
 
 import com.maxprograms.converters.MTree;
@@ -59,16 +60,16 @@ public class FileUtils {
 				throw new IOException(mf.format(new Object[] { filename }));
 			}
 		}
-		Vector<String> homelist;
-		Vector<String> filelist;
+		List<String> homelist;
+		List<String> filelist;
 
 		homelist = getPathList(home);
 		filelist = getPathList(file);
 		return matchPathLists(homelist, filelist);
 	}
 
-	private static Vector<String> getPathList(File file) throws IOException {
-		Vector<String> list = new Vector<>();
+	private static List<String> getPathList(File file) throws IOException {
+		List<String> list = new Vector<>();
 		File r;
 		r = file.getCanonicalFile();
 		while (r != null) {
@@ -78,7 +79,7 @@ public class FileUtils {
 		return list;
 	}
 
-	private static String matchPathLists(Vector<String> r, Vector<String> f) {
+	private static String matchPathLists(List<String> r, List<String> f) {
 		int i;
 		int j;
 		String s = ""; //$NON-NLS-1$
@@ -110,7 +111,7 @@ public class FileUtils {
 		return s;
 	}
 
-	public static String findTreeRoot(TreeSet<String> set) {
+	public static String findTreeRoot(SortedSet<String> set) {
 		String result = ""; //$NON-NLS-1$
 		MTree<String> tree = filesTree(set);
 		MTree.Node<String> root = tree.getRoot();
@@ -121,8 +122,8 @@ public class FileUtils {
 		return result;
 	}
 
-	private static MTree<String> filesTree(TreeSet<String> files) {
-		MTree<String> result = new MTree<String>(""); //$NON-NLS-1$
+	private static MTree<String> filesTree(SortedSet<String> files) {
+		MTree<String> result = new MTree<>(""); //$NON-NLS-1$
 		Iterator<String> it = files.iterator();
 		while (it.hasNext()) {
 			String s = it.next();
@@ -134,7 +135,7 @@ public class FileUtils {
 				if (level1 != null) {
 					current = level1;
 				} else {
-					current.addChild(new MTree.Node<String>(name));
+					current.addChild(new MTree.Node<>(name));
 					current = current.getChild(name);
 				}
 			}

@@ -14,17 +14,18 @@ package com.maxprograms.tmengine;
 
 import java.io.Serializable;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class Tuv implements Serializable {
 
 	private static final long serialVersionUID = -7241116367216426814L;
-	
+
 	private transient String tuid;
 	private transient String lang;
 	private String segment;
 	private String pureText;
-	private Hashtable<String,String> props;
-	
+	private Map<String, String> props;
+
 	public Tuv(String tuid, String lang, String segment, String pureText) {
 		this.tuid = tuid;
 		this.lang = lang;
@@ -40,11 +41,11 @@ public class Tuv implements Serializable {
 	public String getLang() {
 		return lang;
 	}
-	
+
 	public String getSegment() {
 		return segment;
 	}
-	
+
 	public String getPureText() {
 		return pureText;
 	}
@@ -53,15 +54,15 @@ public class Tuv implements Serializable {
 		this.tuid = tuid;
 		this.lang = lang;
 	}
-	
-	public void setProperties(Hashtable<String, String> values) {
+
+	public void setProperties(Map<String, String> values) {
 		props = values;
 	}
-	
-	public Hashtable<String, String> getProperties() {
+
+	public Map<String, String> getProperties() {
 		return props;
 	}
-	
+
 	public String getProperty(String name) {
 		return props.get(name);
 	}

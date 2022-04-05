@@ -10,17 +10,23 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
- package com.maxprograms.tmengine;
+package com.maxprograms.tmengine;
 
-import java.util.Vector;
+import java.util.List;
 
 public interface ILogger {
 
 	public void log(String message);
+
 	public void setStage(String stage);
+
 	public boolean isCancelled();
+
 	public void logError(String error);
-	public Vector<String> getErrors();
+
+	public List<String> getErrors();
+
 	public void displayError(String string);
+
 	public void displaySuccess(String string);
 }

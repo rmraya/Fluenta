@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.Vector;
 
@@ -50,7 +51,7 @@ import org.xml.sax.SAXException;
 
 public class ProjectPreferences extends Composite {
 
-	protected Vector<Language> defaultTargets;
+	protected List<Language> defaultTargets;
 	private Language defaultSource;
 	protected Combo sourceLangCombo;
 	protected Text srxText;
@@ -330,7 +331,7 @@ public class ProjectPreferences extends Composite {
 		return LanguageUtils.getLanguage(prefs.get("DefaultSourceLanguages", "default", "en-US")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 
-	public static Vector<Language> getDefaultTargets() throws IOException {
+	public static List<Language> getDefaultTargets() throws IOException {
 		TreeSet<Language> tree = new TreeSet<>(new Comparator<Language>() {
 
 			@Override
@@ -346,14 +347,14 @@ public class ProjectPreferences extends Composite {
 			String key = keys.next();
 			tree.add(new Language(key, table.getString(key)));
 		}
-		if (tree.size() == 0) {
+		if (tree.isEmpty()) {
 			tree.add(LanguageUtils.getLanguage("fr")); //$NON-NLS-1$
 			tree.add(LanguageUtils.getLanguage("de")); //$NON-NLS-1$
 			tree.add(LanguageUtils.getLanguage("it")); //$NON-NLS-1$
 			tree.add(LanguageUtils.getLanguage("es")); //$NON-NLS-1$
 			tree.add(LanguageUtils.getLanguage("ja-JP")); //$NON-NLS-1$
 		}
-		Vector<Language> result = new Vector<>();
+		List<Language> result = new Vector<>();
 		result.addAll(tree);
 		return result;
 	}

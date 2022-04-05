@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -39,7 +40,6 @@ import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
 public class API {
-
 	protected static void addProject(String jsonFile)
 			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
 		File projectFile = new File(jsonFile);
@@ -86,7 +86,7 @@ public class API {
 			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
 		Language srcLanguage = LanguageUtils.getLanguage(srcLang);
 
-		Vector<Language> tgtLanguages = new Vector<>();
+		List<Language> tgtLanguages = new Vector<>();
 		for (int i = 0; i < tgtLang.length; i++) {
 			tgtLanguages.add(LanguageUtils.getLanguage(tgtLang[i]));
 		}
@@ -96,7 +96,7 @@ public class API {
 		LocalController controller = new LocalController();
 		controller.createMemory(mem);
 
-		Vector<Memory> memories = new Vector<>();
+		List<Memory> memories = new Vector<>();
 		memories.add(mem);
 		for (int i = 0; i < memIds.length; i++) {
 			memories.add(controller.getMemory(memIds[i]));
@@ -111,7 +111,7 @@ public class API {
 
 	public static String getProjects() throws IOException {
 		LocalController controller = new LocalController();
-		Vector<Project> projects = controller.getProjects();
+		List<Project> projects = controller.getProjects();
 		controller.close();
 
 		JSONObject result = new JSONObject();
@@ -130,7 +130,7 @@ public class API {
 			proj.put("srcLang", p.getSrcLanguage().getCode()); //$NON-NLS-1$
 			JSONArray tgtArray = new JSONArray();
 			JSONObject statusArray = new JSONObject();
-			Vector<Language> tgtLanguages = p.getTgtLanguages();
+			List<Language> tgtLanguages = p.getLanguages();
 			Iterator<Language> lt = tgtLanguages.iterator();
 			while (lt.hasNext()) {
 				Language l = lt.next();
@@ -141,7 +141,7 @@ public class API {
 			proj.put("targetStatus", statusArray); //$NON-NLS-1$
 			proj.put("lastUpdate", p.getLastUpdateString()); //$NON-NLS-1$
 			JSONArray memArray = new JSONArray();
-			Vector<Memory> mems = p.getMemories();
+			List<Memory> mems = p.getMemories();
 			Iterator<Memory> mt = mems.iterator();
 			while (mt.hasNext()) {
 				Memory m = mt.next();
@@ -155,7 +155,7 @@ public class API {
 
 	public static String getMemories() throws IOException {
 		LocalController controller = new LocalController();
-		Vector<Memory> memories = controller.getMemories();
+		List<Memory> memories = controller.getMemories();
 		controller.close();
 		JSONObject result = new JSONObject();
 		JSONArray array = new JSONArray();
@@ -171,7 +171,7 @@ public class API {
 			mem.put("lastUpdate", m.getLastUpdateString()); //$NON-NLS-1$
 			mem.put("srcLang", m.getSrcLanguage().getCode()); //$NON-NLS-1$
 			JSONArray tgtArray = new JSONArray();
-			Vector<Language> langs = m.getTgtLanguages();
+			List<Language> langs = m.getTgtLanguages();
 			Iterator<Language> it = langs.iterator();
 			while (it.hasNext()) {
 				Language l = it.next();
@@ -217,7 +217,7 @@ public class API {
 		if (tgtLang == null || tgtLang.length == 0) {
 			throw new IOException(Messages.getString("API.174")); //$NON-NLS-1$
 		}
-		Vector<Language> tgtLanguages = new Vector<>();
+		List<Language> tgtLanguages = new Vector<>();
 		for (int i = 0; i < tgtLang.length; i++) {
 			tgtLanguages.add(LanguageUtils.getLanguage(tgtLang[i]));
 		}
@@ -273,7 +273,7 @@ public class API {
 		if (tgtLang == null || tgtLang.length == 0) {
 			throw new IOException(Messages.getString("API.182")); //$NON-NLS-1$
 		}
-		Vector<Language> langs = new Vector<>();
+		List<Language> langs = new Vector<>();
 		for (int i = 0; i < tgtLang.length; i++) {
 			langs.add(LanguageUtils.getLanguage(tgtLang[i]));
 		}

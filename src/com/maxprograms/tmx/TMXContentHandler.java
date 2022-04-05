@@ -39,13 +39,13 @@ class TMXContentHandler implements ContentHandler, LexicalHandler {
 	private int discarded;
 	private InternalDatabase db;
 	private String srcLang;
-	private ILogger logger;
+	private ILogger iLogger;
 	private MessageFormat mf1;
 	
 	public TMXContentHandler(InternalDatabase internalDatabase, ILogger logger){
 		db = internalDatabase;
 		stack = new Stack<>();
-		this.logger = logger;
+		this.iLogger = logger;
 		mf1 = new MessageFormat(Messages.getString("TMXContentHandler.0")); //$NON-NLS-1$
 	}
 	
@@ -68,11 +68,11 @@ class TMXContentHandler implements ContentHandler, LexicalHandler {
 				db.storeTU(current, srcLang);
 				if (count % 400 == 0) {
 					db.commit();
-					if (logger != null) {
-						if (logger.isCancelled()) {
+					if (iLogger != null) {
+						if (iLogger.isCancelled()) {
 							throw new SAXException(Messages.getString("TMXContentHandler.1")); //$NON-NLS-1$
 						}
-						logger.log(mf1.format(new Object[]{"" + count})); //$NON-NLS-1$
+						iLogger.log(mf1.format(new Object[]{"" + count})); //$NON-NLS-1$
 					}
 				}				
 			} catch (Exception e) {

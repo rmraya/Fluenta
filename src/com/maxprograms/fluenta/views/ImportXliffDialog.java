@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.Iterator;
-import java.util.Vector;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -328,7 +328,7 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 	}
 
 	@Override
-	public Vector<String> getErrors() {
+	public List<String> getErrors() {
 		return logger.getErrors();
 	}
 
@@ -358,17 +358,17 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 				MessageBox box = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
 				box.setMessage(string);
 				box.open();
-				Vector<String> errors = alogger.getErrors();
+				List<String> errors = alogger.getErrors();
 				if (errors != null) {
 					try {
 						HTMLViewer viewer = new HTMLViewer(parentShell);
 						StringBuilder sb = new StringBuilder();
-						sb.append("<pre>\n");
+						sb.append("<pre>\n"); //$NON-NLS-1$
 						Iterator<String> it = errors.iterator();
 						while (it.hasNext()) {
 							sb.append(it.next() + "\n"); //$NON-NLS-1$
 						}
-						sb.append("</pre>");
+						sb.append("</pre>"); //$NON-NLS-1$
 						viewer.setContent(sb.toString());
 						viewer.show();
 					} catch (Exception e) {

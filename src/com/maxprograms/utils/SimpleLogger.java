@@ -12,7 +12,7 @@
 
 package com.maxprograms.utils;
 
-import java.util.Vector;
+import java.util.List;
 
 import com.maxprograms.tmengine.ILogger;
 
@@ -53,7 +53,7 @@ public class SimpleLogger implements ILogger{
 	}
 
 	@Override
-	public Vector<String> getErrors() {
+	public List<String> getErrors() {
 		return null;
 	}
 

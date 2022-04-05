@@ -21,6 +21,7 @@ import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
@@ -104,7 +105,7 @@ public class Fluenta {
 		lock = new File(Preferences.getPreferencesDir(), "lock"); //$NON-NLS-1$
 		lockStream = new FileOutputStream(lock);
 		Date d = new Date(System.currentTimeMillis());
-		lockStream.write(d.toString().getBytes("UTF-8")); //$NON-NLS-1$
+		lockStream.write(d.toString().getBytes(StandardCharsets.UTF_8)); 
 		channel = lockStream.getChannel();
 		flock = channel.lock();
 	}

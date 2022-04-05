@@ -25,8 +25,8 @@ import org.mapdb.DBMaker;
 import org.mapdb.Fun;
 
 public class FuzzyIndex {
-	
-	private Hashtable<String, NavigableSet<Fun.Tuple2<Integer,String>>> maps;
+
+	private Hashtable<String, NavigableSet<Fun.Tuple2<Integer, String>>> maps;
 	private Hashtable<String, DB> databases;
 	private File folder;
 
@@ -35,23 +35,24 @@ public class FuzzyIndex {
 		databases = new Hashtable<>();
 		maps = new Hashtable<>();
 	}
-	
-	NavigableSet<Fun.Tuple2<Integer,String>> getIndex(String lang) throws IOException {
+
+	NavigableSet<Fun.Tuple2<Integer, String>> getIndex(String lang) throws IOException {
 		if (!maps.containsKey(lang)) {
 			DB mapdb = null;
 			try {
-				mapdb = DBMaker.newFileDB(new File(folder, "index_" + lang)).closeOnJvmShutdown().asyncWriteEnable().make(); //$NON-NLS-1$
+				mapdb = DBMaker.newFileDB(new File(folder, "index_" + lang)).closeOnJvmShutdown().asyncWriteEnable() //$NON-NLS-1$
+						.make();
 			} catch (Error ioe) {
 				throw new IOException(ioe.getMessage());
 			}
-			NavigableSet<Fun.Tuple2<Integer,String>> multiMap = mapdb.getTreeSet(lang);
+			NavigableSet<Fun.Tuple2<Integer, String>> multiMap = mapdb.getTreeSet(lang);
 			databases.put(lang, mapdb);
 			maps.put(lang, multiMap);
 		}
 		return maps.get(lang);
 	}
 
-	synchronized public void commit() {
+	public synchronized void commit() {
 		Set<String> set = databases.keySet();
 		Iterator<String> keys = set.iterator();
 		while (keys.hasNext()) {
@@ -69,7 +70,7 @@ public class FuzzyIndex {
 		}
 	}
 
-	synchronized public void close() {
+	public synchronized void close() {
 		Enumeration<String> keys = databases.keys();
 		while (keys.hasMoreElements()) {
 			String key = keys.nextElement();
@@ -79,5 +80,5 @@ public class FuzzyIndex {
 			db.close();
 		}
 	}
-	
+
 }

@@ -15,7 +15,10 @@ package com.maxprograms.fluenta.models;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import com.maxprograms.languages.Language;
@@ -33,7 +36,7 @@ public class Memory implements Serializable {
 	private Date creationDate;
 	private Date lastUpdate;
 	private Language srcLanguage;
-	private Vector<Language> tgtLanguages;
+	private List<Language> tgtLanguages;
 
 	public Memory() throws IOException {
 		id = 0l;
@@ -41,11 +44,11 @@ public class Memory implements Serializable {
 		description = ""; //$NON-NLS-1$
 		creationDate = new Date();
 		srcLanguage = LanguageUtils.getLanguage("en-US"); //$NON-NLS-1$
-		tgtLanguages = new Vector<Language>();
+		tgtLanguages = new Vector<>();
 	}
 
 	public Memory(long id, String name, String description, String owner, Date creationDate, Date lastUpdate,
-			Language srcLanguage, Vector<Language> tgtLanguages) {
+			Language srcLanguage, List<Language> tgtLanguages) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -96,7 +99,8 @@ public class Memory implements Serializable {
 		Calendar c = Calendar.getInstance();
 		c.setTime(creationDate);
 		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-" //$NON-NLS-1$ //$NON-NLS-2$
-				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); //$NON-NLS-1$ //$NON-NLS-2$
+				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) //$NON-NLS-1$
+				+ ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); //$NON-NLS-1$
 	}
 
 	public String getLastUpdateString() {
@@ -106,7 +110,8 @@ public class Memory implements Serializable {
 		Calendar c = Calendar.getInstance();
 		c.setTime(lastUpdate);
 		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-" //$NON-NLS-1$ //$NON-NLS-2$
-				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); //$NON-NLS-1$ //$NON-NLS-2$
+				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) //$NON-NLS-1$
+				+ ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); //$NON-NLS-1$
 	}
 
 	public void setCreationDate(Date creationDate) {
@@ -129,11 +134,19 @@ public class Memory implements Serializable {
 		this.srcLanguage = srcLanguage;
 	}
 
-	public Vector<Language> getTgtLanguages() {
+	public List<Language> getTgtLanguages() {
+		Collections.sort(tgtLanguages, new Comparator<Language>() {
+
+			@Override
+			public int compare(Language o1, Language o2) {
+				return o1.getDescription().compareTo(o2.getDescription());
+			}
+
+		});
 		return tgtLanguages;
 	}
 
-	public void setTgtLanguages(Vector<Language> tgtLanguages) {
+	public void setTgtLanguages(List<Language> tgtLanguages) {
 		this.tgtLanguages = tgtLanguages;
 	}
 }

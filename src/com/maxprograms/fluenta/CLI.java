@@ -16,12 +16,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.io.UnsupportedEncodingException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.net.URISyntaxException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
@@ -181,22 +181,22 @@ public class CLI {
 			try {
 				id = Long.parseLong(memId);
 			} catch (Exception ex) {
-				System.err.println(Messages.getString("CLI.13")); //$NON-NLS-1$
+				LOGGER.log(Level.ERROR, Messages.getString("CLI.13")); //$NON-NLS-1$
 				System.exit(3);
 			}
 			if (tmxFile == null) {
-				System.err.println(Messages.getString("CLI.14")); //$NON-NLS-1$
+				LOGGER.log(Level.ERROR, Messages.getString("CLI.14")); //$NON-NLS-1$
 				System.exit(3);
 			}
 			File f = new File(tmxFile);
 			if (!f.exists()) {
-				System.err.println(Messages.getString("CLI.15")); //$NON-NLS-1$
+				LOGGER.log(Level.ERROR, Messages.getString("CLI.15")); //$NON-NLS-1$
 				System.exit(3);
 			}
 			try {
 				API.importMemory(id, tmxFile, verbose);
 			} catch (Exception e) {
-				System.err.println(e.getMessage());
+				LOGGER.log(Level.ERROR, e.getMessage());
 				System.exit(3);
 			}
 		}
@@ -205,17 +205,17 @@ public class CLI {
 			try {
 				id = Long.parseLong(memId);
 			} catch (Exception ex) {
-				System.err.println(Messages.getString("CLI.16")); //$NON-NLS-1$
+				LOGGER.log(Level.ERROR, Messages.getString("CLI.16")); //$NON-NLS-1$
 				System.exit(3);
 			}
 			if (tmxFile == null) {
-				System.err.println(Messages.getString("CLI.17")); //$NON-NLS-1$
+				LOGGER.log(Level.ERROR, Messages.getString("CLI.17")); //$NON-NLS-1$
 				System.exit(3);
 			}
 			try {
 				API.exportMemory(id, tmxFile);
 			} catch (Exception e) {
-				System.err.println(e.getMessage());
+				LOGGER.log(Level.ERROR, e.getMessage());
 				System.exit(3);
 			}
 		}
@@ -233,7 +233,7 @@ public class CLI {
 				try (FileChannel oldchannel = file.getChannel()) {
 					FileLock newlock = oldchannel.tryLock();
 					if (newlock == null) {
-						System.err.println(Messages.getString("Fluenta.8")); //$NON-NLS-1$
+						LOGGER.log(Level.ERROR, Messages.getString("CLI.8")); //$NON-NLS-1$
 						System.exit(1);
 					} else {
 						newlock.release();
@@ -245,11 +245,11 @@ public class CLI {
 		}
 	}
 
-	private static void lock() throws UnsupportedEncodingException, IOException {
+	private static void lock() throws IOException {
 		lock = new File(Preferences.getPreferencesDir(), "lock"); //$NON-NLS-1$
 		lockStream = new FileOutputStream(lock);
 		Date d = new Date(System.currentTimeMillis());
-		lockStream.write(d.toString().getBytes("UTF-8")); //$NON-NLS-1$
+		lockStream.write(d.toString().getBytes(StandardCharsets.UTF_8));
 		channel = lockStream.getChannel();
 		flock = channel.lock();
 	}

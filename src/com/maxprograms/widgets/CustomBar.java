@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Label;
 
 public class CustomBar extends Composite {
 
-	private GridLayout layout;
+	private GridLayout barLayout;
 	private int count;
 	private Image imageSeparator;
 
@@ -32,11 +32,11 @@ public class CustomBar extends Composite {
 
 	public CustomBar(Composite parent, int style) {
 		super(parent, style);
-		layout = new GridLayout();
-		layout.marginWidth = 1;
-		layout.marginHeight = 0;
-		layout.horizontalSpacing = 1;
-		setLayout(layout);
+		barLayout = new GridLayout();
+		barLayout.marginWidth = 1;
+		barLayout.marginHeight = 0;
+		barLayout.horizontalSpacing = 1;
+		setLayout(barLayout);
 
 		setForeground(defaultForeground);
 		setBackground(defaultBackground);
@@ -45,8 +45,7 @@ public class CustomBar extends Composite {
 	public CustomItem addItem(int style) {
 		count++;
 		setItemCount(count);
-		CustomItem item = new CustomItem(this, style);
-		return item;
+		return new CustomItem(this, style);
 	}
 
 	public void addSeparator() {
@@ -84,7 +83,7 @@ public class CustomBar extends Composite {
 
 	private void setItemCount(int value) {
 		count = value;
-		layout.numColumns = count;
+		barLayout.numColumns = count;
 		layout();
 	}
 
