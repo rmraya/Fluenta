@@ -824,6 +824,20 @@ public class LocalController {
 					logger.displayError(error);
 					return;
 				}
+				// remove referenced content imported on XLIFF creation
+				SAXBuilder builder = new SAXBuilder();
+				Catalog catalog = new Catalog(Fluenta.getCatalogFile());
+				builder.setEntityResolver(catalog);
+				XMLOutputter outputter = new XMLOutputter();
+				outputter.preserveSpace(true);
+				Document d = builder.build(backfile);
+				Element r = d.getRootElement();
+				removeContent(r);
+				Indenter.indent(r, 2);
+				try (FileOutputStream out = new FileOutputStream(new File(backfile))) {
+					outputter.output(d, out);
+				}
+				// remove temporay XLIFF
 				File f = new File(paramsList.get(i).get("xliff")); //$NON-NLS-1$
 				Files.delete(Paths.get(f.toURI()));
 			}
@@ -2102,20 +2116,23 @@ public class LocalController {
 		return projectsMap.get(id);
 	}
 
+	private void removeContent(Element e) {
+		if ("removeContent".equals(e.getAttributeValue("state"))) {
+			e.setContent(new ArrayList<>());
+			e.removeAttribute("state");
+		}
+		List<Element> children = e.getChildren();
+		Iterator<Element> it = children.iterator();
+		while (it.hasNext()) {
+			removeContent(it.next());
+		}
+	}
+
 	private void recurse(Element e) {
 		e.removeAttribute("class"); //$NON-NLS-1$
 		e.removeAttribute("xmlns:ditaarch"); //$NON-NLS-1$
 		e.removeAttribute("ditaarch:DITAArchVersion"); //$NON-NLS-1$
 		e.removeAttribute("domains"); //$NON-NLS-1$
-		if (e.getName().equals("mapref") && e.getAttributeValue("format", "").equals("ditamap")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-			e.removeAttribute("format"); //$NON-NLS-1$
-		}
-		if (e.getName().equals("keydef") && e.getAttributeValue("processing-role", "").equals("resource-only")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-			e.removeAttribute("processing-role"); //$NON-NLS-1$
-		}
-		if (e.getName().equals("image") && e.getAttributeValue("placement", "").equals("inline")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-			e.removeAttribute("placement"); //$NON-NLS-1$
-		}
 		List<Element> children = e.getChildren();
 		Iterator<Element> it = children.iterator();
 		while (it.hasNext()) {
