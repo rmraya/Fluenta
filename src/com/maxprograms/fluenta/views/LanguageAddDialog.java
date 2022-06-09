@@ -51,13 +51,13 @@ public class LanguageAddDialog extends Dialog {
 
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
-		shell.setText(Messages.getString("LanguageAddDialog.0")); //$NON-NLS-1$
+		shell.setText(Messages.getString("LanguageAddDialog.0")); 
 		shell.setLayout(new GridLayout());
 		shell.addListener(SWT.Close, new Listener() {
 
 			@Override
 			public void handleEvent(Event arg0) {
-				Locator.remember(shell, "LanguageAddDialog"); //$NON-NLS-1$
+				Locator.remember(shell, "LanguageAddDialog"); 
 			}
 		});
 		display = shell.getDisplay();
@@ -66,7 +66,7 @@ public class LanguageAddDialog extends Dialog {
 		top.setLayout(new GridLayout(2, false));
 
 		Label sourceLabel = new Label(top, SWT.NONE);
-		sourceLabel.setText(Messages.getString("LanguageAddDialog.2")); //$NON-NLS-1$
+		sourceLabel.setText(Messages.getString("LanguageAddDialog.2")); 
 
 		langCombo = new Combo(top, SWT.DROP_DOWN | SWT.READ_ONLY);
 		langCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -75,7 +75,7 @@ public class LanguageAddDialog extends Dialog {
 		} catch (SAXException | IOException | ParserConfigurationException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("LanguageAddDialog.3")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("LanguageAddDialog.3")); 
 			box.open();
 			shell.close();
 		}
@@ -85,18 +85,18 @@ public class LanguageAddDialog extends Dialog {
 		bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label filler2 = new Label(bottom, SWT.NONE);
-		filler2.setText(""); //$NON-NLS-1$
+		filler2.setText(""); 
 		filler2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button add = new Button(bottom, SWT.PUSH);
-		add.setText(Messages.getString("LanguageAddDialog.5")); //$NON-NLS-1$
+		add.setText(Messages.getString("LanguageAddDialog.5")); 
 		add.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				if (langCombo.getSelectionIndex() == -1) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage(Messages.getString("LanguageAddDialog.6")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("LanguageAddDialog.6")); 
 					box.open();
 					return;
 				}
@@ -105,7 +105,7 @@ public class LanguageAddDialog extends Dialog {
 				} catch (IOException | SAXException | ParserConfigurationException e) {
 					e.printStackTrace();
 					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage(Messages.getString("LanguageAddDialog.7")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("LanguageAddDialog.7")); 
 					box.open();
 					shell.close();
 				}
@@ -123,7 +123,7 @@ public class LanguageAddDialog extends Dialog {
 	}
 
 	public void show() {
-		Locator.setLocation(shell, "LanguageAddDialog"); //$NON-NLS-1$
+		Locator.setLocation(shell, "LanguageAddDialog"); 
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {

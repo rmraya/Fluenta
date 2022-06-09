@@ -33,7 +33,6 @@ import org.eclipse.swt.widgets.Text;
 import com.maxprograms.fluenta.Fluenta;
 import com.maxprograms.utils.Locator;
 
-
 public class ElementConfigurationDialog extends Dialog {
 
     Shell shell;
@@ -55,17 +54,17 @@ public class ElementConfigurationDialog extends Dialog {
     public ElementConfigurationDialog(Shell parent) {
         super(parent, SWT.NONE);
         shell = new Shell(parent, SWT.DIALOG_TRIM);
-		shell.setImage(Fluenta.getResourceManager().getIcon());
+        shell.setImage(Fluenta.getResourceManager().getIcon());
         display = shell.getDisplay();
-        shell.setText(Messages.getString("ElementConfigurationDialog.0"));  //$NON-NLS-1$
+        shell.setText(Messages.getString("ElementConfigurationDialog.0"));
         shell.setLayout(new GridLayout());
         shell.addListener(SWT.Close, new Listener() {
-			
-			@Override
-			public void handleEvent(Event arg0) {
-				Locator.remember(shell, "ElementConfigurationDialog"); //$NON-NLS-1$
-			}
-		});
+
+            @Override
+            public void handleEvent(Event arg0) {
+                Locator.remember(shell, "ElementConfigurationDialog");
+            }
+        });
 
         Composite top = new Composite(shell, SWT.NONE);
         top.setLayout(new GridLayout(2, true));
@@ -73,7 +72,7 @@ public class ElementConfigurationDialog extends Dialog {
                 | GridData.FILL_HORIZONTAL));
 
         Label eLabel = new Label(top, SWT.NONE);
-        eLabel.setText(Messages.getString("ElementConfigurationDialog.2"));  //$NON-NLS-1$
+        eLabel.setText(Messages.getString("ElementConfigurationDialog.2"));
 
         eText = new Text(top, SWT.BORDER);
         eText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
@@ -81,81 +80,82 @@ public class ElementConfigurationDialog extends Dialog {
         eText.addModifyListener(new ModifyListener() {
 
             @Override
-			public void modifyText(ModifyEvent arg0) {
+            public void modifyText(ModifyEvent arg0) {
                 element = eText.getText();
             }
         });
 
         Label hLabel = new Label(top, SWT.NONE);
-        hLabel.setText(Messages.getString("ElementConfigurationDialog.3"));  //$NON-NLS-1$
+        hLabel.setText(Messages.getString("ElementConfigurationDialog.3"));
 
         hCombo = new Combo(top, SWT.DROP_DOWN | SWT.READ_ONLY);
-        String[] values = { "segment", "inline", "ignore"};   //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+        String[] values = { "segment", "inline", "ignore" };
         hCombo.setItems(values);
         hCombo.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
                 | GridData.FILL_HORIZONTAL));
         hCombo.addModifyListener(new ModifyListener() {
 
             @Override
-			public void modifyText(ModifyEvent arg0) {
+            public void modifyText(ModifyEvent arg0) {
                 hard_break = hCombo.getText();
-                if (hCombo.getText().equals("inline")) {  //$NON-NLS-1$
-                    aText.setText("");  //$NON-NLS-1$
+                if (hCombo.getText().equals("inline")) {
+                    aText.setText("");
                 } else {
-                    cCombo.setText("");  //$NON-NLS-1$
+                    cCombo.setText("");
                 }
-                if ( hCombo.getText().equals("ignore")) {  //$NON-NLS-1$
-                	aText.setText("");  //$NON-NLS-1$
-                	kCombo.setText("");  //$NON-NLS-1$
+                if (hCombo.getText().equals("ignore")) {
+                    aText.setText("");
+                    kCombo.setText("");
                 }
             }
         });
 
         Label cLabel = new Label(top, SWT.NONE);
-        cLabel.setText(Messages.getString("ElementConfigurationDialog.11"));  //$NON-NLS-1$
+        cLabel.setText(Messages.getString("ElementConfigurationDialog.11"));
 
-        cCombo = new Combo(top, SWT.DROP_DOWN|SWT.READ_ONLY );
-        String[] cValues = {"","image","pb","lb","x-bold","x-entry","x-font","x-italic","x-link","x-underlined","x-other"};   //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
+        cCombo = new Combo(top, SWT.DROP_DOWN | SWT.READ_ONLY);
+        String[] cValues = { "", "image", "pb", "lb", "x-bold", "x-entry", "x-font", "x-italic", "x-link",
+                "x-underlined", "x-other" };
         cCombo.setItems(cValues);
         cCombo.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
                 | GridData.FILL_HORIZONTAL));
         cCombo.addModifyListener(new ModifyListener() {
 
             @Override
-			public void modifyText(ModifyEvent arg0) {
+            public void modifyText(ModifyEvent arg0) {
                 ctype = cCombo.getText();
             }
         });
 
-        Label aLabel = new Label(top,SWT.NONE);
-        aLabel.setText(Messages.getString("ElementConfigurationDialog.23"));  //$NON-NLS-1$
-        
-        aText = new Text(top,SWT.BORDER);
+        Label aLabel = new Label(top, SWT.NONE);
+        aLabel.setText(Messages.getString("ElementConfigurationDialog.23"));
+
+        aText = new Text(top, SWT.BORDER);
         aText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        aText.addModifyListener(new ModifyListener(){
+        aText.addModifyListener(new ModifyListener() {
 
             @Override
-			public void modifyText(ModifyEvent arg0) {
+            public void modifyText(ModifyEvent arg0) {
                 attributes = aText.getText();
-                if (aText.getText().trim().length() > 0)  {
-                    hCombo.setText("segment");  //$NON-NLS-1$
-                    cCombo.setText("");  //$NON-NLS-1$
+                if (aText.getText().trim().length() > 0) {
+                    hCombo.setText("segment");
+                    cCombo.setText("");
                 }
             }
         });
-        
+
         Label kLabel = new Label(top, SWT.NONE);
-        kLabel.setText(Messages.getString("ElementConfigurationDialog.26"));  //$NON-NLS-1$
+        kLabel.setText(Messages.getString("ElementConfigurationDialog.26"));
 
         kCombo = new Combo(top, SWT.DROP_DOWN | SWT.READ_ONLY);
-        String[] val = {"","yes","no"};   //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+        String[] val = { "", "yes", "no" };
         kCombo.setItems(val);
         kCombo.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
                 | GridData.FILL_HORIZONTAL));
         kCombo.addModifyListener(new ModifyListener() {
 
             @Override
-			public void modifyText(ModifyEvent arg0) {
+            public void modifyText(ModifyEvent arg0) {
                 keep_format = kCombo.getText();
             }
         });
@@ -165,31 +165,31 @@ public class ElementConfigurationDialog extends Dialog {
         bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Label filler = new Label(bottom, SWT.NONE);
-		filler.setText(""); //$NON-NLS-1$
-		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		
-		Button save = new Button(bottom, SWT.PUSH);
-        save.setText(Messages.getString("ElementConfigurationDialog.29"));  //$NON-NLS-1$
+        filler.setText("");
+        filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+        Button save = new Button(bottom, SWT.PUSH);
+        save.setText(Messages.getString("ElementConfigurationDialog.29"));
         save.addSelectionListener(new SelectionListener() {
 
             @Override
-			public void widgetSelected(SelectionEvent arg0) {
+            public void widgetSelected(SelectionEvent arg0) {
                 element = eText.getText();
-                hard_break = hCombo.getText();    
+                hard_break = hCombo.getText();
                 ctype = cCombo.getText();
-                attributes = aText.getText();                
+                attributes = aText.getText();
                 keep_format = kCombo.getText();
                 cancelled = false;
                 shell.close();
             }
 
             @Override
-			public void widgetDefaultSelected(SelectionEvent arg0) {
+            public void widgetDefaultSelected(SelectionEvent arg0) {
                 // do nothing
             }
         });
-        
-        shell.pack();        
+
+        shell.pack();
     }
 
     public String getCtype() {
@@ -221,13 +221,13 @@ public class ElementConfigurationDialog extends Dialog {
     }
 
     public void setHard_break(String hard_break) {
-    	if ( hard_break.equals("yes")) {  //$NON-NLS-1$
-    		hCombo.setText("segment");  //$NON-NLS-1$
-    	} else if ( hard_break.equals("no")) {  //$NON-NLS-1$
-    		hCombo.setText("inline");  //$NON-NLS-1$
-    	} else {
-    		hCombo.setText(hard_break); 
-    	}
+        if (hard_break.equals("yes")) {
+            hCombo.setText("segment");
+        } else if (hard_break.equals("no")) {
+            hCombo.setText("inline");
+        } else {
+            hCombo.setText(hard_break);
+        }
     }
 
     public String getKeep_format() {
@@ -239,7 +239,7 @@ public class ElementConfigurationDialog extends Dialog {
     }
 
     public void show() {
-        Locator.setLocation(shell, "ElementConfigurationDialog"); //$NON-NLS-1$
+        Locator.setLocation(shell, "ElementConfigurationDialog");
         shell.open();
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch()) {

@@ -18,7 +18,7 @@ public class Constants {
 		// private for security
 	}
 	
-	public static final String NAME = "Fluenta"; //$NON-NLS-1$
-	public static final String VERSION = "2.4.0"; //$NON-NLS-1$
-	public static final String BUILD = "20220525_1409"; //$NON-NLS-1$
+	public static final String NAME = "Fluenta"; 
+	public static final String VERSION = "2.5.0"; 
+	public static final String BUILD = "20220608_1213"; 
 }

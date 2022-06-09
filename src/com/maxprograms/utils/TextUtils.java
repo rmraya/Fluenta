@@ -34,7 +34,7 @@ public class TextUtils {
 
 	public static String normalise(String string, boolean trim) {
 		boolean repeat = false;
-		String rs = ""; //$NON-NLS-1$
+		String rs = ""; 
 		int length = string.length();
 		for (int i = 0; i < length; i++) {
 			char ch = string.charAt(i);
@@ -42,11 +42,11 @@ public class TextUtils {
 				if (ch != '\n') {
 					rs = rs + ch;
 				} else {
-					rs = rs + " "; //$NON-NLS-1$
+					rs = rs + " "; 
 					repeat = true;
 				}
 			} else {
-				rs = rs + " "; //$NON-NLS-1$
+				rs = rs + " "; 
 				while (i < length - 1 && Character.isSpaceChar(string.charAt(i + 1))) {
 					i++;
 				}
@@ -62,7 +62,7 @@ public class TextUtils {
 	}
 
 	public static long getGMTtime(String TMXDate) {
-		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT")); //$NON-NLS-1$
+		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT")); 
 		try {
 			int second = Integer.parseInt(TMXDate.substring(13, 15));
 			int minute = Integer.parseInt(TMXDate.substring(11, 13));
@@ -74,15 +74,15 @@ public class TextUtils {
 			return calendar.getTimeInMillis();
 		} catch (Exception e) {
 			Logger logger = System.getLogger(TextUtils.class.getName());
-			logger.log(Level.WARNING, "Error getting GMT time", e); //$NON-NLS-1$
+			logger.log(Level.WARNING, "Error getting GMT time", e); 
 			return 0l;
 		}
 	}
 
 	public static String pad(int i, int length) {
-		String res = "" + i; //$NON-NLS-1$
+		String res = "" + i; 
 		while (res.length() < length) {
-			res = "0" + res; //$NON-NLS-1$
+			res = "0" + res; 
 		}
 		return res;
 	}

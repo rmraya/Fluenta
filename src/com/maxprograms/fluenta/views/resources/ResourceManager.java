@@ -38,70 +38,70 @@ public class ResourceManager {
 	
 	public Image getSplash() {
 		if (splash == null) {
-			splash = new Image(display, ResourceManager.class.getResourceAsStream("splash.png")); //$NON-NLS-1$
+			splash = new Image(display, ResourceManager.class.getResourceAsStream("splash.png")); 
 		}
 		return splash;
 	}
 
 	public Image getIcon() {
 		if (icon == null) {
-			icon = new Image(display, ResourceManager.class.getResourceAsStream("icon.png")); //$NON-NLS-1$
+			icon = new Image(display, ResourceManager.class.getResourceAsStream("icon.png")); 
 		}
 		return icon;
 	}
 
 	public Image getBackground() {
 		if (background == null) {
-			background = new Image(display, ResourceManager.class.getResourceAsStream("background.png")); //$NON-NLS-1$
+			background = new Image(display, ResourceManager.class.getResourceAsStream("background.png")); 
 		}
 		return background;
 	}
 
 	public Image getAdd() {
 		if (add == null) {
-			add = new Image(display, ResourceManager.class.getResourceAsStream("add.png")); //$NON-NLS-1$
+			add = new Image(display, ResourceManager.class.getResourceAsStream("add.png")); 
 		}
 		return add;
 	}
 
 	public Image getEdit() {
 		if (edit == null) {
-			edit = new Image(display, ResourceManager.class.getResourceAsStream("edit.png")); //$NON-NLS-1$
+			edit = new Image(display, ResourceManager.class.getResourceAsStream("edit.png")); 
 		}
 		return edit;
 	}
 	
 	public Image getInfo() {
 		if (info == null) {
-			info = new Image(display, ResourceManager.class.getResourceAsStream("info.png")); //$NON-NLS-1$
+			info = new Image(display, ResourceManager.class.getResourceAsStream("info.png")); 
 		}
 		return info;
 	}
 
 	public Image getKey() {
 		if (key == null) {
-			key = new Image(display, ResourceManager.class.getResourceAsStream("key.png")); //$NON-NLS-1$
+			key = new Image(display, ResourceManager.class.getResourceAsStream("key.png")); 
 		}
 		return key;
 	}
 
 	public Image getLeft() {
 		if (left == null) {
-			left = new Image(display, ResourceManager.class.getResourceAsStream("left.png")); //$NON-NLS-1$
+			left = new Image(display, ResourceManager.class.getResourceAsStream("left.png")); 
 		}
 		return left;
 	}
 
 	public Image getRemove() {
 		if (remove == null) {
-			remove = new Image(display, ResourceManager.class.getResourceAsStream("remove.png")); //$NON-NLS-1$
+			remove = new Image(display, ResourceManager.class.getResourceAsStream("remove.png")); 
 		}
 		return remove;
 	}
 
 	public Image getRight() {
 		if (right == null) {
-			right = new Image(display, ResourceManager.class.getResourceAsStream("right.png")); //$NON-NLS-1$
+			right = new Image(display, ResourceManager.class.getResourceAsStream("right.png")); 
 		}
 		return right;
 	}

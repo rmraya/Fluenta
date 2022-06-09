@@ -40,7 +40,7 @@ public class Match implements Comparable<Match> {
 	}
 
 	public long getGMTtime() {
-		if (creationdate.equals("")) { //$NON-NLS-1$
+		if (creationdate.isEmpty()) { 
 			return 0l;
 		}
 		return TextUtils.getGMTtime(creationdate);

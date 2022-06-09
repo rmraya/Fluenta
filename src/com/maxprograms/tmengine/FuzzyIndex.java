@@ -40,7 +40,7 @@ public class FuzzyIndex {
 		if (!maps.containsKey(lang)) {
 			DB mapdb = null;
 			try {
-				mapdb = DBMaker.newFileDB(new File(folder, "index_" + lang)).closeOnJvmShutdown().asyncWriteEnable() //$NON-NLS-1$
+				mapdb = DBMaker.newFileDB(new File(folder, "index_" + lang)).closeOnJvmShutdown().asyncWriteEnable() 
 						.make();
 			} catch (Error ioe) {
 				throw new IOException(ioe.getMessage());

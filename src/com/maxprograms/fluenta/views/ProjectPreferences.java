@@ -67,7 +67,7 @@ public class ProjectPreferences extends Composite {
 		sourceComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label sourceLabel = new Label(sourceComposite, SWT.NONE);
-		sourceLabel.setText(Messages.getString("ProjectPreferences.0")); //$NON-NLS-1$
+		sourceLabel.setText(Messages.getString("ProjectPreferences.0")); 
 
 		sourceLangCombo = new Combo(sourceComposite, SWT.DROP_DOWN | SWT.READ_ONLY);
 		sourceLangCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -76,7 +76,7 @@ public class ProjectPreferences extends Composite {
 		} catch (SAXException | IOException | ParserConfigurationException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("ProjectPreferences.1")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectPreferences.1")); 
 			box.open();
 			getShell().close();
 		}
@@ -90,13 +90,13 @@ public class ProjectPreferences extends Composite {
 		} catch (IOException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("ProjectPreferences.2")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectPreferences.2")); 
 			box.open();
 			getShell().close();
 		}
 
 		Group targetLanguages = new Group(this, SWT.NONE);
-		targetLanguages.setText(Messages.getString("ProjectPreferences.3")); //$NON-NLS-1$
+		targetLanguages.setText(Messages.getString("ProjectPreferences.3")); 
 		targetLanguages.setLayoutData(new GridData(GridData.FILL_BOTH));
 		targetLanguages.setLayout(new GridLayout());
 
@@ -108,7 +108,7 @@ public class ProjectPreferences extends Composite {
 		langsTable.setLayoutData(langData);
 
 		TableColumn langDescColumn = new TableColumn(langsTable, SWT.FILL);
-		langDescColumn.setText(Messages.getString("ProjectPreferences.4")); //$NON-NLS-1$
+		langDescColumn.setText(Messages.getString("ProjectPreferences.4")); 
 
 		langsTable.addListener(SWT.Resize, new Listener() {
 
@@ -126,12 +126,12 @@ public class ProjectPreferences extends Composite {
 				Language l = defaultTargets.get(i);
 				TableItem item = new TableItem(langsTable, SWT.NONE);
 				item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
-				item.setData("language", l); //$NON-NLS-1$
+				item.setData("language", l); 
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("ProjectPreferences.5")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectPreferences.5")); 
 			box.open();
 			getShell().close();
 		}
@@ -141,11 +141,11 @@ public class ProjectPreferences extends Composite {
 		targetButtons.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label filler = new Label(targetButtons, SWT.NONE);
-		filler.setText(""); //$NON-NLS-1$
+		filler.setText(""); 
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button addLang = new Button(targetButtons, SWT.PUSH);
-		addLang.setText(Messages.getString("ProjectPreferences.8")); //$NON-NLS-1$
+		addLang.setText(Messages.getString("ProjectPreferences.8")); 
 		addLang.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -157,13 +157,13 @@ public class ProjectPreferences extends Composite {
 						Language l = dialog.getLanguage();
 						TableItem item = new TableItem(langsTable, SWT.NONE);
 						item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
-						item.setData("language", l); //$NON-NLS-1$
+						item.setData("language", l); 
 						defaultTargets.add(l);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-					box.setMessage(Messages.getString("ProjectPreferences.6")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ProjectPreferences.6")); 
 					box.open();
 				}
 
@@ -176,7 +176,7 @@ public class ProjectPreferences extends Composite {
 		});
 
 		Button removeLang = new Button(targetButtons, SWT.PUSH);
-		removeLang.setText(Messages.getString("ProjectPreferences.10")); //$NON-NLS-1$
+		removeLang.setText(Messages.getString("ProjectPreferences.10")); 
 		removeLang.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -186,7 +186,7 @@ public class ProjectPreferences extends Composite {
 					defaultTargets.clear();
 					for (int i = 0; i < oldItems.length; i++) {
 						if (!oldItems[i].getChecked()) {
-							defaultTargets.add((Language) oldItems[i].getData("language")); //$NON-NLS-1$
+							defaultTargets.add((Language) oldItems[i].getData("language")); 
 						}
 					}
 					langsTable.removeAll();
@@ -194,12 +194,12 @@ public class ProjectPreferences extends Composite {
 						Language l = defaultTargets.get(i);
 						TableItem item = new TableItem(langsTable, SWT.NONE);
 						item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
-						item.setData("language", l); //$NON-NLS-1$
+						item.setData("language", l); 
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-					box.setMessage(Messages.getString("ProjectPreferences.7")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ProjectPreferences.7")); 
 					box.open();
 				}
 
@@ -216,7 +216,7 @@ public class ProjectPreferences extends Composite {
 		srxComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label srxLabel = new Label(srxComposite, SWT.NONE);
-		srxLabel.setText(Messages.getString("ProjectPreferences.13")); //$NON-NLS-1$
+		srxLabel.setText(Messages.getString("ProjectPreferences.13")); 
 
 		srxText = new Text(srxComposite, SWT.BORDER);
 		srxText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -225,22 +225,22 @@ public class ProjectPreferences extends Composite {
 		} catch (IOException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("ProjectPreferences.14")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectPreferences.14")); 
 			box.open();
 			getShell().close();
 		}
 
 		Button browse = new Button(srxComposite, SWT.PUSH);
-		browse.setText(Messages.getString("ProjectPreferences.15")); //$NON-NLS-1$
+		browse.setText(Messages.getString("ProjectPreferences.15")); 
 		browse.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				FileDialog fd = new FileDialog(getShell(), SWT.OPEN | SWT.SINGLE);
-				fd.setFilterExtensions(new String[] { "*.srx", "*.*" }); //$NON-NLS-1$ //$NON-NLS-2$
-				fd.setFilterNames(new String[] { Messages.getString("ProjectPreferences.18"), //$NON-NLS-1$
-						Messages.getString("ProjectPreferences.19") }); //$NON-NLS-1$
-				if (!srxText.getText().equals("")) { //$NON-NLS-1$
+				fd.setFilterExtensions(new String[] { "*.srx", "*.*" });  
+				fd.setFilterNames(new String[] { Messages.getString("ProjectPreferences.18"), 
+						Messages.getString("ProjectPreferences.19") }); 
+				if (!srxText.getText().isEmpty()) { 
 					File f = new File(srxText.getText());
 					if (f.exists()) {
 						fd.setFilterPath(f.getParentFile().getAbsolutePath());
@@ -260,18 +260,18 @@ public class ProjectPreferences extends Composite {
 		bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label filler2 = new Label(bottom, SWT.NONE);
-		filler2.setText(""); //$NON-NLS-1$
+		filler2.setText(""); 
 		filler2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button save = new Button(bottom, SWT.PUSH);
-		save.setText(Messages.getString("ProjectPreferences.22")); //$NON-NLS-1$
+		save.setText(Messages.getString("ProjectPreferences.22")); 
 		save.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				if (srxText.getText().equals("")) { //$NON-NLS-1$
+				if (srxText.getText().isEmpty()) { 
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-					box.setMessage(Messages.getString("ProjectPreferences.24")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ProjectPreferences.24")); 
 					box.open();
 					return;
 				}
@@ -279,7 +279,7 @@ public class ProjectPreferences extends Composite {
 					File srx = new File(srxText.getText());
 					if (!srx.exists()) {
 						MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-						box.setMessage(Messages.getString("ProjectPreferences.25")); //$NON-NLS-1$
+						box.setMessage(Messages.getString("ProjectPreferences.25")); 
 						box.open();
 						return;
 					}
@@ -290,21 +290,21 @@ public class ProjectPreferences extends Composite {
 						Language l = it.next();
 						targetLangs.put(l.getCode(), LanguageUtils.getLanguage(l.getCode()).getDescription());
 					}
-					prefs.save("DefaultTargetLanguages", targetLangs); //$NON-NLS-1$
+					prefs.save("DefaultTargetLanguages", targetLangs); 
 					if (sourceLangCombo.getSelectionIndex() != -1) {
 						JSONObject sourceLangs = new JSONObject();
 						Language l = LanguageUtils
 								.languageFromName(sourceLangCombo.getItem(sourceLangCombo.getSelectionIndex()));
-						sourceLangs.put("default", l.getCode()); //$NON-NLS-1$
-						prefs.save("DefaultSourceLanguages", sourceLangs); //$NON-NLS-1$
+						sourceLangs.put("default", l.getCode()); 
+						prefs.save("DefaultSourceLanguages", sourceLangs); 
 					}
 					JSONObject srxTable = new JSONObject();
-					srxTable.put("srx", srxText.getText()); //$NON-NLS-1$
-					prefs.save("DefaultSRX", srxTable); //$NON-NLS-1$
+					srxTable.put("srx", srxText.getText()); 
+					prefs.save("DefaultSRX", srxTable); 
 				} catch (IOException | SAXException | ParserConfigurationException e) {
 					e.printStackTrace();
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-					box.setMessage(Messages.getString("ProjectPreferences.30")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ProjectPreferences.30")); 
 					box.open();
 					getShell().close();
 				}
@@ -321,14 +321,14 @@ public class ProjectPreferences extends Composite {
 
 	public static String getDefaultSRX() throws IOException {
 		Preferences prefs = Preferences.getInstance();
-		File srxFolder = new File(Preferences.getPreferencesDir(), "srx"); //$NON-NLS-1$
-		File defaultSrx = new File(srxFolder, "default.srx"); //$NON-NLS-1$
-		return prefs.get("DefaultSRX", "srx", defaultSrx.getAbsolutePath()); //$NON-NLS-1$ //$NON-NLS-2$
+		File srxFolder = new File(Preferences.getPreferencesDir(), "srx"); 
+		File defaultSrx = new File(srxFolder, "default.srx"); 
+		return prefs.get("DefaultSRX", "srx", defaultSrx.getAbsolutePath());  
 	}
 
 	public static Language getDefaultSource() throws IOException {
 		Preferences prefs = Preferences.getInstance();
-		return LanguageUtils.getLanguage(prefs.get("DefaultSourceLanguages", "default", "en-US")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return LanguageUtils.getLanguage(prefs.get("DefaultSourceLanguages", "default", "en-US"));   
 	}
 
 	public static List<Language> getDefaultTargets() throws IOException {
@@ -341,18 +341,18 @@ public class ProjectPreferences extends Composite {
 
 		});
 		Preferences prefs = Preferences.getInstance();
-		JSONObject table = prefs.get("DefaultTargetLanguages"); //$NON-NLS-1$
+		JSONObject table = prefs.get("DefaultTargetLanguages"); 
 		Iterator<String> keys = table.keys();
 		while (keys.hasNext()) {
 			String key = keys.next();
 			tree.add(new Language(key, table.getString(key)));
 		}
 		if (tree.isEmpty()) {
-			tree.add(LanguageUtils.getLanguage("fr")); //$NON-NLS-1$
-			tree.add(LanguageUtils.getLanguage("de")); //$NON-NLS-1$
-			tree.add(LanguageUtils.getLanguage("it")); //$NON-NLS-1$
-			tree.add(LanguageUtils.getLanguage("es")); //$NON-NLS-1$
-			tree.add(LanguageUtils.getLanguage("ja-JP")); //$NON-NLS-1$
+			tree.add(LanguageUtils.getLanguage("fr")); 
+			tree.add(LanguageUtils.getLanguage("de")); 
+			tree.add(LanguageUtils.getLanguage("it")); 
+			tree.add(LanguageUtils.getLanguage("es")); 
+			tree.add(LanguageUtils.getLanguage("ja-JP")); 
 		}
 		List<Language> result = new Vector<>();
 		result.addAll(tree);

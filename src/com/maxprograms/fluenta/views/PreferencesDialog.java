@@ -33,7 +33,7 @@ public class PreferencesDialog  {
 	public PreferencesDialog(Shell parent, int style) {
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
-		shell.setText(Messages.getString("PreferencesDialog.0")); //$NON-NLS-1$
+		shell.setText(Messages.getString("PreferencesDialog.0")); 
 		GridLayout shellLayout = new GridLayout();
 		shellLayout.marginHeight = 0;
 		shellLayout.marginWidth = 0;
@@ -42,7 +42,7 @@ public class PreferencesDialog  {
 			
 			@Override
 			public void handleEvent(Event arg0) {
-				Locator.remember(shell, "PreferencesDialog"); //$NON-NLS-1$
+				Locator.remember(shell, "PreferencesDialog"); 
 			}
 		});
 		display = shell.getDisplay();
@@ -51,12 +51,12 @@ public class PreferencesDialog  {
 		folder.setLayoutData(new GridData(GridData.FILL_BOTH));
 		
 		CTabItem projsItem = new CTabItem(folder, SWT.NONE);
-		projsItem.setText(Messages.getString("PreferencesDialog.2"));		 //$NON-NLS-1$
+		projsItem.setText(Messages.getString("PreferencesDialog.2"));		 
 		ProjectPreferences projectPreferences = new ProjectPreferences(folder, SWT.NONE);
 		projsItem.setControl(projectPreferences);
 	
 		CTabItem xmlItem = new CTabItem(folder, SWT.NONE);
-		xmlItem.setText(Messages.getString("PreferencesDialog.3")); //$NON-NLS-1$
+		xmlItem.setText(Messages.getString("PreferencesDialog.3")); 
 		XmlPreferences xmlPreferences = new XmlPreferences(folder, SWT.NONE);
 		xmlItem.setControl(xmlPreferences);
 		
@@ -67,7 +67,7 @@ public class PreferencesDialog  {
 	}
 
 	public void show() {
-		Locator.setLocation(shell, "PreferencesDialog"); //$NON-NLS-1$
+		Locator.setLocation(shell, "PreferencesDialog"); 
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {

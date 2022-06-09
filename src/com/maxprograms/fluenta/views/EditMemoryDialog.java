@@ -57,13 +57,13 @@ public class EditMemoryDialog  extends Dialog {
 		super(parent, style);
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
-		shell.setText(Messages.getString("EditMemoryDialog.0")); //$NON-NLS-1$
+		shell.setText(Messages.getString("EditMemoryDialog.0")); 
 		shell.setLayout(new GridLayout());
 		shell.addListener(SWT.Close, new Listener() {
 			
 			@Override
 			public void handleEvent(Event arg0) {
-				Locator.remember(shell, "EditMemoryDialog"); //$NON-NLS-1$
+				Locator.remember(shell, "EditMemoryDialog"); 
 			}
 		});
 		display = shell.getDisplay();
@@ -73,7 +73,7 @@ public class EditMemoryDialog  extends Dialog {
 		top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Label descLabel = new Label(top, SWT.NONE);
-		descLabel.setText(Messages.getString("AddMemoryDialog.2")); //$NON-NLS-1$
+		descLabel.setText(Messages.getString("AddMemoryDialog.2")); 
 		
 		descText = new Text(top, SWT.BORDER);
 		GridData textData = new GridData(GridData.FILL_HORIZONTAL);
@@ -81,7 +81,7 @@ public class EditMemoryDialog  extends Dialog {
 		descText.setLayoutData(textData);
 		
 		Label sourceLabel = new Label(top, SWT.NONE);
-		sourceLabel.setText(Messages.getString("AddMemoryDialog.3")); //$NON-NLS-1$
+		sourceLabel.setText(Messages.getString("AddMemoryDialog.3")); 
 		
 		sourceLanguages = new Combo(top, SWT.READ_ONLY|SWT.DROP_DOWN);
 		sourceLanguages.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -91,13 +91,13 @@ public class EditMemoryDialog  extends Dialog {
 		} catch (SAXException | IOException | ParserConfigurationException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR|SWT.OK);
-			box.setMessage(Messages.getString("AddMemoryDialog.4")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("AddMemoryDialog.4")); 
 			box.open();
 			shell.close();
 		}		
 		
 		Group descriptionGroup = new Group(shell, SWT.NONE);
-		descriptionGroup.setText(Messages.getString("AddMemoryDialog.5")); //$NON-NLS-1$
+		descriptionGroup.setText(Messages.getString("AddMemoryDialog.5")); 
 		GridLayout groupLayout = new GridLayout();
 		groupLayout.marginWidth = 0;
 		groupLayout.marginHeight = 0;
@@ -114,24 +114,24 @@ public class EditMemoryDialog  extends Dialog {
 		bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Label filler = new Label(bottom, SWT.NONE);
-		filler.setText(""); //$NON-NLS-1$
+		filler.setText(""); 
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Button save = new Button(bottom, SWT.PUSH);
-		save.setText(Messages.getString("EditMemoryDialog.1")); //$NON-NLS-1$
+		save.setText(Messages.getString("EditMemoryDialog.1")); 
 		save.addSelectionListener(new SelectionListener() {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				if (descText.getText() == null || descText.getText().equals("")) { //$NON-NLS-1$
+				if (descText.getText() == null || descText.getText().isEmpty()) { 
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING|SWT.OK);
-					box.setMessage(Messages.getString("EditMemoryDialog.2")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("EditMemoryDialog.2")); 
 					box.open();
 					return;
 				}
-				if (sourceLanguages.getText() == null || sourceLanguages.getText().equals("") ) { //$NON-NLS-1$
+				if (sourceLanguages.getText() == null || sourceLanguages.getText().isEmpty() ) { 
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING|SWT.OK);
-					box.setMessage(Messages.getString("EditMemoryDialog.3")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("EditMemoryDialog.3")); 
 					box.open();
 					return;
 				}
@@ -141,7 +141,7 @@ public class EditMemoryDialog  extends Dialog {
 				} catch ( IOException | SAXException | ParserConfigurationException  e) {
 					e.printStackTrace();
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING|SWT.OK);
-					box.setMessage(Messages.getString("EditMemoryDialog.4")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("EditMemoryDialog.4")); 
 					box.open();
 					return;
 				}
@@ -170,7 +170,7 @@ public class EditMemoryDialog  extends Dialog {
 	}
 
 	public void show() {
-		Locator.setLocation(shell, "EditMemoryDialog"); //$NON-NLS-1$
+		Locator.setLocation(shell, "EditMemoryDialog"); 
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {

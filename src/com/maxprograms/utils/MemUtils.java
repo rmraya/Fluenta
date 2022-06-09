@@ -39,26 +39,26 @@ public class MemUtils {
 		while (i.hasNext()) {
 			Element el = i.next();
 			Float value;
-			String creationdate = ""; //$NON-NLS-1$
-			List<Element> groups = el.getChildren("prop-group"); //$NON-NLS-1$
+			String creationdate = ""; 
+			List<Element> groups = el.getChildren("prop-group"); 
 			Iterator<Element> gt = groups.iterator();
 			while (gt.hasNext()) {
 				Element group = gt.next();
-				List<Element> props = group.getChildren("prop"); //$NON-NLS-1$
+				List<Element> props = group.getChildren("prop"); 
 				Iterator<Element> pt = props.iterator();
 				while (pt.hasNext()) {
 					Element prop = pt.next();
-					if (prop.getAttributeValue("prop-type").equals("creationdate")) { //$NON-NLS-1$ //$NON-NLS-2$
+					if (prop.getAttributeValue("prop-type").equals("creationdate")) {  
 						creationdate = prop.getText();
 					}
 				}
 			}
 			try {
-				value = Float.valueOf(el.getAttributeValue("match-quality", "0.0")); //$NON-NLS-1$ //$NON-NLS-2$
+				value = Float.valueOf(el.getAttributeValue("match-quality", "0.0"));  
 			} catch (java.lang.NumberFormatException nfe) {
-				value = Float.valueOf("0.0"); //$NON-NLS-1$
+				value = Float.valueOf("0.0"); 
 			}
-			set.add(new Match(value, el, creationdate, el.getAttributeValue("origin", ""))); //$NON-NLS-1$ //$NON-NLS-2$
+			set.add(new Match(value, el, creationdate, el.getAttributeValue("origin", "")));  
 		}
 		Iterator<Match> it = set.iterator();
 		while (it.hasNext()) {
@@ -79,13 +79,13 @@ public class MemUtils {
 			next = null;
 			next = new Date();
 		}
-		return "" + lng; //$NON-NLS-1$
+		return "" + lng; 
 	}
 
 	public static String pureText(Element seg) {
 		List<XMLNode> l = seg.getContent();
 		Iterator<XMLNode> i = l.iterator();
-		String text = ""; //$NON-NLS-1$
+		String text = ""; 
 		while (i.hasNext()) {
 			XMLNode o = i.next();
 			if (o.getNodeType() == XMLNode.TEXT_NODE) {
@@ -94,7 +94,7 @@ public class MemUtils {
 				String type = ((Element) o).getName();
 				// discard all inline elements
 				// except <mrk>, <g> and <hi>
-				if (type.equals("mrk") || type.equals("hi") || type.equals("g")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				if (type.equals("mrk") || type.equals("hi") || type.equals("g")) {   
 					Element e = (Element) o;
 					text = text + recurse(e);
 				}
@@ -109,7 +109,7 @@ public class MemUtils {
 		// same as pureTex but without trimming returned text
 		List<XMLNode> l = seg.getContent();
 		Iterator<XMLNode> i = l.iterator();
-		String text = ""; //$NON-NLS-1$
+		String text = ""; 
 		while (i.hasNext()) {
 			XMLNode o = i.next();
 			if (o.getNodeType() == XMLNode.TEXT_NODE) {
@@ -118,7 +118,7 @@ public class MemUtils {
 				String type = ((Element) o).getName();
 				// discard all inline elements
 				// except <mrk>, <g> and <hi>
-				if (type.equals("mrk") || type.equals("hi") || type.equals("g")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				if (type.equals("mrk") || type.equals("hi") || type.equals("g")) {   
 					Element e = (Element) o;
 					text = text + recurse(e);
 				}

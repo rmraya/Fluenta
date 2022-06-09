@@ -64,7 +64,7 @@ public class ProjectInfoDialog extends Dialog {
 
 			@Override
 			public void handleEvent(Event arg0) {
-				Locator.remember(shell, "ProjectInfoDialog"); //$NON-NLS-1$
+				Locator.remember(shell, "ProjectInfoDialog"); 
 			}
 		});
 		display = shell.getDisplay();
@@ -73,7 +73,7 @@ public class ProjectInfoDialog extends Dialog {
 		folder.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		CTabItem statusItem = new CTabItem(folder, SWT.NONE);
-		statusItem.setText(Messages.getString("ProjectInfoDialog.1")); //$NON-NLS-1$
+		statusItem.setText(Messages.getString("ProjectInfoDialog.1")); 
 
 		Composite statusComposite = new Composite(folder, SWT.NONE);
 		statusComposite.setLayout(new GridLayout());
@@ -88,11 +88,11 @@ public class ProjectInfoDialog extends Dialog {
 		statusTable.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		TableColumn language = new TableColumn(statusTable, SWT.NONE);
-		language.setText(Messages.getString("ProjectInfoDialog.2")); //$NON-NLS-1$
+		language.setText(Messages.getString("ProjectInfoDialog.2")); 
 		language.setWidth(200);
 
 		TableColumn statusColumn = new TableColumn(statusTable, SWT.CENTER);
-		statusColumn.setText(Messages.getString("ProjectInfoDialog.3")); //$NON-NLS-1$
+		statusColumn.setText(Messages.getString("ProjectInfoDialog.3")); 
 		statusColumn.setWidth(120);
 
 		try {
@@ -100,7 +100,7 @@ public class ProjectInfoDialog extends Dialog {
 		} catch (IOException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("ProjectInfoDialog.0")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectInfoDialog.0")); 
 			box.open();
 			shell.close();
 		}
@@ -110,11 +110,11 @@ public class ProjectInfoDialog extends Dialog {
 		bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label filler = new Label(bottom, SWT.NONE);
-		filler.setText(""); //$NON-NLS-1$
+		filler.setText(""); 
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button translated = new Button(bottom, SWT.PUSH);
-		translated.setText(Messages.getString("ProjectInfoDialog.5")); //$NON-NLS-1$
+		translated.setText(Messages.getString("ProjectInfoDialog.5")); 
 		translated.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -122,7 +122,7 @@ public class ProjectInfoDialog extends Dialog {
 				for (int i = 0; i < statusTable.getItemCount(); i++) {
 					if (statusTable.getItem(i).getChecked()) {
 						TableItem item = statusTable.getItem(i);
-						project.setLanguageStatus(((Language) item.getData("language")).getCode(), Project.COMPLETED); //$NON-NLS-1$
+						project.setLanguageStatus(((Language) item.getData("language")).getCode(), Project.COMPLETED); 
 					}
 				}
 				MainView.getController().updateProject(project);
@@ -131,7 +131,7 @@ public class ProjectInfoDialog extends Dialog {
 				} catch (IOException e) {
 					e.printStackTrace();
 					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage(Messages.getString("ProjectInfoDialog.4")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ProjectInfoDialog.4")); 
 					box.open();
 					shell.close();
 				}
@@ -140,7 +140,7 @@ public class ProjectInfoDialog extends Dialog {
 		});
 
 		CTabItem historyItem = new CTabItem(folder, SWT.NONE);
-		historyItem.setText(Messages.getString("ProjectInfoDialog.7")); //$NON-NLS-1$
+		historyItem.setText(Messages.getString("ProjectInfoDialog.7")); 
 
 		Composite historyComposite = new Composite(folder, SWT.NONE);
 		historyComposite.setLayout(new GridLayout());
@@ -157,20 +157,20 @@ public class ProjectInfoDialog extends Dialog {
 		eventsTable.setLayoutData(tableData);
 
 		TableColumn date = new TableColumn(eventsTable, SWT.CENTER);
-		date.setText(Messages.getString("ProjectInfoDialog.8")); //$NON-NLS-1$
+		date.setText(Messages.getString("ProjectInfoDialog.8")); 
 		date.setWidth(150);
 		date.setResizable(false);
 
 		TableColumn eventBuild = new TableColumn(eventsTable, SWT.CENTER);
-		eventBuild.setText(Messages.getString("ProjectInfoDialog.9")); //$NON-NLS-1$
+		eventBuild.setText(Messages.getString("ProjectInfoDialog.9")); 
 		eventBuild.setWidth(50);
 
 		TableColumn eventLanguage = new TableColumn(eventsTable, SWT.NONE);
-		eventLanguage.setText(Messages.getString("ProjectInfoDialog.10")); //$NON-NLS-1$
+		eventLanguage.setText(Messages.getString("ProjectInfoDialog.10")); 
 		eventLanguage.setWidth(200);
 
 		TableColumn events = new TableColumn(eventsTable, SWT.CENTER);
-		events.setText(Messages.getString("ProjectInfoDialog.11")); //$NON-NLS-1$
+		events.setText(Messages.getString("ProjectInfoDialog.11")); 
 		events.setWidth(130);
 
 		try {
@@ -179,14 +179,14 @@ public class ProjectInfoDialog extends Dialog {
 			while (it.hasNext()) {
 				ProjectEvent event = it.next();
 				TableItem item = new TableItem(eventsTable, SWT.NONE);
-				item.setText(new String[] { event.getDateString(), "" + event.getBuild(), //$NON-NLS-1$
+				item.setText(new String[] { event.getDateString(), "" + event.getBuild(), 
 						LanguageUtils.getLanguage(event.getLanguage().getCode()).getDescription(),
 						ProjectEvent.getDescription(event.getType()) });
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("ProjectInfoDialog.6")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectInfoDialog.6")); 
 			box.open();
 			shell.close();
 		}
@@ -205,12 +205,12 @@ public class ProjectInfoDialog extends Dialog {
 			TableItem item = new TableItem(statusTable, SWT.NONE);
 			item.setText(new String[] { LanguageUtils.getLanguage(l.getCode()).getDescription(),
 					project.getTargetStatus(l.getCode()) });
-			item.setData("language", l); //$NON-NLS-1$
+			item.setData("language", l); 
 		}
 	}
 
 	public void show() {
-		Locator.setLocation(shell, "ProjectInfoDialog"); //$NON-NLS-1$
+		Locator.setLocation(shell, "ProjectInfoDialog"); 
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {

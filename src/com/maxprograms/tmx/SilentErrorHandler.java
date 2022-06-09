@@ -24,12 +24,12 @@ public class SilentErrorHandler implements org.xml.sax.ErrorHandler {
 
 	@Override
 	public void error(SAXParseException exception) throws SAXException {
-		throw new SAXException("[Error] " + exception.getLineNumber() + ":" + exception.getColumnNumber() + " "  + exception.getMessage());  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+		throw new SAXException("[Error] " + exception.getLineNumber() + ":" + exception.getColumnNumber() + " "  + exception.getMessage());   
 	}
 
 	@Override
 	public void fatalError(SAXParseException exception) throws SAXException {
-		throw new SAXException("[Fatal Error] " + exception.getLineNumber() + ":" + exception.getColumnNumber() + " "  + exception.getMessage());   //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+		throw new SAXException("[Fatal Error] " + exception.getLineNumber() + ":" + exception.getColumnNumber() + " "  + exception.getMessage());    
 	}
 
 }

@@ -73,16 +73,16 @@ public class ProjectDialog extends Dialog {
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
 		if (project.getId() == 0l) {
-			shell.setText(Messages.getString("ProjectDialog.0")); //$NON-NLS-1$
+			shell.setText(Messages.getString("ProjectDialog.0")); 
 		} else {
-			shell.setText(Messages.getString("ProjectDialog.1")); //$NON-NLS-1$
+			shell.setText(Messages.getString("ProjectDialog.1")); 
 		}
 		shell.setLayout(new GridLayout());
 		shell.addListener(SWT.Close, new Listener() {
 
 			@Override
 			public void handleEvent(Event arg0) {
-				Locator.remember(shell, "ProjectDialog"); //$NON-NLS-1$
+				Locator.remember(shell, "ProjectDialog"); 
 			}
 		});
 		display = shell.getDisplay();
@@ -92,22 +92,22 @@ public class ProjectDialog extends Dialog {
 		mapComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label mapLabel = new Label(mapComposite, SWT.NONE);
-		mapLabel.setText(Messages.getString("ProjectDialog.3")); //$NON-NLS-1$
+		mapLabel.setText(Messages.getString("ProjectDialog.3")); 
 
 		mapText = new Text(mapComposite, SWT.BORDER);
 		mapText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		mapText.setText(project.getMap());
 
 		Button mapBrowse = new Button(mapComposite, SWT.PUSH);
-		mapBrowse.setText(Messages.getString("ProjectDialog.4")); //$NON-NLS-1$
+		mapBrowse.setText(Messages.getString("ProjectDialog.4")); 
 		mapBrowse.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				FileDialog fd = new FileDialog(shell, SWT.OPEN | SWT.SINGLE);
-				fd.setFilterExtensions(new String[] { "*.ditamap", "*.xml", "*.*" }); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				fd.setFilterNames(new String[] { Messages.getString("ProjectDialog.8"), //$NON-NLS-1$
-						Messages.getString("ProjectDialog.9"), Messages.getString("ProjectDialog.10") }); //$NON-NLS-1$ //$NON-NLS-2$
+				fd.setFilterExtensions(new String[] { "*.ditamap", "*.xml", "*.*" });   
+				fd.setFilterNames(new String[] { Messages.getString("ProjectDialog.8"), 
+						Messages.getString("ProjectDialog.9"), Messages.getString("ProjectDialog.10") });  
 				if (mapText.getText() != null && !mapText.getText().isEmpty()) {
 					File f = new File(mapText.getText());
 					if (f.exists()) {
@@ -127,14 +127,14 @@ public class ProjectDialog extends Dialog {
 		top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label descriptionLabel = new Label(top, SWT.NONE);
-		descriptionLabel.setText(Messages.getString("ProjectDialog.12")); //$NON-NLS-1$
+		descriptionLabel.setText(Messages.getString("ProjectDialog.12")); 
 
 		titleText = new Text(top, SWT.BORDER);
 		titleText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		titleText.setText(project.getTitle());
 
 		Group descriptionGroup = new Group(shell, SWT.NONE);
-		descriptionGroup.setText(Messages.getString("ProjectDialog.13")); //$NON-NLS-1$
+		descriptionGroup.setText(Messages.getString("ProjectDialog.13")); 
 		GridLayout groupLayout = new GridLayout();
 		groupLayout.marginWidth = 0;
 		groupLayout.marginHeight = 0;
@@ -148,7 +148,7 @@ public class ProjectDialog extends Dialog {
 		descriptionText.setText(project.getDescription());
 
 		Label sourceLabel = new Label(top, SWT.NONE);
-		sourceLabel.setText(Messages.getString("ProjectDialog.14")); //$NON-NLS-1$
+		sourceLabel.setText(Messages.getString("ProjectDialog.14")); 
 
 		sourceLanguages = new Combo(top, SWT.READ_ONLY | SWT.DROP_DOWN);
 		sourceLanguages.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -157,7 +157,7 @@ public class ProjectDialog extends Dialog {
 		} catch (SAXException | IOException | ParserConfigurationException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("ProjectDialog.15")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectDialog.15")); 
 			box.open();
 			shell.close();
 		}
@@ -168,7 +168,7 @@ public class ProjectDialog extends Dialog {
 			} catch (IOException e) {
 				e.printStackTrace();
 				MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-				box.setMessage(Messages.getString("ProjectDialog.16")); //$NON-NLS-1$
+				box.setMessage(Messages.getString("ProjectDialog.16")); 
 				box.open();
 				shell.close();
 			}
@@ -179,7 +179,7 @@ public class ProjectDialog extends Dialog {
 			} catch (IOException e) {
 				e.printStackTrace();
 				MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-				box.setMessage(Messages.getString("ProjectDialog.16")); //$NON-NLS-1$
+				box.setMessage(Messages.getString("ProjectDialog.16")); 
 				box.open();
 				shell.close();
 			}
@@ -189,7 +189,7 @@ public class ProjectDialog extends Dialog {
 		tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		CTabItem languagesItem = new CTabItem(tabFolder, SWT.NONE);
-		languagesItem.setText(Messages.getString("ProjectDialog.17")); //$NON-NLS-1$
+		languagesItem.setText(Messages.getString("ProjectDialog.17")); 
 
 		Composite languagesComposite = new Composite(tabFolder, SWT.NONE);
 		languagesComposite.setLayout(new GridLayout());
@@ -212,12 +212,12 @@ public class ProjectDialog extends Dialog {
 					Language l = it.next();
 					TableItem item = new TableItem(langsTable, SWT.NONE);
 					item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
-					item.setData("language", l); //$NON-NLS-1$
+					item.setData("language", l); 
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 				MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-				box.setMessage(Messages.getString("ProjectDialog.2")); //$NON-NLS-1$
+				box.setMessage(Messages.getString("ProjectDialog.2")); 
 				box.open();
 				shell.close();
 			}
@@ -230,12 +230,12 @@ public class ProjectDialog extends Dialog {
 					Language l = it.next();
 					TableItem item = new TableItem(langsTable, SWT.NONE);
 					item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
-					item.setData("language", l); //$NON-NLS-1$
+					item.setData("language", l); 
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 				MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-				box.setMessage(Messages.getString("ProjectDialog.20")); //$NON-NLS-1$
+				box.setMessage(Messages.getString("ProjectDialog.20")); 
 				box.open();
 				shell.close();
 			}
@@ -256,11 +256,11 @@ public class ProjectDialog extends Dialog {
 		langBottom.setLayout(new GridLayout(3, false));
 
 		Label filler = new Label(langBottom, SWT.NONE);
-		filler.setText(""); //$NON-NLS-1$
+		filler.setText(""); 
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button addLang = new Button(langBottom, SWT.PUSH);
-		addLang.setText(Messages.getString("ProjectDialog.22")); //$NON-NLS-1$
+		addLang.setText(Messages.getString("ProjectDialog.22")); 
 		addLang.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -272,22 +272,22 @@ public class ProjectDialog extends Dialog {
 						Language l = dialog.getLanguage();
 						TableItem[] oldItems = langsTable.getItems();
 						for (int i = 0; i < oldItems.length; i++) {
-							Language lang = (Language) oldItems[i].getData("language"); //$NON-NLS-1$
+							Language lang = (Language) oldItems[i].getData("language"); 
 							if (l.getCode().equals(lang.getCode())) {
 								MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-								box.setMessage(Messages.getString("ProjectDialog.7")); //$NON-NLS-1$
+								box.setMessage(Messages.getString("ProjectDialog.7")); 
 								box.open();
 								return;
 							}
 						}
 						TableItem item = new TableItem(langsTable, SWT.NONE);
 						item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
-						item.setData("language", l); //$NON-NLS-1$
+						item.setData("language", l); 
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
 					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage(Messages.getString("ProjectDialog.5")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ProjectDialog.5")); 
 					box.open();
 					shell.close();
 				}
@@ -301,7 +301,7 @@ public class ProjectDialog extends Dialog {
 		});
 
 		Button deleteLang = new Button(langBottom, SWT.PUSH);
-		deleteLang.setText(Messages.getString("ProjectDialog.24")); //$NON-NLS-1$
+		deleteLang.setText(Messages.getString("ProjectDialog.24")); 
 		deleteLang.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -311,7 +311,7 @@ public class ProjectDialog extends Dialog {
 					List<Language> defaultTargets = new Vector<>();
 					for (int i = 0; i < oldItems.length; i++) {
 						if (!oldItems[i].getChecked()) {
-							defaultTargets.add((Language) oldItems[i].getData("language")); //$NON-NLS-1$
+							defaultTargets.add((Language) oldItems[i].getData("language")); 
 						}
 					}
 					langsTable.removeAll();
@@ -319,12 +319,12 @@ public class ProjectDialog extends Dialog {
 						Language l = defaultTargets.get(i);
 						TableItem item = new TableItem(langsTable, SWT.NONE);
 						item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
-						item.setData("language", l); //$NON-NLS-1$
+						item.setData("language", l); 
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
 					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage(Messages.getString("ProjectDialog.6")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ProjectDialog.6")); 
 					box.open();
 					shell.close();
 				}
@@ -338,7 +338,7 @@ public class ProjectDialog extends Dialog {
 		});
 
 		CTabItem memoriesItem = new CTabItem(tabFolder, SWT.NONE);
-		memoriesItem.setText(Messages.getString("ProjectDialog.27")); //$NON-NLS-1$
+		memoriesItem.setText(Messages.getString("ProjectDialog.27")); 
 
 		Composite memoriesComposite = new Composite(tabFolder, SWT.NONE);
 		memoriesComposite.setLayout(new GridLayout());
@@ -358,7 +358,7 @@ public class ProjectDialog extends Dialog {
 			Memory m = memories.get(i);
 			TableItem item = new TableItem(memoriesTable, SWT.NONE);
 			item.setText(m.getName());
-			item.setData("memory", m); //$NON-NLS-1$
+			item.setData("memory", m); 
 		}
 		memColumn.setWidth(400);
 
@@ -367,11 +367,11 @@ public class ProjectDialog extends Dialog {
 		memBottom.setLayout(new GridLayout(3, false));
 
 		Label memFiller = new Label(memBottom, SWT.NONE);
-		memFiller.setText(""); //$NON-NLS-1$
+		memFiller.setText(""); 
 		memFiller.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button associateMemories = new Button(memBottom, SWT.PUSH);
-		associateMemories.setText(Messages.getString("ProjectDialog.30")); //$NON-NLS-1$
+		associateMemories.setText(Messages.getString("ProjectDialog.30")); 
 		associateMemories.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -385,7 +385,7 @@ public class ProjectDialog extends Dialog {
 						Memory m = selected.get(i);
 						TableItem item = new TableItem(memoriesTable, SWT.NONE);
 						item.setText(m.getName());
-						item.setData("memory", m); //$NON-NLS-1$
+						item.setData("memory", m); 
 						project.getMemories().add(m);
 					}
 					memoriesTable.layout();
@@ -394,7 +394,7 @@ public class ProjectDialog extends Dialog {
 		});
 
 		Button removeMemories = new Button(memBottom, SWT.PUSH);
-		removeMemories.setText(Messages.getString("ProjectDialog.32")); //$NON-NLS-1$
+		removeMemories.setText(Messages.getString("ProjectDialog.32")); 
 		removeMemories.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -403,7 +403,7 @@ public class ProjectDialog extends Dialog {
 				List<Memory> newMems = new Vector<>();
 				for (int i = 0; i < memoriesTable.getItemCount(); i++) {
 					if (memoriesTable.getItem(i).getChecked()) {
-						newMems.add((Memory) memoriesTable.getItem(i).getData("memory")); //$NON-NLS-1$
+						newMems.add((Memory) memoriesTable.getItem(i).getData("memory")); 
 						indices.add(i);
 					}
 				}
@@ -428,42 +428,42 @@ public class ProjectDialog extends Dialog {
 		bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label filler2 = new Label(bottom, SWT.NONE);
-		filler2.setText(" "); //$NON-NLS-1$
+		filler2.setText(" "); 
 		filler2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button create = new Button(bottom, SWT.PUSH);
 		if (project.getId() == 0l) {
-			create.setText(Messages.getString("ProjectDialog.35")); //$NON-NLS-1$
+			create.setText(Messages.getString("ProjectDialog.35")); 
 		} else {
-			create.setText(Messages.getString("ProjectDialog.36")); //$NON-NLS-1$
+			create.setText(Messages.getString("ProjectDialog.36")); 
 		}
 
 		create.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				if (titleText.getText() == null || titleText.getText().equals("")) { //$NON-NLS-1$
+				if (titleText.getText() == null || titleText.getText().isEmpty()) { 
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage(Messages.getString("ProjectDialog.38")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ProjectDialog.38")); 
 					box.open();
 					return;
 				}
-				if (mapText.getText() == null || mapText.getText().equals("")) { //$NON-NLS-1$
+				if (mapText.getText() == null || mapText.getText().isEmpty()) { 
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage(Messages.getString("ProjectDialog.40")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ProjectDialog.40")); 
 					box.open();
 					return;
 				}
 				File f = new File(mapText.getText());
 				if (!f.exists()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage(Messages.getString("ProjectDialog.41")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ProjectDialog.41")); 
 					box.open();
 					return;
 				}
-				if (sourceLanguages.getText() == null || sourceLanguages.getText().equals("")) { //$NON-NLS-1$
+				if (sourceLanguages.getText() == null || sourceLanguages.getText().isEmpty()) { 
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage(Messages.getString("ProjectDialog.43")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ProjectDialog.43")); 
 					box.open();
 					return;
 				}
@@ -473,25 +473,25 @@ public class ProjectDialog extends Dialog {
 				} catch (IOException | SAXException | ParserConfigurationException e) {
 					e.printStackTrace();
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage(Messages.getString("ProjectDialog.44")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ProjectDialog.44")); 
 					box.open();
 					return;
 				}
 				TableItem[] items = langsTable.getItems();
 				if (items.length == 0) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage(Messages.getString("ProjectDialog.45")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ProjectDialog.45")); 
 					box.open();
 					return;
 				}
 				List<Language> targetLangs = new Vector<>();
 				for (int i = 0; i < items.length; i++) {
-					targetLangs.add((Language) items[i].getData("language")); //$NON-NLS-1$
+					targetLangs.add((Language) items[i].getData("language")); 
 				}
 				if (project.getId() == 0l) {
 					long id = System.currentTimeMillis();
 					Project p = new Project(id, titleText.getText(), descriptionText.getText(),
-							System.getProperty("user.name"), mapText.getText(), new Date(), //$NON-NLS-1$
+							System.getProperty("user.name"), mapText.getText(), new Date(), 
 							Project.NEW, null, srcLang, targetLangs, new Vector<>());
 					Memory m = new Memory(id, p.getTitle(), p.getDescription(), p.getOwner(), new Date(), null,
 							p.getSrcLanguage(), new Vector<>());
@@ -502,7 +502,7 @@ public class ProjectDialog extends Dialog {
 							| ParserConfigurationException e) {
 						e.printStackTrace();
 						MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-						box.setMessage(Messages.getString("ProjectDialog.48")); //$NON-NLS-1$
+						box.setMessage(Messages.getString("ProjectDialog.48")); 
 						box.open();
 					}
 				} else {
@@ -522,7 +522,7 @@ public class ProjectDialog extends Dialog {
 	}
 
 	public void show() {
-		Locator.setLocation(shell, "ProjectDialog"); //$NON-NLS-1$
+		Locator.setLocation(shell, "ProjectDialog"); 
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {

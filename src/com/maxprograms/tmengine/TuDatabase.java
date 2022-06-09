@@ -33,11 +33,11 @@ public class TuDatabase {
 
 	public TuDatabase(File folder) throws IOException {
 		try {
-			mapdb = DBMaker.newFileDB(new File(folder, "tudata")).closeOnJvmShutdown().asyncWriteEnable().make(); //$NON-NLS-1$
-			tumap = mapdb.getHashMap("tuvmap"); //$NON-NLS-1$
-			projects = mapdb.getHashSet("projects"); //$NON-NLS-1$
-			subjects = mapdb.getHashSet("subjects"); //$NON-NLS-1$
-			customers = mapdb.getHashSet("customers"); //$NON-NLS-1$
+			mapdb = DBMaker.newFileDB(new File(folder, "tudata")).closeOnJvmShutdown().asyncWriteEnable().make(); 
+			tumap = mapdb.getHashMap("tuvmap"); 
+			projects = mapdb.getHashSet("projects"); 
+			subjects = mapdb.getHashSet("subjects"); 
+			customers = mapdb.getHashSet("customers"); 
 		} catch (Error ioe) {
 			throw new IOException(ioe.getMessage());
 		}
@@ -57,7 +57,7 @@ public class TuDatabase {
 	}
 
 	public synchronized void store(String tuid, Element tu) {
-		tu.removeChild("tuv"); //$NON-NLS-1$
+		tu.removeChild("tuv"); 
 		if (tu.getChildren().isEmpty()) {
 			tu.setContent(new Vector<>());
 		}

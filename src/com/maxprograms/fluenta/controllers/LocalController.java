@@ -42,10 +42,17 @@ import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.mapdb.DB;
+import org.mapdb.DBMaker;
+import org.mapdb.HTreeMap;
+import org.xml.sax.SAXException;
+
 import com.maxprograms.converters.Constants;
 import com.maxprograms.converters.EncodingResolver;
 import com.maxprograms.converters.FileFormats;
+import com.maxprograms.converters.ILogger;
 import com.maxprograms.converters.Utils;
+import com.maxprograms.converters.ditamap.DitaMap2Xliff;
 import com.maxprograms.converters.ditamap.Xliff2DitaMap;
 import com.maxprograms.converters.html.Xliff2Html;
 import com.maxprograms.converters.idml.Xliff2Idml;
@@ -70,7 +77,6 @@ import com.maxprograms.fluenta.views.XmlPreferences;
 import com.maxprograms.languages.Language;
 import com.maxprograms.languages.LanguageUtils;
 import com.maxprograms.stats.RepetitionAnalysis;
-import com.maxprograms.tmengine.ILogger;
 import com.maxprograms.tmengine.InternalDatabase;
 import com.maxprograms.tmengine.MatchQuality;
 import com.maxprograms.tmengine.TU;
@@ -94,11 +100,6 @@ import com.maxprograms.xml.XMLNode;
 import com.maxprograms.xml.XMLOutputter;
 import com.maxprograms.xml.XMLUtils;
 
-import org.mapdb.DB;
-import org.mapdb.DBMaker;
-import org.mapdb.HTreeMap;
-import org.xml.sax.SAXException;
-
 public class LocalController {
 
 	private static Logger LOGGER = System.getLogger(LocalController.class.getName());
@@ -107,8 +108,8 @@ public class LocalController {
 	private DB memorydb;
 	private HTreeMap<Long, Project> projectsMap;
 	private HTreeMap<Long, Memory> memoriesMap;
-	private String projectsFile = "Projects.db"; //$NON-NLS-1$
-	private String memoriesFile = "Memories.db"; //$NON-NLS-1$
+	private String projectsFile = "Projects.db"; 
+	private String memoriesFile = "Memories.db"; 
 	private String sourceLang;
 	private String targetLang;
 
@@ -139,11 +140,11 @@ public class LocalController {
 			if (out.exists()) {
 				try {
 					Files.delete(Paths.get(out.toURI()));
-					File p = new File(Preferences.getPreferencesDir(), projectsFile + ".p"); //$NON-NLS-1$
+					File p = new File(Preferences.getPreferencesDir(), projectsFile + ".p"); 
 					if (p.exists()) {
 						Files.delete(Paths.get(p.toURI()));
 					}
-					File t = new File(Preferences.getPreferencesDir(), projectsFile + ".t"); //$NON-NLS-1$
+					File t = new File(Preferences.getPreferencesDir(), projectsFile + ".t"); 
 					if (t.exists()) {
 						Files.delete(Paths.get(t.toURI()));
 					}
@@ -157,7 +158,7 @@ public class LocalController {
 				throw new IOException(ex.getMessage());
 			}
 		}
-		projectsMap = projectdb.getHashMap("projects"); //$NON-NLS-1$
+		projectsMap = projectdb.getHashMap("projects"); 
 	}
 
 	public void close() {
@@ -223,11 +224,11 @@ public class LocalController {
 			if (out.exists()) {
 				try {
 					Files.delete(Paths.get(out.toURI()));
-					File p = new File(Preferences.getPreferencesDir(), memoriesFile + ".p"); //$NON-NLS-1$
+					File p = new File(Preferences.getPreferencesDir(), memoriesFile + ".p"); 
 					if (p.exists()) {
 						Files.delete(Paths.get(p.toURI()));
 					}
-					File t = new File(Preferences.getPreferencesDir(), memoriesFile + ".t"); //$NON-NLS-1$
+					File t = new File(Preferences.getPreferencesDir(), memoriesFile + ".t"); 
 					if (t.exists()) {
 						Files.delete(Paths.get(t.toURI()));
 					}
@@ -241,7 +242,7 @@ public class LocalController {
 				throw new IOException(ex.getMessage());
 			}
 		}
-		memoriesMap = memorydb.getHashMap("memories"); //$NON-NLS-1$
+		memoriesMap = memorydb.getHashMap("memories"); 
 	}
 
 	public void updateProject(Project p) {
@@ -252,8 +253,8 @@ public class LocalController {
 
 	public InternalDatabase getTMEngine(long memoryId)
 			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
-		File f = new File(Preferences.getPreferencesDir(), "TMEngines"); //$NON-NLS-1$
-		return new InternalDatabase("" + memoryId, f.getAbsolutePath()); //$NON-NLS-1$
+		File f = new File(Preferences.getPreferencesDir(), "TMEngines"); 
+		return new InternalDatabase("" + memoryId, f.getAbsolutePath()); 
 	}
 
 	public void generateXliff(Project project, String xliffFolder, List<Language> tgtLangs, boolean useICE,
@@ -262,48 +263,48 @@ public class LocalController {
 			SQLException {
 		PrintStream oldErr = System.err;
 		try (PrintStream newErr = new PrintStream(
-				new File(Preferences.getPreferencesDir(), "errors.txt"))) { //$NON-NLS-1$
+				new File(Preferences.getPreferencesDir(), "errors.txt"))) { 
 			System.setErr(newErr);
 			Hashtable<String, String> params = new Hashtable<>();
-			params.put("source", project.getMap()); //$NON-NLS-1$
+			params.put("source", project.getMap()); 
 			File map = new File(project.getMap());
 			String name = map.getName();
 			File folder = new File(xliffFolder);
-			File xliffFile = new File(folder, name + ".xlf"); //$NON-NLS-1$
-			params.put("xliff", xliffFile.getAbsolutePath()); //$NON-NLS-1$
-			if (ditavalFile != null && !ditavalFile.equals("")) { //$NON-NLS-1$
-				params.put("ditaval", ditavalFile); //$NON-NLS-1$
+			File xliffFile = new File(folder, name + ".xlf"); 
+			params.put("xliff", xliffFile.getAbsolutePath()); 
+			if (ditavalFile != null && !ditavalFile.isEmpty()) { 
+				params.put("ditaval", ditavalFile); 
 			}
 			File skldir;
-			skldir = new File(Preferences.getPreferencesDir(), "" + project.getId()); //$NON-NLS-1$
+			skldir = new File(Preferences.getPreferencesDir(), "" + project.getId()); 
 			if (!skldir.exists()) {
 				skldir.mkdirs();
 			}
 			File skl;
-			skl = File.createTempFile("temp", ".skl", skldir); //$NON-NLS-1$ //$NON-NLS-2$
-			params.put("skeleton", skl.getAbsolutePath()); //$NON-NLS-1$
-			params.put("catalog", Fluenta.getCatalogFile()); //$NON-NLS-1$
-			params.put("customer", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			params.put("subject", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			params.put("project", project.getTitle()); //$NON-NLS-1$
-			params.put("srcLang", project.getSrcLanguage().getCode()); //$NON-NLS-1$
-			params.put("tgtLang", project.getSrcLanguage().getCode()); // use src language in master //$NON-NLS-1$
-			params.put("srcEncoding", EncodingResolver.getEncoding(project.getMap(), FileFormats.DITA).name()); //$NON-NLS-1$
-			params.put("paragraph", "no"); //$NON-NLS-1$ //$NON-NLS-2$
-			params.put("format", FileFormats.DITA); //$NON-NLS-1$
-			params.put("srxFile", ProjectPreferences.getDefaultSRX()); //$NON-NLS-1$
-			params.put("translateComments", XmlPreferences.getTranslateComments() ? "yes" : "no"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			logger.setStage(Messages.getString("LocalController.34")); //$NON-NLS-1$
-			logger.log(Messages.getString("LocalController.35")); //$NON-NLS-1$
+			skl = File.createTempFile("temp", ".skl", skldir);  
+			params.put("skeleton", skl.getAbsolutePath()); 
+			params.put("catalog", Fluenta.getCatalogFile()); 
+			params.put("customer", "");  
+			params.put("subject", "");  
+			params.put("project", project.getTitle()); 
+			params.put("srcLang", project.getSrcLanguage().getCode()); 
+			params.put("tgtLang", project.getSrcLanguage().getCode()); // use src language in master 
+			params.put("srcEncoding", EncodingResolver.getEncoding(project.getMap(), FileFormats.DITA).name()); 
+			params.put("paragraph", "no");  
+			params.put("format", FileFormats.DITA); 
+			params.put("srxFile", ProjectPreferences.getDefaultSRX()); 
+			params.put("translateComments", XmlPreferences.getTranslateComments() ? "yes" : "no");   
+			logger.setStage(Messages.getString("LocalController.35")); 
 
-			List<String> result = DitaMap2Xliff.run(params, logger);
+			DitaMap2Xliff.setDataLogger(logger);
+			List<String> result = DitaMap2Xliff.run(params);
 			if (!result.get(0).equals(Constants.SUCCESS)) {
 				throw new IOException(result.get(1));
 			}
 
 			makeFilesRelative(xliffFile);
-			logger.setStage(Messages.getString("LocalController.38")); //$NON-NLS-1$
-			MessageFormat mf = new MessageFormat(Messages.getString("LocalController.39")); //$NON-NLS-1$
+			logger.setStage(Messages.getString("LocalController.38")); 
+			MessageFormat mf = new MessageFormat(Messages.getString("LocalController.39")); 
 			for (int i = 0; i < tgtLangs.size(); i++) {
 				logger.log(
 						mf.format(new Object[] {
@@ -320,11 +321,11 @@ public class LocalController {
 			}
 			Files.deleteIfExists(xliffFile.toPath());
 			if (useICE) {
-				MessageFormat icem = new MessageFormat(Messages.getString("LocalController.40")); //$NON-NLS-1$
+				MessageFormat icem = new MessageFormat(Messages.getString("LocalController.40")); 
 				for (int i = 0; i < tgtLangs.size(); i++) {
 					logger.setStage(icem.format(
 							new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() })); // $NON-NLS-1$
-					logger.log(Messages.getString("LocalController.41")); //$NON-NLS-1$
+					logger.log(Messages.getString("LocalController.41")); 
 					String newName = getName(map.getName(), tgtLangs.get(i).getCode());
 					File xliff = new File(folder, newName);
 					File previousBuild = getPreviousBuild(project, tgtLangs.get(i).getCode());
@@ -334,25 +335,25 @@ public class LocalController {
 				}
 			}
 			if (useTM) {
-				MessageFormat mftm = new MessageFormat(Messages.getString("LocalController.42")); //$NON-NLS-1$
+				MessageFormat mftm = new MessageFormat(Messages.getString("LocalController.42")); 
 				for (int i = 0; i < tgtLangs.size(); i++) {
 					logger.setStage(mftm.format(
 							new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
 
-					logger.log(Messages.getString("LocalController.43")); //$NON-NLS-1$
+					logger.log(Messages.getString("LocalController.43")); 
 					String targetName = getName(map.getName(), tgtLangs.get(i).getCode());
 					File targetXliff = new File(folder, targetName);
 					SAXBuilder builder = new SAXBuilder();
 					builder.setEntityResolver(new Catalog(Fluenta.getCatalogFile()));
 					Document doc1 = builder.build(targetXliff);
 					Element root1 = doc1.getRootElement();
-					Element firstFile = root1.getChild("file"); //$NON-NLS-1$
+					Element firstFile = root1.getChild("file"); 
 					if (firstFile == null) {
-						logger.displayError(Messages.getString("LocalController.45")); //$NON-NLS-1$
+						logger.displayError(Messages.getString("LocalController.45")); 
 						return;
 					}
-					sourceLang = firstFile.getAttributeValue("source-language"); //$NON-NLS-1$
-					targetLang = firstFile.getAttributeValue("target-language"); //$NON-NLS-1$
+					sourceLang = firstFile.getAttributeValue("source-language"); 
+					targetLang = firstFile.getAttributeValue("target-language"); 
 					List<Element> segments = new Vector<>();
 					recurse(root1, segments);
 					List<Memory> mems = project.getMemories();
@@ -360,15 +361,15 @@ public class LocalController {
 					for (int i2 = 0; i2 < mems.size(); i2++) {
 						dbs.add(getTMEngine(mems.get(i2).getId()));
 					}
-					MessageFormat mf2 = new MessageFormat(Messages.getString("LocalController.46")); //$NON-NLS-1$
+					MessageFormat mf2 = new MessageFormat(Messages.getString("LocalController.46")); 
 					Iterator<Element> it = segments.iterator();
 					int count = 0;
 					while (it.hasNext()) {
 						if (count % 200 == 0) {
-							logger.log(mf2.format(new Object[] { "" + count, "" + segments.size() })); //$NON-NLS-1$ //$NON-NLS-2$
+							logger.log(mf2.format(new Object[] { "" + count, "" + segments.size() }));  
 						}
 						Element seg = it.next();
-						if (seg.getAttributeValue("approved", "no").equalsIgnoreCase("yes")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						if (seg.getAttributeValue("approved", "no").equalsIgnoreCase("yes")) {   
 							continue;
 						}
 						List<Element> matches = new Vector<>();
@@ -389,7 +390,7 @@ public class LocalController {
 						for (int i2 = 0; i2 < max; i2++) {
 							Element match = matches.get(i2);
 							try {
-								if (Float.parseFloat(match.getAttributeValue("match-quality")) >= 70) { //$NON-NLS-1$
+								if (Float.parseFloat(match.getAttributeValue("match-quality")) >= 70) { 
 									seg.addContent(match);
 								}
 							} catch (Exception e) {
@@ -398,7 +399,7 @@ public class LocalController {
 						}
 						count++;
 					}
-					logger.log(mf2.format(new Object[] { "" + segments.size(), "" + segments.size() })); //$NON-NLS-1$ //$NON-NLS-2$
+					logger.log(mf2.format(new Object[] { "" + segments.size(), "" + segments.size() }));  
 					for (int i2 = 0; i2 < dbs.size(); i2++) {
 						InternalDatabase db = dbs.get(i2);
 						db.close();
@@ -411,7 +412,7 @@ public class LocalController {
 				}
 			}
 			if (generateCount) {
-				MessageFormat mf3 = new MessageFormat(Messages.getString("LocalController.54")); //$NON-NLS-1$
+				MessageFormat mf3 = new MessageFormat(Messages.getString("LocalController.54")); 
 				for (int i = 0; i < tgtLangs.size(); i++) {
 					logger.setStage(mf3.format(
 							new Object[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
@@ -422,7 +423,7 @@ public class LocalController {
 				}
 			}
 			if (useXliff20) {
-				logger.setStage(Messages.getString("LocalController.1")); //$NON-NLS-1$
+				logger.setStage(Messages.getString("LocalController.1")); 
 				for (int i = 0; i < tgtLangs.size(); i++) {
 					String targetName = getName(map.getName(), tgtLangs.get(i).getCode());
 					File targetXliff = new File(folder, targetName);
@@ -435,18 +436,18 @@ public class LocalController {
 			}
 		}
 		System.setErr(oldErr);
-		logger.displaySuccess(Messages.getString("LocalController.55")); //$NON-NLS-1$
+		logger.displaySuccess(Messages.getString("LocalController.55")); 
 		collectErrors(logger);
 	}
 
 	private void collectErrors(ILogger logger) throws IOException {
-		File errors = new File(Preferences.getPreferencesDir(), "errors.txt"); //$NON-NLS-1$
+		File errors = new File(Preferences.getPreferencesDir(), "errors.txt"); 
 		try (FileReader reader = new FileReader(errors)) {
 			try (BufferedReader buffer = new BufferedReader(reader)) {
-				String line = ""; //$NON-NLS-1$
+				String line = ""; 
 				while ((line = buffer.readLine()) != null) {
-					if (line.startsWith("WARNING:") || line.startsWith("SEVERE:") //$NON-NLS-1$ //$NON-NLS-2$
-							|| line.startsWith("INFO:")) { //$NON-NLS-1$
+					if (line.startsWith("WARNING:") || line.startsWith("SEVERE:")  
+							|| line.startsWith("INFO:")) { 
 						logger.logError(line);
 					}
 				}
@@ -466,20 +467,20 @@ public class LocalController {
 		Element root2 = doc2.getRootElement();
 		List<Element> leveraged = new Vector<>();
 
-		List<Element> originalFiles = root.getChildren("file"); //$NON-NLS-1$
-		List<Element> oldFiles = root2.getChildren("file"); //$NON-NLS-1$
+		List<Element> originalFiles = root.getChildren("file"); 
+		List<Element> oldFiles = root2.getChildren("file"); 
 
 		for (int fi = 0; fi < originalFiles.size(); fi++) {
 			Element currentFile = originalFiles.get(fi);
 			if (logger != null) {
-				logger.log(currentFile.getAttributeValue("original")); //$NON-NLS-1$
+				logger.log(currentFile.getAttributeValue("original")); 
 				if (logger.isCancelled()) {
-					throw new IOException(Messages.getString("LocalController.59")); //$NON-NLS-1$
+					throw new IOException(Messages.getString("LocalController.59")); 
 				}
 			}
 			Element oldFile = null;
 			for (int j = 0; j < oldFiles.size(); j++) {
-				if (oldFiles.get(j).getAttributeValue("original").equals(currentFile.getAttributeValue("original"))) { //$NON-NLS-1$ //$NON-NLS-2$
+				if (oldFiles.get(j).getAttributeValue("original").equals(currentFile.getAttributeValue("original"))) {  
 					oldFile = oldFiles.get(j);
 					break;
 				}
@@ -499,27 +500,27 @@ public class LocalController {
 			int size = segments.size();
 			for (int i = 0; i < size; i++) {
 				if (i > 0) {
-					previous = segments.get(i - 1).getChild("source"); //$NON-NLS-1$
+					previous = segments.get(i - 1).getChild("source"); 
 				}
-				if (segments.get(i).getAttributeValue("approved", "no").equalsIgnoreCase("yes")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				if (segments.get(i).getAttributeValue("approved", "no").equalsIgnoreCase("yes")) {   
 					continue;
 				}
-				if (segments.get(i).getAttributeValue("translate", "yes").equalsIgnoreCase("no")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				if (segments.get(i).getAttributeValue("translate", "yes").equalsIgnoreCase("no")) {   
 					continue;
 				}
-				current = segments.get(i).getChild("source"); //$NON-NLS-1$
+				current = segments.get(i).getChild("source"); 
 				String pureText = TMUtils.pureText(current);
 				if (i + 1 < segments.size()) {
-					next = segments.get(i + 1).getChild("source"); //$NON-NLS-1$
+					next = segments.get(i + 1).getChild("source"); 
 				} else {
 					next = null;
 				}
 				for (int j = 0; j < leveraged.size(); j++) {
 					Element newUnit = leveraged.get(j);
-					if (newUnit.getAttributeValue("approved", "no").equalsIgnoreCase("no")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					if (newUnit.getAttributeValue("approved", "no").equalsIgnoreCase("no")) {   
 						continue;
 					}
-					Element newSource = newUnit.getChild("source"); //$NON-NLS-1$
+					Element newSource = newUnit.getChild("source"); 
 					if (pureText.equals(TMUtils.pureText(newSource))) {
 						double mismatches = wrongTags(current, newSource, 1.0);
 						if (mismatches > 0.0) {
@@ -529,7 +530,7 @@ public class LocalController {
 							if (j == 0) {
 								continue;
 							}
-							Element e = leveraged.get(j - 1).getChild("source"); //$NON-NLS-1$
+							Element e = leveraged.get(j - 1).getChild("source"); 
 							if (!TMUtils.pureText(previous).equals(TMUtils.pureText(e))) {
 								continue;
 							}
@@ -538,23 +539,22 @@ public class LocalController {
 							if (j + 1 == leveraged.size()) {
 								continue;
 							}
-							Element e = leveraged.get(j + 1).getChild("source"); //$NON-NLS-1$
+							Element e = leveraged.get(j + 1).getChild("source"); 
 							if (!TMUtils.pureText(next).equals(TMUtils.pureText(e))) {
 								continue;
 							}
 						}
-						Element newTarget = newUnit.getChild("target"); //$NON-NLS-1$
+						Element newTarget = newUnit.getChild("target"); 
 						if (newTarget != null) {
-							Element target = segments.get(i).getChild("target"); //$NON-NLS-1$
+							Element target = segments.get(i).getChild("target"); 
 							if (target == null) {
-								target = new Element("target"); //$NON-NLS-1$
+								target = new Element("target"); 
 								addTarget(segments.get(i), target);
 							}
 							target.clone(newTarget);
-							target.setAttribute("xml:lang", targetLanguage); //$NON-NLS-1$
-							target.setAttribute("state", "signed-off"); //$NON-NLS-1$//$NON-NLS-2$
-							target.setAttribute("state-qualifier", "leveraged-inherited"); //$NON-NLS-1$ //$NON-NLS-2$
-							segments.get(i).setAttribute("approved", "yes"); //$NON-NLS-1$ //$NON-NLS-2$
+							target.setAttribute("state", "signed-off"); 
+							target.setAttribute("state-qualifier", "leveraged-inherited");  
+							segments.get(i).setAttribute("approved", "yes");  
 						}
 					}
 				}
@@ -568,13 +568,13 @@ public class LocalController {
 	}
 
 	private static void addTarget(Element el, Element tg) {
-		el.removeChild("target"); //$NON-NLS-1$
+		el.removeChild("target"); 
 		List<XMLNode> content = el.getContent();
 		for (int i = 0; i < content.size(); i++) {
 			XMLNode o = content.get(i);
 			if (o.getNodeType() == XMLNode.ELEMENT_NODE) {
 				Element e = (Element) o;
-				if (e.getName().equals("source")) { //$NON-NLS-1$
+				if (e.getName().equals("source")) { 
 					content.add(i + 1, tg);
 					break;
 				}
@@ -584,7 +584,7 @@ public class LocalController {
 	}
 
 	private void recurseSegments(Element root, List<Element> segments) {
-		if (root.getName().equals("trans-unit")) { //$NON-NLS-1$
+		if (root.getName().equals("trans-unit")) { 
 			segments.add(root);
 		} else {
 			List<Element> list = root.getChildren();
@@ -597,7 +597,7 @@ public class LocalController {
 
 	private static File getPreviousBuild(Project project, String code) throws IOException {
 		File fluenta = Preferences.getPreferencesDir();
-		File projectFolder = new File(fluenta, "" + project.getId()); //$NON-NLS-1$
+		File projectFolder = new File(fluenta, "" + project.getId()); 
 		File languageFolder = new File(projectFolder, code);
 		if (!languageFolder.exists()) {
 			return null;
@@ -610,7 +610,7 @@ public class LocalController {
 		File bestMatch = files[0];
 		for (int i = 0; i < files.length; i++) {
 			File f = files[i];
-			int build = Integer.parseInt(f.getName().substring("build_".length(), f.getName().indexOf('.'))); //$NON-NLS-1$
+			int build = Integer.parseInt(f.getName().substring("build_".length(), f.getName().indexOf('.'))); 
 			if (build > lastBuild) {
 				build = lastBuild;
 				bestMatch = f;
@@ -624,18 +624,18 @@ public class LocalController {
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(xliffFile);
 		Element root = doc.getRootElement();
-		List<Element> files1 = root.getChildren("file"); //$NON-NLS-1$
+		List<Element> files1 = root.getChildren("file"); 
 		TreeSet<String> set = new TreeSet<>();
 		for (int i = 0; i < files1.size(); i++) {
 			Element file = files1.get(i);
-			String original = file.getAttributeValue("original"); //$NON-NLS-1$
+			String original = file.getAttributeValue("original"); 
 			set.add(original);
 		}
 		String treeRoot = FileUtils.findTreeRoot(set);
 		for (int i = 0; i < files1.size(); i++) {
 			Element file = files1.get(i);
-			String original = file.getAttributeValue("original"); //$NON-NLS-1$
-			file.setAttribute("original", FileUtils.getRelativePath(treeRoot, original)); //$NON-NLS-1$
+			String original = file.getAttributeValue("original"); 
+			file.setAttribute("original", FileUtils.getRelativePath(treeRoot, original)); 
 		}
 		set = null;
 		try (FileOutputStream output = new FileOutputStream(xliffFile)) {
@@ -646,8 +646,8 @@ public class LocalController {
 	}
 
 	private static String getName(String name, String code) {
-		String result = name.substring(0, name.lastIndexOf('.')) + "@@@@" + name.substring(name.lastIndexOf('.')); //$NON-NLS-1$
-		return result.replace("@@@@", "_" + code) + ".xlf"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		String result = name.substring(0, name.lastIndexOf('.')) + "@@@@" + name.substring(name.lastIndexOf('.')); 
+		return result.replace("@@@@", "_" + code) + ".xlf";   
 	}
 
 	private static void changeTargetLanguage(File newFile, String code, Project project)
@@ -655,14 +655,14 @@ public class LocalController {
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(newFile);
 		Element root = doc.getRootElement();
-		List<Element> files = root.getChildren("file"); //$NON-NLS-1$
+		List<Element> files = root.getChildren("file"); 
 		Iterator<Element> it = files.iterator();
 		while (it.hasNext()) {
 			Element file = it.next();
-			file.setAttribute("target-language", code); //$NON-NLS-1$
-			file.setAttribute("product-name", project.getTitle()); //$NON-NLS-1$
-			file.setAttribute("product-version", "" + project.getId()); //$NON-NLS-1$ //$NON-NLS-2$
-			file.setAttribute("build-num", "" + project.getNextBuild(code)); //$NON-NLS-1$ //$NON-NLS-2$
+			file.setAttribute("target-language", code); 
+			file.setAttribute("product-name", project.getTitle()); 
+			file.setAttribute("product-version", "" + project.getId());  
+			file.setAttribute("build-num", "" + project.getNextBuild(code));  
 		}
 		try (FileOutputStream output = new FileOutputStream(newFile)) {
 			XMLOutputter outputter = new XMLOutputter();
@@ -672,9 +672,9 @@ public class LocalController {
 	}
 
 	private void recurse(Element e, List<Element> segments) {
-		if (e.getName().equals("trans-unit")) { //$NON-NLS-1$
-			if (e.getAttributeValue("translate", "yes").equals("yes")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				if (!e.getAttributeValue("approved", "no").equals("yes")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		if (e.getName().equals("trans-unit")) { 
+			if (e.getAttributeValue("translate", "yes").equals("yes")) {   
+				if (!e.getAttributeValue("approved", "no").equals("yes")) {   
 					segments.add(e);
 				}
 			}
@@ -694,10 +694,10 @@ public class LocalController {
 
 		PrintStream oldErr = System.err;
 		try (PrintStream newErr = new PrintStream(
-				new File(Preferences.getPreferencesDir(), "errors.txt"))) { //$NON-NLS-1$
+				new File(Preferences.getPreferencesDir(), "errors.txt"))) { 
 			System.setErr(newErr);
 
-			logger.setStage(Messages.getString("LocalController.123")); //$NON-NLS-1$
+			logger.setStage(Messages.getString("LocalController.123")); 
 
 			String workDocument = checkXliffVersion(xliffDocument);
 
@@ -713,8 +713,8 @@ public class LocalController {
 			}
 			if (!ignoreTagErrors) {
 				String tagErrors = checkTags(root);
-				if (!tagErrors.equals("")) { //$NON-NLS-1$
-					tagErrors = Messages.getString("LocalController.2") + "\n\n"; //$NON-NLS-1$ //$NON-NLS-2$
+				if (!tagErrors.isEmpty()) { 
+					tagErrors = Messages.getString("LocalController.2") + "\n\n";  
 					String report = TagErrorsReport.run(workDocument);
 					if (logger instanceof AsyncLogger) {
 						((AsyncLogger) logger).displayReport(tagErrors, report);
@@ -755,13 +755,13 @@ public class LocalController {
 				}
 			}
 			if (!found) {
-				logger.displayError(Messages.getString("LocalController.0")); //$NON-NLS-1$
+				logger.displayError(Messages.getString("LocalController.0")); 
 				return;
 			}
 			String projectID = toolData[1];
 			String build = toolData[2];
-			if (!projectID.equals("" + project.getId())) { //$NON-NLS-1$
-				logger.displayError(Messages.getString("LocalController.125")); //$NON-NLS-1$
+			if (!projectID.equals("" + project.getId())) { 
+				logger.displayError(Messages.getString("LocalController.125")); 
 				return;
 			}
 			String encoding = getEncoding(root);
@@ -770,7 +770,7 @@ public class LocalController {
 				File f = new File(targetFolder);
 				if (f.exists()) {
 					if (!f.isDirectory()) {
-						logger.displayError(Messages.getString("LocalController.126")); //$NON-NLS-1$
+						logger.displayError(Messages.getString("LocalController.126")); 
 						return;
 					}
 				} else {
@@ -779,46 +779,46 @@ public class LocalController {
 			}
 			Iterator<String> it = fileSet.iterator();
 			List<Hashtable<String, String>> paramsList = new Vector<>();
-			logger.setStage(Messages.getString("LocalController.127")); //$NON-NLS-1$
+			logger.setStage(Messages.getString("LocalController.127")); 
 			List<String> targetFiles = new Vector<>();
 			while (it.hasNext()) {
 				if (logger.isCancelled()) {
-					logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
+					logger.displayError(Messages.getString("LocalController.59")); 
 					return;
 				}
 				String file = it.next();
-				File xliff = File.createTempFile("temp", ".xlf"); //$NON-NLS-1$ //$NON-NLS-2$
+				File xliff = File.createTempFile("temp", ".xlf");  
 				encoding = saveXliff(file, xliff, root);
 				Hashtable<String, String> params = new Hashtable<>();
-				params.put("xliff", xliff.getAbsolutePath()); //$NON-NLS-1$
+				params.put("xliff", xliff.getAbsolutePath()); 
 				if (fileSet.size() == 1) {
-					params.put("backfile", targetFolder); //$NON-NLS-1$
+					params.put("backfile", targetFolder); 
 				} else {
 					String backfile = FileUtils.getAbsolutePath(targetFolder, file);
 					logger.log(backfile);
-					params.put("backfile", backfile); //$NON-NLS-1$
+					params.put("backfile", backfile); 
 				}
-				params.put("encoding", encoding); //$NON-NLS-1$
-				params.put("catalog", Fluenta.getCatalogFile()); //$NON-NLS-1$
-				String dataType = root.getChild("file").getAttributeValue("datatype", FileFormats.DITA); //$NON-NLS-1$ //$NON-NLS-2$
-				params.put("format", dataType); //$NON-NLS-1$
+				params.put("encoding", encoding); 
+				params.put("catalog", Fluenta.getCatalogFile()); 
+				String dataType = root.getChild("file").getAttributeValue("datatype", FileFormats.DITA);  
+				params.put("format", dataType); 
 				paramsList.add(params);
-				targetFiles.add(params.get("backfile")); //$NON-NLS-1$
+				targetFiles.add(params.get("backfile")); 
 			}
-			logger.setStage(Messages.getString("LocalController.138")); //$NON-NLS-1$
+			logger.setStage(Messages.getString("LocalController.138")); 
 			for (int i = 0; i < paramsList.size(); i++) {
 				if (logger.isCancelled()) {
-					logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
+					logger.displayError(Messages.getString("LocalController.59")); 
 					return;
 				}
 				Hashtable<String, String> par = paramsList.get(i);
-				String backfile = par.get("backfile"); //$NON-NLS-1$
-				logger.log(backfile.substring(backfile.lastIndexOf(System.getProperty("file.separator")))); //$NON-NLS-1$
+				String backfile = par.get("backfile"); 
+				logger.log(backfile.substring(backfile.lastIndexOf(System.getProperty("file.separator")))); 
 				List<String> result = xliffToOriginal(par);
-				if (!"0".equals(result.get(0))) { //$NON-NLS-1$
+				if (!"0".equals(result.get(0))) { 
 					String error = result.get(1);
 					if (error == null) {
-						error = Messages.getString("LocalController.142"); //$NON-NLS-1$
+						error = Messages.getString("LocalController.142"); 
 					}
 					root = null;
 					logger.displayError(error);
@@ -838,39 +838,39 @@ public class LocalController {
 					outputter.output(d, out);
 				}
 				// remove temporay XLIFF
-				File f = new File(paramsList.get(i).get("xliff")); //$NON-NLS-1$
+				File f = new File(paramsList.get(i).get("xliff")); 
 				Files.delete(Paths.get(f.toURI()));
 			}
 			if (updateTM) {
 				if (logger.isCancelled()) {
-					logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
+					logger.displayError(Messages.getString("LocalController.59")); 
 					return;
 				}
-				logger.setStage(Messages.getString("LocalController.144")); //$NON-NLS-1$
-				logger.log(""); //$NON-NLS-1$
-				logger.log(xliffDocument.substring(0, xliffDocument.lastIndexOf('.')) + ".tmx"); //$NON-NLS-1$
-				String tmxFile = xliffDocument.substring(0, xliffDocument.lastIndexOf('.')) + ".tmx"; //$NON-NLS-1$
+				logger.setStage(Messages.getString("LocalController.144")); 
+				logger.log(""); 
+				logger.log(xliffDocument.substring(0, xliffDocument.lastIndexOf('.')) + ".tmx"); 
+				String tmxFile = xliffDocument.substring(0, xliffDocument.lastIndexOf('.')) + ".tmx"; 
 				TMXExporter.export(workDocument, tmxFile, acceptUnapproved);
-				logger.setStage(Messages.getString("LocalController.148")); //$NON-NLS-1$
+				logger.setStage(Messages.getString("LocalController.148")); 
 				Memory m = getMemory(project.getId());
 				if (m != null) {
 					InternalDatabase database = getTMEngine(m.getId());
-					int[] result = database.storeTMX(tmxFile, System.getProperty("user.name"), project.getTitle(), "", //$NON-NLS-1$ //$NON-NLS-2$
-							"", false, logger); //$NON-NLS-1$
+					int[] result = database.storeTMX(tmxFile, System.getProperty("user.name"), project.getTitle(), "",  
+							"", false, logger); 
 					database.close();
 					database = null;
-					MessageFormat mf = new MessageFormat(Messages.getString("LocalController.152")); //$NON-NLS-1$
+					MessageFormat mf = new MessageFormat(Messages.getString("LocalController.152")); 
 					logger.log(mf.format(new Object[] { result[0], result[1] }));
 					m.setLastUpdate(new Date());
 					updateMemory(m);
 				} else {
-					logger.displayError(Messages.getString("LocalController.153")); //$NON-NLS-1$
+					logger.displayError(Messages.getString("LocalController.153")); 
 					return;
 				}
 			}
 			if (cleanAttributes) {
-				logger.setStage(Messages.getString("LocalController.3")); //$NON-NLS-1$
-				logger.log(""); //$NON-NLS-1$
+				logger.setStage(Messages.getString("LocalController.3")); 
+				logger.log(""); 
 
 				SAXBuilder builder = new SAXBuilder();
 				Catalog catalog = new Catalog(Fluenta.getCatalogFile());
@@ -881,14 +881,14 @@ public class LocalController {
 
 				for (int i = 0; i < targetFiles.size(); i++) {
 					if (logger.isCancelled()) {
-						logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
+						logger.displayError(Messages.getString("LocalController.59")); 
 						return;
 					}
 					String target = targetFiles.get(i);
 					logger.log(target);
 					Document d = builder.build(target);
 					Element r = d.getRootElement();
-					if (r.getName().equals("svg")) { //$NON-NLS-1$
+					if (r.getName().equals("svg")) { 
 						continue;
 					}
 					recurse(r);
@@ -898,18 +898,18 @@ public class LocalController {
 				}
 			}
 			File fluenta = Preferences.getPreferencesDir();
-			File projectFolder = new File(fluenta, "" + project.getId()); //$NON-NLS-1$
+			File projectFolder = new File(fluenta, "" + project.getId()); 
 			File languageFolder = new File(projectFolder, targetLanguage);
 			if (!languageFolder.exists()) {
 				languageFolder.mkdirs();
 			}
 			if (logger.isCancelled()) {
-				logger.displayError(Messages.getString("LocalController.59")); //$NON-NLS-1$
+				logger.displayError(Messages.getString("LocalController.59")); 
 				return;
 			}
-			logger.setStage(Messages.getString("LocalController.155")); //$NON-NLS-1$
-			logger.log(Messages.getString("LocalController.156")); //$NON-NLS-1$
-			try (FileOutputStream output = new FileOutputStream(new File(languageFolder, "build_" + build + ".xlf"))) { //$NON-NLS-1$ //$NON-NLS-2$
+			logger.setStage(Messages.getString("LocalController.155")); 
+			logger.log(Messages.getString("LocalController.156")); 
+			try (FileOutputStream output = new FileOutputStream(new File(languageFolder, "build_" + build + ".xlf"))) {  
 				XMLOutputter outputter = new XMLOutputter();
 				outputter.preserveSpace(true);
 				outputter.output(doc, output);
@@ -924,7 +924,8 @@ public class LocalController {
 			updateProject(project);
 		}
 		System.setErr(oldErr);
-		logger.displaySuccess(Messages.getString("LocalController.160")); //$NON-NLS-1$
+		logger.displaySuccess(Messages.getString("LocalController.160")); 
+
 		collectErrors(logger);
 	}
 
@@ -934,15 +935,15 @@ public class LocalController {
 		builder.setEntityResolver(new Catalog(Fluenta.getCatalogFile()));
 		Document doc = builder.build(xliffDocument);
 		Element root = doc.getRootElement();
-		if (!root.getName().equals("xliff")) { //$NON-NLS-1$
-			throw new IOException(Messages.getString("LocalController.250")); //$NON-NLS-1$
+		if (!root.getName().equals("xliff")) { 
+			throw new IOException(Messages.getString("LocalController.250")); 
 		}
-		if (root.getAttributeValue("version").equals("1.2")) { //$NON-NLS-1$ //$NON-NLS-2$
+		if (root.getAttributeValue("version").equals("1.2")) {  
 			return xliffDocument;
 		}
-		if (root.getAttributeValue("version").equals("2.0")) { //$NON-NLS-1$ //$NON-NLS-2$
-			String name = xliffDocument.substring(0, xliffDocument.lastIndexOf(".")) + "_12" //$NON-NLS-1$ //$NON-NLS-2$
-					+ xliffDocument.substring(xliffDocument.lastIndexOf(".")); //$NON-NLS-1$
+		if (root.getAttributeValue("version").equals("2.0")) {  
+			String name = xliffDocument.substring(0, xliffDocument.lastIndexOf(".")) + "_12"  
+					+ xliffDocument.substring(xliffDocument.lastIndexOf(".")); 
 			FromXliff2.run(xliffDocument, name, Fluenta.getCatalogFile());
 			return name;
 		}
@@ -950,10 +951,10 @@ public class LocalController {
 	}
 
 	private void approveAll(Element e) {
-		if (e.getName().equals("trans-unit")) { //$NON-NLS-1$
-			Element target = e.getChild("target"); //$NON-NLS-1$
+		if (e.getName().equals("trans-unit")) { 
+			Element target = e.getChild("target"); 
 			if (target != null) {
-				e.setAttribute("approved", "yes"); //$NON-NLS-1$ //$NON-NLS-2$
+				e.setAttribute("approved", "yes");  
 			}
 			return;
 		}
@@ -965,7 +966,7 @@ public class LocalController {
 
 	private String checkTags(Element root) {
 
-		String result = ""; //$NON-NLS-1$
+		String result = ""; 
 
 		Element source;
 		Element target;
@@ -979,11 +980,11 @@ public class LocalController {
 		for (int i = 0; i < size; i++) {
 
 			Element e = segments.get(i);
-			if (!e.getAttributeValue("approved", "no").equalsIgnoreCase("yes")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			if (!e.getAttributeValue("approved", "no").equalsIgnoreCase("yes")) {   
 				continue;
 			}
-			source = e.getChild("source"); //$NON-NLS-1$
-			target = e.getChild("target"); //$NON-NLS-1$
+			source = e.getChild("source"); 
+			target = e.getChild("target"); 
 			if (target == null) {
 				continue;
 			}
@@ -995,9 +996,9 @@ public class LocalController {
 				int tLength = trglist.size();
 				int j;
 				if (tLength > srclist.size()) {
-					result = result + (i + 1) + ": " + Messages.getString("LocalController.9") + "\n"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					result = result + (i + 1) + ": " + Messages.getString("LocalController.9") + "\n";   
 				} else if (tLength < srclist.size()) {
-					result = result + (i + 1) + ": " + Messages.getString("LocalController.12") + "\n"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					result = result + (i + 1) + ": " + Messages.getString("LocalController.12") + "\n";   
 				} else {
 					for (j = 0; j < srclist.size(); j++) {
 						String es = srclist.get(j);
@@ -1011,7 +1012,7 @@ public class LocalController {
 							}
 						}
 						if (paired == false) {
-							result = result + (i + 1) + ": " + Messages.getString("LocalController.15") + "\n"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+							result = result + (i + 1) + ": " + Messages.getString("LocalController.15") + "\n";   
 						}
 					}
 					trglist = buildTagList(target);
@@ -1019,14 +1020,14 @@ public class LocalController {
 						String es = srclist.get(j);
 						String et = trglist.get(j);
 						if (!es.equals(et)) {
-							result = result + (i + 1) + ": " + Messages.getString("LocalController.18") + "\n"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+							result = result + (i + 1) + ": " + Messages.getString("LocalController.18") + "\n";   
 						}
 					}
 				}
 			} else {
 				// empty target
 				if (!srclist.isEmpty()) {
-					result = result + (i + 1) + ": " + Messages.getString("LocalController.21") + "\n"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					result = result + (i + 1) + ": " + Messages.getString("LocalController.21") + "\n";   
 				}
 			}
 		}
@@ -1038,7 +1039,7 @@ public class LocalController {
 		Iterator<Element> it = children.iterator();
 		while (it.hasNext()) {
 			Element el = it.next();
-			if (el.getName().equals("trans-unit")) { //$NON-NLS-1$
+			if (el.getName().equals("trans-unit")) { 
 				segments.add(el);
 			} else {
 				createList(el, segments);
@@ -1054,19 +1055,19 @@ public class LocalController {
 			XMLNode o = i.next();
 			if (o.getNodeType() == XMLNode.ELEMENT_NODE) {
 				Element el = (Element) o;
-				if (el.getName().equals("ph") //$NON-NLS-1$
-						|| el.getName().equals("bpt") //$NON-NLS-1$
-						|| el.getName().equals("ept") //$NON-NLS-1$
-						|| el.getName().equals("it")) //$NON-NLS-1$
+				if (el.getName().equals("ph") 
+						|| el.getName().equals("bpt") 
+						|| el.getName().equals("ept") 
+						|| el.getName().equals("it")) 
 				{
 					if (!el.getChildren().isEmpty()) {
-						String open = "<" + el.getName() + " "; //$NON-NLS-1$ //$NON-NLS-2$
+						String open = "<" + el.getName() + " ";  
 						List<Attribute> att = el.getAttributes();
 						for (int j = 0; j < att.size(); j++) {
 							Attribute a = att.get(j);
-							open = open + a.getName() + "=\"" + a.getValue().replace("\"", "&quot;") + "\" "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+							open = open + a.getName() + "=\"" + a.getValue().replace("\"", "&quot;") + "\" ";    
 						}
-						result.add(open.substring(0, open.length() - 1) + ">"); //$NON-NLS-1$
+						result.add(open.substring(0, open.length() - 1) + ">"); 
 						List<XMLNode> list = el.getContent();
 						for (int j = 0; j < list.size(); j++) {
 							XMLNode n = list.get(j);
@@ -1074,21 +1075,21 @@ public class LocalController {
 								result.addAll(buildTagList((Element) n));
 							}
 						}
-						result.add("</" + el.getName() + ">"); //$NON-NLS-1$ //$NON-NLS-2$
+						result.add("</" + el.getName() + ">");  
 					} else {
 						result.add(el.toString());
 					}
-				} else if (el.getName().equals("mrk") //$NON-NLS-1$
-						|| el.getName().equals("g") //$NON-NLS-1$
-						|| el.getName().equals("sub")) //$NON-NLS-1$
+				} else if (el.getName().equals("mrk") 
+						|| el.getName().equals("g") 
+						|| el.getName().equals("sub")) 
 				{
-					String open = "<" + el.getName() + " "; //$NON-NLS-1$ //$NON-NLS-2$
+					String open = "<" + el.getName() + " ";  
 					List<Attribute> att = el.getAttributes();
 					for (int j = 0; j < att.size(); j++) {
 						Attribute a = att.get(j);
-						open = open + a.getName() + "=\"" + a.getValue().replace("\"", "&quot;") + "\" "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						open = open + a.getName() + "=\"" + a.getValue().replace("\"", "&quot;") + "\" ";    
 					}
-					result.add(open.substring(0, open.length() - 1) + ">"); //$NON-NLS-1$
+					result.add(open.substring(0, open.length() - 1) + ">"); 
 					List<XMLNode> list = el.getContent();
 					for (int j = 0; j < list.size(); j++) {
 						XMLNode n = list.get(j);
@@ -1096,8 +1097,8 @@ public class LocalController {
 							result.addAll(buildTagList((Element) n));
 						}
 					}
-					result.add("</" + el.getName() + ">"); //$NON-NLS-1$ //$NON-NLS-2$
-				} else if (el.getName().equals("x") || el.getName().equals("bx") || el.getName().equals("ex")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					result.add("</" + el.getName() + ">");  
+				} else if (el.getName().equals("x") || el.getName().equals("bx") || el.getName().equals("ex")) {   
 					result.add(el.toString());
 				} else {
 					// foreign element?
@@ -1110,7 +1111,7 @@ public class LocalController {
 
 	private void removeAltTrans(Element e) {
 		List<Element> children = e.getChildren();
-		List<Element> matches = e.getChildren("alt-trans"); //$NON-NLS-1$
+		List<Element> matches = e.getChildren("alt-trans"); 
 		if (!matches.isEmpty()) {
 			for (int i = 0; i < matches.size(); i++) {
 				e.removeChild(matches.get(i));
@@ -1123,47 +1124,47 @@ public class LocalController {
 	}
 
 	private static String[] getToolData(Element root) {
-		Element file = root.getChild("file"); //$NON-NLS-1$
-		return new String[] { file.getAttributeValue("target-language", ""), //$NON-NLS-1$ //$NON-NLS-2$
-				file.getAttributeValue("product-version", ""), file.getAttributeValue("build-num", "") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		Element file = root.getChild("file"); 
+		return new String[] { file.getAttributeValue("target-language"), 
+				file.getAttributeValue("product-version"), file.getAttributeValue("build-num") };  
 	}
 
 	private static Element joinGroup(Element child) {
 		List<Element> pair = child.getChildren();
 		Element left = pair.get(0);
-		if (left.getName().equals("group")) { //$NON-NLS-1$
+		if (left.getName().equals("group")) { 
 			left = joinGroup(left);
 		}
 		Element right = pair.get(1);
-		if (right.getName().equals("group")) { //$NON-NLS-1$
+		if (right.getName().equals("group")) { 
 			right = joinGroup(right);
 		}
-		List<XMLNode> srcContent = right.getChild("source").getContent(); //$NON-NLS-1$
+		List<XMLNode> srcContent = right.getChild("source").getContent(); 
 		for (int k = 0; k < srcContent.size(); k++) {
 			XMLNode n = srcContent.get(k);
 			if (n.getNodeType() == XMLNode.ELEMENT_NODE) {
-				left.getChild("source").addContent(n); //$NON-NLS-1$
+				left.getChild("source").addContent(n); 
 			}
 			if (n.getNodeType() == XMLNode.TEXT_NODE) {
-				left.getChild("source").addContent(n); //$NON-NLS-1$
+				left.getChild("source").addContent(n); 
 			}
 		}
-		List<XMLNode> tgtContent = right.getChild("target").getContent(); //$NON-NLS-1$
+		List<XMLNode> tgtContent = right.getChild("target").getContent(); 
 		for (int k = 0; k < tgtContent.size(); k++) {
 			XMLNode n = tgtContent.get(k);
 			if (n.getNodeType() == XMLNode.ELEMENT_NODE) {
-				left.getChild("target").addContent(n); //$NON-NLS-1$
+				left.getChild("target").addContent(n); 
 			}
 			if (n.getNodeType() == XMLNode.TEXT_NODE) {
-				left.getChild("target").addContent(n); //$NON-NLS-1$
+				left.getChild("target").addContent(n); 
 			}
 		}
-		left.setAttribute("id", child.getAttributeValue("id")); //$NON-NLS-1$ //$NON-NLS-2$
-		if (left.getAttributeValue("approved").equalsIgnoreCase("yes") //$NON-NLS-1$ //$NON-NLS-2$
-				&& right.getAttributeValue("approved").equalsIgnoreCase("yes")) { //$NON-NLS-1$ //$NON-NLS-2$
-			left.setAttribute("approved", "yes"); //$NON-NLS-1$ //$NON-NLS-2$
+		left.setAttribute("id", child.getAttributeValue("id"));  
+		if (left.getAttributeValue("approved").equalsIgnoreCase("yes")  
+				&& right.getAttributeValue("approved").equalsIgnoreCase("yes")) {  
+			left.setAttribute("approved", "yes");  
 		} else {
-			left.setAttribute("approved", "no"); //$NON-NLS-1$ //$NON-NLS-2$
+			left.setAttribute("approved", "no");  
 		}
 		return left;
 	}
@@ -1172,71 +1173,71 @@ public class LocalController {
 		List<String> result = new ArrayList<>();
 		File temporary = null;
 		try {
-			String dataType = params.get("format"); //$NON-NLS-1$
-			Document doc = loadXliff(params.get("xliff")); //$NON-NLS-1$
+			String dataType = params.get("format"); 
+			Document doc = loadXliff(params.get("xliff")); 
 			Element root = doc.getRootElement();
-			params.put("skeleton", getSkeleton(root)); //$NON-NLS-1$
+			params.put("skeleton", getSkeleton(root)); 
 			if (checkGroups(root)) {
-				temporary = File.createTempFile("group", ".xlf"); //$NON-NLS-1$ //$NON-NLS-2$
+				temporary = File.createTempFile("group", ".xlf");  
 				removeGroups(root, doc);
 				try (FileOutputStream out = new FileOutputStream(temporary.getAbsolutePath())) {
 					doc.writeBytes(out, doc.getEncoding());
 				}
-				params.put("xliff", temporary.getAbsolutePath()); //$NON-NLS-1$
+				params.put("xliff", temporary.getAbsolutePath()); 
 			}
 
-			if (dataType.equals(FileFormats.HTML) || dataType.equals("html")) { //$NON-NLS-1$
-				File folder = new File("xmlfilter"); //$NON-NLS-1$
-				params.put("iniFile", new File(folder, "init_html.xml").getAbsolutePath()); //$NON-NLS-1$ //$NON-NLS-2$
+			if (dataType.equals(FileFormats.HTML) || dataType.equals("html")) { 
+				File folder = new File("xmlfilter"); 
+				params.put("iniFile", new File(folder, "init_html.xml").getAbsolutePath());  
 				result = Xliff2Html.run(params);
-			} else if (dataType.equals(FileFormats.JS) || dataType.equals("javascript")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.JS) || dataType.equals("javascript")) { 
 				result = Xliff2jscript.run(params);
-			} else if (dataType.equals(FileFormats.MIF) || dataType.equals("mif")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.MIF) || dataType.equals("mif")) { 
 				result = Xliff2Mif.run(params);
-			} else if (dataType.equals(FileFormats.OFF) || dataType.equals("x-office")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.OFF) || dataType.equals("x-office")) { 
 				result = Xliff2Office.run(params);
-			} else if (dataType.equals(FileFormats.RESX) || dataType.equals("resx")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.RESX) || dataType.equals("resx")) { 
 				result = Xliff2Resx.run(params);
-			} else if (dataType.equals(FileFormats.RC) || dataType.equals("winres")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.RC) || dataType.equals("winres")) { 
 				result = Xliff2Rc.run(params);
-			} else if (dataType.equals(FileFormats.TXML) || dataType.equals("x-txml")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.TXML) || dataType.equals("x-txml")) { 
 				result = Xliff2Txml.run(params);
-			} else if (dataType.equals(FileFormats.SDLXLIFF) || dataType.equals("x-sdlxliff")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.SDLXLIFF) || dataType.equals("x-sdlxliff")) { 
 				result = Xliff2Sdl.run(params);
-			} else if (dataType.equals(FileFormats.TEXT) || dataType.equals("plaintext")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.TEXT) || dataType.equals("plaintext")) { 
 				result = Xliff2Text.run(params);
-			} else if (dataType.equals(FileFormats.XML) || dataType.equals("xml")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.XML) || dataType.equals("xml")) { 
 				result = Xliff2Xml.run(params);
-			} else if (dataType.equals(FileFormats.INX) || dataType.equals("x-inx")) { //$NON-NLS-1$
-				params.put("InDesign", "yes"); //$NON-NLS-1$ //$NON-NLS-2$
+			} else if (dataType.equals(FileFormats.INX) || dataType.equals("x-inx")) { 
+				params.put("InDesign", "yes");  
 				result = Xliff2Xml.run(params);
-			} else if (dataType.equals(FileFormats.IDML) || dataType.equals("x-idml")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.IDML) || dataType.equals("x-idml")) { 
 				result = Xliff2Idml.run(params);
-			} else if (dataType.equals(FileFormats.PO) || dataType.equals("po")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.PO) || dataType.equals("po")) { 
 				result = Xliff2Po.run(params);
-			} else if (dataType.equals(FileFormats.JAVA) || dataType.equals("javapropertyresourcebundle") //$NON-NLS-1$
-					|| dataType.equals("javalistresourcebundle")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.JAVA) || dataType.equals("javapropertyresourcebundle") 
+					|| dataType.equals("javalistresourcebundle")) { 
 				result = Xliff2Properties.run(params);
-			} else if (dataType.equals(FileFormats.TS) || dataType.equals("x-ts")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.TS) || dataType.equals("x-ts")) { 
 				result = Xliff2Ts.run(params);
-			} else if (dataType.equals(FileFormats.DITA) || dataType.equals("x-ditamap")) { //$NON-NLS-1$
+			} else if (dataType.equals(FileFormats.DITA) || dataType.equals("x-ditamap")) { 
 				result = Xliff2DitaMap.run(params);
 			} else {
-				result.add(0, "1"); //$NON-NLS-1$
-				result.add(1, Messages.getString("LocalController.219")); //$NON-NLS-1$
+				result.add(0, "1"); 
+				result.add(1, Messages.getString("LocalController.219")); 
 			}
 			if (temporary != null) {
 				Files.delete(Paths.get(temporary.toURI()));
 			}
 		} catch (IOException | SAXException | ParserConfigurationException | URISyntaxException e) {
-			result.add(0, "1"); //$NON-NLS-1$
+			result.add(0, "1"); 
 			result.add(1, e.getMessage());
 		}
 		return result;
 	}
 
 	private boolean checkGroups(Element e) {
-		if (e.getName().equals("group") && e.getAttributeValue("ts", "").equals("hs-split")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		if (e.getName().equals("group") && e.getAttributeValue("ts").equals("hs-split")) {   
 			return true;
 		}
 		List<Element> children = e.getChildren();
@@ -1251,26 +1252,26 @@ public class LocalController {
 	}
 
 	private static String getSkeleton(Element root) throws IOException {
-		String result = ""; //$NON-NLS-1$
-		Element file = root.getChild("file"); //$NON-NLS-1$
+		String result = ""; 
+		Element file = root.getChild("file"); 
 		Element header = null;
 		if (file != null) {
-			header = file.getChild("header"); //$NON-NLS-1$
+			header = file.getChild("header"); 
 			if (header != null) {
-				Element mskl = header.getChild("skl"); //$NON-NLS-1$
+				Element mskl = header.getChild("skl"); 
 				if (mskl != null) {
-					Element external = mskl.getChild("external-file"); //$NON-NLS-1$
+					Element external = mskl.getChild("external-file"); 
 					if (external != null) {
-						result = external.getAttributeValue("href"); //$NON-NLS-1$
-						result = result.replace("&amp;", "&"); //$NON-NLS-1$ //$NON-NLS-2$
-						result = result.replace("&lt;", "<"); //$NON-NLS-1$ //$NON-NLS-2$
-						result = result.replace("&gt;", ">"); //$NON-NLS-1$ //$NON-NLS-2$
-						result = result.replace("&apos;", "\'"); //$NON-NLS-1$ //$NON-NLS-2$
-						result = result.replace("&quot;", "\""); //$NON-NLS-1$ //$NON-NLS-2$
+						result = external.getAttributeValue("href"); 
+						result = result.replace("&amp;", "&");  
+						result = result.replace("&lt;", "<");  
+						result = result.replace("&gt;", ">");  
+						result = result.replace("&apos;", "\'");  
+						result = result.replace("&quot;", "\"");  
 					} else {
-						Element internal = mskl.getChild("internal-file"); //$NON-NLS-1$
+						Element internal = mskl.getChild("internal-file"); 
 						if (internal != null) {
-							File tmp = File.createTempFile("internal", ".skl"); //$NON-NLS-1$ //$NON-NLS-2$
+							File tmp = File.createTempFile("internal", ".skl");  
 							tmp.deleteOnExit();
 							Utils.decodeToFile(internal.getText(), tmp.getAbsolutePath());
 							return tmp.getAbsolutePath();
@@ -1299,9 +1300,9 @@ public class LocalController {
 			XMLNode n = children.get(i);
 			if (n.getNodeType() == XMLNode.ELEMENT_NODE) {
 				Element child = (Element) n;
-				if (child.getName().equals("group") && child.getAttributeValue("ts", "").equals("hs-split")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				if (child.getName().equals("group") && child.getAttributeValue("ts").equals("hs-split")) {   
 					child = joinGroup(child);
-					Element tu = new Element("trans-unit"); //$NON-NLS-1$
+					Element tu = new Element("trans-unit"); 
 					tu.clone(child);
 					children.remove(i);
 					children.add(i, tu);
@@ -1319,29 +1320,29 @@ public class LocalController {
 		builder.setEntityResolver(new Catalog(Fluenta.getCatalogFile()));
 		Document doc = builder.build(fileName);
 		Element root = doc.getRootElement();
-		if (!root.getName().equals("xliff")) { //$NON-NLS-1$
-			throw new IOException(Messages.getString("LocalController.250")); //$NON-NLS-1$
+		if (!root.getName().equals("xliff")) { 
+			throw new IOException(Messages.getString("LocalController.250")); 
 		}
-		Element tool = root.getChild("file").getChild("header").getChild("tool"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		Element tool = root.getChild("file").getChild("header").getChild("tool");   
 		if (tool == null) {
-			throw new IOException(Messages.getString("LocalController.254")); //$NON-NLS-1$
+			throw new IOException(Messages.getString("LocalController.254")); 
 		}
-		if (!tool.getAttributeValue("tool-id").equals("OpenXLIFF")) { //$NON-NLS-1$ //$NON-NLS-2$
-			throw new IOException(Messages.getString("LocalController.254")); //$NON-NLS-1$
+		if (!tool.getAttributeValue("tool-id").equals("OpenXLIFF")) {  
+			throw new IOException(Messages.getString("LocalController.254")); 
 		}
 		checkXliffMarkup(doc.getRootElement());
 		return doc;
 	}
 
 	private static void checkXliffMarkup(Element e) {
-		if (e.getName().equals("trans-unit")) { //$NON-NLS-1$
-			Element seg = e.getChild("seg-source"); //$NON-NLS-1$
+		if (e.getName().equals("trans-unit")) { 
+			Element seg = e.getChild("seg-source"); 
 			if (seg != null) {
 				e.removeChild(seg);
-				Element t = e.getChild("target"); //$NON-NLS-1$
+				Element t = e.getChild("target"); 
 				if (t != null) {
-					removeSegMrk(e.getChild("target")); //$NON-NLS-1$
-					e.setAttribute("approved", "yes"); //$NON-NLS-1$ //$NON-NLS-2$
+					removeSegMrk(e.getChild("target")); 
+					e.setAttribute("approved", "yes");  
 				}
 			}
 		}
@@ -1362,7 +1363,7 @@ public class LocalController {
 			XMLNode node = content.get(i);
 			if (node.getNodeType() == XMLNode.ELEMENT_NODE) {
 				Element e = (Element) node;
-				if (e.getName().equals("mrk") && e.getAttributeValue("mtype", "").equals("seg")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				if (e.getName().equals("mrk") && e.getAttributeValue("mtype").equals("seg")) {   
 					List<XMLNode> children = e.getContent();
 					for (int j = 0; j < children.size(); j++) {
 						vector.add(children.get(j));
@@ -1376,22 +1377,22 @@ public class LocalController {
 	}
 
 	private TreeSet<String> getFileSet(Element root) {
-		List<Element> files = root.getChildren("file"); //$NON-NLS-1$
+		List<Element> files = root.getChildren("file"); 
 		TreeSet<String> fileSet = new TreeSet<>();
 		Iterator<Element> it = files.iterator();
 		while (it.hasNext()) {
 			Element file = it.next();
 			if (targetLang == null) {
-				targetLang = file.getAttributeValue("target-language", ""); //$NON-NLS-1$ //$NON-NLS-2$
+				targetLang = file.getAttributeValue("target-language"); 
 			}
-			fileSet.add(file.getAttributeValue("original")); //$NON-NLS-1$
+			fileSet.add(file.getAttributeValue("original")); 
 		}
 		return fileSet;
 	}
 
 	private static String getEncoding(Element root) {
 		String encoding = StandardCharsets.UTF_8.name();
-		List<PI> pis = root.getPI("encoding"); //$NON-NLS-1$
+		List<PI> pis = root.getPI("encoding"); 
 		if (!pis.isEmpty()) {
 			encoding = pis.get(0).getData();
 		}
@@ -1401,17 +1402,17 @@ public class LocalController {
 	private static String saveXliff(String fileName, File xliff, Element root) throws IOException {
 		String encoding = StandardCharsets.UTF_8.name();
 		try (FileOutputStream out = new FileOutputStream(xliff)) {
-			writeStr(out, "<xliff version=\"1.2\">\n"); //$NON-NLS-1$
-			List<Element> files = root.getChildren("file"); //$NON-NLS-1$
+			writeStr(out, "<xliff version=\"1.2\">\n"); 
+			List<Element> files = root.getChildren("file"); 
 			Iterator<Element> it = files.iterator();
 			while (it.hasNext()) {
 				Element file = it.next();
-				if (file.getAttributeValue("original").equals(fileName)) { //$NON-NLS-1$
+				if (file.getAttributeValue("original").equals(fileName)) { 
 					List<PI> pis = file.getPI();
 					Iterator<PI> pt = pis.iterator();
 					while (pt.hasNext()) {
 						PI pi = pt.next();
-						if (pi.getTarget().equals("encoding")) { //$NON-NLS-1$
+						if (pi.getTarget().equals("encoding")) { 
 							encoding = pi.getData();
 						}
 						writeStr(out, pi.toString());
@@ -1419,7 +1420,7 @@ public class LocalController {
 					writeStr(out, file.toString());
 				}
 			}
-			writeStr(out, "</xliff>\n"); //$NON-NLS-1$
+			writeStr(out, "</xliff>\n"); 
 		}
 		return encoding;
 	}
@@ -1430,15 +1431,15 @@ public class LocalController {
 
 	public void importTMX(Memory memory, String tmxFile, ILogger logger)
 			throws SQLException, ClassNotFoundException, IOException, SAXException, ParserConfigurationException {
-		logger.setStage(Messages.getString("LocalController.272")); //$NON-NLS-1$
-		logger.log(Messages.getString("LocalController.273")); //$NON-NLS-1$
+		logger.setStage(Messages.getString("LocalController.272")); 
+		logger.log(Messages.getString("LocalController.273")); 
 		InternalDatabase database = getTMEngine(memory.getId());
-		int[] res = database.storeTMX(tmxFile, System.getProperty("user.name"), "", "", "", false, logger); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		int[] res = database.storeTMX(tmxFile, System.getProperty("user.name"), "", "", "", false, logger);    
 		database.close();
 		database = null;
 		MessageFormat mf = new MessageFormat(
-				Messages.getString("LocalController.278") + "\n" + Messages.getString("LocalController.279")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		String result = mf.format(new Object[] { "" + res[0], "" + res[1] }); //$NON-NLS-1$ //$NON-NLS-2$
+				Messages.getString("LocalController.278") + "\n" + Messages.getString("LocalController.279"));   
+		String result = mf.format(new Object[] { "" + res[0], "" + res[1] });  
 		memory.setLastUpdate(new Date());
 		updateMemory(memory);
 		logger.displaySuccess(result);
@@ -1460,20 +1461,20 @@ public class LocalController {
 			float fuzzyLevel, boolean caseSensitive) throws SAXException, IOException, ParserConfigurationException {
 		if (validCtypes == null) {
 			validCtypes = new Hashtable<>();
-			validCtypes.put("image", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			validCtypes.put("pb", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			validCtypes.put("lb", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			validCtypes.put("bold", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			validCtypes.put("italic", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			validCtypes.put("underlined", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			validCtypes.put("link", ""); //$NON-NLS-1$ //$NON-NLS-2$
+			validCtypes.put("image", "");  
+			validCtypes.put("pb", "");  
+			validCtypes.put("lb", "");  
+			validCtypes.put("bold", "");  
+			validCtypes.put("italic", "");  
+			validCtypes.put("underlined", "");  
+			validCtypes.put("link", "");  
 		}
 
 		if (phCtypes == null) {
 			phCtypes = new Hashtable<>();
-			phCtypes.put("image", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			phCtypes.put("pb", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			phCtypes.put("lb", ""); //$NON-NLS-1$ //$NON-NLS-2$
+			phCtypes.put("image", "");  
+			phCtypes.put("pb", "");  
+			phCtypes.put("lb", "");  
 		}
 		return searchTranslations(db, seg, sourcelang, targetlang, fuzzyLevel, caseSensitive);
 	}
@@ -1482,15 +1483,15 @@ public class LocalController {
 			float fuzzyLevel, boolean caseSensitive) throws SAXException, IOException, ParserConfigurationException {
 
 		Hashtable<String, Element> existingMatches = new Hashtable<>();
-		List<Element> translations = seg.getChildren("alt-trans"); //$NON-NLS-1$
+		List<Element> translations = seg.getChildren("alt-trans"); 
 		Iterator<Element> t = translations.iterator();
 		while (t.hasNext()) {
 			Element trans = t.next();
-			if (!trans.getAttributeValue("tool", "TM Search").equals("TT")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				List<PI> pis = trans.getPI("id"); //$NON-NLS-1$
+			if (!trans.getAttributeValue("tool", "TM Search").equals("TT")) {   
+				List<PI> pis = trans.getPI("id"); 
 				if (pis.isEmpty()) {
-					trans.addContent(new PI("id", MemUtils.createId())); //$NON-NLS-1$
-					pis = trans.getPI("id"); //$NON-NLS-1$
+					trans.addContent(new PI("id", MemUtils.createId())); 
+					pis = trans.getPI("id"); 
 				}
 				String pid = pis.get(0).getData();
 				if (!existingMatches.containsKey(pid)) {
@@ -1499,67 +1500,67 @@ public class LocalController {
 			}
 		}
 
-		List<TU> res = database.searchTranslation(MemUtils.pureText(seg.getChild("source")), //$NON-NLS-1$
+		List<TU> res = database.searchTranslation(MemUtils.pureText(seg.getChild("source")), 
 				srcLang, tgtLang, (int) fuzzyLevel, caseSensitive);
 
 		Iterator<TU> r = res.iterator();
 		while (r.hasNext()) {
 			TU tu = r.next();
-			String tid = tu.getProperty("tuid"); //$NON-NLS-1$
-			int quality = Integer.parseInt(tu.getProperty("similarity")); //$NON-NLS-1$
+			String tid = tu.getProperty("tuid"); 
+			int quality = Integer.parseInt(tu.getProperty("similarity")); 
 			Tuv srcTuv = tu.getTuv(srcLang);
 			Tuv tgtTuv = tu.getTuv(tgtLang);
 			if (tgtTuv == null) {
 				continue;
 			}
 
-			Element alttrans = new Element("alt-trans"); //$NON-NLS-1$
+			Element alttrans = new Element("alt-trans"); 
 
-			Element src = buildElement("<source>" + srcTuv.getSegment() + "</source>"); //$NON-NLS-1$ //$NON-NLS-2$
-			src.setAttribute("xml:lang", srcLang); //$NON-NLS-1$
-			Element tgt = buildElement("<target>" + tgtTuv.getSegment() + "</target>"); //$NON-NLS-1$ //$NON-NLS-2$
-			tgt.setAttribute("xml:lang", tgtLang); //$NON-NLS-1$
+			Element src = buildElement("<source>" + srcTuv.getSegment() + "</source>");  
+			src.setAttribute("xml:lang", srcLang); 
+			Element tgt = buildElement("<target>" + tgtTuv.getSegment() + "</target>");  
+			tgt.setAttribute("xml:lang", tgtLang); 
 
-			alttrans.addContent("\n"); //$NON-NLS-1$
-			alttrans.addContent(new PI("id", tid)); //$NON-NLS-1$
-			alttrans.addContent("\n"); //$NON-NLS-1$
+			alttrans.addContent("\n"); 
+			alttrans.addContent(new PI("id", tid)); 
+			alttrans.addContent("\n"); 
 			alttrans.addContent(src);
-			alttrans.addContent("\n"); //$NON-NLS-1$
+			alttrans.addContent("\n"); 
 			alttrans.addContent(tgt);
-			alttrans.addContent("\n"); //$NON-NLS-1$
+			alttrans.addContent("\n"); 
 
-			alttrans = fixTags(seg.getChild("source"), alttrans); //$NON-NLS-1$
-			quality = MatchQuality.similarity(MemUtils.pureText(seg.getChild("source")), //$NON-NLS-1$
-					MemUtils.pureText(alttrans.getChild("source"))); //$NON-NLS-1$
-			double discount = wrongTags(alttrans.getChild("source"), seg.getChild("source"), penalty); //$NON-NLS-1$ //$NON-NLS-2$
+			alttrans = fixTags(seg.getChild("source"), alttrans); 
+			quality = MatchQuality.similarity(MemUtils.pureText(seg.getChild("source")), 
+					MemUtils.pureText(alttrans.getChild("source"))); 
+			double discount = wrongTags(alttrans.getChild("source"), seg.getChild("source"), penalty);  
 			quality = (int) Math.floor(quality - discount);
 
-			alttrans.setAttribute("match-quality", "" + quality); //$NON-NLS-1$ //$NON-NLS-2$
-			alttrans.setAttribute("xml:space", "default"); //$NON-NLS-1$ //$NON-NLS-2$
-			alttrans.setAttribute("origin", database.getName()); //$NON-NLS-1$
+			alttrans.setAttribute("match-quality", "" + quality);  
+			alttrans.setAttribute("xml:space", "default");  
+			alttrans.setAttribute("origin", database.getName()); 
 
 			Map<String, String> props = tu.getProps();
-			if (props.containsKey("similarity")) { //$NON-NLS-1$
-				props.remove("similarity"); //$NON-NLS-1$
+			if (props.containsKey("similarity")) { 
+				props.remove("similarity"); 
 			}
 			if (props.size() > 1) {
 				// contains at least tuid
-				Element group = new Element("prop-group"); //$NON-NLS-1$
+				Element group = new Element("prop-group"); 
 				alttrans.addContent(group);
-				alttrans.addContent("\n"); //$NON-NLS-1$
+				alttrans.addContent("\n"); 
 				Set<String> keys = props.keySet();
 				Iterator<String> kt = keys.iterator();
 				while (kt.hasNext()) {
 					String key = kt.next();
-					if (!key.equals("similarity")) { //$NON-NLS-1$
-						Element prop = new Element("prop"); //$NON-NLS-1$
-						prop.setAttribute("prop-type", key); //$NON-NLS-1$
+					if (!key.equals("similarity")) { 
+						Element prop = new Element("prop"); 
+						prop.setAttribute("prop-type", key); 
 						prop.addContent(props.get(key));
-						group.addContent("\n"); //$NON-NLS-1$
+						group.addContent("\n"); 
 						group.addContent(prop);
 					}
 				}
-				group.addContent("\n"); //$NON-NLS-1$
+				group.addContent("\n"); 
 			}
 
 			if (!existingMatches.containsKey(tid)) {
@@ -1604,14 +1605,14 @@ public class LocalController {
 
 	private String tmx2xlf(Element e) {
 		String type = e.getName();
-		if (type.equals("source") || type.equals("target")) { //$NON-NLS-1$ //$NON-NLS-2$
-			String text = "<" + type; //$NON-NLS-1$
+		if (type.equals("source") || type.equals("target")) {  
+			String text = "<" + type; 
 			List<Attribute> atts = e.getAttributes();
 			for (int i = 0; i < atts.size(); i++) {
 				Attribute a = atts.get(i);
-				text = text + " " + a.toString(); //$NON-NLS-1$
+				text = text + " " + a.toString(); 
 			}
-			text = text + ">"; //$NON-NLS-1$
+			text = text + ">"; 
 			List<XMLNode> content = e.getContent();
 			for (int i = 0; i < content.size(); i++) {
 				XMLNode n = content.get(i);
@@ -1622,11 +1623,11 @@ public class LocalController {
 					text = text + tmx2xlf((Element) n);
 				}
 			}
-			return text + "</" + type + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+			return text + "</" + type + ">";  
 		}
 
-		if (type.equals("ph")) { //$NON-NLS-1$
-			if (e.toString().startsWith("<ph>&lt;ph ")) { //$NON-NLS-1$
+		if (type.equals("ph")) { 
+			if (e.toString().startsWith("<ph>&lt;ph ")) { 
 				// may come from an old TM
 				try {
 					String s = e.getText();
@@ -1634,39 +1635,39 @@ public class LocalController {
 					SAXBuilder bld = new SAXBuilder(false);
 					Document d = bld.build(stream);
 					Element r = d.getRootElement();
-					String ctype = r.getAttributeValue("ctype", ""); //$NON-NLS-1$ //$NON-NLS-2$
-					if (!ctype.equals("")) { //$NON-NLS-1$
-						r.setAttribute("type", ctype); //$NON-NLS-1$
+					String ctype = r.getAttributeValue("ctype"); 
+					if (!ctype.isEmpty()) { 
+						r.setAttribute("type", ctype); 
 					}
-					String pid = r.getAttributeValue("id", ""); //$NON-NLS-1$ //$NON-NLS-2$
-					if (!pid.equals("")) { //$NON-NLS-1$
-						r.setAttribute("x", pid); //$NON-NLS-1$
+					String pid = r.getAttributeValue("id"); 
+					if (!pid.isEmpty()) { 
+						r.setAttribute("x", pid); 
 					}
 					return tmx2xlf(r);
 				} catch (Exception ex) {
 					// do nothing
 				}
 			}
-			String ctype = XMLUtils.cleanText(e.getAttributeValue("type", "")); //$NON-NLS-1$ //$NON-NLS-2$
-			if (ctype.equals("mrk-protected")) { //$NON-NLS-1$
-				return "<mrk mtype=\"protected\" mid=\"" + e.getAttributeValue("x", "-") + "\" ts=\"" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-						+ clean(e.getText()) + "\">"; //$NON-NLS-1$
+			String ctype = XMLUtils.cleanText(e.getAttributeValue("type")); 
+			if (ctype.equals("mrk-protected")) { 
+				return "<mrk mtype=\"protected\" mid=\"" + e.getAttributeValue("x", "-") + "\" ts=\""    
+						+ clean(e.getText()) + "\">"; 
 			}
-			if (ctype.equals("mrk-close")) { //$NON-NLS-1$
-				return "</mrk>"; //$NON-NLS-1$
+			if (ctype.equals("mrk-close")) { 
+				return "</mrk>"; 
 			}
-			if (!ctype.startsWith("xliff-")) { //$NON-NLS-1$
-				if (!ctype.equals("")) { //$NON-NLS-1$
-					if (!validCtypes.containsKey(ctype) && !ctype.startsWith("x-")) { //$NON-NLS-1$
-						ctype = "x-" + ctype; //$NON-NLS-1$
+			if (!ctype.startsWith("xliff-")) { 
+				if (!ctype.isEmpty()) { 
+					if (!validCtypes.containsKey(ctype) && !ctype.startsWith("x-")) { 
+						ctype = "x-" + ctype; 
 					}
-					ctype = " ctype=\"" + ctype + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+					ctype = " ctype=\"" + ctype + "\"";  
 				}
-				String pid = XMLUtils.cleanText(e.getAttributeValue("x", "")); //$NON-NLS-1$ //$NON-NLS-2$
-				if (pid.equals("")) { //$NON-NLS-1$
+				String pid = XMLUtils.cleanText(e.getAttributeValue("x", ""));  
+				if (pid.isEmpty()) { 
 					pid = newID();
 				}
-				String text = "<ph id=\"" + pid + "\"" + ctype + ">"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				String text = "<ph id=\"" + pid + "\"" + ctype + ">";   
 				List<XMLNode> content = e.getContent();
 				for (int i = 0; i < content.size(); i++) {
 					XMLNode n = content.get(i);
@@ -1677,39 +1678,38 @@ public class LocalController {
 						text = text + tmx2xlf((Element) n);
 					}
 				}
-				return text + "</" + type + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+				return text + "</" + type + ">";  
 			}
 			// this <ph> was originated in an empty <g> or <x>
 			// tag from XLIFF
 			return e.getText();
 		}
 
-		if (type.equals("it")) { //$NON-NLS-1$
-			if (!e.getAttributeValue("id", "").equals("")) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			{
+		if (type.equals("it")) { 
+			if (!e.getAttributeValue("id").isEmpty()) {
 				// assume it from xliff
-				usedIDs.put(e.getAttributeValue("id"), ""); //$NON-NLS-1$ //$NON-NLS-2$
+				usedIDs.put(e.getAttributeValue("id"), ""); 
 				return e.toString();
 			}
 			// it from TMX
-			String xid = XMLUtils.cleanText(e.getAttributeValue("x", "")); //$NON-NLS-1$ //$NON-NLS-2$
-			if (!xid.equals("")) { //$NON-NLS-1$
-				xid = " xid=\"" + xid + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+			String xid = XMLUtils.cleanText(e.getAttributeValue("x")); 
+			if (!xid.isEmpty()) { 
+				xid = " xid=\"" + xid + "\"";  
 			}
-			String ctype = XMLUtils.cleanText(e.getAttributeValue("type", "")); //$NON-NLS-1$ //$NON-NLS-2$
-			if (!ctype.equals("")) { //$NON-NLS-1$
-				if (!validCtypes.containsKey(ctype) && !ctype.startsWith("x-")) { //$NON-NLS-1$
-					ctype = "x-" + ctype; //$NON-NLS-1$
+			String ctype = XMLUtils.cleanText(e.getAttributeValue("type")); 
+			if (!ctype.isEmpty()) { 
+				if (!validCtypes.containsKey(ctype) && !ctype.startsWith("x-")) { 
+					ctype = "x-" + ctype; 
 				}
-				ctype = " ctype=\"" + ctype + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+				ctype = " ctype=\"" + ctype + "\"";  
 			}
-			String pos = XMLUtils.cleanText(e.getAttributeValue("pos", "")); //$NON-NLS-1$ //$NON-NLS-2$
-			if (pos.equals("begin")) { //$NON-NLS-1$
-				pos = "open"; //$NON-NLS-1$
+			String pos = XMLUtils.cleanText(e.getAttributeValue("pos")); 
+			if (pos.equals("begin")) { 
+				pos = "open"; 
 			} else {
-				pos = "close"; //$NON-NLS-1$
+				pos = "close"; 
 			}
-			String text = "<it id=\"" + newID() + "\" pos=\"" + pos + "\"" + xid + ctype + ">"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+			String text = "<it id=\"" + newID() + "\" pos=\"" + pos + "\"" + xid + ctype + ">";    
 			List<XMLNode> content = e.getContent();
 			for (int i = 0; i < content.size(); i++) {
 				XMLNode n = content.get(i);
@@ -1720,35 +1720,35 @@ public class LocalController {
 					text = text + tmx2xlf((Element) n);
 				}
 			}
-			return text + "</" + type + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+			return text + "</" + type + ">";  
 		}
 
-		if (type.equals("bpt") || type.equals("ept")) { //$NON-NLS-1$ //$NON-NLS-2$
-			if (type.equals("bpt") && e.getAttributeValue("type", "").startsWith("xliff-")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		if (type.equals("bpt") || type.equals("ept")) {  
+			if (type.equals("bpt") && e.getAttributeValue("type").startsWith("xliff-")) {   
 				// assume bpt from xliff
 				if (xliffbpts == null) {
 					xliffbpts = new Hashtable<>();
 				}
-				xliffbpts.put(e.getAttributeValue("i", ""), ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				xliffbpts.put(e.getAttributeValue("i"), "");  
 				return e.getText();
 			}
-			if (e.getName().equals("bpt") && !e.getAttributeValue("type", "").startsWith("xliff-")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+			if (e.getName().equals("bpt") && !e.getAttributeValue("type").startsWith("xliff-")) {   
 				// bpt from TMX
-				String rid = " rid=\"" + XMLUtils.cleanText(e.getAttributeValue("i", "")) + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-				String bid = " id=\"" + XMLUtils.cleanText(e.getAttributeValue("i", "")) + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-				usedIDs.put(e.getAttributeValue("i"), ""); //$NON-NLS-1$ //$NON-NLS-2$
-				String xid = XMLUtils.cleanText(e.getAttributeValue("x", "")); //$NON-NLS-1$ //$NON-NLS-2$
-				if (!xid.equals("")) { //$NON-NLS-1$
-					xid = " xid=\"" + xid + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+				String rid = " rid=\"" + XMLUtils.cleanText(e.getAttributeValue("i")) + "\"";   
+				String bid = " id=\"" + XMLUtils.cleanText(e.getAttributeValue("i")) + "\"";   
+				usedIDs.put(e.getAttributeValue("i"), "");  
+				String xid = XMLUtils.cleanText(e.getAttributeValue("x")); 
+				if (!xid.isEmpty()) { 
+					xid = " xid=\"" + xid + "\"";  
 				}
-				String ctype = XMLUtils.cleanText(e.getAttributeValue("type", "")); //$NON-NLS-1$ //$NON-NLS-2$
-				if (!ctype.equals("")) { //$NON-NLS-1$
-					if (!validCtypes.containsKey(ctype) && !ctype.startsWith("x-")) { //$NON-NLS-1$
-						ctype = "x-" + ctype; //$NON-NLS-1$
+				String ctype = XMLUtils.cleanText(e.getAttributeValue("type")); 
+				if (!ctype.isEmpty()) { 
+					if (!validCtypes.containsKey(ctype) && !ctype.startsWith("x-")) { 
+						ctype = "x-" + ctype; 
 					}
-					ctype = " ctype=\"" + ctype + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+					ctype = " ctype=\"" + ctype + "\"";  
 				}
-				String text = "<" + type + bid + rid + xid + ctype + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+				String text = "<" + type + bid + rid + xid + ctype + ">";  
 				List<XMLNode> content = e.getContent();
 				for (int i = 0; i < content.size(); i++) {
 					XMLNode n = content.get(i);
@@ -1759,19 +1759,19 @@ public class LocalController {
 						text = text + tmx2xlf((Element) n);
 					}
 				}
-				return text + "</" + type + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+				return text + "</" + type + ">";  
 			}
 			// ept from TMX
-			if (e.getName().equals("ept")) { //$NON-NLS-1$
-				String eid = XMLUtils.cleanText(e.getAttributeValue("i")); //$NON-NLS-1$
+			if (e.getName().equals("ept")) { 
+				String eid = XMLUtils.cleanText(e.getAttributeValue("i")); 
 				if (xliffbpts != null && xliffbpts.containsKey(eid)) {
 					// <ept> that closes a previous <bpt> from xliff
 					xliffbpts = null;
 					return e.getText();
 				}
-				e.setAttribute("id", eid); //$NON-NLS-1$
-				e.setAttribute("rid", eid); //$NON-NLS-1$
-				e.removeAttribute("i"); //$NON-NLS-1$
+				e.setAttribute("id", eid); 
+				e.setAttribute("rid", eid); 
+				e.removeAttribute("i"); 
 				return e.toString();
 			}
 			// this <bpt>/<ept> pair was generated from
@@ -1779,8 +1779,8 @@ public class LocalController {
 			return e.getText();
 		}
 
-		if (type.equals("sub")) { //$NON-NLS-1$
-			String text = "<" + type + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+		if (type.equals("sub")) { 
+			String text = "<" + type + ">";  
 			List<XMLNode> content = e.getContent();
 			for (int i = 0; i < content.size(); i++) {
 				XMLNode n = content.get(i);
@@ -1791,11 +1791,11 @@ public class LocalController {
 					text = text + tmx2xlf((Element) n);
 				}
 			}
-			return text + "</" + type + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+			return text + "</" + type + ">";  
 		}
 
-		if (type.equals("ut")) { //$NON-NLS-1$
-			String text = "<ph id=\"" + newID() + "\">"; //$NON-NLS-1$ //$NON-NLS-2$
+		if (type.equals("ut")) { 
+			String text = "<ph id=\"" + newID() + "\">";  
 			List<XMLNode> content = e.getContent();
 			for (int i = 0; i < content.size(); i++) {
 				XMLNode n = content.get(i);
@@ -1806,17 +1806,17 @@ public class LocalController {
 					text = text + tmx2xlf((Element) n);
 				}
 			}
-			return text + "</ph>"; //$NON-NLS-1$
+			return text + "</ph>"; 
 		}
 
-		if (type.equals("hi")) { //$NON-NLS-1$
-			String mtype = XMLUtils.cleanText(e.getAttributeValue("type", "")); //$NON-NLS-1$ //$NON-NLS-2$
-			if (!mtype.equals("")) { //$NON-NLS-1$
-				mtype = " mtype=\"" + mtype + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+		if (type.equals("hi")) { 
+			String mtype = XMLUtils.cleanText(e.getAttributeValue("type")); 
+			if (!mtype.isEmpty()) { 
+				mtype = " mtype=\"" + mtype + "\"";  
 			} else {
-				mtype = " mtype=\"hi\""; //$NON-NLS-1$
+				mtype = " mtype=\"hi\""; 
 			}
-			String text = "<mrk" + mtype + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+			String text = "<mrk" + mtype + ">";  
 			List<XMLNode> content = e.getContent();
 			for (int i = 0; i < content.size(); i++) {
 				XMLNode n = content.get(i);
@@ -1827,21 +1827,21 @@ public class LocalController {
 					text = text + tmx2xlf((Element) n);
 				}
 			}
-			return text + "</mrk>"; //$NON-NLS-1$
+			return text + "</mrk>"; 
 		}
 
 		return e.toString();
 	}
 
 	private static String clean(String string) {
-		String result = string.replace("<", TMXExporter.MATHLT); //$NON-NLS-1$
-		result = result.replace(">", TMXExporter.MATHGT); //$NON-NLS-1$
-		result = result.replace("\"", TMXExporter.DOUBLEPRIME); //$NON-NLS-1$
+		String result = string.replace("<", TMXExporter.MATHLT); 
+		result = result.replace(">", TMXExporter.MATHGT); 
+		result = result.replace("\"", TMXExporter.DOUBLEPRIME); 
 		return replaceAmp(result);
 	}
 
 	private static String replaceAmp(String value) {
-		String result = ""; //$NON-NLS-1$
+		String result = ""; 
 		for (int i = 0; i < value.length(); i++) {
 			char c = value.charAt(i);
 			if (c == '&') {
@@ -1854,26 +1854,26 @@ public class LocalController {
 	}
 
 	private void cleanCtype(Element e) {
-		if (e.getName().equals("ph") //$NON-NLS-1$
-				|| e.getName().equals("x")) //$NON-NLS-1$
+		if (e.getName().equals("ph") 
+				|| e.getName().equals("x")) 
 		{
-			String value = e.getAttributeValue("ctype", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			if (!value.equals("")) { //$NON-NLS-1$
-				if (!phCtypes.containsKey(value) && !value.startsWith("x-")) { //$NON-NLS-1$
-					e.setAttribute("ctype", "x-" + value); //$NON-NLS-1$ //$NON-NLS-2$
+			String value = e.getAttributeValue("ctype"); 
+			if (!value.isEmpty()) { 
+				if (!phCtypes.containsKey(value) && !value.startsWith("x-")) { 
+					e.setAttribute("ctype", "x-" + value);  
 				}
 			}
 		}
-		if (e.getName().equals("bpt") //$NON-NLS-1$
-				|| e.getName().equals("sub") //$NON-NLS-1$
-				|| e.getName().equals("bx") //$NON-NLS-1$
-				|| e.getName().equals("g") //$NON-NLS-1$
-				|| e.getName().equals("it")) //$NON-NLS-1$
+		if (e.getName().equals("bpt") 
+				|| e.getName().equals("sub") 
+				|| e.getName().equals("bx") 
+				|| e.getName().equals("g") 
+				|| e.getName().equals("it")) 
 		{
-			String value = e.getAttributeValue("ctype", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			if (!value.equals("")) { //$NON-NLS-1$
-				if (!validCtypes.containsKey(value) && !value.startsWith("x-")) { //$NON-NLS-1$
-					e.setAttribute("ctype", "x-" + value); //$NON-NLS-1$ //$NON-NLS-2$
+			String value = e.getAttributeValue("ctype"); 
+			if (!value.isEmpty()) { 
+				if (!validCtypes.containsKey(value) && !value.startsWith("x-")) { 
+					e.setAttribute("ctype", "x-" + value);  
 				}
 			}
 		}
@@ -1889,11 +1889,11 @@ public class LocalController {
 
 	private String newID() {
 		int i = 0;
-		while (usedIDs.containsKey("" + i)) { //$NON-NLS-1$
+		while (usedIDs.containsKey("" + i)) { 
 			i++;
 		}
-		usedIDs.put("" + i, ""); //$NON-NLS-1$ //$NON-NLS-2$
-		return "" + i; //$NON-NLS-1$
+		usedIDs.put("" + i, "");  
+		return "" + i; 
 	}
 
 	private static double wrongTags(Element x, Element y, double tagPenalty) {
@@ -1941,8 +1941,8 @@ public class LocalController {
 	}
 
 	private Element fixTags(Element src, Element match) {
-		Element altSrc = match.getChild("source"); //$NON-NLS-1$
-		Element altTgt = match.getChild("target"); //$NON-NLS-1$
+		Element altSrc = match.getChild("source"); 
+		Element altTgt = match.getChild("target"); 
 		List<Element> srcList = src.getChildren();
 		List<Element> altSrcList = altSrc.getChildren();
 		List<Element> altTgtList = altTgt.getChildren();
@@ -2010,15 +2010,15 @@ public class LocalController {
 		Hashtable<String, Element> srcTable = new Hashtable<>();
 		for (int i = 0; i < srcList.size(); i++) {
 			Element e = srcList.get(i);
-			srcTable.put(e.getAttributeValue("id", "-1"), e); //$NON-NLS-1$ //$NON-NLS-2$
+			srcTable.put(e.getAttributeValue("id", "-1"), e);  
 		}
 		List<XMLNode> content = altSrc.getContent();
 		for (int i = 0; i < content.size(); i++) {
 			XMLNode n = content.get(i);
 			if (n.getNodeType() == XMLNode.ELEMENT_NODE) {
 				Element e = (Element) n;
-				if (e.getName().equals("ph")) { //$NON-NLS-1$
-					Element o = srcTable.get(e.getAttributeValue("id", "-2")); //$NON-NLS-1$ //$NON-NLS-2$
+				if (e.getName().equals("ph")) { 
+					Element o = srcTable.get(e.getAttributeValue("id", "-2"));  
 					if (o != null && !o.equals(e)) {
 						e.clone(o);
 					}
@@ -2030,8 +2030,8 @@ public class LocalController {
 			XMLNode n = content.get(i);
 			if (n.getNodeType() == XMLNode.ELEMENT_NODE) {
 				Element e = (Element) n;
-				if (e.getName().equals("ph")) { //$NON-NLS-1$
-					Element o = srcTable.get(e.getAttributeValue("id", "-2")); //$NON-NLS-1$ //$NON-NLS-2$
+				if (e.getName().equals("ph")) { 
+					Element o = srcTable.get(e.getAttributeValue("id", "-2"));  
 					if (o != null && !e.equals(o)) {
 						e.clone(o);
 					}
@@ -2045,7 +2045,7 @@ public class LocalController {
 	public void removeProject(Project project) throws IOException {
 		long id = project.getId();
 		File fluenta = Preferences.getPreferencesDir();
-		File projectFolder = new File(fluenta, "" + id); //$NON-NLS-1$
+		File projectFolder = new File(fluenta, "" + id); 
 		deltree(projectFolder);
 		projectsMap.remove(id);
 		projectdb.commit();
@@ -2062,7 +2062,7 @@ public class LocalController {
 			List<Memory> memories = projects.get(i).getMemories();
 			for (int j = 0; j < memories.size(); j++) {
 				if (memories.get(j).getId() == id) {
-					throw new IOException(Messages.getString("LocalController.50")); //$NON-NLS-1$
+					throw new IOException(Messages.getString("LocalController.50")); 
 				}
 			}
 		}
@@ -2072,7 +2072,7 @@ public class LocalController {
 		memoriesMap.remove(id);
 		memorydb.commit();
 		File fluenta = Preferences.getPreferencesDir();
-		File tmFolder = new File(fluenta, "TMEngines/" + id); //$NON-NLS-1$
+		File tmFolder = new File(fluenta, "TMEngines/" + id); 
 		deltree(tmFolder);
 	}
 
@@ -2094,14 +2094,14 @@ public class LocalController {
 			throws ClassNotFoundException, IOException, SQLException, SAXException, ParserConfigurationException {
 		InternalDatabase database = getTMEngine(memory.getId());
 		Set<String> languages = database.getAllLanguages();
-		String langs = ""; //$NON-NLS-1$
+		String langs = ""; 
 		Iterator<String> it = languages.iterator();
 		while (it.hasNext()) {
 			String lang = it.next();
-			if (langs.equals("")) { //$NON-NLS-1$
+			if (langs.isEmpty()) { 
 				langs = lang;
 			} else {
-				langs = langs + ";" + lang; //$NON-NLS-1$
+				langs = langs + ";" + lang; 
 			}
 		}
 		database.exportDatabase(file, langs, memory.getSrcLanguage().getCode(), null);
@@ -2129,10 +2129,10 @@ public class LocalController {
 	}
 
 	private void recurse(Element e) {
-		e.removeAttribute("class"); //$NON-NLS-1$
-		e.removeAttribute("xmlns:ditaarch"); //$NON-NLS-1$
-		e.removeAttribute("ditaarch:DITAArchVersion"); //$NON-NLS-1$
-		e.removeAttribute("domains"); //$NON-NLS-1$
+		e.removeAttribute("class"); 
+		e.removeAttribute("xmlns:ditaarch"); 
+		e.removeAttribute("ditaarch:DITAArchVersion"); 
+		e.removeAttribute("domains"); 
 		List<Element> children = e.getChildren();
 		Iterator<Element> it = children.iterator();
 		while (it.hasNext()) {

@@ -31,7 +31,7 @@ public class TMUtils {
 	public static String pureText(Element seg) {
 		List<XMLNode> l = seg.getContent();
 		Iterator<XMLNode> i = l.iterator();
-		String text = ""; //$NON-NLS-1$
+		String text = ""; 
 		while (i.hasNext()) {
 			XMLNode o = i.next();
 			if (o.getNodeType() == XMLNode.TEXT_NODE) {
@@ -40,7 +40,7 @@ public class TMUtils {
 				String type = ((Element)o).getName();
 				// discard all inline elements
 				// except <mrk> and <hi> 
-				if (type.equals("sub") || type.equals("hi")) { //$NON-NLS-1$ //$NON-NLS-2$
+				if (type.equals("sub") || type.equals("hi")) {  
 					Element e = (Element)o;
 					text = text + pureText(e);
 				}
@@ -64,20 +64,20 @@ public class TMUtils {
 			} 
 			return null;	
 		}
-		lang = lang.replace("_", "-"); //$NON-NLS-1$ //$NON-NLS-2$
-		String[] parts = lang.split("-"); //$NON-NLS-1$
+		lang = lang.replace("_", "-");  
+		String[] parts = lang.split("-"); 
 		
 		if (parts.length == 2) {
 			if (parts[1].length() == 2) {
 				// has country code
-				String code = lang.substring(0,2).toLowerCase() + "-" + lang.substring(3).toUpperCase(); //$NON-NLS-1$
+				String code = lang.substring(0,2).toLowerCase() + "-" + lang.substring(3).toUpperCase(); 
 				if (registry.getTagDescription(code).length() > 0) {
 					return code;
 				}
 				return null;
 			} 
 			// may have a script
-			String code = lang.substring(0,2).toLowerCase() + "-" + lang.substring(3,4).toUpperCase() + lang.substring(4).toLowerCase(); //$NON-NLS-1$
+			String code = lang.substring(0,2).toLowerCase() + "-" + lang.substring(3,4).toUpperCase() + lang.substring(4).toLowerCase(); 
 			if (registry.getTagDescription(code).length() > 0) {
 				return code;
 			}
@@ -100,27 +100,27 @@ public class TMUtils {
 			next = null;
 			next = new Date();
 		}
-		return "" + lng; //$NON-NLS-1$
+		return "" + lng; 
 	}
 
 	public static String TMXDate() {
-		Calendar calendar = Calendar.getInstance( TimeZone.getTimeZone("GMT")); //$NON-NLS-1$
+		Calendar calendar = Calendar.getInstance( TimeZone.getTimeZone("GMT")); 
 		String sec =
-			(calendar.get(Calendar.SECOND) < 10 ? "0" : "") //$NON-NLS-1$ //$NON-NLS-2$
+			(calendar.get(Calendar.SECOND) < 10 ? "0" : "")  
 		+ calendar.get(Calendar.SECOND);
 		String min =
-			(calendar.get(Calendar.MINUTE) < 10 ? "0" : "") //$NON-NLS-1$ //$NON-NLS-2$
+			(calendar.get(Calendar.MINUTE) < 10 ? "0" : "")  
 		+ calendar.get(Calendar.MINUTE);
 		String hour =
-			(calendar.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "") //$NON-NLS-1$ //$NON-NLS-2$
+			(calendar.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "")  
 		+ calendar.get(Calendar.HOUR_OF_DAY);
 		String mday =
-			(calendar.get(Calendar.DATE) < 10 ? "0" : "") + calendar.get(Calendar.DATE); //$NON-NLS-1$ //$NON-NLS-2$
+			(calendar.get(Calendar.DATE) < 10 ? "0" : "") + calendar.get(Calendar.DATE);  
 		String mon =
-			(calendar.get(Calendar.MONTH) < 9 ? "0" : "") //$NON-NLS-1$ //$NON-NLS-2$
+			(calendar.get(Calendar.MONTH) < 9 ? "0" : "")  
 		+ (calendar.get(Calendar.MONTH) + 1);
-		String longyear = "" + calendar.get(Calendar.YEAR); //$NON-NLS-1$
+		String longyear = "" + calendar.get(Calendar.YEAR); 
 
-		return longyear + mon + mday + "T" + hour + min + sec + "Z"; //$NON-NLS-1$ //$NON-NLS-2$
+		return longyear + mon + mday + "T" + hour + min + sec + "Z";  
 	}
 }

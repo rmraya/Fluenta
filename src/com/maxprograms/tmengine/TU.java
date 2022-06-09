@@ -33,7 +33,7 @@ public class TU {
 		props = new Hashtable<>();
 		notes = new Vector<>();
 		tuvs = new Hashtable<>();		
-		userid = System.getProperty("user.name"); //$NON-NLS-1$
+		userid = System.getProperty("user.name"); 
 	}
 	
 	public void setData(TuData data) {
@@ -47,7 +47,7 @@ public class TU {
 	public void setProps(Map<String,String> values) {
 		props = values;
 		if (creationdate != null && props != null) {
-			props.put("creationdate", creationdate); //$NON-NLS-1$
+			props.put("creationdate", creationdate); 
 		}
 	}
 	
@@ -62,7 +62,7 @@ public class TU {
 	public void setCreationDate(String value) {
 		creationdate = value;
 		if (props != null) {
-			props.put("creationdate", value); //$NON-NLS-1$
+			props.put("creationdate", value); 
 		}
 	}
 	

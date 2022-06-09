@@ -23,7 +23,7 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
 
-import com.maxprograms.tmengine.ILogger;
+import com.maxprograms.converters.ILogger;
 import com.maxprograms.tmengine.InternalDatabase;
 import com.maxprograms.utils.TMUtils;
 import com.maxprograms.xml.Element;
@@ -46,7 +46,7 @@ class TMXContentHandler implements ContentHandler, LexicalHandler {
 		db = internalDatabase;
 		stack = new Stack<>();
 		this.iLogger = logger;
-		mf1 = new MessageFormat(Messages.getString("TMXContentHandler.0")); //$NON-NLS-1$
+		mf1 = new MessageFormat(Messages.getString("TMXContentHandler.0")); 
 	}
 	
 	@Override
@@ -63,16 +63,16 @@ class TMXContentHandler implements ContentHandler, LexicalHandler {
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		if (localName.equals("tu")) { //$NON-NLS-1$
+		if (localName.equals("tu")) { 
 			try {
 				db.storeTU(current, srcLang);
 				if (count % 400 == 0) {
 					db.commit();
 					if (iLogger != null) {
 						if (iLogger.isCancelled()) {
-							throw new SAXException(Messages.getString("TMXContentHandler.1")); //$NON-NLS-1$
+							throw new SAXException(Messages.getString("TMXContentHandler.1")); 
 						}
-						iLogger.log(mf1.format(new Object[]{"" + count})); //$NON-NLS-1$
+						iLogger.log(mf1.format(new Object[]{"" + count})); 
 					}
 				}				
 			} catch (Exception e) {
@@ -125,7 +125,7 @@ class TMXContentHandler implements ContentHandler, LexicalHandler {
 			stack.push(current);
 		} else {
 			Element child = new Element(qName);
-			if (!qName.equals("ut")) { //$NON-NLS-1$
+			if (!qName.equals("ut")) { 
 				current.addContent(child);
 			}
 			stack.push(current);
@@ -134,14 +134,14 @@ class TMXContentHandler implements ContentHandler, LexicalHandler {
 		for (int i=0 ; i<atts.getLength() ; i++) {
 			current.setAttribute(atts.getQName(i), atts.getValue(i));
 		}
-		if (qName.equals("header")) { //$NON-NLS-1$
-			srcLang = current.getAttributeValue("srclang","*all*"); //$NON-NLS-1$ //$NON-NLS-2$
-			if (!srcLang.equals("*all*")) { //$NON-NLS-1$
+		if (qName.equals("header")) { 
+			srcLang = current.getAttributeValue("srclang","*all*");  
+			if (!srcLang.equals("*all*")) { 
 				try {
 					srcLang = TMUtils.normalizeLang(srcLang);
 				} catch (IOException e) {
 					LOGGER.log(Level.WARNING, e.getMessage(), e);
-					srcLang = "*all*"; //$NON-NLS-1$
+					srcLang = "*all*"; 
 				}
 			}
 		}

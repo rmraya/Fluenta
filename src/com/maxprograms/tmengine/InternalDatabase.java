@@ -48,6 +48,7 @@ import java.util.Vector;
 import javax.xml.parsers.ParserConfigurationException;
 
 import com.maxprograms.converters.Constants;
+import com.maxprograms.converters.ILogger;
 import com.maxprograms.languages.RegistryParser;
 import com.maxprograms.tmx.TMXReader;
 import com.maxprograms.utils.TMUtils;
@@ -97,29 +98,29 @@ public class InternalDatabase {
 		if (!exists) {
 			database.mkdirs();
 		}
-		String url = "jdbc:h2:" + database.getAbsolutePath() + "/db"; //$NON-NLS-1$ //$NON-NLS-2$
-		conn = DriverManager.getConnection(url, "sa", "ppaass"); //$NON-NLS-1$ //$NON-NLS-2$
+		String url = "jdbc:h2:" + database.getAbsolutePath() + "/db";  
+		conn = DriverManager.getConnection(url, "sa", "ppaass");  
 
 		if (!exists) {
 			createTables();
-			LOGGER.log(Level.INFO, Messages.getString("InternalDatabase.2")); //$NON-NLS-1$
+			LOGGER.log(Level.INFO, Messages.getString("InternalDatabase.2")); 
 		}
 
-		storeTUV = conn.prepareStatement("INSERT INTO tuv (tuid, lang, seg, puretext, textlength) VALUES (?,?,?,?,?)"); //$NON-NLS-1$
-		searchTUV = conn.prepareStatement("SELECT textlength FROM tuv WHERE tuid=? AND lang=?"); //$NON-NLS-1$
-		deleteTUV = conn.prepareStatement("DELETE FROM tuv WHERE tuid=? AND lang=?"); //$NON-NLS-1$
+		storeTUV = conn.prepareStatement("INSERT INTO tuv (tuid, lang, seg, puretext, textlength) VALUES (?,?,?,?,?)"); 
+		searchTUV = conn.prepareStatement("SELECT textlength FROM tuv WHERE tuid=? AND lang=?"); 
+		deleteTUV = conn.prepareStatement("DELETE FROM tuv WHERE tuid=? AND lang=?"); 
 		try {
 			tuDb = new TuDatabase(database);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage(), e);
-			MessageFormat mf = new MessageFormat(Messages.getString("InternalDatabase.14")); //$NON-NLS-1$
+			MessageFormat mf = new MessageFormat(Messages.getString("InternalDatabase.14")); 
 			throw new IOException(mf.format(new String[] { dbname }));
 		}
 		try {
 			fuzzyIndex = new FuzzyIndex(database);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage(), e);
-			MessageFormat mf = new MessageFormat(Messages.getString("InternalDatabase.15")); //$NON-NLS-1$
+			MessageFormat mf = new MessageFormat(Messages.getString("InternalDatabase.15")); 
 			throw new IOException(mf.format(new String[] { dbname }));
 		}
 		registerDatabase(wfolder);
@@ -136,17 +137,17 @@ public class InternalDatabase {
 	}
 
 	private static synchronized void saveDbList(File wfolder) throws IOException {
-		Document doc = new Document(null, "dblist", null); //$NON-NLS-1$ //$NON-NLS-2$
+		Document doc = new Document(null, "dblist", null);  
 		Element root = doc.getRootElement();
 		Iterator<String> keys = dblist.iterator();
 		while (keys.hasNext()) {
 			String key = keys.next();
-			Element db = new Element("db"); //$NON-NLS-1$
-			db.setAttribute("quality", "true"); //$NON-NLS-1$ //$NON-NLS-2$
+			Element db = new Element("db"); 
+			db.setAttribute("quality", "true");  
 			db.addContent(key);
 			root.addContent(db);
 		}
-		File list = new File(wfolder, "dblist.xml"); //$NON-NLS-1$
+		File list = new File(wfolder, "dblist.xml"); 
 		try (FileOutputStream output = new FileOutputStream(list)) {
 			XMLOutputter outputter = new XMLOutputter();
 			outputter.preserveSpace(true);
@@ -157,13 +158,13 @@ public class InternalDatabase {
 
 	private static void loadDbList(File wfolder) throws SAXException, IOException, ParserConfigurationException {
 		dblist = Collections.synchronizedSortedSet(new TreeSet<>());
-		File list = new File(wfolder, "dblist.xml"); //$NON-NLS-1$
+		File list = new File(wfolder, "dblist.xml"); 
 		if (!list.exists()) {
 			return;
 		}
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(list);
-		List<Element> dbs = doc.getRootElement().getChildren("db"); //$NON-NLS-1$
+		List<Element> dbs = doc.getRootElement().getChildren("db"); 
 		Iterator<Element> it = dbs.iterator();
 		while (it.hasNext()) {
 			Element db = it.next();
@@ -172,7 +173,7 @@ public class InternalDatabase {
 	}
 
 	private void createTables() throws SQLException, IOException {
-		URL url = InternalDatabase.class.getResource("internal.sql"); //$NON-NLS-1$
+		URL url = InternalDatabase.class.getResource("internal.sql"); 
 		RunScript.execute(conn, new InputStreamReader(url.openStream()));
 	}
 
@@ -224,13 +225,13 @@ public class InternalDatabase {
 		int failed = 0;
 		next = 0l;
 		if (customer == null) {
-			customer = ""; //$NON-NLS-1$
+			customer = ""; 
 		}
 		if (subject == null) {
-			subject = ""; //$NON-NLS-1$
+			subject = ""; 
 		}
 		if (project == null) {
-			project = ""; //$NON-NLS-1$
+			project = ""; 
 		}
 		currProject = project;
 		currSubject = subject;
@@ -268,11 +269,11 @@ public class InternalDatabase {
 			Map<String, Set<String>> propFilters) {
 		boolean filter;
 		Set<String> languages = Collections.synchronizedSet(new HashSet<>());
-		if (langs.equals("")) { //$NON-NLS-1$
+		if (langs.isEmpty()) { 
 			filter = false;
 		} else {
 			filter = true;
-			StringTokenizer tokenizer = new StringTokenizer(langs, ";"); //$NON-NLS-1$
+			StringTokenizer tokenizer = new StringTokenizer(langs, ";"); 
 			while (tokenizer.hasMoreTokens()) {
 				try {
 					String lang = TMUtils.normalizeLang(tokenizer.nextToken());
@@ -290,18 +291,18 @@ public class InternalDatabase {
 
 			output = new FileOutputStream(tmxfile);
 			writeHeader(srcLang);
-			writeString("<body>"); //$NON-NLS-1$
+			writeString("<body>"); 
 
-			try (PreparedStatement stmt = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { //$NON-NLS-1$
+			try (PreparedStatement stmt = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { 
 				SAXBuilder bld = new SAXBuilder(false);
 
 				Set<Integer> set = tuDb.getKeys();
 				Iterator<Integer> it = set.iterator();
 				while (it.hasNext()) {
 					Element t = tuDb.getTu(it.next());
-					Element tu = new Element("tu"); //$NON-NLS-1$
+					Element tu = new Element("tu"); 
 					tu.clone(t);
-					String tuid = tu.getAttributeValue("tuid"); //$NON-NLS-1$
+					String tuid = tu.getAttributeValue("tuid"); 
 					stmt.setString(1, tuid);
 					int count = 0;
 					try (ResultSet rs = stmt.executeQuery()) {
@@ -311,40 +312,40 @@ public class InternalDatabase {
 							if (filter && !languages.contains(lang)) {
 								continue;
 							}
-							if (seg.equals("<seg></seg>")) { //$NON-NLS-1$
+							if (seg.equals("<seg></seg>")) { 
 								continue;
 							}
 							try {
 								try (ByteArrayInputStream stream = new ByteArrayInputStream(
 										seg.getBytes(StandardCharsets.UTF_8))) { // $NON-NLS-1$
 									Document d = bld.build(stream);
-									Element tuv = new Element("tuv"); //$NON-NLS-1$
-									tuv.setAttribute("xml:lang", lang); //$NON-NLS-1$
-									tuv.addContent("\n\t\t"); //$NON-NLS-1$
+									Element tuv = new Element("tuv"); 
+									tuv.setAttribute("xml:lang", lang); 
+									tuv.addContent("\n\t\t"); 
 									tuv.addContent(d.getRootElement());
-									tuv.addContent("\n\t"); //$NON-NLS-1$
-									tu.addContent("\n\t"); //$NON-NLS-1$
+									tuv.addContent("\n\t"); 
+									tu.addContent("\n\t"); 
 									tu.addContent(tuv);
 									count++;
 								}
 							} catch (Exception e) {
 								System.err.println(e.getMessage());
-								System.err.println("seg: " + seg); //$NON-NLS-1$
+								System.err.println("seg: " + seg); 
 							}
 						}
 					}
 					if (count >= 2) {
-						tu.addContent("\n"); //$NON-NLS-1$
+						tu.addContent("\n"); 
 						if (propFilters == null) {
-							writeString("\n"); //$NON-NLS-1$
+							writeString("\n"); 
 							writeString(tu.toString());
 						} else {
 							Hashtable<String, String> properties = new Hashtable<>();
-							List<Element> props = tu.getChildren("prop"); //$NON-NLS-1$
+							List<Element> props = tu.getChildren("prop"); 
 							Iterator<Element> pr = props.iterator();
 							while (pr.hasNext()) {
 								Element prop = pr.next();
-								properties.put(prop.getAttributeValue("type"), prop.getText()); //$NON-NLS-1$
+								properties.put(prop.getAttributeValue("type"), prop.getText()); 
 							}
 							Enumeration<String> en = properties.keys();
 							boolean found = false;
@@ -366,7 +367,7 @@ public class InternalDatabase {
 								value = null;
 							}
 							if (found) {
-								writeString("\n"); //$NON-NLS-1$
+								writeString("\n"); 
 								writeString(tu.toString());
 							}
 						}
@@ -374,8 +375,8 @@ public class InternalDatabase {
 				}
 			}
 
-			writeString("\n</body>\n"); //$NON-NLS-1$
-			writeString("</tmx>\n"); //$NON-NLS-1$
+			writeString("\n</body>\n"); 
+			writeString("</tmx>\n"); 
 			output.close();
 			result.add(Constants.SUCCESS);
 		} catch (Exception e) {
@@ -386,7 +387,7 @@ public class InternalDatabase {
 				message = e.getMessage();
 			}
 			if (message == null) {
-				message = Messages.getString("InternalDatabase.50"); //$NON-NLS-1$
+				message = Messages.getString("InternalDatabase.50"); 
 			}
 			result.add(message);
 		}
@@ -403,39 +404,39 @@ public class InternalDatabase {
 	}
 
 	private void writeHeader(String srcLang) throws IOException {
-		writeString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"); //$NON-NLS-1$
+		writeString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"); 
 		writeString(
-				"<!DOCTYPE tmx PUBLIC \"-//LISA OSCAR:1998//DTD for Translation Memory eXchange//EN\" \"tmx14.dtd\" >\n"); //$NON-NLS-1$
-		writeString("<tmx version=\"1.4\">\n"); //$NON-NLS-1$
-		writeString("<header \n" + //$NON-NLS-1$
-				"      creationtool=\"" //$NON-NLS-1$
-				+ Constants.TOOLNAME + "\" \n" + //$NON-NLS-1$
-				"      creationtoolversion=\"" + //$NON-NLS-1$
-				Constants.VERSION + "\" \n" + //$NON-NLS-1$
-				"      srclang=\"" + //$NON-NLS-1$
-				srcLang + "\" \n" + //$NON-NLS-1$
-				"      adminlang=\"en\"  \n" + //$NON-NLS-1$
-				"      datatype=\"xml\" \n" + //$NON-NLS-1$
-				"      o-tmf=\"unknown\" \n" + //$NON-NLS-1$
-				"      segtype=\"block\" \n" + //$NON-NLS-1$
-				"      creationdate=\"" + //$NON-NLS-1$
-				creationDate() + "\"\n>\n" + //$NON-NLS-1$
-				"</header>\n"); //$NON-NLS-1$
+				"<!DOCTYPE tmx PUBLIC \"-//LISA OSCAR:1998//DTD for Translation Memory eXchange//EN\" \"tmx14.dtd\" >\n"); 
+		writeString("<tmx version=\"1.4\">\n"); 
+		writeString("<header \n" + 
+				"      creationtool=\"" 
+				+ Constants.TOOLNAME + "\" \n" + 
+				"      creationtoolversion=\"" + 
+				Constants.VERSION + "\" \n" + 
+				"      srclang=\"" + 
+				srcLang + "\" \n" + 
+				"      adminlang=\"en\"  \n" + 
+				"      datatype=\"xml\" \n" + 
+				"      o-tmf=\"unknown\" \n" + 
+				"      segtype=\"block\" \n" + 
+				"      creationdate=\"" + 
+				creationDate() + "\"\n>\n" + 
+				"</header>\n"); 
 	}
 
 	public List<String> flag(String tuid) {
 		List<String> result = new Vector<>();
 		Element tu = tuDb.getTu(tuid);
 		if (tu != null) {
-			Element prop = new Element("prop"); //$NON-NLS-1$
-			prop.setAttribute("type", "x-flag"); //$NON-NLS-1$ //$NON-NLS-2$
-			prop.setText("SW-Flag"); //$NON-NLS-1$
+			Element prop = new Element("prop"); 
+			prop.setAttribute("type", "x-flag");  
+			prop.setText("SW-Flag"); 
 			List<XMLNode> list = tu.getContent();
 			for (int i = 0; i < list.size(); i++) {
 				XMLNode node = list.get(i);
 				if (node.getNodeType() == XMLNode.ELEMENT_NODE) {
 					Element e = (Element) node;
-					if (e.getName().equals("tuv")) { //$NON-NLS-1$
+					if (e.getName().equals("tuv")) { 
 						list.add(i, prop);
 						break;
 					}
@@ -446,7 +447,7 @@ public class InternalDatabase {
 			result.add(Constants.SUCCESS);
 		} else {
 			result.add(Constants.ERROR);
-			result.add(Messages.getString("InternalDatabase.72")); //$NON-NLS-1$
+			result.add(Messages.getString("InternalDatabase.72")); 
 		}
 		return result;
 	}
@@ -459,7 +460,7 @@ public class InternalDatabase {
 		Set<String> result = Collections.synchronizedSortedSet(new TreeSet<>());
 		try {
 			try (Statement stmt = conn.createStatement()) {
-				try (ResultSet rs = stmt.executeQuery("SELECT DISTINCT lang FROM tuv")) { //$NON-NLS-1$
+				try (ResultSet rs = stmt.executeQuery("SELECT DISTINCT lang FROM tuv")) { 
 					while (rs.next()) {
 						result.add(rs.getString(1));
 					}
@@ -499,12 +500,12 @@ public class InternalDatabase {
 			Hashtable<String, Integer> candidates = new Hashtable<>();
 
 			try (PreparedStatement stmt = conn.prepareStatement(
-					"SELECT puretext, textlength FROM tuv WHERE lang=? AND tuid=? AND textlength>=? AND textlength<=?")) { //$NON-NLS-1$
+					"SELECT puretext, textlength FROM tuv WHERE lang=? AND tuid=? AND textlength>=? AND textlength<=?")) { 
 				stmt.setString(1, srcLang);
 				stmt.setInt(3, minLength);
 				stmt.setInt(4, maxLength);
 
-				try (PreparedStatement stmt2 = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { //$NON-NLS-1$
+				try (PreparedStatement stmt2 = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { 
 
 					NavigableSet<Fun.Tuple2<Integer, String>> index = fuzzyIndex.getIndex(srcLang);
 					for (int i = 0; i < ngrams.length; i++) {
@@ -546,18 +547,18 @@ public class InternalDatabase {
 														seg.getBytes(StandardCharsets.UTF_8))) {
 													SAXBuilder bld = new SAXBuilder(false);
 													Document d = bld.build(stream);
-													Element tuv = new Element("tuv"); //$NON-NLS-1$
-													tuv.setAttribute("xml:lang", lang); //$NON-NLS-1$
-													tuv.addContent("\n"); //$NON-NLS-1$
+													Element tuv = new Element("tuv"); 
+													tuv.setAttribute("xml:lang", lang); 
+													tuv.addContent("\n"); 
 													tuv.addContent(d.getRootElement());
-													tuv.addContent("\n"); //$NON-NLS-1$
-													tu.addContent("\n"); //$NON-NLS-1$
+													tuv.addContent("\n"); 
+													tu.addContent("\n"); 
 													tu.addContent(tuv);
 												}
 											}
 										}
 										TU t = Element2TU(tu);
-										t.setProperty("similarity", "" + distance); //$NON-NLS-1$ //$NON-NLS-2$
+										t.setProperty("similarity", "" + distance);  
 										result.add(t);
 									}
 								}
@@ -574,48 +575,48 @@ public class InternalDatabase {
 
 	private static synchronized TU Element2TU(Element tu) {
 		TU result = new TU();
-		String tuid = tu.getAttributeValue("tuid"); //$NON-NLS-1$
+		String tuid = tu.getAttributeValue("tuid"); 
 		Set<String> langs = Collections.synchronizedSet(new HashSet<>());
 		Hashtable<String, Tuv> tuvs = new Hashtable<>();
 
-		List<Element> tuvList = tu.getChildren("tuv"); //$NON-NLS-1$
+		List<Element> tuvList = tu.getChildren("tuv"); 
 		Iterator<Element> jt = tuvList.iterator();
 		while (jt.hasNext()) {
 			Element tuv = jt.next();
-			String lang = tuv.getAttributeValue("xml:lang"); //$NON-NLS-1$
+			String lang = tuv.getAttributeValue("xml:lang"); 
 			langs.add(lang);
-			String pureText = TMUtils.pureText(tuv.getChild("seg")); //$NON-NLS-1$
-			String seg = tuv.getChild("seg").toString(); //$NON-NLS-1$
-			if (seg.endsWith("</seg>")) { //$NON-NLS-1$
+			String pureText = TMUtils.pureText(tuv.getChild("seg")); 
+			String seg = tuv.getChild("seg").toString(); 
+			if (seg.endsWith("</seg>")) { 
 				seg = seg.substring(5, seg.length() - 6).trim();
 			} else {
 				// empty element, ends with "/>"
-				seg = ""; //$NON-NLS-1$
+				seg = ""; 
 			}
 			Tuv tuvData = new Tuv(tuid, lang, seg, pureText);
 
-			List<Element> props = tuv.getChildren("prop"); //$NON-NLS-1$
+			List<Element> props = tuv.getChildren("prop"); 
 			if (!props.isEmpty()) {
 				Hashtable<String, String> table = new Hashtable<>();
 				Iterator<Element> pt = props.iterator();
 				while (pt.hasNext()) {
 					Element prop = pt.next();
-					table.put(prop.getAttributeValue("type"), prop.getText()); //$NON-NLS-1$
+					table.put(prop.getAttributeValue("type"), prop.getText()); 
 				}
 				tuvData.setProperties(table);
 			}
 			tuvs.put(lang, tuvData);
 		}
 		Hashtable<String, String> props = new Hashtable<>();
-		List<Element> properties = tu.getChildren("prop"); //$NON-NLS-1$
-		props.put("tuid", tuid); //$NON-NLS-1$
+		List<Element> properties = tu.getChildren("prop"); 
+		props.put("tuid", tuid); 
 		Iterator<Element> kt = properties.iterator();
 		while (kt.hasNext()) {
 			Element prop = kt.next();
-			props.put(prop.getAttributeValue("type"), prop.getText()); //$NON-NLS-1$
+			props.put(prop.getAttributeValue("type"), prop.getText()); 
 		}
 		List<String> notes = new Vector<>();
-		List<Element> children = tu.getChildren("note"); //$NON-NLS-1$
+		List<Element> children = tu.getChildren("note"); 
 		Iterator<Element> nt = children.iterator();
 		while (nt.hasNext()) {
 			notes.add(nt.next().toString());
@@ -625,7 +626,7 @@ public class InternalDatabase {
 		result.setNotes(notes);
 		result.setTuvs(tuvs);
 		result.setProps(props);
-		result.setCreationDate(tu.getAttributeValue("creationdate", "")); //$NON-NLS-1$ //$NON-NLS-2$
+		result.setCreationDate(tu.getAttributeValue("creationdate"));  
 
 		return result;
 	}
@@ -650,13 +651,13 @@ public class InternalDatabase {
 			Hashtable<String, Integer> candidates = new Hashtable<>();
 
 			try (PreparedStatement stmt = conn.prepareStatement(
-					"SELECT puretext, seg, textlength FROM tuv WHERE lang=? AND tuid=? AND textlength>=? AND textlength<=?")) { //$NON-NLS-1$
+					"SELECT puretext, seg, textlength FROM tuv WHERE lang=? AND tuid=? AND textlength>=? AND textlength<=?")) { 
 				stmt.setString(1, srcLang);
 				stmt.setInt(3, minLength);
 				stmt.setInt(4, maxLength);
 
 				try (PreparedStatement stmt2 = conn
-						.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=? AND lang=?")) { //$NON-NLS-1$
+						.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=? AND lang=?")) { 
 					stmt2.setString(2, tgtLang);
 
 					NavigableSet<Fun.Tuple2<Integer, String>> index = fuzzyIndex.getIndex(srcLang);
@@ -706,12 +707,12 @@ public class InternalDatabase {
 													stream.close();
 													stream = null;
 
-													Element tuv = new Element("tuv"); //$NON-NLS-1$
-													tuv.setAttribute("xml:lang", lang); //$NON-NLS-1$
-													tuv.addContent("\n"); //$NON-NLS-1$
+													Element tuv = new Element("tuv"); 
+													tuv.setAttribute("xml:lang", lang); 
+													tuv.addContent("\n"); 
 													tuv.addContent(d.getRootElement());
-													tuv.addContent("\n"); //$NON-NLS-1$
-													tu.addContent("\n"); //$NON-NLS-1$
+													tuv.addContent("\n"); 
+													tu.addContent("\n"); 
 													tu.addContent(tuv);
 													tgtFound = true;
 												} catch (SAXException sax) {
@@ -724,15 +725,15 @@ public class InternalDatabase {
 													srcSeg.getBytes(StandardCharsets.UTF_8))) { // $NON-NLS-1$
 												SAXBuilder bld = new SAXBuilder(false);
 												Document d = bld.build(stream);
-												Element tuv = new Element("tuv"); //$NON-NLS-1$
-												tuv.setAttribute("xml:lang", srcLang); //$NON-NLS-1$
-												tuv.addContent("\n"); //$NON-NLS-1$
+												Element tuv = new Element("tuv"); 
+												tuv.setAttribute("xml:lang", srcLang); 
+												tuv.addContent("\n"); 
 												tuv.addContent(d.getRootElement());
-												tuv.addContent("\n"); //$NON-NLS-1$
-												tu.addContent("\n"); //$NON-NLS-1$
+												tuv.addContent("\n"); 
+												tu.addContent("\n"); 
 												tu.addContent(tuv);
 												TU t = Element2TU(tu);
-												t.setProperty("similarity", "" + distance); //$NON-NLS-1$ //$NON-NLS-2$
+												t.setProperty("similarity", "" + distance);  
 												result.add(t);
 											}
 										}
@@ -756,7 +757,7 @@ public class InternalDatabase {
 		if (isRegexp) {
 			try {
 				try (PreparedStatement stmt = conn.prepareStatement(
-						"SELECT tuid, puretext FROM tuv WHERE lang=?  AND puretext REGEXP ? LIMIT ?")) { //$NON-NLS-1$
+						"SELECT tuid, puretext FROM tuv WHERE lang=?  AND puretext REGEXP ? LIMIT ?")) { 
 					stmt.setString(1, srcLang);
 					stmt.setString(2, searchStr);
 					stmt.setInt(3, limit);
@@ -773,9 +774,9 @@ public class InternalDatabase {
 			if (!caseSensitive) {
 				try {
 					try (PreparedStatement stmt = conn.prepareStatement(
-							"SELECT tuid, puretext FROM tuv WHERE lang=? AND LOWER(puretext) LIKE ? LIMIT ?")) { //$NON-NLS-1$
+							"SELECT tuid, puretext FROM tuv WHERE lang=? AND LOWER(puretext) LIKE ? LIMIT ?")) { 
 						stmt.setString(1, srcLang);
-						stmt.setString(2, "%" + searchStr.toLowerCase() + "%"); //$NON-NLS-1$ //$NON-NLS-2$
+						stmt.setString(2, "%" + searchStr.toLowerCase() + "%");  
 						stmt.setInt(3, limit);
 						try (ResultSet rs = stmt.executeQuery()) {
 							while (rs.next()) {
@@ -789,9 +790,9 @@ public class InternalDatabase {
 			} else {
 				try {
 					try (PreparedStatement stmt = conn.prepareStatement(
-							"SELECT tuid, puretext FROM tuv WHERE lang=? AND puretext LIKE ? LIMIT ?")) { //$NON-NLS-1$
+							"SELECT tuid, puretext FROM tuv WHERE lang=? AND puretext LIKE ? LIMIT ?")) { 
 						stmt.setString(1, srcLang);
-						stmt.setString(2, "%" + searchStr + "%"); //$NON-NLS-1$ //$NON-NLS-2$
+						stmt.setString(2, "%" + searchStr + "%");  
 						stmt.setInt(3, limit);
 						try (ResultSet rs = stmt.executeQuery()) {
 							while (rs.next()) {
@@ -805,7 +806,7 @@ public class InternalDatabase {
 			}
 		}
 		try {
-			try (PreparedStatement stmt2 = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { //$NON-NLS-1$
+			try (PreparedStatement stmt2 = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { 
 				Iterator<String> it = candidates.iterator();
 				SAXBuilder bld = new SAXBuilder(false);
 				while (it.hasNext()) {
@@ -820,12 +821,12 @@ public class InternalDatabase {
 							try (ByteArrayInputStream stream = new ByteArrayInputStream(
 									seg.getBytes(StandardCharsets.UTF_8))) {
 								Document d = bld.build(stream);
-								Element tuv = new Element("tuv"); //$NON-NLS-1$
-								tuv.setAttribute("xml:lang", lang); //$NON-NLS-1$
-								tuv.addContent("\n"); //$NON-NLS-1$
+								Element tuv = new Element("tuv"); 
+								tuv.setAttribute("xml:lang", lang); 
+								tuv.addContent("\n"); 
 								tuv.addContent(d.getRootElement());
-								tuv.addContent("\n"); //$NON-NLS-1$
-								tu.addContent("\n"); //$NON-NLS-1$
+								tuv.addContent("\n"); 
+								tu.addContent("\n"); 
 								tu.addContent(tuv);
 							}
 						}
@@ -843,70 +844,70 @@ public class InternalDatabase {
 
 	public void storeTU(Element tu, String sourceLang) throws SQLException, IOException {
 		Set<String> tuLangs = Collections.synchronizedSortedSet(new TreeSet<>());
-		List<Element> tuvs = tu.getChildren("tuv"); //$NON-NLS-1$
-		String tuid = tu.getAttributeValue("tuid", ""); //$NON-NLS-1$ //$NON-NLS-2$
-		if (tuid.equals("")) { //$NON-NLS-1$
+		List<Element> tuvs = tu.getChildren("tuv"); 
+		String tuid = tu.getAttributeValue("tuid");  
+		if (tuid.isEmpty()) { 
 			tuid = nextId();
-			tu.setAttribute("tuid", tuid); //$NON-NLS-1$
+			tu.setAttribute("tuid", tuid); 
 		}
 
 		Hashtable<String, String> props = new Hashtable<>();
-		List<Element> properties = tu.getChildren("prop"); //$NON-NLS-1$
+		List<Element> properties = tu.getChildren("prop"); 
 		Iterator<Element> kt = properties.iterator();
 		while (kt.hasNext()) {
 			Element prop = kt.next();
-			props.put(prop.getAttributeValue("type"), prop.getText()); //$NON-NLS-1$
+			props.put(prop.getAttributeValue("type"), prop.getText()); 
 		}
-		if (currSubject != null && !currSubject.equals("")) { //$NON-NLS-1$
-			if (!props.containsKey("subject")) { //$NON-NLS-1$
-				Element prop = new Element("prop"); //$NON-NLS-1$
-				prop.setAttribute("type", "subject"); //$NON-NLS-1$//$NON-NLS-2$
+		if (currSubject != null && !currSubject.isEmpty()) { 
+			if (!props.containsKey("subject")) { 
+				Element prop = new Element("prop"); 
+				prop.setAttribute("type", "subject"); 
 				prop.setText(XMLUtils.cleanText(currSubject));
 				List<Element> content = tu.getChildren();
 				content.add(0, prop);
 				tu.setChildren(content);
-				props.put(prop.getAttributeValue("type"), prop.getText()); //$NON-NLS-1$
+				props.put(prop.getAttributeValue("type"), prop.getText()); 
 			}
 		}
-		String sub = props.get("subject"); //$NON-NLS-1$
+		String sub = props.get("subject"); 
 		if (sub != null) {
 			tuDb.storeSubject(sub);
 		}
-		if (currCustomer != null && !currCustomer.equals("")) { //$NON-NLS-1$
-			if (!props.containsKey("customer")) { //$NON-NLS-1$
-				Element prop = new Element("prop"); //$NON-NLS-1$
-				prop.setAttribute("type", "customer"); //$NON-NLS-1$//$NON-NLS-2$
+		if (currCustomer != null && !currCustomer.isEmpty()) { 
+			if (!props.containsKey("customer")) { 
+				Element prop = new Element("prop"); 
+				prop.setAttribute("type", "customer"); 
 				prop.setText(XMLUtils.cleanText(currCustomer));
 				List<Element> content = tu.getChildren();
 				content.add(0, prop);
 				tu.setChildren(content);
-				props.put(prop.getAttributeValue("type"), prop.getText()); //$NON-NLS-1$
+				props.put(prop.getAttributeValue("type"), prop.getText()); 
 			}
 		}
-		String cust = props.get("customer"); //$NON-NLS-1$
+		String cust = props.get("customer"); 
 		if (cust != null) {
 			tuDb.storeCustomer(cust);
 		}
-		if (currProject != null && !currProject.equals("")) { //$NON-NLS-1$
-			if (!props.containsKey("project")) { //$NON-NLS-1$
-				Element prop = new Element("prop"); //$NON-NLS-1$
-				prop.setAttribute("type", "project"); //$NON-NLS-1$//$NON-NLS-2$
+		if (currProject != null && !currProject.isEmpty()) { 
+			if (!props.containsKey("project")) { 
+				Element prop = new Element("prop"); 
+				prop.setAttribute("type", "project"); 
 				prop.setText(XMLUtils.cleanText(currProject));
 				List<Element> content = tu.getChildren();
 				content.add(0, prop);
 				tu.setChildren(content);
-				props.put(prop.getAttributeValue("type"), prop.getText()); //$NON-NLS-1$
+				props.put(prop.getAttributeValue("type"), prop.getText()); 
 			}
 		}
-		String proj = props.get("project"); //$NON-NLS-1$
+		String proj = props.get("project"); 
 		if (proj != null) {
 			tuDb.storeProject(proj);
 		}
-		if (tu.getAttributeValue("creationdate", "").equals("")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			tu.setAttribute("creationdate", creationDate); //$NON-NLS-1$
+		if (tu.getAttributeValue("creationdate", "").isEmpty()) {   
+			tu.setAttribute("creationdate", creationDate); 
 		}
-		if (tu.getAttributeValue("creationid", "").equals("")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			tu.setAttribute("creationid", System.getProperty("user.name")); //$NON-NLS-1$ //$NON-NLS-2$
+		if (tu.getAttributeValue("creationid").isEmpty()) {   
+			tu.setAttribute("creationid", System.getProperty("user.name"));  
 		}
 
 		storeTUV.setString(1, tuid);
@@ -914,7 +915,7 @@ public class InternalDatabase {
 		Iterator<Element> it = tuvs.iterator();
 		while (it.hasNext()) {
 			Element tuv = it.next();
-			String lang = normalize(tuv.getAttributeValue("xml:lang")); //$NON-NLS-1$
+			String lang = normalize(tuv.getAttributeValue("xml:lang")); 
 			if (lang == null) {
 				// Invalid language code, ignore this tuv
 				continue;
@@ -923,7 +924,7 @@ public class InternalDatabase {
 				if (exists(tuid, lang)) {
 					delete(tuid, lang);
 				}
-				Element seg = tuv.getChild("seg"); //$NON-NLS-1$
+				Element seg = tuv.getChild("seg"); 
 				String puretext = extractText(seg);
 				if (puretext.length() < 1) {
 					continue;
@@ -933,7 +934,7 @@ public class InternalDatabase {
 					ele = puretext;
 				}
 				if (ele.length() > 6000) {
-					throw new SQLException(Messages.getString("InternalDatabase.150")); //$NON-NLS-1$
+					throw new SQLException(Messages.getString("InternalDatabase.150")); 
 				}
 				int length = puretext.length();
 				storeTUV.setString(2, lang);
@@ -962,7 +963,7 @@ public class InternalDatabase {
 		if (next == 0l) {
 			next = Calendar.getInstance().getTimeInMillis();
 		}
-		return "" + next++; //$NON-NLS-1$
+		return "" + next++; 
 	}
 
 	private static String normalize(String lang) throws IOException {
@@ -978,20 +979,20 @@ public class InternalDatabase {
 			}
 			return null;
 		}
-		lang = lang.replace("_", "-"); //$NON-NLS-1$ //$NON-NLS-2$
-		String[] parts = lang.split("-"); //$NON-NLS-1$
+		lang = lang.replace("_", "-");  
+		String[] parts = lang.split("-"); 
 
 		if (parts.length == 2) {
 			if (parts[1].length() == 2) {
 				// has country code
-				String code = lang.substring(0, 2).toLowerCase() + "-" + lang.substring(3).toUpperCase(); //$NON-NLS-1$
+				String code = lang.substring(0, 2).toLowerCase() + "-" + lang.substring(3).toUpperCase(); 
 				if (registry.getTagDescription(code).length() > 0) {
 					return code;
 				}
 				return null;
 			}
 			// may have a script
-			String code = lang.substring(0, 2).toLowerCase() + "-" + lang.substring(3, 4).toUpperCase() //$NON-NLS-1$
+			String code = lang.substring(0, 2).toLowerCase() + "-" + lang.substring(3, 4).toUpperCase() 
 					+ lang.substring(4).toLowerCase();
 			if (registry.getTagDescription(code).length() > 0) {
 				return code;
@@ -1026,7 +1027,7 @@ public class InternalDatabase {
 	protected static String extractText(Element seg) {
 		List<XMLNode> l = seg.getContent();
 		Iterator<XMLNode> i = l.iterator();
-		String text = ""; //$NON-NLS-1$
+		String text = ""; 
 		while (i.hasNext()) {
 			XMLNode o = i.next();
 			if (o.getNodeType() == XMLNode.TEXT_NODE) {
@@ -1035,7 +1036,7 @@ public class InternalDatabase {
 				String type = ((Element) o).getName();
 				// discard all inline elements
 				// except <sub> and <hi>
-				if (type.equals("sub") || type.equals("hi")) { //$NON-NLS-1$ //$NON-NLS-2$
+				if (type.equals("sub") || type.equals("hi")) {  
 					Element e = (Element) o;
 					text = text + extractText(e);
 				}
@@ -1069,7 +1070,7 @@ public class InternalDatabase {
 	}
 
 	public void setProject(String project) throws SQLException {
-		String query = "UPDATE databases SET project=? WHERE dbname=?"; //$NON-NLS-1$
+		String query = "UPDATE databases SET project=? WHERE dbname=?"; 
 		try (PreparedStatement stmt = conn.prepareStatement(query)) {
 			stmt.setString(1, project);
 			stmt.setString(2, dbname);
@@ -1078,7 +1079,7 @@ public class InternalDatabase {
 	}
 
 	public void setCustomer(String customer) throws SQLException {
-		String query = "UPDATE databases SET client=? WHERE dbname=?"; //$NON-NLS-1$
+		String query = "UPDATE databases SET client=? WHERE dbname=?"; 
 		try (PreparedStatement stmt = conn.prepareStatement(query)) {
 			stmt.setString(1, customer);
 			stmt.setString(2, dbname);
@@ -1087,7 +1088,7 @@ public class InternalDatabase {
 	}
 
 	public void setSubject(String subject) throws SQLException {
-		String query = "UPDATE databases SET subject=? WHERE dbname=?"; //$NON-NLS-1$
+		String query = "UPDATE databases SET subject=? WHERE dbname=?"; 
 		try (PreparedStatement stmt = conn.prepareStatement(query)) {
 			stmt.setString(1, subject);
 			stmt.setString(2, dbname);
@@ -1102,19 +1103,19 @@ public class InternalDatabase {
 	public static String creationDate() {
 		// creationdate=""
 		Calendar calendar = Calendar.getInstance(Locale.US);
-		String sec = (calendar.get(Calendar.SECOND) < 10 ? "0" : "") //$NON-NLS-1$//$NON-NLS-2$
+		String sec = (calendar.get(Calendar.SECOND) < 10 ? "0" : "") 
 				+ calendar.get(Calendar.SECOND);
-		String min = (calendar.get(Calendar.MINUTE) < 10 ? "0" : "") //$NON-NLS-1$//$NON-NLS-2$
+		String min = (calendar.get(Calendar.MINUTE) < 10 ? "0" : "") 
 				+ calendar.get(Calendar.MINUTE);
-		String hour = (calendar.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "") //$NON-NLS-1$//$NON-NLS-2$
+		String hour = (calendar.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "") 
 				+ calendar.get(Calendar.HOUR_OF_DAY);
-		String mday = (calendar.get(Calendar.DATE) < 10 ? "0" : "") //$NON-NLS-1$//$NON-NLS-2$
+		String mday = (calendar.get(Calendar.DATE) < 10 ? "0" : "") 
 				+ calendar.get(Calendar.DATE);
-		String mon = (calendar.get(Calendar.MONTH) < 9 ? "0" : "") //$NON-NLS-1$//$NON-NLS-2$
+		String mon = (calendar.get(Calendar.MONTH) < 9 ? "0" : "") 
 				+ (calendar.get(Calendar.MONTH) + 1);
-		String longyear = "" + calendar.get(Calendar.YEAR); //$NON-NLS-1$
+		String longyear = "" + calendar.get(Calendar.YEAR); 
 
-		return longyear + mon + mday + "T" + hour + min + sec + "Z"; //$NON-NLS-1$//$NON-NLS-2$
+		return longyear + mon + mday + "T" + hour + min + sec + "Z"; 
 	}
 
 	public static Set<String> getDbList(File workFolder)
@@ -1127,7 +1128,7 @@ public class InternalDatabase {
 
 	public long getSize() throws SQLException {
 		long result = 0l;
-		String query = "SELECT COUNT(DISTINCT tuid) FROM tuv"; //$NON-NLS-1$
+		String query = "SELECT COUNT(DISTINCT tuid) FROM tuv"; 
 		try (Statement stmt = conn.createStatement()) {
 			try (ResultSet rs = stmt.executeQuery(query)) {
 				while (rs.next()) {
@@ -1139,13 +1140,13 @@ public class InternalDatabase {
 	}
 
 	public TU getTu(int index, String sortLanguage, boolean ascending) throws SQLException {
-		if (sortLanguage.equals("")) { //$NON-NLS-1$
-			String tuid = ""; //$NON-NLS-1$
-			String order = " "; //$NON-NLS-1$
+		if (sortLanguage.isEmpty()) { 
+			String tuid = ""; 
+			String order = " "; 
 			if (!ascending) {
-				order = " DESC"; //$NON-NLS-1$
+				order = " DESC"; 
 			}
-			String query = "SELECT DISTINCT tuid FROM tuv ORDER BY 1" + order + " LIMIT 1 OFFSET ?"; //$NON-NLS-1$ //$NON-NLS-2$
+			String query = "SELECT DISTINCT tuid FROM tuv ORDER BY 1" + order + " LIMIT 1 OFFSET ?";  
 			try (PreparedStatement stmt = conn.prepareStatement(query)) {
 				stmt.setInt(1, index);
 				try (ResultSet rs = stmt.executeQuery()) {
@@ -1157,21 +1158,21 @@ public class InternalDatabase {
 
 			Element tu = tuDb.getTu(tuid);
 			SAXBuilder bld = new SAXBuilder(false);
-			try (PreparedStatement stmt = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { //$NON-NLS-1$
+			try (PreparedStatement stmt = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { 
 				stmt.setString(1, tuid);
 				try (ResultSet rs = stmt.executeQuery()) {
 					while (rs.next()) {
 						String lang = rs.getString(1);
 						String seg = rs.getString(2);
-						if (seg.equals("<seg></seg>")) { //$NON-NLS-1$
+						if (seg.equals("<seg></seg>")) { 
 							continue;
 						}
 						try {
 							try (ByteArrayInputStream stream = new ByteArrayInputStream(
 									seg.getBytes(StandardCharsets.UTF_8))) {
 								Document d = bld.build(stream);
-								Element tuv = new Element("tuv"); //$NON-NLS-1$
-								tuv.setAttribute("xml:lang", lang); //$NON-NLS-1$
+								Element tuv = new Element("tuv"); 
+								tuv.setAttribute("xml:lang", lang); 
 								tuv.addContent(d.getRootElement());
 								tu.addContent(tuv);
 							}
@@ -1185,10 +1186,10 @@ public class InternalDatabase {
 		}
 		// number of entries may be different for each language
 		Hashtable<String, Integer> counts = new Hashtable<>();
-		String query = "SELECT DISTINCT lang FROM tuv"; //$NON-NLS-1$
+		String query = "SELECT DISTINCT lang FROM tuv"; 
 		int max = 0;
 		try (Statement stmt = conn.createStatement()) {
-			String query2 = "SELECT COUNT(tuid) FROM tuv WHERE lang=?"; //$NON-NLS-1$
+			String query2 = "SELECT COUNT(tuid) FROM tuv WHERE lang=?"; 
 			try (PreparedStatement stmt2 = conn.prepareStatement(query2)) {
 				try (ResultSet rs = stmt.executeQuery(query)) {
 					while (rs.next()) {
@@ -1208,17 +1209,17 @@ public class InternalDatabase {
 			}
 		}
 		if (counts.get(sortLanguage) == max) {
-			String tuid = ""; //$NON-NLS-1$
-			String order = " "; //$NON-NLS-1$
+			String tuid = ""; 
+			String order = " "; 
 			if (!ascending) {
-				order = " DESC"; //$NON-NLS-1$
+				order = " DESC"; 
 			}
 			StringBuilder sb = new StringBuilder();
-			sb.append("SELECT tuid, UPPER(puretext) FROM tuv WHERE lang='"); //$NON-NLS-1$
+			sb.append("SELECT tuid, UPPER(puretext) FROM tuv WHERE lang='"); 
 			sb.append(sortLanguage);
-			sb.append("' ORDER BY 2"); //$NON-NLS-1$
+			sb.append("' ORDER BY 2"); 
 			sb.append(order);
-			sb.append(" LIMIT 1 OFFSET ?"); //$NON-NLS-1$
+			sb.append(" LIMIT 1 OFFSET ?"); 
 			try (PreparedStatement stmt3 = conn.prepareStatement(sb.toString())) {
 				stmt3.setInt(1, index);
 				try (ResultSet rs3 = stmt3.executeQuery()) {
@@ -1230,21 +1231,21 @@ public class InternalDatabase {
 
 			Element tu = tuDb.getTu(tuid);
 			SAXBuilder bld = new SAXBuilder(false);
-			try (PreparedStatement stmt3 = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { //$NON-NLS-1$
+			try (PreparedStatement stmt3 = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { 
 				stmt3.setString(1, tuid);
 				try (ResultSet rs3 = stmt3.executeQuery()) {
 					while (rs3.next()) {
 						String lang = rs3.getString(1);
 						String seg = rs3.getString(2);
-						if (seg.equals("<seg></seg>")) { //$NON-NLS-1$
+						if (seg.equals("<seg></seg>")) { 
 							continue;
 						}
 						try {
 							try (ByteArrayInputStream stream = new ByteArrayInputStream(
 									seg.getBytes(StandardCharsets.UTF_8))) {
 								Document d = bld.build(stream);
-								Element tuv = new Element("tuv"); //$NON-NLS-1$
-								tuv.setAttribute("xml:lang", lang); //$NON-NLS-1$
+								Element tuv = new Element("tuv"); 
+								tuv.setAttribute("xml:lang", lang); 
 								tuv.addContent(d.getRootElement());
 								tu.addContent(tuv);
 							}
@@ -1259,14 +1260,14 @@ public class InternalDatabase {
 		// this language does not have enough entries
 		// the database needs to be filled with empty entries before attempting to
 		// deliver a result
-		query = "SELECT DISTINCT tuid FROM tuv"; //$NON-NLS-1$
+		query = "SELECT DISTINCT tuid FROM tuv"; 
 		try (Statement stmt = conn.createStatement()) {
 			try (ResultSet rs = stmt.executeQuery(query)) {
 				try (PreparedStatement stmt4 = conn.prepareStatement(
-						"INSERT INTO tuv (tuid, lang, seg, puretext, textlength) VALUES (?,?,?,?,?)")) { //$NON-NLS-1$
+						"INSERT INTO tuv (tuid, lang, seg, puretext, textlength) VALUES (?,?,?,?,?)")) { 
 					stmt4.setString(2, sortLanguage);
-					stmt4.setString(3, "<seg></seg>"); //$NON-NLS-1$
-					stmt4.setString(4, ""); //$NON-NLS-1$
+					stmt4.setString(3, "<seg></seg>"); 
+					stmt4.setString(4, ""); 
 					stmt4.setInt(5, 0);
 					while (rs.next()) {
 						String tuid = rs.getString(1);
@@ -1285,7 +1286,7 @@ public class InternalDatabase {
 
 	public Element getTu(String tuid) throws Exception {
 		Element tu = tuDb.getTu(tuid);
-		try (PreparedStatement stmt = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { //$NON-NLS-1$
+		try (PreparedStatement stmt = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { 
 			stmt.setString(1, tuid);
 			try (ResultSet rs = stmt.executeQuery()) {
 				while (rs.next()) {
@@ -1294,12 +1295,12 @@ public class InternalDatabase {
 					try (ByteArrayInputStream stream = new ByteArrayInputStream(seg.getBytes(StandardCharsets.UTF_8))) {
 						SAXBuilder bld = new SAXBuilder(false);
 						Document d = bld.build(stream);
-						Element tuv = new Element("tuv"); //$NON-NLS-1$
-						tuv.setAttribute("xml:lang", lang); //$NON-NLS-1$
-						tuv.addContent("\n"); //$NON-NLS-1$
+						Element tuv = new Element("tuv"); 
+						tuv.setAttribute("xml:lang", lang); 
+						tuv.addContent("\n"); 
 						tuv.addContent(d.getRootElement());
-						tuv.addContent("\n"); //$NON-NLS-1$
-						tu.addContent("\n"); //$NON-NLS-1$
+						tuv.addContent("\n"); 
+						tu.addContent("\n"); 
 						tu.addContent(tuv);
 					}
 				}
@@ -1311,12 +1312,12 @@ public class InternalDatabase {
 	public List<String> exportCSV(String csvFile, String langs, Map<String, Set<String>> propFilters) {
 		boolean filter;
 		Set<String> languages = Collections.synchronizedSet(new HashSet<>());
-		if (langs.equals("")) { //$NON-NLS-1$
+		if (langs.isEmpty()) { 
 			filter = false;
 			languages.addAll(getAllLanguages());
 		} else {
 			filter = true;
-			StringTokenizer tokenizer = new StringTokenizer(langs, ";"); //$NON-NLS-1$
+			StringTokenizer tokenizer = new StringTokenizer(langs, ";"); 
 			while (tokenizer.hasMoreTokens()) {
 				try {
 					String lang = TMUtils.normalizeLang(tokenizer.nextToken());
@@ -1336,24 +1337,24 @@ public class InternalDatabase {
 			byte[] feff = { -1, -2 };
 			output.write(feff);
 
-			String s = ""; //$NON-NLS-1$
+			String s = ""; 
 			Iterator<String> ls = languages.iterator();
 			while (ls.hasNext()) {
-				if (!s.equals("")) { //$NON-NLS-1$
-					s = s + "\t"; //$NON-NLS-1$
+				if (!s.isEmpty()) { 
+					s = s + "\t"; 
 				}
 				s = s + ls.next();
 			}
 			writeString16(s);
 
-			try (PreparedStatement stmt = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { //$NON-NLS-1$
+			try (PreparedStatement stmt = conn.prepareStatement("SELECT lang, seg FROM tuv WHERE tuid=?")) { 
 				SAXBuilder bld = new SAXBuilder(false);
 
 				Set<Integer> set = tuDb.getKeys();
 				Iterator<Integer> it = set.iterator();
 				while (it.hasNext()) {
 					Element tu = tuDb.getTu(it.next());
-					String tuid = tu.getAttributeValue("tuid"); //$NON-NLS-1$
+					String tuid = tu.getAttributeValue("tuid"); 
 					stmt.setString(1, tuid);
 					int count = 0;
 					Hashtable<String, Element> tuvs = new Hashtable<>();
@@ -1364,15 +1365,15 @@ public class InternalDatabase {
 							if (filter && !languages.contains(lang)) {
 								continue;
 							}
-							if (seg.equals("<seg></seg>")) { //$NON-NLS-1$
+							if (seg.equals("<seg></seg>")) { 
 								continue;
 							}
 							try {
 								try (ByteArrayInputStream stream = new ByteArrayInputStream(
 										seg.getBytes(StandardCharsets.UTF_8))) {
 									Document d = bld.build(stream);
-									Element tuv = new Element("tuv"); //$NON-NLS-1$
-									tuv.setAttribute("xml:lang", lang); //$NON-NLS-1$
+									Element tuv = new Element("tuv"); 
+									tuv.setAttribute("xml:lang", lang); 
 									tuv.addContent(d.getRootElement());
 									tuvs.put(lang, tuv);
 									count++;
@@ -1384,17 +1385,17 @@ public class InternalDatabase {
 					}
 					if (count >= 2) {
 						if (propFilters == null) {
-							writeString16("\n"); //$NON-NLS-1$
-							String line = ""; //$NON-NLS-1$
+							writeString16("\n"); 
+							String line = ""; 
 							Iterator<String> lt = languages.iterator();
 							while (lt.hasNext()) {
 								String l = lt.next();
-								if (!line.equals("")) { //$NON-NLS-1$
-									line = line + "\t"; //$NON-NLS-1$
+								if (!line.isEmpty()) { 
+									line = line + "\t"; 
 								}
 								Element tuv = tuvs.get(l);
 								if (tuv != null) {
-									String text = tuv.getChild("seg").getTextNormalize(); //$NON-NLS-1$
+									String text = tuv.getChild("seg").getTextNormalize(); 
 									text = text.replace('\n', ' ');
 									line = line + text;
 								}
@@ -1402,11 +1403,11 @@ public class InternalDatabase {
 							writeString16(line);
 						} else {
 							Hashtable<String, String> properties = new Hashtable<>();
-							List<Element> props = tu.getChildren("prop"); //$NON-NLS-1$
+							List<Element> props = tu.getChildren("prop"); 
 							Iterator<Element> pr = props.iterator();
 							while (pr.hasNext()) {
 								Element prop = pr.next();
-								properties.put(prop.getAttributeValue("type"), prop.getText()); //$NON-NLS-1$
+								properties.put(prop.getAttributeValue("type"), prop.getText()); 
 							}
 							Enumeration<String> en = properties.keys();
 							boolean found = false;
@@ -1428,17 +1429,17 @@ public class InternalDatabase {
 								value = null;
 							}
 							if (found) {
-								writeString16("\n"); //$NON-NLS-1$
-								String line = ""; //$NON-NLS-1$
+								writeString16("\n"); 
+								String line = ""; 
 								Iterator<String> lt = languages.iterator();
 								while (lt.hasNext()) {
 									String l = lt.next();
-									if (!line.equals("")) { //$NON-NLS-1$
-										line = line + "\t"; //$NON-NLS-1$
+									if (!line.isEmpty()) { 
+										line = line + "\t"; 
 									}
 									Element tuv = tuvs.get(l);
 									if (tuv != null) {
-										String text = tuv.getChild("seg").getTextNormalize(); //$NON-NLS-1$
+										String text = tuv.getChild("seg").getTextNormalize(); 
 										text = text.replace('\n', ' ');
 										line = line + text;
 									}
@@ -1460,7 +1461,7 @@ public class InternalDatabase {
 				message = e.getMessage();
 			}
 			if (message == null) {
-				message = Messages.getString("InternalDatabase.229"); //$NON-NLS-1$
+				message = Messages.getString("InternalDatabase.229"); 
 			}
 			result.add(message);
 		}
@@ -1472,11 +1473,11 @@ public class InternalDatabase {
 		Element tu = tuDb.getTu(tuid);
 		if (tu != null) {
 			try {
-				List<Element> tuvs = tu.getChildren("tuv"); //$NON-NLS-1$
+				List<Element> tuvs = tu.getChildren("tuv"); 
 				Iterator<Element> it = tuvs.iterator();
 				while (it.hasNext()) {
 					Element tuv = it.next();
-					String lang = normalize(tuv.getAttributeValue("xml:lang")); //$NON-NLS-1$
+					String lang = normalize(tuv.getAttributeValue("xml:lang")); 
 					delete(tuid, lang);
 				}
 				tuDb.remove(tuid);
@@ -1485,11 +1486,11 @@ public class InternalDatabase {
 			} catch (Exception e) {
 				LOGGER.log(Level.ERROR, e.getMessage(), e);
 				result.add(Constants.ERROR);
-				result.add(Messages.getString("InternalDatabase.5")); //$NON-NLS-1$
+				result.add(Messages.getString("InternalDatabase.5")); 
 			}
 		} else {
 			result.add(Constants.ERROR);
-			result.add(Messages.getString("InternalDatabase.72")); //$NON-NLS-1$
+			result.add(Messages.getString("InternalDatabase.72")); 
 		}
 		return result;
 	}

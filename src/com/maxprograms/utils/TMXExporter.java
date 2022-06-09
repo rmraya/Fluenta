@@ -38,10 +38,10 @@ import org.xml.sax.SAXException;
 
 public class TMXExporter {
 
-	public static final String DOUBLEPRIME = "\u2033"; //$NON-NLS-1$
-	public static final String MATHLT = "\u2039"; //$NON-NLS-1$
-	public static final String MATHGT = "\u200B\u203A"; //$NON-NLS-1$
-	public static final String GAMP = "\u200B\u203A"; //$NON-NLS-1$
+	public static final String DOUBLEPRIME = "\u2033"; 
+	public static final String MATHLT = "\u2039"; 
+	public static final String MATHGT = "\u200B\u203A"; 
+	public static final String GAMP = "\u200B\u203A"; 
 
 	static Document doc;
 	static Hashtable<String, String> docProperties;
@@ -64,7 +64,7 @@ public class TMXExporter {
 		if (resolver != null) {
 			builder.setEntityResolver(resolver);
 		}
-		if (xliff.indexOf("file:") != -1) { //$NON-NLS-1$
+		if (xliff.indexOf("file:") != -1) { 
 			URI uri = new URI(xliff);
 			doc = builder.build(uri.toURL());
 			uri = null;
@@ -78,65 +78,65 @@ public class TMXExporter {
 		Element root = doc.getRootElement();
 
 		output = new FileOutputStream(tmx);
-		Element firstFile = root.getChild("file"); //$NON-NLS-1$
+		Element firstFile = root.getChild("file"); 
 
 		docProperties = new Hashtable<>();
-		List<PI> slist = root.getPI("subject"); //$NON-NLS-1$
+		List<PI> slist = root.getPI("subject"); 
 		if (!slist.isEmpty()) {
-			docProperties.put("subject", slist.get(0).getData()); //$NON-NLS-1$
+			docProperties.put("subject", slist.get(0).getData()); 
 		} else {
-			docProperties.put("subject", ""); //$NON-NLS-1$ //$NON-NLS-2$
+			docProperties.put("subject", "");  
 		}
-		List<PI> plist = root.getPI("project"); //$NON-NLS-1$
+		List<PI> plist = root.getPI("project"); 
 		if (!plist.isEmpty()) {
-			docProperties.put("project", plist.get(0).getData()); //$NON-NLS-1$
+			docProperties.put("project", plist.get(0).getData()); 
 		} else {
-			docProperties.put("project", ""); //$NON-NLS-1$ //$NON-NLS-2$
+			docProperties.put("project", "");  
 		}
-		List<PI> clist = root.getPI("customer"); //$NON-NLS-1$
+		List<PI> clist = root.getPI("customer"); 
 		if (!clist.isEmpty()) {
-			docProperties.put("customer", clist.get(0).getData()); //$NON-NLS-1$
+			docProperties.put("customer", clist.get(0).getData()); 
 		} else {
-			docProperties.put("customer", ""); //$NON-NLS-1$ //$NON-NLS-2$
+			docProperties.put("customer", "");  
 		}
 
-		sourceLang = firstFile.getAttributeValue("source-language", ""); //$NON-NLS-1$ //$NON-NLS-2$
+		sourceLang = firstFile.getAttributeValue("source-language"); 
 
-		writeString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"); //$NON-NLS-1$
+		writeString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"); 
 		writeString(
-				"<!DOCTYPE tmx PUBLIC \"-//LISA OSCAR:1998//DTD for Translation Memory eXchange//EN\" \"tmx14.dtd\" >\n"); //$NON-NLS-1$
-		writeString("<tmx version=\"1.4\">\n"); //$NON-NLS-1$
-		writeString("<header \n" + //$NON-NLS-1$
-				"      creationtool=\"" + //$NON-NLS-1$
+				"<!DOCTYPE tmx PUBLIC \"-//LISA OSCAR:1998//DTD for Translation Memory eXchange//EN\" \"tmx14.dtd\" >\n"); 
+		writeString("<tmx version=\"1.4\">\n"); 
+		writeString("<header \n" + 
+				"      creationtool=\"" + 
 				Constants.NAME +
-				"\" \n" + //$NON-NLS-1$
-				"      creationtoolversion=\"" + //$NON-NLS-1$
+				"\" \n" + 
+				"      creationtoolversion=\"" + 
 				Constants.VERSION +
-				"\"  \n" + //$NON-NLS-1$
-				"      srclang=\"" + //$NON-NLS-1$
+				"\"  \n" + 
+				"      srclang=\"" + 
 				sourceLang +
-				"\" \n" + //$NON-NLS-1$
-				"      adminlang=\"en\"  \n" + //$NON-NLS-1$
-				"      datatype=\"xml\" \n" + //$NON-NLS-1$
-				"      o-tmf=\"XLIFF\" \n" + //$NON-NLS-1$
-				"      segtype=\"block\"\n" + //$NON-NLS-1$
-				">\n" + //$NON-NLS-1$
-				"</header>\n"); //$NON-NLS-1$
-		writeString("<body>\n"); //$NON-NLS-1$
+				"\" \n" + 
+				"      adminlang=\"en\"  \n" + 
+				"      datatype=\"xml\" \n" + 
+				"      o-tmf=\"XLIFF\" \n" + 
+				"      segtype=\"block\"\n" + 
+				">\n" + 
+				"</header>\n"); 
+		writeString("<body>\n"); 
 
 		List<Element> files = root.getChildren();
 		Iterator<Element> fileiterator = files.iterator();
 		while (fileiterator.hasNext()) {
 			Element file = fileiterator.next();
-			sourceLang = file.getAttributeValue("source-language", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			targetLang = file.getAttributeValue("target-language", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			original = "" + file.getAttributeValue("original").hashCode(); //$NON-NLS-1$ //$NON-NLS-2$
-			recurse(file, acceptUnaproved);
+			sourceLang = file.getAttributeValue("source-language");  
+			targetLang = file.getAttributeValue("target-language");  
+			original = "" + file.getAttributeValue("original").hashCode();  
+			recurse(file, acceptUnaproved, sourceLang, targetLang);
 			file = null;
 			filenumbr++;
 		}
-		writeString("</body>\n"); //$NON-NLS-1$
-		writeString("</tmx>"); //$NON-NLS-1$
+		writeString("</body>\n"); 
+		writeString("</tmx>"); 
 
 		output.close();
 
@@ -145,15 +145,15 @@ public class TMXExporter {
 		doc = null;
 	}
 
-	private static void recurse(Element e, boolean acceptUnaproved) throws IOException {
+	private static void recurse(Element e, boolean acceptUnaproved, String srcLang, String tgtLang) throws IOException {
 		List<Element> list = e.getChildren();
 		Iterator<Element> i = list.iterator();
 		while (i.hasNext()) {
 			Element element = i.next();
-			if (element.getName().equals("trans-unit")) { //$NON-NLS-1$
-				writeSegment(element, acceptUnaproved);
+			if (element.getName().equals("trans-unit")) { 
+				writeSegment(element, acceptUnaproved, srcLang, tgtLang);
 			} else {
-				recurse(element, acceptUnaproved);
+				recurse(element, acceptUnaproved, srcLang, tgtLang);
 			}
 		}
 	}
@@ -163,17 +163,17 @@ public class TMXExporter {
 	 * 
 	 * @param segment
 	 */
-	private static void writeSegment(Element segment, boolean acceptUnaproved) throws IOException {
+	private static void writeSegment(Element segment, boolean acceptUnaproved, String srcLang, String tgtLang) throws IOException {
 
-		String id = original + "-" + filenumbr + "-" + segment.getAttributeValue("id").hashCode(); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		String id = original + "-" + filenumbr + "-" + segment.getAttributeValue("id").hashCode();   
 
-		if (segment.getAttributeValue("approved").equals("yes") || acceptUnaproved) { //$NON-NLS-1$ //$NON-NLS-2$
-			Element source = segment.getChild("source"); //$NON-NLS-1$
+		if (segment.getAttributeValue("approved").equals("yes") || acceptUnaproved) {  
+			Element source = segment.getChild("source"); 
 			if (source.getContent().isEmpty()) {
 				// merged segment, nothing to export
 				return;
 			}
-			Element target = segment.getChild("target"); //$NON-NLS-1$
+			Element target = segment.getChild("target"); 
 			if (target == null) {
 				return;
 			}
@@ -182,55 +182,47 @@ public class TMXExporter {
 			if (acceptUnaproved && tgtText.trim().isEmpty()) {
 				return;
 			}
-			String srcLang = source.getAttributeValue("xml:lang", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			if (srcLang.equals("")) { //$NON-NLS-1$
-				srcLang = sourceLang;
-			}
-			String tgtLang = target.getAttributeValue("xml:lang", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			if (tgtLang.equals("")) { //$NON-NLS-1$
-				tgtLang = targetLang;
-			}
-			writeString("<tu creationtool=\"" //$NON-NLS-1$
+			writeString("<tu creationtool=\"" 
 					+ Constants.NAME
-					+ "\" creationtoolversion=\"" //$NON-NLS-1$
+					+ "\" creationtoolversion=\"" 
 					+ Constants.VERSION
-					+ "\" tuid=\"" + id + "\" creationdate=\"" + today + "\">\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					+ "\" tuid=\"" + id + "\" creationdate=\"" + today + "\">\n");   
 
-			String customer = docProperties.get("customer"); //$NON-NLS-1$
-			String project = docProperties.get("project"); //$NON-NLS-1$
-			String subject = docProperties.get("subject"); //$NON-NLS-1$
+			String customer = docProperties.get("customer"); 
+			String project = docProperties.get("project"); 
+			String subject = docProperties.get("subject"); 
 
-			if (!subject.equals("")) { //$NON-NLS-1$
-				writeString("<prop type=\"subject\">" + XMLUtils.cleanText(subject) + "</prop>\n"); //$NON-NLS-1$ //$NON-NLS-2$
+			if (!subject.isEmpty()) { 
+				writeString("<prop type=\"subject\">" + XMLUtils.cleanText(subject) + "</prop>\n");  
 			}
-			if (!project.equals("")) { //$NON-NLS-1$
-				writeString("<prop type=\"project\">" + XMLUtils.cleanText(project) + "</prop>\n"); //$NON-NLS-1$ //$NON-NLS-2$
+			if (!project.isEmpty()) { 
+				writeString("<prop type=\"project\">" + XMLUtils.cleanText(project) + "</prop>\n");  
 			}
-			if (!customer.equals("")) { //$NON-NLS-1$
-				writeString("<prop type=\"customer\">" + XMLUtils.cleanText(customer) + "</prop>\n"); //$NON-NLS-1$ //$NON-NLS-2$
+			if (!customer.isEmpty()) { 
+				writeString("<prop type=\"customer\">" + XMLUtils.cleanText(customer) + "</prop>\n");  
 			}
 
-			List<Element> notes = segment.getChildren("note"); //$NON-NLS-1$
+			List<Element> notes = segment.getChildren("note"); 
 			Iterator<Element> it = notes.iterator();
 			while (it.hasNext()) {
 				Element note = it.next();
-				String lang = note.getAttributeValue("xml:lang", ""); //$NON-NLS-1$ //$NON-NLS-2$
-				if (!lang.equals("")) { //$NON-NLS-1$
-					lang = " xml:lang=\"" + lang + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+				String lang = note.getAttributeValue("xml:lang");  
+				if (!lang.isEmpty()) { 
+					lang = " xml:lang=\"" + lang + "\"";  
 				}
-				writeString("<note" + lang + ">" + XMLUtils.cleanText(note.getText()) + "</note>\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				writeString("<note" + lang + ">" + XMLUtils.cleanText(note.getText()) + "</note>\n");   
 			}
 
-			if (!segment.getAttributeValue("xml:space", "default").equals("preserve")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			if (!segment.getAttributeValue("xml:space", "default").equals("preserve")) {   
 				srcText = srcText.trim();
 				tgtText = tgtText.trim();
 			}
-			writeString("<tuv xml:lang=\"" + srcLang + "\" creationdate=\"" + today + "\">\n<seg>" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					+ srcText + "</seg>\n</tuv>\n"); //$NON-NLS-1$
-			writeString("<tuv xml:lang=\"" + tgtLang + "\" creationdate=\"" + today + "\">\n<seg>" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					+ tgtText + "</seg>\n</tuv>\n"); //$NON-NLS-1$
+			writeString("<tuv xml:lang=\"" + srcLang + "\" creationdate=\"" + today + "\">\n<seg>"   
+					+ srcText + "</seg>\n</tuv>\n"); 
+			writeString("<tuv xml:lang=\"" + tgtLang + "\" creationdate=\"" + today + "\">\n<seg>"   
+					+ tgtText + "</seg>\n</tuv>\n"); 
 
-			writeString("</tu>\n"); //$NON-NLS-1$
+			writeString("</tu>\n"); 
 			source = null;
 			target = null;
 			srcLang = null;
@@ -242,11 +234,11 @@ public class TMXExporter {
 
 		String type = src.getName();
 
-		if (type.equals("source") || type.equals("target")) { //$NON-NLS-1$ //$NON-NLS-2$
+		if (type.equals("source") || type.equals("target")) {  
 			match = 0;
 			List<XMLNode> l = src.getContent();
 			Iterator<XMLNode> i = l.iterator();
-			String text = ""; //$NON-NLS-1$
+			String text = ""; 
 			while (i.hasNext()) {
 				XMLNode o = i.next();
 				switch (o.getNodeType()) {
@@ -259,7 +251,7 @@ public class TMXExporter {
 							text = text + extractText(e, false);
 							e = null;
 						}
-						if (_level1 && ((Element) o).getName().equals("mrk")) { //$NON-NLS-1$
+						if (_level1 && ((Element) o).getName().equals("mrk")) { 
 							Element e = (Element) o;
 							text = text + XMLUtils.cleanText(e.getText());
 							e = null;
@@ -275,7 +267,7 @@ public class TMXExporter {
 			// elements
 			List<XMLNode> l = src.getContent();
 			Iterator<XMLNode> i = l.iterator();
-			String text = ""; //$NON-NLS-1$
+			String text = ""; 
 			while (i.hasNext()) {
 				XMLNode o = i.next();
 				switch (o.getNodeType()) {
@@ -297,27 +289,27 @@ public class TMXExporter {
 			return text;
 		}
 
-		if (type.equals("bx") //$NON-NLS-1$
-				|| type.equals("ex") //$NON-NLS-1$
-				|| type.equals("ph")) { //$NON-NLS-1$
+		if (type.equals("bx") 
+				|| type.equals("ex") 
+				|| type.equals("ph")) { 
 			List<XMLNode> l = src.getContent();
 			Iterator<XMLNode> i = l.iterator();
-			String ctype = src.getAttributeValue("ctype", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			if (!ctype.equals("")) { //$NON-NLS-1$
-				ctype = " type=\"" + XMLUtils.cleanText(ctype) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+			String ctype = src.getAttributeValue("ctype");  
+			if (!ctype.isEmpty()) { 
+				ctype = " type=\"" + XMLUtils.cleanText(ctype) + "\"";  
 			}
-			String assoc = src.getAttributeValue("assoc", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			if (!assoc.equals("")) { //$NON-NLS-1$
-				assoc = " assoc=\"" + XMLUtils.cleanText(assoc) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+			String assoc = src.getAttributeValue("assoc"); 
+			if (!assoc.isEmpty()) { 
+				assoc = " assoc=\"" + XMLUtils.cleanText(assoc) + "\"";  
 			}
-			String id = ""; //$NON-NLS-1$
-			if (type.equals("ph")) { //$NON-NLS-1$
-				id = src.getAttributeValue("id", ""); //$NON-NLS-1$ //$NON-NLS-2$
-				if (!id.equals("")) { //$NON-NLS-1$
-					id = " x=\"" + XMLUtils.cleanText(id) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+			String id = ""; 
+			if (type.equals("ph")) { 
+				id = src.getAttributeValue("id");  
+				if (!id.isEmpty()) { 
+					id = " x=\"" + XMLUtils.cleanText(id) + "\"";  
 				}
 			}
-			String text = "<ph" + ctype + assoc + id + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+			String text = "<ph" + ctype + assoc + id + ">";  
 			while (i.hasNext()) {
 				XMLNode o = i.next();
 				switch (o.getNodeType()) {
@@ -326,10 +318,10 @@ public class TMXExporter {
 						break;
 					case XMLNode.ELEMENT_NODE:
 						Element e = (Element) o;
-						if (e.getName().equals("sub")) { //$NON-NLS-1$
+						if (e.getName().equals("sub")) { 
 							text = text + extractText(e, false);
 						} else {
-							if (!e.getName().equals("mrk")) { //$NON-NLS-1$
+							if (!e.getName().equals("mrk")) { 
 								text = text + extractText(e, true);
 							}
 						}
@@ -339,24 +331,24 @@ public class TMXExporter {
 			}
 			i = null;
 			l = null;
-			return text + "</ph>"; //$NON-NLS-1$
+			return text + "</ph>"; 
 		}
 
-		if (type.equals("g") || type.equals("x")) { //$NON-NLS-1$ //$NON-NLS-2$
-			String open = "<" + src.getName(); //$NON-NLS-1$
+		if (type.equals("g") || type.equals("x")) {  
+			String open = "<" + src.getName(); 
 			List<Attribute> atts = src.getAttributes();
 			Iterator<Attribute> h = atts.iterator();
 			while (h.hasNext()) {
 				Attribute a = h.next();
-				open = open + " " + a.getName() + "=\"" + a.getValue() + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				open = open + " " + a.getName() + "=\"" + a.getValue() + "\"";   
 			}
 			List<XMLNode> srcContent = src.getContent();
 			if (!srcContent.isEmpty()) {
-				open = open + ">"; //$NON-NLS-1$
+				open = open + ">"; 
 				int i = match;
 				match++;
-				String text = "<bpt type=\"xliff-" + src.getName() + "\" i=\"" + i + "\">" + XMLUtils.cleanText(open) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						+ "</bpt>"; //$NON-NLS-1$
+				String text = "<bpt type=\"xliff-" + src.getName() + "\" i=\"" + i + "\">" + XMLUtils.cleanText(open)   
+						+ "</bpt>"; 
 				Iterator<XMLNode> k = srcContent.iterator();
 				while (k.hasNext()) {
 					XMLNode n = k.next();
@@ -367,26 +359,26 @@ public class TMXExporter {
 						text = text + extractText((Element) n, _level1);
 					}
 				}
-				String close = "</" + src.getName() + ">"; //$NON-NLS-1$ //$NON-NLS-2$
-				return text + "<ept i=\"" + i + "\">" + XMLUtils.cleanText(close) + "</ept>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				String close = "</" + src.getName() + ">";  
+				return text + "<ept i=\"" + i + "\">" + XMLUtils.cleanText(close) + "</ept>";   
 			}
-			return "<ph type=\"xliff-" + src.getName() + "\">" + XMLUtils.cleanText(open + "/>") + "</ph>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+			return "<ph type=\"xliff-" + src.getName() + "\">" + XMLUtils.cleanText(open + "/>") + "</ph>";    
 		}
 
-		if (type.equals("it")) { //$NON-NLS-1$
+		if (type.equals("it")) { 
 			List<XMLNode> l = src.getContent();
 			Iterator<XMLNode> i = l.iterator();
-			String ctype = src.getAttributeValue("ctype", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			if (!ctype.equals("")) { //$NON-NLS-1$
-				ctype = " type=\"" + XMLUtils.cleanText(ctype) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+			String ctype = src.getAttributeValue("ctype"); 
+			if (!ctype.isEmpty()) { 
+				ctype = " type=\"" + XMLUtils.cleanText(ctype) + "\"";  
 			}
-			String pos = src.getAttributeValue("pos", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			if (pos.equals("open")) { //$NON-NLS-1$
-				pos = " pos=\"begin\""; //$NON-NLS-1$
-			} else if (pos.equals("close")) { //$NON-NLS-1$
-				pos = " pos=\"end\""; //$NON-NLS-1$
+			String pos = src.getAttributeValue("pos");  
+			if (pos.equals("open")) { 
+				pos = " pos=\"begin\""; 
+			} else if (pos.equals("close")) { 
+				pos = " pos=\"end\""; 
 			}
-			String text = "<it" + ctype + pos + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+			String text = "<it" + ctype + pos + ">";  
 			while (i.hasNext()) {
 				XMLNode o = i.next();
 				switch (o.getNodeType()) {
@@ -399,23 +391,23 @@ public class TMXExporter {
 						break;
 				}
 			}
-			return text + "</it>"; //$NON-NLS-1$
+			return text + "</it>"; 
 		}
 
-		if (type.equals("bpt") || type.equals("ept")) { //$NON-NLS-1$ //$NON-NLS-2$
+		if (type.equals("bpt") || type.equals("ept")) {  
 			List<XMLNode> l = src.getContent();
 			Iterator<XMLNode> i = l.iterator();
-			String ctype = src.getAttributeValue("ctype", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			if (!ctype.equals("")) { //$NON-NLS-1$
-				ctype = " type=\"" + XMLUtils.cleanText(ctype) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+			String ctype = src.getAttributeValue("ctype");  
+			if (!ctype.isEmpty()) { 
+				ctype = " type=\"" + XMLUtils.cleanText(ctype) + "\"";  
 			}
-			String rid = src.getAttributeValue("rid", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			if (!rid.equals("")) { //$NON-NLS-1$
-				rid = " i=\"" + XMLUtils.cleanText(rid) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+			String rid = src.getAttributeValue("rid"); 
+			if (!rid.isEmpty()) { 
+				rid = " i=\"" + XMLUtils.cleanText(rid) + "\"";  
 			} else {
-				rid = " i=\"" + XMLUtils.cleanText(src.getAttributeValue("id", "")) + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				rid = " i=\"" + XMLUtils.cleanText(src.getAttributeValue("id")) + "\"";    
 			}
-			String text = "<" + type + ctype + rid + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+			String text = "<" + type + ctype + rid + ">";  
 			while (i.hasNext()) {
 				XMLNode o = i.next();
 				switch (o.getNodeType()) {
@@ -431,13 +423,13 @@ public class TMXExporter {
 			}
 			i = null;
 			l = null;
-			return text + "</" + type + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+			return text + "</" + type + ">";  
 		}
 
-		if (type.equals("sub")) { //$NON-NLS-1$
+		if (type.equals("sub")) { 
 			List<XMLNode> l = src.getContent();
 			Iterator<XMLNode> i = l.iterator();
-			String text = "<sub>"; //$NON-NLS-1$
+			String text = "<sub>"; 
 			while (i.hasNext()) {
 				XMLNode o = i.next();
 				switch (o.getNodeType()) {
@@ -446,7 +438,7 @@ public class TMXExporter {
 						break;
 					case XMLNode.ELEMENT_NODE:
 						Element e = (Element) o;
-						if (!e.getName().equals("mrk")) { //$NON-NLS-1$
+						if (!e.getName().equals("mrk")) { 
 							text = text + extractText(e, true);
 						}
 						break;
@@ -455,39 +447,39 @@ public class TMXExporter {
 			}
 			i = null;
 			l = null;
-			return text + "</sub>"; //$NON-NLS-1$
+			return text + "</sub>"; 
 		}
-		if (type.equals("mrk")) { //$NON-NLS-1$
-			if (src.getAttributeValue("mtype", "").equals("term")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-																		// //$NON-NLS-4$
+		if (type.equals("mrk")) { 
+			if (src.getAttributeValue("mtype").equals("term")) {   
+																		// 
 				// ignore terminology entries
 				return XMLUtils.cleanText(src.getText());
 			}
-			if (src.getAttributeValue("mtype", "").equals("protected")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				String ts = src.getAttributeValue("ts", ""); //$NON-NLS-1$ //$NON-NLS-2$
+			if (src.getAttributeValue("mtype").equals("protected")) {   
+				String ts = src.getAttributeValue("ts");  
 				ts = restoreChars(ts).trim();
-				String name = ""; //$NON-NLS-1$
+				String name = ""; 
 				for (int i = 1; i < ts.length(); i++) {
 					if (Character.isSpaceChar(ts.charAt(i))) {
 						break;
 					}
 					name = name + ts.charAt(i);
 				}
-				return "<ph type=\"mrk-protected\" " + " x=\"" + XMLUtils.cleanText(src.getAttributeValue("mid", "-")) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-						+ "\"" + ">" + XMLUtils.cleanText(ts) + "</ph>" + XMLUtils.cleanText(src.getText()) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						+ "<ph type=\"mrk-close\">" + XMLUtils.cleanText("</" + name + ">") + "</ph>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				return "<ph type=\"mrk-protected\" " + " x=\"" + XMLUtils.cleanText(src.getAttributeValue("mid", "-"))    
+						+ "\"" + ">" + XMLUtils.cleanText(ts) + "</ph>" + XMLUtils.cleanText(src.getText())   
+						+ "<ph type=\"mrk-close\">" + XMLUtils.cleanText("</" + name + ">") + "</ph>";    
 			}
-			return "<hi type=\"" + src.getAttributeValue("mtype", "xliff-mrk") + "\">" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-					+ XMLUtils.cleanText(src.getText()) + "</hi>"; //$NON-NLS-1$
+			return "<hi type=\"" + src.getAttributeValue("mtype", "xliff-mrk") + "\">"    
+					+ XMLUtils.cleanText(src.getText()) + "</hi>"; 
 		}
 		return null;
 	}
 
 	private static String restoreChars(String value) {
-		value = value.replace(MATHLT, "<"); //$NON-NLS-1$
-		value = value.replace(MATHGT, ">"); //$NON-NLS-1$
-		value = value.replace(DOUBLEPRIME, "\""); //$NON-NLS-1$
-		value = value.replace(GAMP, "&"); //$NON-NLS-1$
+		value = value.replace(MATHLT, "<"); 
+		value = value.replace(MATHGT, ">"); 
+		value = value.replace(DOUBLEPRIME, "\""); 
+		value = value.replace(GAMP, "&"); 
 		return value;
 	}
 

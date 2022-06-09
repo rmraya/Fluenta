@@ -23,7 +23,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.maxprograms.tmengine.ILogger;
+import com.maxprograms.converters.ILogger;
 import com.maxprograms.tmengine.InternalDatabase;
 import com.maxprograms.xml.CustomErrorHandler;
 import com.maxprograms.xml.EntityHandler;
@@ -36,17 +36,17 @@ public class TMXReader {
 	public TMXReader(InternalDatabase database, ILogger logger) throws SAXException, ParserConfigurationException {
 		database.getAllLanguages();
 		parser = SAXParserFactory.newInstance().newSAXParser().getXMLReader(); 
-		parser.setFeature("http://xml.org/sax/features/namespaces", true); //$NON-NLS-1$
+		parser.setFeature("http://xml.org/sax/features/namespaces", true); 
 		handler = new TMXContentHandler(database, logger);
 		parser.setContentHandler(handler);
         parser.setEntityResolver(new TMXResolver());
        	parser.setErrorHandler(new CustomErrorHandler());
-        parser.setProperty("http://xml.org/sax/properties/lexical-handler", handler); //$NON-NLS-1$
-        parser.setFeature("http://xml.org/sax/features/namespaces", true);  //$NON-NLS-1$
-        parser.setFeature("http://xml.org/sax/features/namespace-prefixes", true);  //$NON-NLS-1$
+        parser.setProperty("http://xml.org/sax/properties/lexical-handler", handler); 
+        parser.setFeature("http://xml.org/sax/features/namespaces", true);  
+        parser.setFeature("http://xml.org/sax/features/namespace-prefixes", true);  
         
         EntityHandler declhandler = new EntityHandler();
-        parser.setProperty("http://xml.org/sax/properties/declaration-handler", declhandler); //$NON-NLS-1$
+        parser.setProperty("http://xml.org/sax/properties/declaration-handler", declhandler); 
 	}
 	
 	public void parse(URL url) throws IOException, SAXException {

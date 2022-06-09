@@ -51,7 +51,7 @@ public class CustomBar extends Composite {
 	public void addSeparator() {
 		count++;
 		Label separator = new Label(this, SWT.NONE);
-		separator.setText("|"); //$NON-NLS-1$
+		separator.setText("|"); 
 		separator.setForeground(separatorForeground);
 		separator.setBackground(defaultBackground);
 		setItemCount(count);
@@ -67,7 +67,7 @@ public class CustomBar extends Composite {
 
 	private Image getImageSeparator() {
 		if (imageSeparator == null) {
-			imageSeparator = new Image(getDisplay(), CustomBar.class.getResourceAsStream("separator.png")); //$NON-NLS-1$
+			imageSeparator = new Image(getDisplay(), CustomBar.class.getResourceAsStream("separator.png")); 
 		}
 		return imageSeparator;
 	}
@@ -77,7 +77,7 @@ public class CustomBar extends Composite {
 		setItemCount(count);
 		Label separator = new Label(this, SWT.NONE);
 		separator.setBackground(defaultBackground);
-		separator.setText(" "); //$NON-NLS-1$
+		separator.setText(" "); 
 		separator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 	}
 

@@ -56,7 +56,7 @@ public class ProjectsView extends Composite {
 		bar.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		CustomItem create = bar.addItem(SWT.PUSH);
-		create.setText(Messages.getString("ProjectsView.1")); //$NON-NLS-1$
+		create.setText(Messages.getString("ProjectsView.1")); 
 		create.setImage(Fluenta.getResourceManager().getAdd());
 		create.addMouseListener(new MouseListener() {
 
@@ -79,7 +79,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem update = bar.addItem(SWT.PUSH);
-		update.setText(Messages.getString("ProjectsView.3")); //$NON-NLS-1$
+		update.setText(Messages.getString("ProjectsView.3")); 
 		update.setImage(Fluenta.getResourceManager().getEdit());
 		update.addMouseListener(new MouseListener() {
 
@@ -102,7 +102,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem details = bar.addItem(SWT.PUSH);
-		details.setText(Messages.getString("ProjectsView.5")); //$NON-NLS-1$
+		details.setText(Messages.getString("ProjectsView.5")); 
 		details.setImage(Fluenta.getResourceManager().getInfo());
 		details.addMouseListener(new MouseListener() {
 
@@ -125,7 +125,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem generateXliff = bar.addItem(SWT.PUSH);
-		generateXliff.setText(Messages.getString("ProjectsView.7")); //$NON-NLS-1$
+		generateXliff.setText(Messages.getString("ProjectsView.7")); 
 		generateXliff.setImage(Fluenta.getResourceManager().getRight());
 		generateXliff.addMouseListener(new MouseListener() {
 
@@ -148,7 +148,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem importXliff = bar.addItem(SWT.PUSH);
-		importXliff.setText(Messages.getString("ProjectsView.9")); //$NON-NLS-1$
+		importXliff.setText(Messages.getString("ProjectsView.9")); 
 		importXliff.setImage(Fluenta.getResourceManager().getLeft());
 		importXliff.addMouseListener(new MouseListener() {
 
@@ -171,7 +171,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem remove = bar.addItem(SWT.PUSH);
-		remove.setText(Messages.getString("ProjectsView.11")); //$NON-NLS-1$
+		remove.setText(Messages.getString("ProjectsView.11")); 
 		remove.setImage(Fluenta.getResourceManager().getRemove());
 		remove.addMouseListener(new MouseListener() {
 
@@ -199,23 +199,23 @@ public class ProjectsView extends Composite {
 		table.setBackgroundImage(Fluenta.getResourceManager().getBackground());
 
 		TableColumn description = new TableColumn(table, SWT.NONE);
-		description.setText(Messages.getString("ProjectsView.13")); //$NON-NLS-1$
+		description.setText(Messages.getString("ProjectsView.13")); 
 		description.setWidth(250);
 
 		TableColumn map = new TableColumn(table, SWT.NONE);
-		map.setText(Messages.getString("ProjectsView.14")); //$NON-NLS-1$
+		map.setText(Messages.getString("ProjectsView.14")); 
 		map.setWidth(350);
 
 		TableColumn status = new TableColumn(table, SWT.NONE);
-		status.setText(Messages.getString("ProjectsView.15")); //$NON-NLS-1$
+		status.setText(Messages.getString("ProjectsView.15")); 
 		status.setWidth(150);
 
 		TableColumn created = new TableColumn(table, SWT.NONE);
-		created.setText(Messages.getString("ProjectsView.16")); //$NON-NLS-1$
+		created.setText(Messages.getString("ProjectsView.16")); 
 		created.setWidth(200);
 
 		TableColumn updated = new TableColumn(table, SWT.NONE);
-		updated.setText(Messages.getString("ProjectsView.17")); //$NON-NLS-1$
+		updated.setText(Messages.getString("ProjectsView.17")); 
 		updated.setWidth(200);
 
 		table.addListener(SWT.Resize, new Listener() {
@@ -273,7 +273,7 @@ public class ProjectsView extends Composite {
 		try {
 			List<Project> projects = MainView.getController().getProjects();
 			Project[] array = projects.toArray(new Project[projects.size()]);
-			final Collator collator = Collator.getInstance(new Locale("en")); //$NON-NLS-1$
+			final Collator collator = Collator.getInstance(new Locale("en")); 
 			Arrays.sort(array, new Comparator<Project>() {
 
 				@Override
@@ -314,14 +314,14 @@ public class ProjectsView extends Composite {
 			for (int i = 0; i < array.length; i++) {
 				Project p = array[i];
 				TableItem item = new TableItem(table, SWT.NONE);
-				item.setData("project", p); //$NON-NLS-1$
+				item.setData("project", p); 
 				item.setText(new String[] { p.getTitle(), p.getMap(), p.getStatus(), p.getCreationDateString(),
 						p.getLastUpdateString() });
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.19")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectsView.19")); 
 			box.open();
 		}
 	}
@@ -334,76 +334,76 @@ public class ProjectsView extends Composite {
 	public void updateProject() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.20")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectsView.20")); 
 			box.open();
 			return;
 		}
 		ProjectDialog updateProject = new ProjectDialog(getShell(), SWT.DIALOG_TRIM | SWT.RESIZE,
-				(Project) table.getSelection()[0].getData("project")); //$NON-NLS-1$
+				(Project) table.getSelection()[0].getData("project")); 
 		updateProject.show();
 	}
 
 	public void projectDetails() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.22")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectsView.22")); 
 			box.open();
 			return;
 		}
 		ProjectInfoDialog dialog = new ProjectInfoDialog(getShell(), SWT.DIALOG_TRIM | SWT.RESIZE,
-				(Project) table.getSelection()[0].getData("project")); // $NON-NLS-1$ //$NON-NLS-1$
+				(Project) table.getSelection()[0].getData("project")); // $NON-NLS-1$ 
 		dialog.show();
 	}
 
 	public void generateXliff() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.24")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectsView.24")); 
 			box.open();
 			return;
 		}
-		Project project = (Project) table.getSelection()[0].getData("project"); // $NON-NLS-1$ //$NON-NLS-1$
+		Project project = (Project) table.getSelection()[0].getData("project"); // $NON-NLS-1$ 
 		File map = new File(project.getMap());
 		if (!map.exists()) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.4")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectsView.4")); 
 			box.open();
 			return;
 		}
 		GenerateXliffDialog dialog = new GenerateXliffDialog(getShell(), SWT.DIALOG_TRIM,
-				(Project) table.getSelection()[0].getData("project")); //$NON-NLS-1$
+				(Project) table.getSelection()[0].getData("project")); 
 		dialog.show();
 	}
 
 	public void importXliff() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.26")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectsView.26")); 
 			box.open();
 			return;
 		}
 		ImportXliffDialog dialog = new ImportXliffDialog(getShell(), SWT.DIALOG_TRIM,
-				(Project) table.getSelection()[0].getData("project")); //$NON-NLS-1$
+				(Project) table.getSelection()[0].getData("project")); 
 		dialog.show();
 	}
 
 	public void removeProject() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.28")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("ProjectsView.28")); 
 			box.open();
 			return;
 		}
 		MessageBox box = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-		box.setMessage(Messages.getString("ProjectsView.29")); //$NON-NLS-1$
+		box.setMessage(Messages.getString("ProjectsView.29")); 
 		int result = box.open();
 		if (result == SWT.YES) {
 			try {
-				MainView.getController().removeProject((Project) table.getSelection()[0].getData("project")); //$NON-NLS-1$
+				MainView.getController().removeProject((Project) table.getSelection()[0].getData("project")); 
 			} catch (IOException e) {
 				e.printStackTrace();
 				MessageBox box2 = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-				box2.setMessage(Messages.getString("ProjectsView.31")); //$NON-NLS-1$
+				box2.setMessage(Messages.getString("ProjectsView.31")); 
 				box2.open();
 			}
 			loadProjects();

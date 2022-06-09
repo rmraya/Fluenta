@@ -37,10 +37,10 @@ import org.xml.sax.SAXException;
 
 public class TagErrorsReport {
 
-	static final String DOUBLEPRIME = "\u2033"; //$NON-NLS-1$
-	static final String MATHLT = "\u2039"; //$NON-NLS-1$
-	static final String MATHGT = "\u200B\u203A"; //$NON-NLS-1$
-	static final String GAMP = "\u200B\u203A"; //$NON-NLS-1$
+	static final String DOUBLEPRIME = "\u2033"; 
+	static final String MATHLT = "\u2039"; 
+	static final String MATHGT = "\u200B\u203A"; 
+	static final String GAMP = "\u200B\u203A"; 
 
 	private static FileOutputStream out;
 
@@ -62,88 +62,88 @@ public class TagErrorsReport {
 		File f = new File(file);
 		String outName = f.getName();
 		if (outName.indexOf('.') != -1) {
-			outName = outName.substring(0, outName.lastIndexOf('.')) + "_error.html"; //$NON-NLS-1$
+			outName = outName.substring(0, outName.lastIndexOf('.')) + "_error.html"; 
 		}
 		File output = new File(f.getParentFile(), outName);
 		out = new FileOutputStream(output);
-		writeStr("<html>\n"); //$NON-NLS-1$
-		writeStr("  <head>\n"); //$NON-NLS-1$
-		writeStr("    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n"); //$NON-NLS-1$
-		writeStr("    <title>" + "Tags Analysis" + "</title>\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		writeStr("    <style type=\"text/css\">\n"); //$NON-NLS-1$
-		writeStr("     table{\n" + //$NON-NLS-1$
-				"         width:100%;\n" + //$NON-NLS-1$
-				"         border-left:1px solid grey;\n" + //$NON-NLS-1$
-				"     }\n" + //$NON-NLS-1$
-				"     th{\n" + //$NON-NLS-1$
-				"         border-left:1px solid grey;\n" + //$NON-NLS-1$
-				"         border-right:1px solid grey;\n" + //$NON-NLS-1$
-				"         background:#003854;\n" + //$NON-NLS-1$
-				"         color:white;\n" + //$NON-NLS-1$
-				"         text-align:center;\n" + //$NON-NLS-1$
-				"         padding:3px\n" + //$NON-NLS-1$
-				"     }\n" + //$NON-NLS-1$
-				"     td.left{\n" + //$NON-NLS-1$
-				"         border-right:1px solid grey;\n" + //$NON-NLS-1$
-				"         border-bottom:1px solid grey;\n" + //$NON-NLS-1$
-				"         text-align:left;\n" + //$NON-NLS-1$
-				"         padding:2px;\n" + //$NON-NLS-1$
-				"         max-width:400px;\n" + //$NON-NLS-1$
-				"     }\n" + //$NON-NLS-1$
-				"     td.center{\n" + //$NON-NLS-1$
-				"         border-right:1px solid grey;\n" + //$NON-NLS-1$
-				"         border-bottom:1px solid grey;\n" + //$NON-NLS-1$
-				"         text-align:center;\n" + //$NON-NLS-1$
-				"         padding:2px;\n" + //$NON-NLS-1$
-				"     }\n" + //$NON-NLS-1$
-				"     td.right{\n" + //$NON-NLS-1$
-				"         border-right:1px solid grey;\n" + //$NON-NLS-1$
-				"         border-bottom:1px solid grey;\n" + //$NON-NLS-1$
-				"         text-align:right;\n" + //$NON-NLS-1$
-				"         padding:2px;\n" + //$NON-NLS-1$
-				"     }\n" + //$NON-NLS-1$
-				"     span {\n" + //$NON-NLS-1$
-				"         background:#3db6b9;\n" + //$NON-NLS-1$
-				"         color:white;\n" + //$NON-NLS-1$
-				"         padding-left:2px;\n" + //$NON-NLS-1$
-				"         padding-right:2px;\n" + //$NON-NLS-1$
-				"         margin-left:2px;\n" + //$NON-NLS-1$
-				"         margin-right:2px;\n" + //$NON-NLS-1$
-				"     }\n" + //$NON-NLS-1$
-				"     span.mrk {\n" + //$NON-NLS-1$
-				"         background:#1565c0;\n" + //$NON-NLS-1$
-				"         padding-left:2px;\n" + //$NON-NLS-1$
-				"         padding-right:2px;\n" + //$NON-NLS-1$
-				"         color:white;\n" + //$NON-NLS-1$
-				"         margin-left:0px;\n" + //$NON-NLS-1$
-				"         margin-right:0px;\n" + //$NON-NLS-1$
-				"     }\n" + //$NON-NLS-1$
-				"     span.protected {\n" + //$NON-NLS-1$
-				"         background:#e3f2fd;\n" + //$NON-NLS-1$
-				"         padding-left:3px;\n" + //$NON-NLS-1$
-				"         padding-right:3px;\n" + //$NON-NLS-1$
-				"         color:black;\n" + //$NON-NLS-1$
-				"         margin-left:0px;\n" + //$NON-NLS-1$
-				"         margin-right:0px;\n" + //$NON-NLS-1$
-				"     }\n"); //$NON-NLS-1$
-		writeStr("    </style>\n"); //$NON-NLS-1$
-		writeStr("  </head>\n"); //$NON-NLS-1$
-		writeStr("  <body>\n"); //$NON-NLS-1$
-		writeStr("    <h3>" + XMLUtils.cleanText(f.getName()) + "</h3>\n"); //$NON-NLS-1$ //$NON-NLS-2$
-		writeStr("    <table class='analysis'>\n"); //$NON-NLS-1$
-		writeStr("      <tr>\n"); //$NON-NLS-1$
-		writeStr("        <th>#</th>\n"); //$NON-NLS-1$
-		writeStr("        <th>" + Messages.getString("TagErrorsReport.77") + "</th>\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		writeStr("        <th>" + Messages.getString("TagErrorsReport.80") + "</th>\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		writeStr("        <th>" + Messages.getString("TagErrorsReport.83") + "</th>\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		writeStr("      </tr>\n"); //$NON-NLS-1$
+		writeStr("<html>\n"); 
+		writeStr("  <head>\n"); 
+		writeStr("    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n"); 
+		writeStr("    <title>" + "Tags Analysis" + "</title>\n");   
+		writeStr("    <style type=\"text/css\">\n"); 
+		writeStr("     table{\n" + 
+				"         width:100%;\n" + 
+				"         border-left:1px solid grey;\n" + 
+				"     }\n" + 
+				"     th{\n" + 
+				"         border-left:1px solid grey;\n" + 
+				"         border-right:1px solid grey;\n" + 
+				"         background:#003854;\n" + 
+				"         color:white;\n" + 
+				"         text-align:center;\n" + 
+				"         padding:3px\n" + 
+				"     }\n" + 
+				"     td.left{\n" + 
+				"         border-right:1px solid grey;\n" + 
+				"         border-bottom:1px solid grey;\n" + 
+				"         text-align:left;\n" + 
+				"         padding:2px;\n" + 
+				"         max-width:400px;\n" + 
+				"     }\n" + 
+				"     td.center{\n" + 
+				"         border-right:1px solid grey;\n" + 
+				"         border-bottom:1px solid grey;\n" + 
+				"         text-align:center;\n" + 
+				"         padding:2px;\n" + 
+				"     }\n" + 
+				"     td.right{\n" + 
+				"         border-right:1px solid grey;\n" + 
+				"         border-bottom:1px solid grey;\n" + 
+				"         text-align:right;\n" + 
+				"         padding:2px;\n" + 
+				"     }\n" + 
+				"     span {\n" + 
+				"         background:#3db6b9;\n" + 
+				"         color:white;\n" + 
+				"         padding-left:2px;\n" + 
+				"         padding-right:2px;\n" + 
+				"         margin-left:2px;\n" + 
+				"         margin-right:2px;\n" + 
+				"     }\n" + 
+				"     span.mrk {\n" + 
+				"         background:#1565c0;\n" + 
+				"         padding-left:2px;\n" + 
+				"         padding-right:2px;\n" + 
+				"         color:white;\n" + 
+				"         margin-left:0px;\n" + 
+				"         margin-right:0px;\n" + 
+				"     }\n" + 
+				"     span.protected {\n" + 
+				"         background:#e3f2fd;\n" + 
+				"         padding-left:3px;\n" + 
+				"         padding-right:3px;\n" + 
+				"         color:black;\n" + 
+				"         margin-left:0px;\n" + 
+				"         margin-right:0px;\n" + 
+				"     }\n"); 
+		writeStr("    </style>\n"); 
+		writeStr("  </head>\n"); 
+		writeStr("  <body>\n"); 
+		writeStr("    <h3>" + XMLUtils.cleanText(f.getName()) + "</h3>\n");  
+		writeStr("    <table class='analysis'>\n"); 
+		writeStr("      <tr>\n"); 
+		writeStr("        <th>#</th>\n"); 
+		writeStr("        <th>" + Messages.getString("TagErrorsReport.77") + "</th>\n");   
+		writeStr("        <th>" + Messages.getString("TagErrorsReport.80") + "</th>\n");   
+		writeStr("        <th>" + Messages.getString("TagErrorsReport.83") + "</th>\n");   
+		writeStr("      </tr>\n"); 
 
 		int size = segments.size();
 		for (int i = 0; i < size; i++) {
 
 			Element e = segments.get(i);
-			source = e.getChild("source"); //$NON-NLS-1$
-			target = e.getChild("target"); //$NON-NLS-1$
+			source = e.getChild("source"); 
+			target = e.getChild("target"); 
 			if (target == null) {
 				continue;
 			}
@@ -155,9 +155,9 @@ public class TagErrorsReport {
 				int tLength = trglist.size();
 				int j;
 				if (tLength > srclist.size()) {
-					writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.88")); //$NON-NLS-1$
+					writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.88")); 
 				} else if (tLength < srclist.size()) {
-					writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.89")); //$NON-NLS-1$
+					writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.89")); 
 				} else {
 					for (j = 0; j < srclist.size(); j++) {
 						String es = srclist.get(j);
@@ -171,7 +171,7 @@ public class TagErrorsReport {
 							}
 						}
 						if (!paired) {
-							writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.90")); //$NON-NLS-1$
+							writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.90")); 
 						}
 					}
 					trglist = buildTagList(target);
@@ -179,58 +179,58 @@ public class TagErrorsReport {
 						String es = srclist.get(j);
 						String et = trglist.get(j);
 						if (!es.equals(et)) {
-							writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.91")); //$NON-NLS-1$
+							writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.91")); 
 						}
 					}
 				}
 			} else {
 				// all tags are missing
 				if (!srclist.isEmpty()) {
-					writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.89")); //$NON-NLS-1$
+					writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.89")); 
 				}
 			}
 		}
-		writeStr("    </table>\n"); //$NON-NLS-1$
-		writeStr("  </body>\n"); //$NON-NLS-1$
-		writeStr("</html>\n"); //$NON-NLS-1$
+		writeStr("    </table>\n"); 
+		writeStr("  </body>\n"); 
+		writeStr("</html>\n"); 
 		out.close();
 		return output.getAbsolutePath();
 	}
 
 	private static void writeSegment(int id, Element source, Element target, String description)
 			throws IOException {
-		writeStr("      <tr>\n"); //$NON-NLS-1$
-		writeStr("        <td class='center'>" + id + "</td>\n"); //$NON-NLS-1$ //$NON-NLS-2$
-		writeStr("        <td class='left'>" + tag(source) + "</td>\n"); //$NON-NLS-1$ //$NON-NLS-2$
-		writeStr("        <td class='left'>" + tag(target) + "</td>\n"); //$NON-NLS-1$ //$NON-NLS-2$
-		writeStr("        <td class='left'>" + XMLUtils.cleanText(description) + "</td>\n"); //$NON-NLS-1$ //$NON-NLS-2$
-		writeStr("      </tr>\n"); //$NON-NLS-1$
+		writeStr("      <tr>\n"); 
+		writeStr("        <td class='center'>" + id + "</td>\n");  
+		writeStr("        <td class='left'>" + tag(source) + "</td>\n");  
+		writeStr("        <td class='left'>" + tag(target) + "</td>\n");  
+		writeStr("        <td class='left'>" + XMLUtils.cleanText(description) + "</td>\n");  
+		writeStr("      </tr>\n"); 
 	}
 
 	private static String tag(Element e) {
-		String result = ""; //$NON-NLS-1$
+		String result = ""; 
 		List<XMLNode> content = e.getContent();
 
-		if (e.getName().equals("mrk") && e.getAttributeValue("mtype", "").equals("protected")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-			String ts = unclean(e.getAttributeValue("ts")); //$NON-NLS-1$
-			String end = "</" + getName(ts) + ">"; //$NON-NLS-1$ //$NON-NLS-2$
-			result = result + "<span class='mrk'>" + XMLUtils.cleanText(removeClass(ts)) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
-			result = result + "<span class='protected'>" + XMLUtils.cleanText(e.getText()) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
-			result = result + "<span class='mrk'>" + XMLUtils.cleanText(end) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
+		if (e.getName().equals("mrk") && e.getAttributeValue("mtype").equals("protected")) {   
+			String ts = unclean(e.getAttributeValue("ts")); 
+			String end = "</" + getName(ts) + ">";  
+			result = result + "<span class='mrk'>" + XMLUtils.cleanText(removeClass(ts)) + "</span>";  
+			result = result + "<span class='protected'>" + XMLUtils.cleanText(e.getText()) + "</span>";  
+			result = result + "<span class='mrk'>" + XMLUtils.cleanText(end) + "</span>";  
 		}
 
-		if (e.getName().equals("g")) { //$NON-NLS-1$
+		if (e.getName().equals("g")) { 
 			// these tags contain translatable text and tags
-			String t1 = "<" + e.getName(); //$NON-NLS-1$
+			String t1 = "<" + e.getName(); 
 			List<Attribute> attrs = e.getAttributes();
 			Iterator<Attribute> it = attrs.iterator();
 			while (it.hasNext()) {
 				Attribute a = it.next();
-				t1 = t1 + " " + a.toString(); //$NON-NLS-1$
+				t1 = t1 + " " + a.toString(); 
 			}
-			t1 = t1 + ">"; //$NON-NLS-1$
+			t1 = t1 + ">"; 
 			// add initial tag
-			result = result + "<span>" + XMLUtils.cleanText(t1) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
+			result = result + "<span>" + XMLUtils.cleanText(t1) + "</span>";  
 			for (int i = 0; i < content.size(); i++) {
 				XMLNode n = content.get(i);
 				switch (n.getNodeType()) {
@@ -242,11 +242,11 @@ public class TagErrorsReport {
 				}
 			}
 			// add closing tag
-			result = result + "<span>" + XMLUtils.cleanText("</" + e.getName() + ">") + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+			result = result + "<span>" + XMLUtils.cleanText("</" + e.getName() + ">") + "</span>";    
 			return result;
 		}
-		if (e.getName().equals("ph")) { //$NON-NLS-1$
-			result = result + "<span>" + XMLUtils.cleanText(removeClass(e.getText())) + "</span>"; //$NON-NLS-1$ //$NON-NLS-2$
+		if (e.getName().equals("ph")) { 
+			result = result + "<span>" + XMLUtils.cleanText(removeClass(e.getText())) + "</span>";  
 			return result;
 		}
 
@@ -265,7 +265,7 @@ public class TagErrorsReport {
 	}
 
 	private static String getName(String element) {
-		String result = ""; //$NON-NLS-1$
+		String result = ""; 
 		for (int i = 1; i < element.length(); i++) {
 			char c = element.charAt(i);
 			if (c == '>' || Character.isWhitespace(c)) {
@@ -277,34 +277,34 @@ public class TagErrorsReport {
 	}
 
 	private static String unclean(String string) {
-		String result = string.replace(MATHLT, "<"); //$NON-NLS-1$
-		result = result.replace(MATHGT, ">"); //$NON-NLS-1$
-		result = result.replace(DOUBLEPRIME, "\""); //$NON-NLS-1$
-		result = result.replace(GAMP, "&"); //$NON-NLS-1$
+		String result = string.replace(MATHLT, "<"); 
+		result = result.replace(MATHGT, ">"); 
+		result = result.replace(DOUBLEPRIME, "\""); 
+		result = result.replace(GAMP, "&"); 
 		return result;
 	}
 
 	private static String removeClass(String string) {
-		int index = string.indexOf(" class="); //$NON-NLS-1$
+		int index = string.indexOf(" class="); 
 		if (index == -1) {
 			return string;
 		}
 		String start = string.substring(0, index);
 		String end = string.substring(index + 8);
-		index = end.indexOf("\""); //$NON-NLS-1$
+		index = end.indexOf("\""); 
 		end = end.substring(index + 1);
 		string = start + end;
-		index = string.indexOf(" status=\"removeContent\""); //$NON-NLS-1$
+		index = string.indexOf(" status=\"removeContent\""); 
 		if (index != -1) {
 			start = string.substring(0, index);
-			end = string.substring(index + " status=\"removeContent\"".length()); //$NON-NLS-1$
+			end = string.substring(index + " status=\"removeContent\"".length()); 
 			string = start + end;
 		}
-		index = string.indexOf(" removeTranslate=\""); //$NON-NLS-1$
+		index = string.indexOf(" removeTranslate=\""); 
 		if (index != -1) {
 			start = string.substring(0, index);
-			end = string.substring(index + " removeTranslate=\"".length()); //$NON-NLS-1$
-			index = end.indexOf("\""); //$NON-NLS-1$
+			end = string.substring(index + " removeTranslate=\"".length()); 
+			index = end.indexOf("\""); 
 			end = end.substring(index + 1);
 			string = start + end;
 		}
@@ -321,34 +321,34 @@ public class TagErrorsReport {
 		builder.setEntityResolver(new Catalog(Fluenta.getCatalogFile()));
 		Document doc = builder.build(fileName);
 		Element root = doc.getRootElement();
-		if (!root.getName().equals("xliff")) { //$NON-NLS-1$
-			throw new IOException(Messages.getString("TagErrorsReport.147")); //$NON-NLS-1$
+		if (!root.getName().equals("xliff")) { 
+			throw new IOException(Messages.getString("TagErrorsReport.147")); 
 		}
 		try {
-			Element tool = root.getChild("file").getChild("header").getChild("tool"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			Element tool = root.getChild("file").getChild("header").getChild("tool");   
 			if (tool == null) {
-				throw new IOException(Messages.getString("TagErrorsReport.151")); //$NON-NLS-1$
+				throw new IOException(Messages.getString("TagErrorsReport.151")); 
 			}
-			String toolId = tool.getAttributeValue("tool-id", ""); //$NON-NLS-1$ //$NON-NLS-2$
-			if (!toolId.equals("OpenXLIFF")) { //$NON-NLS-1$
-				throw new IOException(Messages.getString("TagErrorsReport.151")); //$NON-NLS-1$
+			String toolId = tool.getAttributeValue("tool-id"); 
+			if (!toolId.equals("OpenXLIFF")) { 
+				throw new IOException(Messages.getString("TagErrorsReport.151")); 
 			}
 		} catch (Exception e) {
-			throw new IOException(Messages.getString("TagErrorsReport.151")); //$NON-NLS-1$
+			throw new IOException(Messages.getString("TagErrorsReport.151")); 
 		}
 		checkXliffMarkup(doc.getRootElement());
 		return doc;
 	}
 
 	private static void checkXliffMarkup(Element e) {
-		if (e.getName().equals("trans-unit")) { //$NON-NLS-1$
-			Element seg = e.getChild("seg-source"); //$NON-NLS-1$
+		if (e.getName().equals("trans-unit")) { 
+			Element seg = e.getChild("seg-source"); 
 			if (seg != null) {
 				e.removeChild(seg);
-				Element t = e.getChild("target"); //$NON-NLS-1$
+				Element t = e.getChild("target"); 
 				if (t != null) {
-					removeSegMrk(e.getChild("target")); //$NON-NLS-1$
-					e.setAttribute("approved", "yes"); //$NON-NLS-1$ //$NON-NLS-2$
+					removeSegMrk(e.getChild("target")); 
+					e.setAttribute("approved", "yes");  
 				}
 			}
 		}
@@ -369,7 +369,7 @@ public class TagErrorsReport {
 			XMLNode node = content.get(i);
 			if (node.getNodeType() == XMLNode.ELEMENT_NODE) {
 				Element e = (Element) node;
-				if (e.getName().equals("mrk") && e.getAttributeValue("mtype", "").equals("seg")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				if (e.getName().equals("mrk") && e.getAttributeValue("mtype").equals("seg")) {   
 					List<XMLNode> children = e.getContent();
 					for (int j = 0; j < children.size(); j++) {
 						vector.add(children.get(j));
@@ -384,7 +384,7 @@ public class TagErrorsReport {
 
 	private static void removeAltTrans(Element e) {
 		List<Element> children = e.getChildren();
-		List<Element> matches = e.getChildren("alt-trans"); //$NON-NLS-1$
+		List<Element> matches = e.getChildren("alt-trans"); 
 		if (!matches.isEmpty()) {
 			for (int i = 0; i < matches.size(); i++) {
 				e.removeChild(matches.get(i));
@@ -401,7 +401,7 @@ public class TagErrorsReport {
 		Iterator<Element> it = children.iterator();
 		while (it.hasNext()) {
 			Element el = it.next();
-			if (el.getName().equals("trans-unit")) { //$NON-NLS-1$
+			if (el.getName().equals("trans-unit")) { 
 				segments.add(el);
 			} else {
 				createList(el, segments);
@@ -417,19 +417,19 @@ public class TagErrorsReport {
 			XMLNode o = i.next();
 			if (o.getNodeType() == XMLNode.ELEMENT_NODE) {
 				Element el = (Element) o;
-				if (el.getName().equals("ph") //$NON-NLS-1$
-						|| el.getName().equals("bpt") //$NON-NLS-1$
-						|| el.getName().equals("ept") //$NON-NLS-1$
-						|| el.getName().equals("it")) //$NON-NLS-1$
+				if (el.getName().equals("ph") 
+						|| el.getName().equals("bpt") 
+						|| el.getName().equals("ept") 
+						|| el.getName().equals("it")) 
 				{
 					if (!el.getChildren().isEmpty()) {
-						String open = "<" + el.getName() + " "; //$NON-NLS-1$ //$NON-NLS-2$
+						String open = "<" + el.getName() + " ";  
 						List<Attribute> att = el.getAttributes();
 						for (int j = 0; j < att.size(); j++) {
 							Attribute a = att.get(j);
-							open = open + a.getName() + "=\"" + a.getValue().replace("\"", "&quot;") + "\" "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+							open = open + a.getName() + "=\"" + a.getValue().replace("\"", "&quot;") + "\" ";    
 						}
-						result.add(open.substring(0, open.length() - 1) + ">"); //$NON-NLS-1$
+						result.add(open.substring(0, open.length() - 1) + ">"); 
 						List<XMLNode> list = el.getContent();
 						for (int j = 0; j < list.size(); j++) {
 							XMLNode n = list.get(j);
@@ -437,21 +437,21 @@ public class TagErrorsReport {
 								result.addAll(buildTagList((Element) n));
 							}
 						}
-						result.add("</" + el.getName() + ">"); //$NON-NLS-1$ //$NON-NLS-2$
+						result.add("</" + el.getName() + ">");  
 					} else {
 						result.add(el.toString());
 					}
-				} else if (el.getName().equals("mrk") //$NON-NLS-1$
-						|| el.getName().equals("g") //$NON-NLS-1$
-						|| el.getName().equals("sub")) //$NON-NLS-1$
+				} else if (el.getName().equals("mrk") 
+						|| el.getName().equals("g") 
+						|| el.getName().equals("sub")) 
 				{
-					String open = "<" + el.getName() + " "; //$NON-NLS-1$ //$NON-NLS-2$
+					String open = "<" + el.getName() + " ";  
 					List<Attribute> att = el.getAttributes();
 					for (int j = 0; j < att.size(); j++) {
 						Attribute a = att.get(j);
-						open = open + a.getName() + "=\"" + a.getValue().replace("\"", "&quot;") + "\" "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						open = open + a.getName() + "=\"" + a.getValue().replace("\"", "&quot;") + "\" ";    
 					}
-					result.add(open.substring(0, open.length() - 1) + ">"); //$NON-NLS-1$
+					result.add(open.substring(0, open.length() - 1) + ">"); 
 					List<XMLNode> list = el.getContent();
 					for (int j = 0; j < list.size(); j++) {
 						XMLNode n = list.get(j);
@@ -459,8 +459,8 @@ public class TagErrorsReport {
 							result.addAll(buildTagList((Element) n));
 						}
 					}
-					result.add("</" + el.getName() + ">"); //$NON-NLS-1$ //$NON-NLS-2$
-				} else if (el.getName().equals("x") || el.getName().equals("bx") || el.getName().equals("ex")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					result.add("</" + el.getName() + ">");  
+				} else if (el.getName().equals("x") || el.getName().equals("bx") || el.getName().equals("ex")) {   
 					result.add(el.toString());
 				} else {
 					// foreign element?

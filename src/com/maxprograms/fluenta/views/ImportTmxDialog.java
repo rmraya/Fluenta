@@ -22,14 +22,6 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import com.maxprograms.fluenta.Fluenta;
-import com.maxprograms.fluenta.MainView;
-import com.maxprograms.fluenta.models.Memory;
-import com.maxprograms.tmengine.ILogger;
-import com.maxprograms.utils.Locator;
-import com.maxprograms.widgets.AsyncLogger;
-import com.maxprograms.widgets.LogPanel;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -50,11 +42,21 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.xml.sax.SAXException;
 
+import com.maxprograms.converters.ILogger;
+import com.maxprograms.fluenta.Fluenta;
+import com.maxprograms.fluenta.MainView;
+import com.maxprograms.fluenta.models.Memory;
+import com.maxprograms.utils.Locator;
+import com.maxprograms.widgets.AsyncLogger;
+import com.maxprograms.widgets.LogPanel;
+import com.maxprograms.widgets.LogTable;
+import com.maxprograms.widgets.LoggerComposite;
+
 public class ImportTmxDialog extends Dialog implements ILogger {
 
 	protected Shell shell;
 	private Display display;
-	private LogPanel logger;
+	private LoggerComposite logger;
 	protected Text tmxText;
 	protected AsyncLogger alogger;
 	protected boolean cancelled;
@@ -69,12 +71,12 @@ public class ImportTmxDialog extends Dialog implements ILogger {
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
 		shell.setLayout(new GridLayout());
-		shell.setText(Messages.getString("ImportTmxDialog.0")); //$NON-NLS-1$
+		shell.setText(Messages.getString("ImportTmxDialog.0")); 
 		shell.addListener(SWT.Close, new Listener() {
 
 			@Override
 			public void handleEvent(Event arg0) {
-				Locator.remember(shell, "ImportTmxDialog"); //$NON-NLS-1$
+				Locator.remember(shell, "ImportTmxDialog"); 
 				if (thread != null) {
 					thread = null;
 				}
@@ -88,7 +90,7 @@ public class ImportTmxDialog extends Dialog implements ILogger {
 		top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label tmxLabel = new Label(top, SWT.NONE);
-		tmxLabel.setText(Messages.getString("ImportTmxDialog.2")); //$NON-NLS-1$
+		tmxLabel.setText(Messages.getString("ImportTmxDialog.2")); 
 
 		tmxText = new Text(top, SWT.BORDER);
 		GridData tmxData = new GridData(GridData.FILL_HORIZONTAL);
@@ -96,13 +98,13 @@ public class ImportTmxDialog extends Dialog implements ILogger {
 		tmxText.setLayoutData(tmxData);
 
 		Button tmxBrowse = new Button(top, SWT.PUSH);
-		tmxBrowse.setText(Messages.getString("ImportTmxDialog.3")); //$NON-NLS-1$
+		tmxBrowse.setText(Messages.getString("ImportTmxDialog.3")); 
 		tmxBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 
 				FileDialog fd = new FileDialog(shell, SWT.OPEN | SWT.SINGLE);
-				if (tmxText.getText() != null && !tmxText.getText().equals("")) { //$NON-NLS-1$
+				if (tmxText.getText() != null && !tmxText.getText().isEmpty()) { 
 					File f = new File(tmxText.getText());
 					fd.setFileName(f.getName());
 					fd.setFilterPath(f.getAbsolutePath());
@@ -114,19 +116,19 @@ public class ImportTmxDialog extends Dialog implements ILogger {
 			}
 		});
 
-		logger = new LogPanel(shell, SWT.BORDER);
-		logger.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		logger = System.getProperty("file.separator").equals("\\") ? new LogPanel(shell, SWT.BORDER)
+				: new LogTable(shell, SWT.NONE);
 
 		Composite bottom = new Composite(shell, SWT.NONE);
 		bottom.setLayout(new GridLayout(3, false));
 		bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label filler = new Label(bottom, SWT.NONE);
-		filler.setText(""); //$NON-NLS-1$
+		filler.setText(""); 
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button cancel = new Button(bottom, SWT.PUSH | SWT.CANCEL);
-		cancel.setText(Messages.getString("ImportTmxDialog.6")); //$NON-NLS-1$
+		cancel.setText(Messages.getString("ImportTmxDialog.6")); 
 		cancel.setEnabled(false);
 		cancel.addSelectionListener(new SelectionListener() {
 
@@ -142,13 +144,13 @@ public class ImportTmxDialog extends Dialog implements ILogger {
 		});
 
 		Button importMemory = new Button(bottom, SWT.PUSH);
-		importMemory.setText(Messages.getString("ImportTmxDialog.7")); //$NON-NLS-1$
+		importMemory.setText(Messages.getString("ImportTmxDialog.7")); 
 		importMemory.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				if (tmxText.getText() == null || tmxText.getText().trim().equals("")) { //$NON-NLS-1$
+				if (tmxText.getText() == null || tmxText.getText().trim().isEmpty()) { 
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage(Messages.getString("ImportTmxDialog.9")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("ImportTmxDialog.9")); 
 					box.open();
 					return;
 				}
@@ -184,7 +186,7 @@ public class ImportTmxDialog extends Dialog implements ILogger {
 	}
 
 	public void show() {
-		Locator.setLocation(shell, "ImportTmxDialog"); //$NON-NLS-1$
+		Locator.setLocation(shell, "ImportTmxDialog"); 
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
@@ -248,12 +250,12 @@ public class ImportTmxDialog extends Dialog implements ILogger {
 				List<String> errors = alogger.getErrors();
 				if (errors != null) {
 					try {
-						File out = File.createTempFile("Errors", ".log"); //$NON-NLS-1$ //$NON-NLS-2$
+						File out = File.createTempFile("Errors", ".log");  
 						out.deleteOnExit();
 						try (FileOutputStream output = new FileOutputStream(out)) {
 							Iterator<String> it = errors.iterator();
 							while (it.hasNext()) {
-								String error = it.next() + "\r\n"; //$NON-NLS-1$
+								String error = it.next() + "\r\n"; 
 								output.write(error.getBytes(StandardCharsets.UTF_8));
 							}
 						}
@@ -261,7 +263,7 @@ public class ImportTmxDialog extends Dialog implements ILogger {
 					} catch (Exception e) {
 						e.printStackTrace();
 						MessageBox box2 = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-						box2.setMessage(Messages.getString("ImportTmxDialog.15")); //$NON-NLS-1$
+						box2.setMessage(Messages.getString("ImportTmxDialog.15")); 
 						box2.open();
 					}
 				}

@@ -68,18 +68,18 @@ public class DTDConfigurationDialog extends Dialog {
         shell = new Shell(parent, SWT.DIALOG_TRIM|SWT.RESIZE);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
 		display = shell.getDisplay();
-        shell.setText(Messages.getString("DTDConfigurationDialog.0"));  //$NON-NLS-1$
+        shell.setText(Messages.getString("DTDConfigurationDialog.0"));  
         shell.setLayout(new GridLayout());
         shell.addListener(SWT.Close, new Listener() {
 
 			@Override
 			public void handleEvent(Event arg0) {
-				Locator.remember(shell, "DTDConfigurationDialog"); //$NON-NLS-1$
+				Locator.remember(shell, "DTDConfigurationDialog"); 
 			}
 		});
 		
         Label fileName = new Label(shell, SWT.NONE);
-        MessageFormat mf = new MessageFormat(Messages.getString("DTDConfigurationDialog.2")); //$NON-NLS-1$
+        MessageFormat mf = new MessageFormat(Messages.getString("DTDConfigurationDialog.2")); 
         Object[] args = {configFile};
         fileName.setText(mf.format(args)); 
 
@@ -93,22 +93,22 @@ public class DTDConfigurationDialog extends Dialog {
         table.setHeaderVisible(true);
 
         TableColumn column1 = new TableColumn(table, SWT.NONE);
-        column1.setText(Messages.getString("DTDConfigurationDialog.3"));  //$NON-NLS-1$
+        column1.setText(Messages.getString("DTDConfigurationDialog.3"));  
         column1.setWidth(100);
 
         TableColumn column2 = new TableColumn(table, SWT.NONE);
-        column2.setText(Messages.getString("DTDConfigurationDialog.4"));  //$NON-NLS-1$
+        column2.setText(Messages.getString("DTDConfigurationDialog.4"));  
         column2.setWidth(100);
         
         TableColumn column3 = new TableColumn(table, SWT.NONE);
-        column3.setText(Messages.getString("DTDConfigurationDialog.5"));  //$NON-NLS-1$
+        column3.setText(Messages.getString("DTDConfigurationDialog.5"));  
         column3.setWidth(100);
         
         TableColumn column4 = new TableColumn(table, SWT.NONE);
-        column4.setText(Messages.getString("DTDConfigurationDialog.6"));  //$NON-NLS-1$
+        column4.setText(Messages.getString("DTDConfigurationDialog.6"));  
         column4.setWidth(200);
         TableColumn column5 = new TableColumn(table, SWT.NONE);
-        column5.setText(Messages.getString("DTDConfigurationDialog.7"));  //$NON-NLS-1$
+        column5.setText(Messages.getString("DTDConfigurationDialog.7"));  
         column5.setWidth(100);
         
         fillTable();
@@ -140,20 +140,20 @@ public class DTDConfigurationDialog extends Dialog {
         bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Label filler = new Label(bottom, SWT.NONE);
-		filler.setText(""); //$NON-NLS-1$
+		filler.setText(""); 
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Button add = new Button(bottom, SWT.PUSH);
-        add.setText(Messages.getString("DTDConfigurationDialog.9"));  //$NON-NLS-1$
+        add.setText(Messages.getString("DTDConfigurationDialog.9"));  
         add.addSelectionListener(new SelectionAdapter() {
 
             @Override
 			public void widgetSelected(SelectionEvent arg0) {
                 ElementConfigurationDialog eConfig = new ElementConfigurationDialog(shell);
-                eConfig.setHard_break("yes");   //$NON-NLS-1$
+                eConfig.setHard_break("yes");   
                 eConfig.show();
                 if (!eConfig.wasCancelled()) {
-                    if (!eConfig.getElement().equals("")){    //$NON-NLS-1$
+                    if (!eConfig.getElement().isEmpty()){    
                         TableItem item = new TableItem(table, SWT.NONE);
                         String[] array = new String[5];
                         array[0] = eConfig.getElement();
@@ -171,7 +171,7 @@ public class DTDConfigurationDialog extends Dialog {
         });
 
         Button edit = new Button(bottom, SWT.PUSH);
-        edit.setText(Messages.getString("DTDConfigurationDialog.12"));  //$NON-NLS-1$
+        edit.setText(Messages.getString("DTDConfigurationDialog.12"));  
         edit.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -181,7 +181,7 @@ public class DTDConfigurationDialog extends Dialog {
         });
 
         Button remove = new Button(bottom, SWT.PUSH);
-        remove.setText(Messages.getString("DTDConfigurationDialog.13"));  //$NON-NLS-1$
+        remove.setText(Messages.getString("DTDConfigurationDialog.13"));  
         remove.addSelectionListener(new SelectionAdapter(){
 
             @Override
@@ -192,7 +192,7 @@ public class DTDConfigurationDialog extends Dialog {
                 }
                 int index = table.getSelectionIndex();
                 MessageBox box = new MessageBox(shell,SWT.ICON_QUESTION|SWT.YES|SWT.NO);
-                MessageFormat mf1 = new MessageFormat(Messages.getString("DTDConfigurationDialog.14"));  //$NON-NLS-1$
+                MessageFormat mf1 = new MessageFormat(Messages.getString("DTDConfigurationDialog.14"));  
                 Object[] args1 = {selection[0].getText(0)};
                 box.setMessage(mf1.format(args1));    
                 if ( box.open() == SWT.YES) {
@@ -255,18 +255,18 @@ public class DTDConfigurationDialog extends Dialog {
             Iterator<Element> i = tree.iterator();
             while (i.hasNext()) {
                 Element e = i.next();
-                String type = e.getAttributeValue("hard-break", "no");   //$NON-NLS-1$//$NON-NLS-2$
-                if ( type.equals("yes")) {  //$NON-NLS-1$
-                	type = "segment";  //$NON-NLS-1$
-                } else if (type.equals("no")) {  //$NON-NLS-1$
-                	type = "inline";  //$NON-NLS-1$
+                String type = e.getAttributeValue("hard-break", "no");   
+                if ( type.equals("yes")) {  
+                	type = "segment";  
+                } else if (type.equals("no")) {  
+                	type = "inline";  
                 }
                 String[] array = new String[5];
                 array[0] = e.getText();
                 array[1] = type;  
-                array[2] = e.getAttributeValue("ctype", "");     //$NON-NLS-1$//$NON-NLS-2$
-                array[3] = e.getAttributeValue("attributes", "");     //$NON-NLS-1$//$NON-NLS-2$
-                array[4] = e.getAttributeValue("keep-format", "");     //$NON-NLS-1$//$NON-NLS-2$
+                array[2] = e.getAttributeValue("ctype");     
+                array[3] = e.getAttributeValue("attributes");     
+                array[4] = e.getAttributeValue("keep-format");     
                 TableItem item = new TableItem(table, SWT.NONE);
                 item.setText(array);
             }
@@ -281,28 +281,28 @@ public class DTDConfigurationDialog extends Dialog {
     void saveTable() {
         Element root = doc.getRootElement();
         List<XMLNode> content = new Vector<>();
-        content.add(new TextNode("\n")); //$NON-NLS-1$
+        content.add(new TextNode("\n")); 
         TableItem[] items = table.getItems();
         for (int i = 0; i < items.length; i++) {
-            Element e = new Element("tag");   //$NON-NLS-1$
+            Element e = new Element("tag");   
             e.setText(items[i].getText(0));
-            e.setAttribute("hard-break", items[i].getText(1));   //$NON-NLS-1$
+            e.setAttribute("hard-break", items[i].getText(1));   
             String ctype = items[i].getText(2);
-            if (!ctype.equals("")) {   //$NON-NLS-1$
-                e.setAttribute("ctype", ctype);   //$NON-NLS-1$
+            if (!ctype.isEmpty()) {   
+                e.setAttribute("ctype", ctype);   
             }
             String attributes = items[i].getText(3); 
-            if (!attributes.equals("")) {   //$NON-NLS-1$
-                e.setAttribute("attributes",attributes);   //$NON-NLS-1$
+            if (!attributes.isEmpty()) {   
+                e.setAttribute("attributes",attributes);   
             }
             String keep = items[i].getText(4);
-            if (!keep.equals("")) {   //$NON-NLS-1$
-                e.setAttribute("keep-format", keep);   //$NON-NLS-1$
+            if (!keep.isEmpty()) {   
+                e.setAttribute("keep-format", keep);   
             }
-            content.add(new TextNode("\n  ")); //$NON-NLS-1$
+            content.add(new TextNode("\n  ")); 
             content.add(e);
         }
-        content.add(new TextNode("\n")); //$NON-NLS-1$
+        content.add(new TextNode("\n")); 
         root.setContent(content);
         XMLOutputter outputter = new XMLOutputter();
         outputter.preserveSpace(true);
@@ -318,7 +318,7 @@ public class DTDConfigurationDialog extends Dialog {
     }
 
     public void show() {
-    	Locator.setLocation(shell, "DTDConfigurationDialog"); //$NON-NLS-1$
+    	Locator.setLocation(shell, "DTDConfigurationDialog"); 
     	shell.open();
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch()) {

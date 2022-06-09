@@ -46,30 +46,30 @@ public class HTMLViewer extends Dialog {
 		shell.addListener(SWT.Close, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				Locator.remember(shell, "HTMLViewer"); //$NON-NLS-1$
+				Locator.remember(shell, "HTMLViewer"); 
 			}
 		});
 
 		try {
-			if (System.getProperty("file.separator").equals("/")) {  //$NON-NLS-1$ //$NON-NLS-2$
+			if (System.getProperty("file.separator").equals("/")) {   
 				browser = new Browser(shell, SWT.WEBKIT);			
 			} else {
 				browser = new Browser(shell, SWT.NONE);	
 			}
 		} catch (SWTError e) {
 			Logger logger = System.getLogger(HTMLViewer.class.getName());
-			logger.log(Level.WARNING, "Error creating browser", e); //$NON-NLS-1$
-			String message = "";  //$NON-NLS-1$
-			if (System.getProperty("file.separator").equals("/") ) {  //$NON-NLS-1$ //$NON-NLS-2$
-				if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {  //$NON-NLS-1$ //$NON-NLS-2$
+			logger.log(Level.WARNING, "Error creating browser", e); 
+			String message = "";  
+			if (System.getProperty("file.separator").equals("/") ) {   
+				if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {   
 					// Mac
-					message = Messages.getString("HTMLViewer.8");  //$NON-NLS-1$
+					message = Messages.getString("HTMLViewer.8");  
 				} else {
 					// Linux
-					message = Messages.getString("HTMLViewer.9");   //$NON-NLS-1$
+					message = Messages.getString("HTMLViewer.9");   
 				}
 			} else {
-				message = Messages.getString("HTMLViewer.10");  //$NON-NLS-1$
+				message = Messages.getString("HTMLViewer.10");  
 			}
 			
 			throw new Exception(message);
@@ -93,7 +93,7 @@ public class HTMLViewer extends Dialog {
 	}
 	
 	public void show() {
-		Locator.position(shell, "HTMLViewer"); //$NON-NLS-1$
+		Locator.position(shell, "HTMLViewer"); 
 		shell.open();
 		while (!shell.isDisposed()) {
 			if ( !display.readAndDispatch()) {

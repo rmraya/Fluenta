@@ -45,7 +45,7 @@ public class ProxySettings extends Dialog {
 		super(parent, SWT.NONE);
 		
 		shell = new Shell(parent, SWT.DIALOG_TRIM);
-		shell.setText(Messages.getString("ProxySettings.0"));  //$NON-NLS-1$
+		shell.setText(Messages.getString("ProxySettings.0"));  
 		shell.setLayout(new GridLayout());
 		shell.setImage(Fluenta.getResourceManager().getIcon());
 		display = shell.getDisplay();
@@ -55,7 +55,7 @@ public class ProxySettings extends Dialog {
 		top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Label sLabel = new Label(top,SWT.NONE);
-		sLabel.setText(Messages.getString("ProxySettings.1"));  //$NON-NLS-1$
+		sLabel.setText(Messages.getString("ProxySettings.1"));  
 		
 		server = new Text(top,SWT.BORDER);
 		GridData sdata = new GridData(GridData.FILL_HORIZONTAL);
@@ -63,19 +63,19 @@ public class ProxySettings extends Dialog {
 		server.setLayoutData(sdata);
 		
 		Label pLabel = new Label(top,SWT.NONE);
-		pLabel.setText(Messages.getString("ProxySettings.2"));  //$NON-NLS-1$
+		pLabel.setText(Messages.getString("ProxySettings.2"));  
 		
 		port = new Text(top,SWT.BORDER);
 		port.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Label uLabel = new Label(top, SWT.NONE);
-		uLabel.setText(Messages.getString("ProxySettings.3"));  //$NON-NLS-1$
+		uLabel.setText(Messages.getString("ProxySettings.3"));  
 		
 		user = new Text(top,SWT.BORDER);
 		user.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Label psLabel = new Label(top, SWT.NONE);
-		psLabel.setText(Messages.getString("ProxySettings.4"));  //$NON-NLS-1$
+		psLabel.setText(Messages.getString("ProxySettings.4"));  
 		
 		password = new Text(top,SWT.BORDER);
 		password.setEchoChar('*');
@@ -86,11 +86,11 @@ public class ProxySettings extends Dialog {
 		bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label filler = new Label(bottom, SWT.NONE);
-		filler.setText(""); //$NON-NLS-1$
+		filler.setText(""); 
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Button ok = new Button(bottom,SWT.PUSH);
-		ok.setText(Messages.getString("ProxySettings.6"));  //$NON-NLS-1$
+		ok.setText(Messages.getString("ProxySettings.6"));  
 		ok.addSelectionListener(new SelectionListener(){
 
 			@Override
@@ -102,18 +102,18 @@ public class ProxySettings extends Dialog {
 			public void widgetSelected(SelectionEvent e) {
 				try {
 					Preferences prefs = Preferences.getInstance();
-					prefs.save("proxySettings", "server", server.getText());   //$NON-NLS-1$ //$NON-NLS-2$
-					prefs.save("proxySettings", "port", port.getText());   //$NON-NLS-1$ //$NON-NLS-2$
-					prefs.save("proxySettings", "user", user.getText());   //$NON-NLS-1$ //$NON-NLS-2$
-					prefs.save("proxySettings", "password", password.getText());   //$NON-NLS-1$ //$NON-NLS-2$
+					prefs.save("proxySettings", "server", server.getText());    
+					prefs.save("proxySettings", "port", port.getText());    
+					prefs.save("proxySettings", "user", user.getText());    
+					prefs.save("proxySettings", "password", password.getText());    
 				} catch (Exception ex) {
 					MessageBox box = new MessageBox(shell,SWT.ICON_ERROR|SWT.OK);
 					if (ex.getMessage() != null ) {
 						box.setMessage(ex.getMessage());
 					} else {
 						Logger logger = System.getLogger(ProxySettings.class.getName());
-						logger.log(Level.WARNING, "Error saving proxy settings", e); //$NON-NLS-1$
-						box.setMessage(Messages.getString("ProxySettings.15"));						  //$NON-NLS-1$
+						logger.log(Level.WARNING, "Error saving proxy settings", e); 
+						box.setMessage(Messages.getString("ProxySettings.15"));						  
 					}
 					box.open();
 				}
@@ -130,10 +130,10 @@ public class ProxySettings extends Dialog {
 	private void loadSettings() {
 		try {
 			Preferences prefs = Preferences.getInstance();
-			server.setText(prefs.get("proxySettings", "server", ""));   //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			port.setText(prefs.get("proxySettings", "port", ""));   //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			user.setText(prefs.get("proxySettings", "user", ""));   //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			password.setText(prefs.get("proxySettings", "password", ""));   //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			server.setText(prefs.get("proxySettings", "server", ""));     
+			port.setText(prefs.get("proxySettings", "port", ""));     
+			user.setText(prefs.get("proxySettings", "user", ""));     
+			password.setText(prefs.get("proxySettings", "password", ""));     
 		} catch (Exception e) {
 			// do nothing			
 		}

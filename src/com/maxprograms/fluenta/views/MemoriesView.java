@@ -57,7 +57,7 @@ public class MemoriesView extends Composite {
 		bar.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		CustomItem create = bar.addItem(SWT.PUSH);
-		create.setText(Messages.getString("MemoriesView.1")); //$NON-NLS-1$
+		create.setText(Messages.getString("MemoriesView.1")); 
 		create.setImage(Fluenta.getResourceManager().getAdd());
 		create.addMouseListener(new MouseListener() {
 
@@ -80,7 +80,7 @@ public class MemoriesView extends Composite {
 		bar.addSeparator();
 
 		CustomItem editItem = bar.addItem(SWT.PUSH);
-		editItem.setText(Messages.getString("MemoriesView.0")); //$NON-NLS-1$
+		editItem.setText(Messages.getString("MemoriesView.0")); 
 		editItem.setImage(Fluenta.getResourceManager().getEdit());
 		editItem.addMouseListener(new MouseListener() {
 
@@ -96,7 +96,7 @@ public class MemoriesView extends Composite {
 				} catch (IOException e) {
 					e.printStackTrace();
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-					box.setMessage(Messages.getString("MemoriesView.2")); //$NON-NLS-1$
+					box.setMessage(Messages.getString("MemoriesView.2")); 
 					box.open();
 				}
 			}
@@ -110,7 +110,7 @@ public class MemoriesView extends Composite {
 		bar.addSeparator();
 
 		CustomItem importItem = bar.addItem(SWT.PUSH);
-		importItem.setText(Messages.getString("MemoriesView.3")); //$NON-NLS-1$
+		importItem.setText(Messages.getString("MemoriesView.3")); 
 		importItem.setImage(Fluenta.getResourceManager().getLeft());
 
 		importItem.addMouseListener(new MouseListener() {
@@ -134,7 +134,7 @@ public class MemoriesView extends Composite {
 		bar.addSeparator();
 
 		CustomItem export = bar.addItem(SWT.PUSH);
-		export.setText(Messages.getString("MemoriesView.5")); //$NON-NLS-1$
+		export.setText(Messages.getString("MemoriesView.5")); 
 		export.setImage(Fluenta.getResourceManager().getRight());
 		export.addMouseListener(new MouseListener() {
 
@@ -157,7 +157,7 @@ public class MemoriesView extends Composite {
 		bar.addSeparator();
 
 		CustomItem remove = bar.addItem(SWT.PUSH);
-		remove.setText(Messages.getString("MemoriesView.7")); //$NON-NLS-1$
+		remove.setText(Messages.getString("MemoriesView.7")); 
 		remove.setImage(Fluenta.getResourceManager().getRemove());
 		remove.addMouseListener(new MouseListener() {
 
@@ -186,15 +186,15 @@ public class MemoriesView extends Composite {
 		table.setBackgroundImage(Fluenta.getResourceManager().getBackground());
 
 		TableColumn description = new TableColumn(table, SWT.NONE);
-		description.setText(Messages.getString("MemoriesView.9")); //$NON-NLS-1$
+		description.setText(Messages.getString("MemoriesView.9")); 
 		description.setWidth(250);
 
 		TableColumn created = new TableColumn(table, SWT.NONE);
-		created.setText(Messages.getString("MemoriesView.10")); //$NON-NLS-1$
+		created.setText(Messages.getString("MemoriesView.10")); 
 		created.setWidth(200);
 
 		TableColumn updated = new TableColumn(table, SWT.NONE);
-		updated.setText(Messages.getString("MemoriesView.11")); //$NON-NLS-1$
+		updated.setText(Messages.getString("MemoriesView.11")); 
 		updated.setWidth(150);
 
 		Listener sortListener = new Listener() {
@@ -231,28 +231,28 @@ public class MemoriesView extends Composite {
 	public void editMemory() throws IOException {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("MemoriesView.12")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("MemoriesView.12")); 
 			box.open();
 			return;
 		}
 		EditMemoryDialog dialog = new EditMemoryDialog(getShell(), SWT.DIALOG_TRIM);
-		dialog.setMemory((Memory) table.getSelection()[0].getData("memory")); //$NON-NLS-1$
+		dialog.setMemory((Memory) table.getSelection()[0].getData("memory")); 
 		dialog.show();
 	}
 
 	public void removeMemory() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("MemoriesView.12")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("MemoriesView.12")); 
 			box.open();
 			return;
 		}
 		MessageBox box = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-		box.setMessage(Messages.getString("MemoriesView.13")); //$NON-NLS-1$
+		box.setMessage(Messages.getString("MemoriesView.13")); 
 		int result = box.open();
 		if (result == SWT.YES) {
 			try {
-				MainView.getController().removeMemory(((Memory) table.getSelection()[0].getData("memory")).getId()); //$NON-NLS-1$
+				MainView.getController().removeMemory(((Memory) table.getSelection()[0].getData("memory")).getId()); 
 				loadMemories();
 				MainView.getMemoriesView().loadMemories();
 			} catch (IOException e) {
@@ -268,21 +268,21 @@ public class MemoriesView extends Composite {
 	public void exportMemory() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("MemoriesView.15")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("MemoriesView.15")); 
 			box.open();
 			return;
 		}
-		exportTMX((Memory) table.getSelection()[0].getData("memory")); //$NON-NLS-1$
+		exportTMX((Memory) table.getSelection()[0].getData("memory")); 
 	}
 
 	public void importMemory() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("MemoriesView.17")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("MemoriesView.17")); 
 			box.open();
 			return;
 		}
-		importTMX((Memory) table.getSelection()[0].getData("memory")); //$NON-NLS-1$
+		importTMX((Memory) table.getSelection()[0].getData("memory")); 
 	}
 
 	private void importTMX(Memory memory) {
@@ -300,7 +300,7 @@ public class MemoriesView extends Composite {
 		try {
 			List<Memory> memories = MainView.getController().getMemories();
 			Memory[] array = memories.toArray(new Memory[memories.size()]);
-			final Collator collator = Collator.getInstance(new Locale("en")); //$NON-NLS-1$
+			final Collator collator = Collator.getInstance(new Locale("en")); 
 			Arrays.sort(array, new Comparator<Memory>() {
 
 				@Override
@@ -331,14 +331,14 @@ public class MemoriesView extends Composite {
 			for (int i = 0; i < array.length; i++) {
 				Memory m = array[i];
 				TableItem item = new TableItem(table, SWT.NONE);
-				item.setData("memory", m); //$NON-NLS-1$
+				item.setData("memory", m); 
 				item.setText(
 						new String[] { m.getName(), m.getCreationDateString(), m.getLastUpdateString() });
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("MemoriesView.20")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("MemoriesView.20")); 
 			box.open();
 		}
 
@@ -346,10 +346,10 @@ public class MemoriesView extends Composite {
 
 	private void exportTMX(Memory memory) {
 		FileDialog fd = new FileDialog(getShell(), SWT.SINGLE | SWT.SAVE);
-		fd.setFileName(memory.getName() + ".tmx"); //$NON-NLS-1$
+		fd.setFileName(memory.getName() + ".tmx"); 
 		fd.setFilterNames(
-				new String[] { Messages.getString("MemoriesView.22"), Messages.getString("MemoriesView.23") }); //$NON-NLS-1$ //$NON-NLS-2$
-		fd.setFilterExtensions(new String[] { "*.tmx", "*.*" }); //$NON-NLS-1$ //$NON-NLS-2$
+				new String[] { Messages.getString("MemoriesView.22"), Messages.getString("MemoriesView.23") });  
+		fd.setFilterExtensions(new String[] { "*.tmx", "*.*" });  
 		fd.setOverwrite(true);
 		String file = fd.open();
 		if (file != null) {
@@ -358,13 +358,13 @@ public class MemoriesView extends Composite {
 				MainView.getController().exportTMX(memory, file);
 				getShell().setCursor(new Cursor(getDisplay(), SWT.CURSOR_ARROW));
 				MessageBox box = new MessageBox(getShell(), SWT.ICON_INFORMATION | SWT.OK);
-				box.setMessage(Messages.getString("MemoriesView.26")); //$NON-NLS-1$
+				box.setMessage(Messages.getString("MemoriesView.26")); 
 				box.open();
 			} catch (Exception e) {
 				e.printStackTrace();
 				getShell().setCursor(new Cursor(getDisplay(), SWT.CURSOR_ARROW));
 				MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-				box.setMessage(Messages.getString("MemoriesView.27")); //$NON-NLS-1$
+				box.setMessage(Messages.getString("MemoriesView.27")); 
 				box.open();
 			}
 		}

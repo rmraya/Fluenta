@@ -75,7 +75,7 @@ public class CustomItem extends Composite {
 			dropLabel = new Label(this, SWT.NONE);
 			dropLabel.setBackground(defaultBackground);
 			dropLabel.setForeground(defaultForeground);
-			dropLabel.setText("\u25BE"); //$NON-NLS-1$
+			dropLabel.setText("\u25BE"); 
 		}
 		
 		MouseTrackListener mouseListener = new MouseTrackListener() {

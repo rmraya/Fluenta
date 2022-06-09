@@ -50,13 +50,13 @@ public class GetRootElementDialog extends Dialog {
         shell = new Shell(parent, SWT.DIALOG_TRIM);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
 		display = shell.getDisplay();
-        shell.setText(Messages.getString("GetRootElementDialog.0"));  //$NON-NLS-1$
+        shell.setText(Messages.getString("GetRootElementDialog.0"));  
         shell.setLayout(new GridLayout());
         shell.addListener(SWT.Close, new Listener() {
 			
 			@Override
 			public void handleEvent(Event arg0) {
-				Locator.remember(shell, "GetRootElementDialog"); //$NON-NLS-1$
+				Locator.remember(shell, "GetRootElementDialog"); 
 			}
 		});
 
@@ -65,7 +65,7 @@ public class GetRootElementDialog extends Dialog {
         top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Label rootLabel = new Label(top,SWT.NONE);
-        rootLabel.setText(Messages.getString("GetRootElementDialog.2"));  //$NON-NLS-1$
+        rootLabel.setText(Messages.getString("GetRootElementDialog.2"));  
         
         rootText = new Text(top,SWT.BORDER);
         GridData data = new GridData(GridData.FILL_HORIZONTAL);
@@ -77,18 +77,18 @@ public class GetRootElementDialog extends Dialog {
         bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Label filler = new Label(bottom, SWT.NONE);
-		filler.setText(""); //$NON-NLS-1$
+		filler.setText(""); 
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Button accept = new Button(bottom, SWT.PUSH);
-        accept.setText(Messages.getString("GetRootElementDialog.4"));  //$NON-NLS-1$
+        accept.setText(Messages.getString("GetRootElementDialog.4"));  
         accept.addSelectionListener(new SelectionListener() {
 
             @Override
 			public void widgetSelected(SelectionEvent arg0) {
-                if (rootText.getText().equals("")) {  //$NON-NLS-1$
+                if (rootText.getText().isEmpty()) {  
                     MessageBox box = new MessageBox(shell,SWT.ICON_WARNING|SWT.OK);
-                    box.setMessage(Messages.getString("GetRootElementDialog.6"));  //$NON-NLS-1$
+                    box.setMessage(Messages.getString("GetRootElementDialog.6"));  
                     box.open();
                     return;
                 }
@@ -107,7 +107,7 @@ public class GetRootElementDialog extends Dialog {
     }
 
     public void show() {
-    	Locator.setLocation(shell, "GetRootElementDialog"); //$NON-NLS-1$
+    	Locator.setLocation(shell, "GetRootElementDialog"); 
         shell.open();
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch()) {
@@ -120,7 +120,7 @@ public class GetRootElementDialog extends Dialog {
      * @return
      */
     public String getRootElement() {
-        if (rootName.equals("")) {  //$NON-NLS-1$
+        if (rootName.isEmpty()) {  
             return null;
         } 
         return rootName;

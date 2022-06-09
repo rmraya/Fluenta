@@ -29,11 +29,11 @@ import com.maxprograms.utils.TextUtils;
 
 public class Project implements Serializable {
 
-	public static final String NEW = "New"; //$NON-NLS-1$
-	public static final String NEEDS_UPDATE = "Needs Update"; //$NON-NLS-1$
-	public static final String IN_PROGRESS = "In Progress"; //$NON-NLS-1$
-	public static final String COMPLETED = "Completed"; //$NON-NLS-1$
-	private static final String UNTRANSLATED = "Untranslated"; //$NON-NLS-1$
+	public static final String NEW = "New"; 
+	public static final String NEEDS_UPDATE = "Needs Update"; 
+	public static final String IN_PROGRESS = "In Progress"; 
+	public static final String COMPLETED = "Completed"; 
+	private static final String UNTRANSLATED = "Untranslated"; 
 
 	private static final long serialVersionUID = 6996995538736280348L;
 
@@ -55,10 +55,10 @@ public class Project implements Serializable {
 	public Project() {
 		// empty constructor for GWT
 		id = 0l;
-		title = ""; //$NON-NLS-1$
-		description = ""; //$NON-NLS-1$
-		map = ""; //$NON-NLS-1$
-		xliffFolder = ""; //$NON-NLS-1$
+		title = ""; 
+		description = ""; 
+		map = ""; 
+		xliffFolder = ""; 
 		creationDate = new Date();
 		status = NEW;
 		tgtLanguages = new Vector<>();
@@ -143,17 +143,17 @@ public class Project implements Serializable {
 	private String getStatusString() {
 		switch (status) {
 			case NEW:
-				return Messages.getString("Project.0"); //$NON-NLS-1$
+				return Messages.getString("Project.0"); 
 			case NEEDS_UPDATE:
-				return Messages.getString("Project.1"); //$NON-NLS-1$
+				return Messages.getString("Project.1"); 
 			case IN_PROGRESS:
-				return Messages.getString("Project.2"); //$NON-NLS-1$
+				return Messages.getString("Project.2"); 
 			case COMPLETED:
-				return Messages.getString("Project.3"); //$NON-NLS-1$
+				return Messages.getString("Project.3"); 
 			case UNTRANSLATED:
-				return Messages.getString("Project.4"); //$NON-NLS-1$
+				return Messages.getString("Project.4"); 
 			default:
-				return Messages.getString("Project.5"); //$NON-NLS-1$
+				return Messages.getString("Project.5"); 
 		}
 	}
 
@@ -167,13 +167,13 @@ public class Project implements Serializable {
 
 	public String getLastUpdateString() {
 		if (lastUpdate == null) {
-			return ""; //$NON-NLS-1$
+			return ""; 
 		}
 		Calendar c = Calendar.getInstance();
 		c.setTime(lastUpdate);
-		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-" //$NON-NLS-1$ //$NON-NLS-2$
+		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-"  
 				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2)
-				+ " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); //$NON-NLS-1$ //$NON-NLS-2$
+				+ " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2);  
 	}
 
 	public void setLastUpdate(Date lastUpdate) {
@@ -215,9 +215,9 @@ public class Project implements Serializable {
 	public String getCreationDateString() {
 		Calendar c = Calendar.getInstance();
 		c.setTime(creationDate);
-		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-" //$NON-NLS-1$ //$NON-NLS-2$
+		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-"  
 				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2)
-				+ " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); //$NON-NLS-1$ //$NON-NLS-2$
+				+ " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2);  
 	}
 
 	public String getTitle() {
@@ -276,17 +276,17 @@ public class Project implements Serializable {
 	public String getTargetStatus(String langCode) {
 		switch (languageStatus.get(langCode)) {
 			case NEW:
-				return Messages.getString("Project.0"); //$NON-NLS-1$
+				return Messages.getString("Project.0"); 
 			case NEEDS_UPDATE:
-				return Messages.getString("Project.1"); //$NON-NLS-1$
+				return Messages.getString("Project.1"); 
 			case IN_PROGRESS:
-				return Messages.getString("Project.2"); //$NON-NLS-1$
+				return Messages.getString("Project.2"); 
 			case COMPLETED:
-				return Messages.getString("Project.3"); //$NON-NLS-1$
+				return Messages.getString("Project.3"); 
 			case UNTRANSLATED:
-				return Messages.getString("Project.4"); //$NON-NLS-1$
+				return Messages.getString("Project.4"); 
 			default:
-				return Messages.getString("Project.5"); //$NON-NLS-1$
+				return Messages.getString("Project.5"); 
 		}
 	}
 

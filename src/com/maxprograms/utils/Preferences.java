@@ -38,7 +38,7 @@ public class Preferences {
 	}
 
 	private Preferences() throws IOException {
-		preferencesFile = new File(getPreferencesDir(), "preferences.json"); //$NON-NLS-1$
+		preferencesFile = new File(getPreferencesDir(), "preferences.json"); 
 		if (!preferencesFile.exists()) {
 			preferences = new JSONObject();
 			savePreferences();
@@ -63,13 +63,13 @@ public class Preferences {
 
 	public static synchronized File getPreferencesDir() throws IOException {
 		if (workDir == null) {
-			String os = System.getProperty("os.name").toLowerCase(); //$NON-NLS-1$
-			if (os.startsWith("mac")) { //$NON-NLS-1$
-				workDir = new File(System.getProperty("user.home") + "/Library/Application Support/Fluenta/"); //$NON-NLS-1$ //$NON-NLS-2$
-			} else if (os.startsWith("windows")) { //$NON-NLS-1$
-				workDir = new File(System.getenv("AppData") + "\\Fluenta\\"); //$NON-NLS-1$ //$NON-NLS-2$
+			String os = System.getProperty("os.name").toLowerCase(); 
+			if (os.startsWith("mac")) { 
+				workDir = new File(System.getProperty("user.home") + "/Library/Application Support/Fluenta/");  
+			} else if (os.startsWith("windows")) { 
+				workDir = new File(System.getenv("AppData") + "\\Fluenta\\");  
 			} else {
-				workDir = new File(System.getProperty("user.home") + "/.config/Fluenta/"); //$NON-NLS-1$ //$NON-NLS-2$
+				workDir = new File(System.getProperty("user.home") + "/.config/Fluenta/");  
 			}
 			if (!workDir.exists()) {
 				Files.createDirectories(workDir.toPath());

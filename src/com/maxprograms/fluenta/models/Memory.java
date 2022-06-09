@@ -40,10 +40,10 @@ public class Memory implements Serializable {
 
 	public Memory() throws IOException {
 		id = 0l;
-		name = ""; //$NON-NLS-1$
-		description = ""; //$NON-NLS-1$
+		name = ""; 
+		description = ""; 
 		creationDate = new Date();
-		srcLanguage = LanguageUtils.getLanguage("en-US"); //$NON-NLS-1$
+		srcLanguage = LanguageUtils.getLanguage("en-US"); 
 		tgtLanguages = new Vector<>();
 	}
 
@@ -98,20 +98,20 @@ public class Memory implements Serializable {
 	public String getCreationDateString() {
 		Calendar c = Calendar.getInstance();
 		c.setTime(creationDate);
-		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-" //$NON-NLS-1$ //$NON-NLS-2$
-				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) //$NON-NLS-1$
-				+ ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); //$NON-NLS-1$
+		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-"  
+				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) 
+				+ ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); 
 	}
 
 	public String getLastUpdateString() {
 		if (lastUpdate == null) {
-			return ""; //$NON-NLS-1$
+			return ""; 
 		}
 		Calendar c = Calendar.getInstance();
 		c.setTime(lastUpdate);
-		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-" //$NON-NLS-1$ //$NON-NLS-2$
-				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) //$NON-NLS-1$
-				+ ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); //$NON-NLS-1$
+		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-"  
+				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) 
+				+ ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); 
 	}
 
 	public void setCreationDate(Date creationDate) {

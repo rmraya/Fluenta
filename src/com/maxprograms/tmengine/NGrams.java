@@ -24,9 +24,9 @@ import java.util.Vector;
 public class NGrams {
 
 	private static final int NGRAMSIZE = 3;
-	public static final String SEPARATORS = " \r\n\f\t\u2028\u2029,.;\":<>¿?¡!()[]{}=+-/*\u00AB\u00BB\u201C\u201D\u201E\uFF00"; //$NON-NLS-1$
+	public static final String SEPARATORS = " \r\n\f\t\u2028\u2029,.;\":<>¿?¡!()[]{}=+-/*\u00AB\u00BB\u201C\u201D\u201E\uFF00"; 
 	// allow hyphen in terms
-	public static final String TERM_SEPARATORS = " \u00A0\r\n\f\t\u2028\u2029,.;\":<>¿?¡!()[]{}=+/*\u00AB\u00BB\u201C\u201D\u201E\uFF00"; //$NON-NLS-1$
+	public static final String TERM_SEPARATORS = " \u00A0\r\n\f\t\u2028\u2029,.;\":<>¿?¡!()[]{}=+/*\u00AB\u00BB\u201C\u201D\u201E\uFF00"; 
 
     public static int[] getNGrams(String source, boolean quality) {
 		String src = source.toLowerCase();
@@ -45,20 +45,20 @@ public class NGrams {
 					ngrams++;
 				}			
 				for (int i = 0; i < ngrams; i++) {
-					String gram = ""; //$NON-NLS-1$
+					String gram = ""; 
 					for (int j = 0; j < NGRAMSIZE; j++) {
 						if ( i*NGRAMSIZE + j < length) {
 							char c = array[i*NGRAMSIZE + j];
 							gram = gram + c;
 						}
 					}
-					table.put("" + gram.hashCode(), ""); //$NON-NLS-1$ //$NON-NLS-2$
+					table.put("" + gram.hashCode(), "");  
 				}
 			}
 		} else {
 			int length = words.size();
 			for (int i=0 ; i<length ; i++) {
-				table.put("" + words.get(i).hashCode(), ""); //$NON-NLS-1$ //$NON-NLS-2$			    
+				table.put("" + words.get(i).hashCode(), "");  			    
 			}
 		}
 		Set<String> keySet = table.keySet();

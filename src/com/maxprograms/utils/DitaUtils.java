@@ -48,7 +48,7 @@ public class DitaUtils {
 	}
 
 	private static void parseMap(String map, String home) {
-		if (map.startsWith("#")) { //$NON-NLS-1$
+		if (map.startsWith("#")) { 
 			// self file
 			return;
 		}
@@ -56,8 +56,8 @@ public class DitaUtils {
 			String path = map;
 			File f = new File(map);
 			if (!f.isAbsolute()) {
-				if (map.indexOf("#") != -1) { //$NON-NLS-1$
-					path = FileUtils.getAbsolutePath(home, map.substring(0, map.indexOf("#"))); //$NON-NLS-1$
+				if (map.indexOf("#") != -1) { 
+					path = FileUtils.getAbsolutePath(home, map.substring(0, map.indexOf("#"))); 
 				} else {
 					path = FileUtils.getAbsolutePath(home, map);
 				}
@@ -75,7 +75,7 @@ public class DitaUtils {
 			Document doc = builder.build(path);
 			Element mapRoot = doc.getRootElement();
 			if (!filesTable.containsKey(path)) {
-				filesTable.put(path, ""); //$NON-NLS-1$
+				filesTable.put(path, ""); 
 				filesMap.add(path);
 			} else {
 				return;
@@ -88,14 +88,14 @@ public class DitaUtils {
 
 	private static void recurse(Element root, String parent)
 			throws SAXException, IOException, ParserConfigurationException {
-		String href = root.getAttributeValue("href"); //$NON-NLS-1$
-		if (!href.equals("")) { //$NON-NLS-1$
+		String href = root.getAttributeValue("href"); 
+		if (!href.isEmpty()) { 
 			parseMap(href, parent);
 		}
-		String conref = root.getAttributeValue("conref"); //$NON-NLS-1$
-		if (!conref.equals("")) { //$NON-NLS-1$
-			if (conref.indexOf("#") != -1) { //$NON-NLS-1$
-				conref = conref.substring(0, conref.indexOf("#")); //$NON-NLS-1$
+		String conref = root.getAttributeValue("conref"); 
+		if (!conref.isEmpty()) { 
+			if (conref.indexOf("#") != -1) { 
+				conref = conref.substring(0, conref.indexOf("#")); 
 			}
 			parseMap(conref, parent);
 		}

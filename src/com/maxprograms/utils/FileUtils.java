@@ -43,7 +43,7 @@ public class FileUtils {
 			if (home.getParent() != null) {
 				home = new File(home.getParent());
 			} else {
-				home = new File(System.getProperty("user.dir")); //$NON-NLS-1$
+				home = new File(System.getProperty("user.dir")); 
 			}
 
 		}
@@ -56,7 +56,7 @@ public class FileUtils {
 			File f = new File(home.getAbsolutePath());
 			home = f;
 			if (!home.isAbsolute()) {
-				MessageFormat mf = new MessageFormat(Messages.getString("FileUtils.1")); //$NON-NLS-1$
+				MessageFormat mf = new MessageFormat(Messages.getString("FileUtils.1")); 
 				throw new IOException(mf.format(new Object[] { filename }));
 			}
 		}
@@ -82,7 +82,7 @@ public class FileUtils {
 	private static String matchPathLists(List<String> r, List<String> f) {
 		int i;
 		int j;
-		String s = ""; //$NON-NLS-1$
+		String s = ""; 
 		// start at the beginning of the lists
 		// iterate while both lists are equal
 		i = r.size() - 1;
@@ -96,7 +96,7 @@ public class FileUtils {
 
 		// for each remaining level in the home path, add a ..
 		for (; i >= 0; i--) {
-			s += ".." + File.separator; //$NON-NLS-1$
+			s += ".." + File.separator; 
 		}
 
 		// for each level in the file path, add the path
@@ -112,7 +112,7 @@ public class FileUtils {
 	}
 
 	public static String findTreeRoot(SortedSet<String> set) {
-		String result = ""; //$NON-NLS-1$
+		String result = ""; 
 		MTree<String> tree = filesTree(set);
 		MTree.Node<String> root = tree.getRoot();
 		while (root.size() == 1) {
@@ -123,11 +123,11 @@ public class FileUtils {
 	}
 
 	private static MTree<String> filesTree(SortedSet<String> files) {
-		MTree<String> result = new MTree<>(""); //$NON-NLS-1$
+		MTree<String> result = new MTree<>(""); 
 		Iterator<String> it = files.iterator();
 		while (it.hasNext()) {
 			String s = it.next();
-			StringTokenizer st = new StringTokenizer(s, "/\\:", true); //$NON-NLS-1$
+			StringTokenizer st = new StringTokenizer(s, "/\\:", true); 
 			MTree.Node<String> current = result.getRoot();
 			while (st.hasMoreTokens()) {
 				String name = st.nextToken();

@@ -27,41 +27,41 @@ public class Locator {
 	public static void setLocation(Shell shell, String type) {
 		try {
 			JSONObject values = Preferences.getInstance().get(type);
-			if (values.has("X") && values.has("Y")) { //$NON-NLS-1$ //$NON-NLS-2$
-				Point location = new Point(Integer.parseInt(values.getString("X")), Integer.parseInt(values.getString("Y"))); //$NON-NLS-1$ //$NON-NLS-2$
+			if (values.has("X") && values.has("Y")) {  
+				Point location = new Point(Integer.parseInt(values.getString("X")), Integer.parseInt(values.getString("Y")));  
 				shell.setLocation(location);
 			}
 		} catch (IOException ioe){
-			LOGGER.log(Level.WARNING, "Error setting location", ioe); //$NON-NLS-1$
+			LOGGER.log(Level.WARNING, "Error setting location", ioe); 
 		}
 	}
 
 	public static void position(Shell shell, String type) {
 		try {
 			JSONObject values = Preferences.getInstance().get(type);
-			if (values.has("X") && values.has("Y")) { //$NON-NLS-1$ //$NON-NLS-2$
-				Point location = new Point(Integer.parseInt(values.getString("X")), Integer.parseInt(values.getString("Y"))); //$NON-NLS-1$ //$NON-NLS-2$
+			if (values.has("X") && values.has("Y")) {  
+				Point location = new Point(Integer.parseInt(values.getString("X")), Integer.parseInt(values.getString("Y")));  
 				shell.setLocation(location);
 			}
-			if (values.has("Width") && values.has("Height")) { //$NON-NLS-1$ //$NON-NLS-2$
-				Point size = new Point(Integer.parseInt(values.getString("Width")), Integer.parseInt(values.getString("Height"))); //$NON-NLS-1$ //$NON-NLS-2$
+			if (values.has("Width") && values.has("Height")) {  
+				Point size = new Point(Integer.parseInt(values.getString("Width")), Integer.parseInt(values.getString("Height")));  
 				shell.setSize(size);
 			}
 		} catch (IOException ioe){
-			LOGGER.log(Level.WARNING, "Error setting position", ioe); //$NON-NLS-1$
+			LOGGER.log(Level.WARNING, "Error setting position", ioe); 
 		}
 	}
 
 	public static void remember(Shell shell, String type) {
 		try {
 			JSONObject values = new JSONObject();
-			values.put("X", "" + shell.getLocation().x); //$NON-NLS-1$ //$NON-NLS-2$
-			values.put("Y", "" + shell.getLocation().y); //$NON-NLS-1$ //$NON-NLS-2$
-			values.put("Width", "" + shell.getSize().x); //$NON-NLS-1$ //$NON-NLS-2$
-			values.put("Height", "" + shell.getSize().y); //$NON-NLS-1$ //$NON-NLS-2$
+			values.put("X", "" + shell.getLocation().x);  
+			values.put("Y", "" + shell.getLocation().y);  
+			values.put("Width", "" + shell.getSize().x);  
+			values.put("Height", "" + shell.getSize().y);  
 			Preferences.getInstance().save(type, values);
 		} catch (IOException ioe){
-			LOGGER.log(Level.WARNING, "Error saving location", ioe); //$NON-NLS-1$
+			LOGGER.log(Level.WARNING, "Error saving location", ioe); 
 		}
 	}
 

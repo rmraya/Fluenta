@@ -23,9 +23,9 @@ public class ProjectEvent implements Serializable {
 	
 	private static final long serialVersionUID = -8899002949209768303L;
 
-	public static final String XLIFF_CREATED = "XLIFF Created"; //$NON-NLS-1$
-	public static final String XLIFF_IMPORTED = "XLIFF Imported"; //$NON-NLS-1$
-	public static final String XLIFF_CANCELLED = "XLIFF Cancelled"; //$NON-NLS-1$
+	public static final String XLIFF_CREATED = "XLIFF Created"; 
+	public static final String XLIFF_IMPORTED = "XLIFF Imported"; 
+	public static final String XLIFF_CANCELLED = "XLIFF Cancelled"; 
 	
 	private Language language;
 	private Date date;
@@ -62,20 +62,20 @@ public class ProjectEvent implements Serializable {
 	public String getDateString() {
 		Calendar c =Calendar.getInstance();
 		c.setTime(date);
-		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-" + TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + //$NON-NLS-1$ //$NON-NLS-2$
-				" " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY) + 1, 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2);	 //$NON-NLS-1$ //$NON-NLS-2$
+		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-" + TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) +  
+				" " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY) + 1, 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2);	  
 	}
 
 	public static String getDescription(String event) {
 		switch (event) {
 		case XLIFF_CREATED: 
-			return Messages.getString("ProjectEvent.0"); //$NON-NLS-1$
+			return Messages.getString("ProjectEvent.0"); 
 		case XLIFF_CANCELLED:
-			return Messages.getString("ProjectEvent.1"); //$NON-NLS-1$
+			return Messages.getString("ProjectEvent.1"); 
 		case XLIFF_IMPORTED:
-			return Messages.getString("ProjectEvent.2"); //$NON-NLS-1$
+			return Messages.getString("ProjectEvent.2"); 
 		default:
-			return Messages.getString("ProjectEvent.3"); //$NON-NLS-1$
+			return Messages.getString("ProjectEvent.3"); 
 		}
 	}
 }

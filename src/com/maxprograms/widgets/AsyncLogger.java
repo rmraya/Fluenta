@@ -15,8 +15,8 @@ package com.maxprograms.widgets;
 import java.util.List;
 import java.util.Vector;
 
+import com.maxprograms.converters.ILogger;
 import com.maxprograms.fluenta.views.ImportXliffDialog;
-import com.maxprograms.tmengine.ILogger;
 
 import org.eclipse.swt.widgets.Display;
 

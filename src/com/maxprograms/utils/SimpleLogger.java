@@ -14,7 +14,9 @@ package com.maxprograms.utils;
 
 import java.util.List;
 
-import com.maxprograms.tmengine.ILogger;
+import com.maxprograms.converters.ILogger;
+
+
 
 public class SimpleLogger implements ILogger{
 
@@ -36,7 +38,7 @@ public class SimpleLogger implements ILogger{
 	@Override
 	public void setStage(String stage) {
 		if (verbose) {
-			System.out.println(" ** " + stage + " **"); //$NON-NLS-1$ //$NON-NLS-2$
+			System.out.println(" ** " + stage + " **");  
 		}
 	}
 

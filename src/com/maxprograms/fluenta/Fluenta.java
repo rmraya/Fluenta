@@ -51,17 +51,17 @@ public class Fluenta {
 
 		try {
 			checkConfigurations();
-			System.setProperty("user.dir", Preferences.getPreferencesDir().getAbsolutePath()); //$NON-NLS-1$
+			System.setProperty("user.dir", Preferences.getPreferencesDir().getAbsolutePath()); 
 		} catch (IOException e) {
-			LOGGER.log(Level.ERROR, "Error setting working dir", e); //$NON-NLS-1$
+			LOGGER.log(Level.ERROR, "Error setting working dir", e); 
 		}
 
 		if (args.length > 0) {
 			CLI.main(args);
 			return;
 		}
-		Locale.setDefault(new Locale("en")); //$NON-NLS-1$
-		Display.setAppName(Messages.getString("Fluenta.0")); //$NON-NLS-1$
+		Locale.setDefault(new Locale("en")); 
+		Display.setAppName(Messages.getString("Fluenta.0")); 
 		Display.setAppVersion(Constants.VERSION);
 		display = Display.getDefault();
 
@@ -80,29 +80,29 @@ public class Fluenta {
 			unlock();
 		} catch (Error e) {
 			try {
-				File log = new File(Preferences.getPreferencesDir().getParentFile(), "Fluenta_error.log"); //$NON-NLS-1$
+				File log = new File(Preferences.getPreferencesDir().getParentFile(), "Fluenta_error.log"); 
 				try (PrintStream stream = new PrintStream(log)) {
 					e.printStackTrace(stream);
 				}
 				Program.launch(log.getAbsolutePath());
 			} catch (Exception e2) {
-				LOGGER.log(Level.ERROR, "Error writing to log file", e2); //$NON-NLS-1$
+				LOGGER.log(Level.ERROR, "Error writing to log file", e2); 
 			}
 		} catch (Exception e) {
 			try {
-				File log = new File(Preferences.getPreferencesDir().getParentFile(), "Fluenta_error.log"); //$NON-NLS-1$
+				File log = new File(Preferences.getPreferencesDir().getParentFile(), "Fluenta_error.log"); 
 				try (PrintStream stream = new PrintStream(log)) {
 					e.printStackTrace(stream);
 				}
 				Program.launch(log.getAbsolutePath());
 			} catch (Exception e2) {
-				LOGGER.log(Level.ERROR, "Error writing to log file", e2); //$NON-NLS-1$
+				LOGGER.log(Level.ERROR, "Error writing to log file", e2); 
 			}
 		}
 	}
 
 	private static void lock() throws IOException {
-		lock = new File(Preferences.getPreferencesDir(), "lock"); //$NON-NLS-1$
+		lock = new File(Preferences.getPreferencesDir(), "lock"); 
 		lockStream = new FileOutputStream(lock);
 		Date d = new Date(System.currentTimeMillis());
 		lockStream.write(d.toString().getBytes(StandardCharsets.UTF_8)); 
@@ -118,17 +118,17 @@ public class Fluenta {
 	}
 
 	private static void checkLock() throws IOException {
-		File old = new File(Preferences.getPreferencesDir(), "lock"); //$NON-NLS-1$
+		File old = new File(Preferences.getPreferencesDir(), "lock"); 
 		if (old.exists()) {
-			try (RandomAccessFile file = new RandomAccessFile(old, "rw")) { //$NON-NLS-1$
+			try (RandomAccessFile file = new RandomAccessFile(old, "rw")) { 
 				try (FileChannel oldchannel = file.getChannel()) {
 					FileLock newlock = oldchannel.tryLock();
 					if (newlock == null) {
 						Shell shell = new Shell(display);
 						shell.setImage(resourceManager.getIcon());
 						MessageBox box = new MessageBox(shell, SWT.ICON_WARNING);
-						box.setText(Messages.getString("Fluenta.7")); //$NON-NLS-1$
-						box.setMessage(Messages.getString("Fluenta.8")); //$NON-NLS-1$
+						box.setText(Messages.getString("Fluenta.7")); 
+						box.setMessage(Messages.getString("Fluenta.8")); 
 						box.open();
 						display.dispose();
 						System.exit(1);
@@ -148,38 +148,38 @@ public class Fluenta {
 
 	public static String getCatalogFile() throws IOException {
 		File preferencesFolder = Preferences.getPreferencesDir();
-		File catalogFolder = new File(preferencesFolder, "catalog"); //$NON-NLS-1$
+		File catalogFolder = new File(preferencesFolder, "catalog"); 
 		if (!catalogFolder.exists()) {
-			copyFolder(new File("catalog"), catalogFolder); //$NON-NLS-1$
+			copyFolder(new File("catalog"), catalogFolder); 
 		}
-		File catalog = new File(catalogFolder, "catalog.xml"); //$NON-NLS-1$
+		File catalog = new File(catalogFolder, "catalog.xml"); 
 		return catalog.getAbsolutePath();
 	}
 
 	public static void checkConfigurations() throws IOException {
 		File preferencesFolder = Preferences.getPreferencesDir();
-		File catalogFolder = new File(preferencesFolder, "catalog"); //$NON-NLS-1$
+		File catalogFolder = new File(preferencesFolder, "catalog"); 
 		if (!catalogFolder.exists()) {
-			copyFolder(new File("catalog"), catalogFolder); //$NON-NLS-1$
+			copyFolder(new File("catalog"), catalogFolder); 
 		}
-		File filtersFolder = new File(preferencesFolder, "xmlfilter"); //$NON-NLS-1$
+		File filtersFolder = new File(preferencesFolder, "xmlfilter"); 
 		if (!filtersFolder.exists()) {
-			copyFolder(new File("xmlfilter"), filtersFolder); //$NON-NLS-1$
+			copyFolder(new File("xmlfilter"), filtersFolder); 
 		}
-		File srxFolder = new File(preferencesFolder, "srx"); //$NON-NLS-1$
+		File srxFolder = new File(preferencesFolder, "srx"); 
 		if (!srxFolder.exists()) {
-			copyFolder(new File("srx"), srxFolder); //$NON-NLS-1$
+			copyFolder(new File("srx"), srxFolder); 
 		}
-		File docsFolder = new File(preferencesFolder, "docs"); //$NON-NLS-1$
+		File docsFolder = new File(preferencesFolder, "docs"); 
 		if (!docsFolder.exists()) {
-			copyFolder(new File("docs"), docsFolder); //$NON-NLS-1$
+			copyFolder(new File("docs"), docsFolder); 
 		}
 	}
 
 	public static File getFiltersFolder() throws IOException {
-		File filtersFolder = new File(Preferences.getPreferencesDir(), "xmlfilter"); //$NON-NLS-1$
+		File filtersFolder = new File(Preferences.getPreferencesDir(), "xmlfilter"); 
 		if (!filtersFolder.exists()) {
-			copyFolder(new File("xmlfilter"), filtersFolder); //$NON-NLS-1$
+			copyFolder(new File("xmlfilter"), filtersFolder); 
 		}
 		return filtersFolder;
 	}

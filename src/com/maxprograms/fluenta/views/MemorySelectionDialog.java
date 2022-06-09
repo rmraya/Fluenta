@@ -54,13 +54,13 @@ public class MemorySelectionDialog extends Dialog {
 	public MemorySelectionDialog(Shell parent, int style, List<Memory> existing) {
 		super(parent, style);
 		shell = new Shell(parent, style);
-		shell.setText(Messages.getString("MemorySelectionDialog.0")); //$NON-NLS-1$
+		shell.setText(Messages.getString("MemorySelectionDialog.0")); 
 		shell.setLayout(new GridLayout());
 		shell.addListener(SWT.Close, new Listener() {
 
 			@Override
 			public void handleEvent(Event arg0) {
-				Locator.remember(shell, "MemorySelectionDialog"); //$NON-NLS-1$
+				Locator.remember(shell, "MemorySelectionDialog"); 
 			}
 		});
 		display = shell.getDisplay();
@@ -74,7 +74,7 @@ public class MemorySelectionDialog extends Dialog {
 		table.setLayoutData(tableData);
 		
 		TableColumn description = new TableColumn(table, SWT.NONE);
-		description.setText(Messages.getString("MemorySelectionDialog.2")); //$NON-NLS-1$
+		description.setText(Messages.getString("MemorySelectionDialog.2")); 
 		
 		table.addPaintListener(new PaintListener() {
 			
@@ -89,11 +89,11 @@ public class MemorySelectionDialog extends Dialog {
 		bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Label filler = new Label(bottom, SWT.NONE);
-		filler.setText(""); //$NON-NLS-1$
+		filler.setText(""); 
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Button add = new Button(bottom, SWT.PUSH);
-		add.setText(Messages.getString("MemorySelectionDialog.4")); //$NON-NLS-1$
+		add.setText(Messages.getString("MemorySelectionDialog.4")); 
 		add.addSelectionListener(new SelectionAdapter() {
 			
 			@Override
@@ -102,7 +102,7 @@ public class MemorySelectionDialog extends Dialog {
 				selected = new Vector<>();
 				for (int i=0 ; i<table.getItemCount() ; i++) {
 					if (table.getItem(i).getChecked()) {
-						selected.add((Memory)table.getItem(i).getData("memory")); //$NON-NLS-1$
+						selected.add((Memory)table.getItem(i).getData("memory")); 
 					}
 				}
 				shell.close();
@@ -125,14 +125,14 @@ public class MemorySelectionDialog extends Dialog {
 				if (!exists) {
 					TableItem item = new TableItem(table, SWT.NONE);
 					item.setText(mem.getName());
-					item.setData("memory", mem); //$NON-NLS-1$
+					item.setData("memory", mem); 
 				}
 			}
 		} catch (IOException e) {
 			Logger logger = System.getLogger(MemorySelectionDialog.class.getName());
-			logger.log(Level.WARNING, "Error selecting memory", e); //$NON-NLS-1$
+			logger.log(Level.WARNING, "Error selecting memory", e); 
 			MessageBox box = new MessageBox(shell, SWT.OK|SWT.ICON_ERROR);
-			box.setMessage(Messages.getString("MemorySelectionDialog.7")); //$NON-NLS-1$
+			box.setMessage(Messages.getString("MemorySelectionDialog.7")); 
 			box.open();
 			return;
 		}
@@ -142,7 +142,7 @@ public class MemorySelectionDialog extends Dialog {
 
 
 	public void show() {
-		Locator.setLocation(shell, "MemorySelectionDialog"); //$NON-NLS-1$
+		Locator.setLocation(shell, "MemorySelectionDialog"); 
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
