@@ -21,47 +21,50 @@ import org.eclipse.swt.widgets.Shell;
 import org.json.JSONObject;
 
 public class Locator {
-	
-	protected static final Logger LOGGER = System.getLogger(Locator.class.getName());
-	
+
+	protected static Logger logger = System.getLogger(Locator.class.getName());
+
 	public static void setLocation(Shell shell, String type) {
 		try {
 			JSONObject values = Preferences.getInstance().get(type);
-			if (values.has("X") && values.has("Y")) {  
-				Point location = new Point(Integer.parseInt(values.getString("X")), Integer.parseInt(values.getString("Y")));  
+			if (values.has("X") && values.has("Y")) {
+				Point location = new Point(Integer.parseInt(values.getString("X")),
+						Integer.parseInt(values.getString("Y")));
 				shell.setLocation(location);
 			}
-		} catch (IOException ioe){
-			LOGGER.log(Level.WARNING, "Error setting location", ioe); 
+		} catch (IOException ioe) {
+			logger.log(Level.WARNING, "Error setting location", ioe);
 		}
 	}
 
 	public static void position(Shell shell, String type) {
 		try {
 			JSONObject values = Preferences.getInstance().get(type);
-			if (values.has("X") && values.has("Y")) {  
-				Point location = new Point(Integer.parseInt(values.getString("X")), Integer.parseInt(values.getString("Y")));  
+			if (values.has("X") && values.has("Y")) {
+				Point location = new Point(Integer.parseInt(values.getString("X")),
+						Integer.parseInt(values.getString("Y")));
 				shell.setLocation(location);
 			}
-			if (values.has("Width") && values.has("Height")) {  
-				Point size = new Point(Integer.parseInt(values.getString("Width")), Integer.parseInt(values.getString("Height")));  
+			if (values.has("Width") && values.has("Height")) {
+				Point size = new Point(Integer.parseInt(values.getString("Width")),
+						Integer.parseInt(values.getString("Height")));
 				shell.setSize(size);
 			}
-		} catch (IOException ioe){
-			LOGGER.log(Level.WARNING, "Error setting position", ioe); 
+		} catch (IOException ioe) {
+			logger.log(Level.WARNING, "Error setting position", ioe);
 		}
 	}
 
 	public static void remember(Shell shell, String type) {
 		try {
 			JSONObject values = new JSONObject();
-			values.put("X", "" + shell.getLocation().x);  
-			values.put("Y", "" + shell.getLocation().y);  
-			values.put("Width", "" + shell.getSize().x);  
-			values.put("Height", "" + shell.getSize().y);  
+			values.put("X", "" + shell.getLocation().x);
+			values.put("Y", "" + shell.getLocation().y);
+			values.put("Width", "" + shell.getSize().x);
+			values.put("Height", "" + shell.getSize().y);
 			Preferences.getInstance().save(type, values);
-		} catch (IOException ioe){
-			LOGGER.log(Level.WARNING, "Error saving location", ioe); 
+		} catch (IOException ioe) {
+			logger.log(Level.WARNING, "Error saving location", ioe);
 		}
 	}
 

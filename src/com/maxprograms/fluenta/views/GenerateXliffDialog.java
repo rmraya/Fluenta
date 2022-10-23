@@ -14,9 +14,16 @@ package com.maxprograms.fluenta.views;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import java.net.URISyntaxException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -37,6 +44,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.json.JSONException;
+import org.xml.sax.SAXException;
 
 import com.maxprograms.converters.ILogger;
 import com.maxprograms.fluenta.Fluenta;
@@ -53,6 +62,9 @@ import com.maxprograms.widgets.LoggerComposite;
 
 public class GenerateXliffDialog extends Dialog implements ILogger {
 
+	Logger logger = System.getLogger(GenerateXliffDialog.class.getName());
+
+	private MainView mainView;
 	protected Shell shell;
 	protected Shell parentShell;
 	private Display display;
@@ -60,37 +72,34 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 	protected Button[] targets;
 	protected Button generateCount;
 	protected Button useTM;
-	private LoggerComposite logger;
+	private LoggerComposite loggerPanel;
 	protected boolean cancelled;
-	protected AsyncLogger alogger;
+	protected AsyncLogger aLogger;
 	protected Listener closeListener;
-	protected Thread thread;
 	protected Button useICE;
 	protected Text ditavalText;
 	private long projectId;
 	protected Button xliff20;
+	protected Button embed;
 
-	public GenerateXliffDialog(Shell parent, int style, Project project) {
+	public GenerateXliffDialog(Shell parent, int style, Project project, MainView mainView) {
 		super(parent, style);
+		this.mainView = mainView;
 		parentShell = parent;
 
 		projectId = project.getId();
 
-		alogger = new AsyncLogger(this);
+		aLogger = new AsyncLogger(this);
 
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
 		shell.setLayout(new GridLayout());
-		shell.setText(Messages.getString("GenerateXliffDialog.0"));
+		shell.setText("Generate XLIFF");
 		shell.addListener(SWT.Close, new Listener() {
 
 			@Override
 			public void handleEvent(Event arg0) {
 				Locator.remember(shell, "GenerateXliffDialog");
-				if (thread != null) {
-					thread = null;
-				}
-				System.gc();
 			}
 		});
 		display = shell.getDisplay();
@@ -103,7 +112,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 		top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label xliffLabel = new Label(top, SWT.NONE);
-		xliffLabel.setText(Messages.getString("GenerateXliffDialog.2"));
+		xliffLabel.setText("XLIFF Folder");
 
 		folderText = new Text(top, SWT.BORDER);
 		GridData xliffData = new GridData(GridData.FILL_HORIZONTAL);
@@ -114,7 +123,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 		}
 
 		Button xliffBrowse = new Button(top, SWT.PUSH);
-		xliffBrowse.setText(Messages.getString("GenerateXliffDialog.3"));
+		xliffBrowse.setText("Browse...");
 		xliffBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent event) {
@@ -132,13 +141,13 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 		});
 
 		Label ditavalLabel = new Label(top, SWT.NONE);
-		ditavalLabel.setText(Messages.getString("GenerateXliffDialog.5"));
+		ditavalLabel.setText("DITAVAL file");
 
 		ditavalText = new Text(top, SWT.BORDER);
 		ditavalText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button ditavalBrowse = new Button(top, SWT.PUSH);
-		ditavalBrowse.setText(Messages.getString("GenerateXliffDialog.6"));
+		ditavalBrowse.setText("Browse...");
 		ditavalBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent event) {
@@ -149,8 +158,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 					fd.setFilterPath(f.getParent());
 					fd.setFileName(f.getName());
 				}
-				fd.setFilterNames(new String[] { Messages.getString("GenerateXliffDialog.8"),
-						Messages.getString("GenerateXliffDialog.9") });
+				fd.setFilterNames(new String[] { "DITAVAL Files [*.ditaval]", "All Files [*.*]" });
 				fd.setFilterExtensions(new String[] { "*.ditaval", "*.*" });
 				String file = fd.open();
 				if (file != null) {
@@ -164,53 +172,57 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 		panels.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Group optionsGroup = new Group(panels, SWT.NONE);
-		optionsGroup.setText(Messages.getString("GenerateXliffDialog.12"));
+		optionsGroup.setText("Process Options");
 		optionsGroup.setLayout(new GridLayout());
 		GridData leftData = new GridData(GridData.FILL_VERTICAL);
 		leftData.verticalAlignment = SWT.TOP;
 		optionsGroup.setLayoutData(leftData);
 
 		useICE = new Button(optionsGroup, SWT.CHECK);
-		useICE.setText(Messages.getString("GenerateXliffDialog.13"));
+		useICE.setText("Reuse ICE Matches");
 		useICE.setSelection(true);
 
 		useTM = new Button(optionsGroup, SWT.CHECK);
-		useTM.setText(Messages.getString("GenerateXliffDialog.14"));
+		useTM.setText("Use Translation Memories");
 		useTM.setSelection(true);
 
 		generateCount = new Button(optionsGroup, SWT.CHECK);
-		generateCount.setText(Messages.getString("GenerateXliffDialog.15"));
+		generateCount.setText("Generate Word Count");
 		generateCount.setSelection(true);
 
 		xliff20 = new Button(optionsGroup, SWT.CHECK);
-		xliff20.setText(Messages.getString("GenerateXliffDialog.1"));
+		xliff20.setText("Generate XLIFF 2.0");
 		xliff20.setSelection(false);
 
+		embed = new Button(optionsGroup, SWT.CHECK);
+		embed.setText("Embed Skeleton");
+		embed.setSelection(false);
+
 		Group targetGroup = new Group(panels, SWT.NONE);
-		targetGroup.setText(Messages.getString("GenerateXliffDialog.16"));
+		targetGroup.setText("Target Languages");
 		targetGroup.setLayout(new GridLayout());
 		GridData targetData = new GridData(GridData.FILL_BOTH);
 		targetData.verticalAlignment = SWT.TOP;
 		targetGroup.setLayoutData(targetData);
 
 		try {
-			List<Language> languages = project.getLanguages();
+			List<String> languages = project.getLanguages();
 			targets = new Button[languages.size()];
 			for (int i = 0; i < languages.size(); i++) {
 				targets[i] = new Button(targetGroup, SWT.CHECK);
 				targets[i].setSelection(true);
-				targets[i].setText(LanguageUtils.getLanguage(languages.get(i).getCode()).getDescription());
+				targets[i].setText(LanguageUtils.getLanguage(languages.get(i)).getDescription());
 				targets[i].setData("language", languages.get(i));
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("GenerateXliffDialog.4"));
+			box.setMessage("Error getting project languages");
 			box.open();
 			shell.close();
 		}
 
-		logger = System.getProperty("file.separator").equals("\\") ? new LogPanel(shell, SWT.BORDER)
+		loggerPanel = System.getProperty("file.separator").equals("\\") ? new LogPanel(shell, SWT.BORDER)
 				: new LogTable(shell, SWT.NONE);
 
 		Composite bottom = new Composite(shell, SWT.NONE);
@@ -222,7 +234,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button cancel = new Button(bottom, SWT.PUSH | SWT.CANCEL);
-		cancel.setText(Messages.getString("GenerateXliffDialog.19"));
+		cancel.setText("Cancel");
 		cancel.setEnabled(false);
 		cancel.addSelectionListener(new SelectionListener() {
 
@@ -238,13 +250,13 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 		});
 
 		Button generateXliff = new Button(bottom, SWT.PUSH);
-		generateXliff.setText(Messages.getString("GenerateXliffDialog.20"));
+		generateXliff.setText("Generate XLIFF");
 		generateXliff.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				if (folderText.getText() == null || folderText.getText().isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage(Messages.getString("GenerateXliffDialog.22"));
+					box.setMessage("Select XLIFF folder");
 					box.open();
 					return;
 				}
@@ -255,12 +267,19 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 				List<Language> tgtLangs = new Vector<>();
 				for (int i = 0; i < targets.length; i++) {
 					if (targets[i].getSelection()) {
-						tgtLangs.add((Language) targets[i].getData("language"));
+						try {
+							tgtLangs.add(LanguageUtils.getLanguage((String) targets[i].getData("language")));
+						} catch (IOException e) {
+							MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
+							box.setMessage("Error retrieving language");
+							box.open();
+							return;
+						}
 					}
 				}
 				if (tgtLangs.isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage(Messages.getString("GenerateXliffDialog.24"));
+					box.setMessage("Select a target language");
 					box.open();
 					return;
 				}
@@ -282,16 +301,18 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 				boolean usetm = useTM.getSelection();
 				boolean count = generateCount.getSelection();
 				boolean useXliff20 = xliff20.getSelection();
-				thread = new Thread() {
+				boolean embedSkeleton = embed.getSelection();
+				Thread thread = new Thread() {
 
 					@Override
 					public void run() {
 						try {
-							MainView.getController().generateXliff(project, xliffFolder, tgtLangs, useice, usetm, count,
-									ditaval, useXliff20, alogger);
-						} catch (Exception e) {
-							alogger.displayError(e.getMessage());
-							e.printStackTrace();
+							mainView.getController().generateXliff(project, xliffFolder, tgtLangs, useice, usetm, count,
+									ditaval, useXliff20, embedSkeleton, aLogger);
+						} catch (IOException | ClassNotFoundException | JSONException | SAXException
+								| ParserConfigurationException | URISyntaxException | SQLException | ParseException e) {
+							aLogger.displayError(e.getMessage());
+							logger.log(Level.ERROR, e);
 						}
 					}
 
@@ -315,7 +336,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 			generateCount.setSelection(pref.get("GenerateXliffDialog", "generateCount", "no").equalsIgnoreCase("yes"));
 			xliff20.setSelection(pref.get("GenerateXliffDialog", "xliff20", "no").equalsIgnoreCase("yes"));
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.ERROR, e);
 		}
 	}
 
@@ -329,7 +350,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 			pref.save("GenerateXliffDialog", "generateCount", generateCount.getSelection() ? "yes" : "no");
 			pref.save("GenerateXliffDialog", "xliff20", xliff20.getSelection() ? "yes" : "no");
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.ERROR, e);
 		}
 	}
 
@@ -345,12 +366,12 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 
 	@Override
 	public void log(String message) {
-		logger.log(message);
+		loggerPanel.log(message);
 	}
 
 	@Override
 	public void setStage(String stage) {
-		logger.setStage(stage);
+		loggerPanel.setStage(stage);
 	}
 
 	@Override
@@ -360,12 +381,12 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 
 	@Override
 	public void logError(String error) {
-		logger.logError(error);
+		loggerPanel.logError(error);
 	}
 
 	@Override
 	public List<String> getErrors() {
-		return logger.getErrors();
+		return loggerPanel.getErrors();
 	}
 
 	@Override
@@ -379,7 +400,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 				if (string != null) {
 					box.setMessage(string);
 				} else {
-					box.setMessage(Messages.getString("GenerateXliffDialog.26"));
+					box.setMessage("Unknown error. Please check logs.");
 				}
 				box.open();
 				shell.close();
@@ -394,27 +415,31 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 			@Override
 			public void run() {
 				shell.removeListener(SWT.Close, closeListener);
-				MainView.getProjectsView().loadProjects();
+				mainView.getProjectsView().loadProjects();
 				MessageBox box = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
 				box.setMessage(string);
 				box.open();
-				List<String> errors = alogger.getErrors();
+				List<String> errors = aLogger.getErrors();
 				if (errors != null) {
 					try {
 						HTMLViewer viewer = new HTMLViewer(parentShell);
 						StringBuilder sb = new StringBuilder();
-						sb.append("<pre>\n");
+						if (!viewer.isLinux()) {
+							sb.append("<pre>\n");
+						}
 						Iterator<String> it = errors.iterator();
 						while (it.hasNext()) {
 							sb.append(it.next() + "\n");
 						}
-						sb.append("</pre>");
+						if (!viewer.isLinux()) {
+							sb.append("</pre>\n");
+						}
 						viewer.setContent(sb.toString());
 						viewer.show();
 					} catch (Exception e) {
-						e.printStackTrace();
+						logger.log(Level.ERROR, e);
 						MessageBox box2 = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-						box2.setMessage(Messages.getString("GenerateXliffDialog.31"));
+						box2.setMessage("Error creating error log");
 						box2.open();
 					}
 				}

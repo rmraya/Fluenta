@@ -45,33 +45,22 @@ public class Fluenta {
 	private static Display display;
 	private static ResourceManager resourceManager;
 
-	protected static final Logger LOGGER = System.getLogger(Fluenta.class.getName());
+	protected static Logger logger = System.getLogger(Fluenta.class.getName());
 
 	public static void main(String[] args) {
-
 		try {
-			checkConfigurations();
-			System.setProperty("user.dir", Preferences.getPreferencesDir().getAbsolutePath()); 
-		} catch (IOException e) {
-			LOGGER.log(Level.ERROR, "Error setting working dir", e); 
-		}
-
-		if (args.length > 0) {
-			CLI.main(args);
-			return;
-		}
-		Locale.setDefault(new Locale("en")); 
-		Display.setAppName(Messages.getString("Fluenta.0")); 
-		Display.setAppVersion(Constants.VERSION);
-		display = Display.getDefault();
-
-		resourceManager = new ResourceManager(display);
-
-		try {
-
+			System.setProperty("OpenXLIFF_HOME", Preferences.getInstance().getPreferencesFolder().getAbsolutePath());
+			if (args.length > 0) {
+				CLI.main(args);
+				return;
+			}
+			Locale.setDefault(new Locale("en"));
+			Display.setAppName("Fluenta");
+			Display.setAppVersion(Constants.VERSION);
+			display = Display.getDefault();
+			resourceManager = new ResourceManager(display);
 			checkLock();
 			lock();
-
 			MainView main = new MainView(display);
 			main.show();
 			if (!display.isDisposed()) {
@@ -80,32 +69,32 @@ public class Fluenta {
 			unlock();
 		} catch (Error e) {
 			try {
-				File log = new File(Preferences.getPreferencesDir().getParentFile(), "Fluenta_error.log"); 
+				File log = new File(Preferences.getInstance().getPreferencesFolder().getParentFile(), "Fluenta_error.log");
 				try (PrintStream stream = new PrintStream(log)) {
 					e.printStackTrace(stream);
 				}
 				Program.launch(log.getAbsolutePath());
-			} catch (Exception e2) {
-				LOGGER.log(Level.ERROR, "Error writing to log file", e2); 
+			} catch (IOException e2) {
+				logger.log(Level.ERROR, "Error writing to log file", e2);
 			}
 		} catch (Exception e) {
 			try {
-				File log = new File(Preferences.getPreferencesDir().getParentFile(), "Fluenta_error.log"); 
+				File log = new File(Preferences.getInstance().getPreferencesFolder().getParentFile(), "Fluenta_error.log");
 				try (PrintStream stream = new PrintStream(log)) {
 					e.printStackTrace(stream);
 				}
 				Program.launch(log.getAbsolutePath());
 			} catch (Exception e2) {
-				LOGGER.log(Level.ERROR, "Error writing to log file", e2); 
+				logger.log(Level.ERROR, "Error writing to log file", e2);
 			}
 		}
 	}
 
 	private static void lock() throws IOException {
-		lock = new File(Preferences.getPreferencesDir(), "lock"); 
+		lock = new File(Preferences.getInstance().getPreferencesFolder(), "lock");
 		lockStream = new FileOutputStream(lock);
 		Date d = new Date(System.currentTimeMillis());
-		lockStream.write(d.toString().getBytes(StandardCharsets.UTF_8)); 
+		lockStream.write(d.toString().getBytes(StandardCharsets.UTF_8));
 		channel = lockStream.getChannel();
 		flock = channel.lock();
 	}
@@ -118,17 +107,17 @@ public class Fluenta {
 	}
 
 	private static void checkLock() throws IOException {
-		File old = new File(Preferences.getPreferencesDir(), "lock"); 
+		File old = new File(Preferences.getInstance().getPreferencesFolder(), "lock");
 		if (old.exists()) {
-			try (RandomAccessFile file = new RandomAccessFile(old, "rw")) { 
+			try (RandomAccessFile file = new RandomAccessFile(old, "rw")) {
 				try (FileChannel oldchannel = file.getChannel()) {
 					FileLock newlock = oldchannel.tryLock();
 					if (newlock == null) {
 						Shell shell = new Shell(display);
 						shell.setImage(resourceManager.getIcon());
 						MessageBox box = new MessageBox(shell, SWT.ICON_WARNING);
-						box.setText(Messages.getString("Fluenta.7")); 
-						box.setMessage(Messages.getString("Fluenta.8")); 
+						box.setText("Fluenta");
+						box.setMessage("An instance of this application is already running");
 						box.open();
 						display.dispose();
 						System.exit(1);
@@ -144,65 +133,5 @@ public class Fluenta {
 
 	public static ResourceManager getResourceManager() {
 		return resourceManager;
-	}
-
-	public static String getCatalogFile() throws IOException {
-		File preferencesFolder = Preferences.getPreferencesDir();
-		File catalogFolder = new File(preferencesFolder, "catalog"); 
-		if (!catalogFolder.exists()) {
-			copyFolder(new File("catalog"), catalogFolder); 
-		}
-		File catalog = new File(catalogFolder, "catalog.xml"); 
-		return catalog.getAbsolutePath();
-	}
-
-	public static void checkConfigurations() throws IOException {
-		File preferencesFolder = Preferences.getPreferencesDir();
-		File catalogFolder = new File(preferencesFolder, "catalog"); 
-		if (!catalogFolder.exists()) {
-			copyFolder(new File("catalog"), catalogFolder); 
-		}
-		File filtersFolder = new File(preferencesFolder, "xmlfilter"); 
-		if (!filtersFolder.exists()) {
-			copyFolder(new File("xmlfilter"), filtersFolder); 
-		}
-		File srxFolder = new File(preferencesFolder, "srx"); 
-		if (!srxFolder.exists()) {
-			copyFolder(new File("srx"), srxFolder); 
-		}
-		File docsFolder = new File(preferencesFolder, "docs"); 
-		if (!docsFolder.exists()) {
-			copyFolder(new File("docs"), docsFolder); 
-		}
-	}
-
-	public static File getFiltersFolder() throws IOException {
-		File filtersFolder = new File(Preferences.getPreferencesDir(), "xmlfilter"); 
-		if (!filtersFolder.exists()) {
-			copyFolder(new File("xmlfilter"), filtersFolder); 
-		}
-		return filtersFolder;
-	}
-
-	private static void copyFolder(File sourceFolder, File targetFolder) throws IOException {
-		if (!targetFolder.exists()) {
-			targetFolder.mkdirs();
-		}
-		File[] list = sourceFolder.listFiles();
-		for (int i = 0; i < list.length; i++) {
-			File f = list[i];
-			if (f.isDirectory()) {
-				copyFolder(f, new File(targetFolder, f.getName()));
-			} else {
-				copyFile(f, new File(targetFolder, f.getName()));
-			}
-		}
-	}
-
-	private static void copyFile(File source, File target) throws IOException {
-		if (!target.getParentFile().exists()) {
-			target.getParentFile().mkdirs();
-		}
-		Files.copy(source.toPath(), target.toPath());
 	}
 }

@@ -40,14 +40,14 @@ public class ElementConfigurationDialog extends Dialog {
     private Display display;
 
     Text eText;
-    String hard_break;
+    String hardBreak;
     String element;
     Combo hCombo;
     Combo cCombo;
     Combo kCombo;
     boolean cancelled = true;
     protected String ctype;
-    protected String keep_format;
+    protected String keepFormat;
     Text aText;
     protected String attributes;
 
@@ -56,7 +56,7 @@ public class ElementConfigurationDialog extends Dialog {
         shell = new Shell(parent, SWT.DIALOG_TRIM);
         shell.setImage(Fluenta.getResourceManager().getIcon());
         display = shell.getDisplay();
-        shell.setText(Messages.getString("ElementConfigurationDialog.0"));
+        shell.setText("Element Configuration");
         shell.setLayout(new GridLayout());
         shell.addListener(SWT.Close, new Listener() {
 
@@ -72,7 +72,7 @@ public class ElementConfigurationDialog extends Dialog {
                 | GridData.FILL_HORIZONTAL));
 
         Label eLabel = new Label(top, SWT.NONE);
-        eLabel.setText(Messages.getString("ElementConfigurationDialog.2"));
+        eLabel.setText("Element Name");
 
         eText = new Text(top, SWT.BORDER);
         eText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
@@ -86,7 +86,7 @@ public class ElementConfigurationDialog extends Dialog {
         });
 
         Label hLabel = new Label(top, SWT.NONE);
-        hLabel.setText(Messages.getString("ElementConfigurationDialog.3"));
+        hLabel.setText("Element Type");
 
         hCombo = new Combo(top, SWT.DROP_DOWN | SWT.READ_ONLY);
         String[] values = { "segment", "inline", "ignore" };
@@ -97,7 +97,7 @@ public class ElementConfigurationDialog extends Dialog {
 
             @Override
             public void modifyText(ModifyEvent arg0) {
-                hard_break = hCombo.getText();
+                hardBreak = hCombo.getText();
                 if (hCombo.getText().equals("inline")) {
                     aText.setText("");
                 } else {
@@ -111,7 +111,7 @@ public class ElementConfigurationDialog extends Dialog {
         });
 
         Label cLabel = new Label(top, SWT.NONE);
-        cLabel.setText(Messages.getString("ElementConfigurationDialog.11"));
+        cLabel.setText("Inline Type");
 
         cCombo = new Combo(top, SWT.DROP_DOWN | SWT.READ_ONLY);
         String[] cValues = { "", "image", "pb", "lb", "x-bold", "x-entry", "x-font", "x-italic", "x-link",
@@ -128,7 +128,7 @@ public class ElementConfigurationDialog extends Dialog {
         });
 
         Label aLabel = new Label(top, SWT.NONE);
-        aLabel.setText(Messages.getString("ElementConfigurationDialog.23"));
+        aLabel.setText("Translatable Attributes");
 
         aText = new Text(top, SWT.BORDER);
         aText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -145,7 +145,7 @@ public class ElementConfigurationDialog extends Dialog {
         });
 
         Label kLabel = new Label(top, SWT.NONE);
-        kLabel.setText(Messages.getString("ElementConfigurationDialog.26"));
+        kLabel.setText("Keep White Space");
 
         kCombo = new Combo(top, SWT.DROP_DOWN | SWT.READ_ONLY);
         String[] val = { "", "yes", "no" };
@@ -156,7 +156,7 @@ public class ElementConfigurationDialog extends Dialog {
 
             @Override
             public void modifyText(ModifyEvent arg0) {
-                keep_format = kCombo.getText();
+                keepFormat = kCombo.getText();
             }
         });
 
@@ -169,16 +169,16 @@ public class ElementConfigurationDialog extends Dialog {
         filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Button save = new Button(bottom, SWT.PUSH);
-        save.setText(Messages.getString("ElementConfigurationDialog.29"));
+        save.setText("Save Configuration");
         save.addSelectionListener(new SelectionListener() {
 
             @Override
             public void widgetSelected(SelectionEvent arg0) {
                 element = eText.getText();
-                hard_break = hCombo.getText();
+                hardBreak = hCombo.getText();
                 ctype = cCombo.getText();
                 attributes = aText.getText();
-                keep_format = kCombo.getText();
+                keepFormat = kCombo.getText();
                 cancelled = false;
                 shell.close();
             }
@@ -216,26 +216,26 @@ public class ElementConfigurationDialog extends Dialog {
         aText.setText(attributes);
     }
 
-    public String getHard_break() {
-        return hard_break;
+    public String getHardBreak() {
+        return hardBreak;
     }
 
-    public void setHard_break(String hard_break) {
-        if (hard_break.equals("yes")) {
+    public void setHardBreak(String value) {
+        if (value.equals("yes")) {
             hCombo.setText("segment");
-        } else if (hard_break.equals("no")) {
+        } else if (value.equals("no")) {
             hCombo.setText("inline");
         } else {
-            hCombo.setText(hard_break);
+            hCombo.setText(value);
         }
     }
 
     public String getKeep_format() {
-        return keep_format;
+        return keepFormat;
     }
 
-    public void setKeep_format(String keep_format) {
-        kCombo.setText(keep_format);
+    public void setKeepFormat(String value) {
+        kCombo.setText(value);
     }
 
     public void show() {
@@ -248,9 +248,6 @@ public class ElementConfigurationDialog extends Dialog {
         }
     }
 
-    /**
-     * @return
-     */
     public boolean wasCancelled() {
         return cancelled;
     }

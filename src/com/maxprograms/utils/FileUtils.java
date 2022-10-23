@@ -12,8 +12,12 @@
 
 package com.maxprograms.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.List;
@@ -21,9 +25,16 @@ import java.util.SortedSet;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.maxprograms.converters.MTree;
 
 public class FileUtils {
+
+	private FileUtils() {
+		// do not instantiate this class
+	}
 
 	public static String getAbsolutePath(String homeFile, String relative) throws IOException {
 		File home = new File(homeFile);
@@ -43,7 +54,7 @@ public class FileUtils {
 			if (home.getParent() != null) {
 				home = new File(home.getParent());
 			} else {
-				home = new File(System.getProperty("user.dir")); 
+				home = new File(System.getProperty("user.dir"));
 			}
 
 		}
@@ -56,8 +67,8 @@ public class FileUtils {
 			File f = new File(home.getAbsolutePath());
 			home = f;
 			if (!home.isAbsolute()) {
-				MessageFormat mf = new MessageFormat(Messages.getString("FileUtils.1")); 
-				throw new IOException(mf.format(new Object[] { filename }));
+				MessageFormat mf = new MessageFormat("Path must be absolute: {0}");
+				throw new IOException(mf.format(new String[] { filename }));
 			}
 		}
 		List<String> homelist;
@@ -79,40 +90,42 @@ public class FileUtils {
 		return list;
 	}
 
-	private static String matchPathLists(List<String> r, List<String> f) {
+	private static String matchPathLists(List<String> homeList, List<String> fileList) {
 		int i;
 		int j;
-		String s = ""; 
+		StringBuilder s = new StringBuilder();
 		// start at the beginning of the lists
 		// iterate while both lists are equal
-		i = r.size() - 1;
-		j = f.size() - 1;
+		i = homeList.size() - 1;
+		j = fileList.size() - 1;
 
 		// first eliminate common root
-		while (i >= 0 && j >= 0 && r.get(i).equals(f.get(j))) {
+		while (i >= 0 && j >= 0 && homeList.get(i).equals(fileList.get(j))) {
 			i--;
 			j--;
 		}
 
 		// for each remaining level in the home path, add a ..
 		for (; i >= 0; i--) {
-			s += ".." + File.separator; 
+			s.append("..");
+			s.append(File.separator);
 		}
 
 		// for each level in the file path, add the path
 		for (; j >= 1; j--) {
-			s += f.get(j) + File.separator;
+			s.append(fileList.get(j));
+			s.append(File.separator);
 		}
 
 		// file name
-		if (j >= 0 && j < f.size()) {
-			s += f.get(j);
+		if (j >= 0 && j < fileList.size()) {
+			s.append(fileList.get(j));
 		}
-		return s;
+		return s.toString();
 	}
 
 	public static String findTreeRoot(SortedSet<String> set) {
-		String result = ""; 
+		String result = "";
 		MTree<String> tree = filesTree(set);
 		MTree.Node<String> root = tree.getRoot();
 		while (root.size() == 1) {
@@ -123,11 +136,11 @@ public class FileUtils {
 	}
 
 	private static MTree<String> filesTree(SortedSet<String> files) {
-		MTree<String> result = new MTree<>(""); 
+		MTree<String> result = new MTree<>("");
 		Iterator<String> it = files.iterator();
 		while (it.hasNext()) {
 			String s = it.next();
-			StringTokenizer st = new StringTokenizer(s, "/\\:", true); 
+			StringTokenizer st = new StringTokenizer(s, "/\\:", true);
 			MTree.Node<String> current = result.getRoot();
 			while (st.hasMoreTokens()) {
 				String name = st.nextToken();
@@ -141,5 +154,43 @@ public class FileUtils {
 			}
 		}
 		return result;
+	}
+
+	public static synchronized JSONObject readJSON(File file) throws IOException, JSONException {
+		StringBuffer sb = new StringBuffer();
+		try (FileReader input = new FileReader(file, StandardCharsets.UTF_8)) {
+			try (BufferedReader reader = new BufferedReader(input)) {
+				String line;
+				while ((line = reader.readLine()) != null) {
+					if (sb.length() > 0) {
+						sb.append('\n');
+					}
+					sb.append(line);
+				}
+			}
+		}
+		return new JSONObject(sb.toString());
+	}
+
+	public static void copyFolder(File sourceFolder, File targetFolder) throws IOException {
+		if (!targetFolder.exists()) {
+			targetFolder.mkdirs();
+		}
+		File[] list = sourceFolder.listFiles();
+		for (int i = 0; i < list.length; i++) {
+			File f = list[i];
+			if (f.isDirectory()) {
+				copyFolder(f, new File(targetFolder, f.getName()));
+			} else {
+				copyFile(f, new File(targetFolder, f.getName()));
+			}
+		}
+	}
+
+	private static void copyFile(File source, File target) throws IOException {
+		if (!target.getParentFile().exists()) {
+			target.getParentFile().mkdirs();
+		}
+		Files.copy(source.toPath(), target.toPath());
 	}
 }

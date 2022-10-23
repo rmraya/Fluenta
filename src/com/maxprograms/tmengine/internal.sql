@@ -1,8 +1,0 @@
-CREATE TABLE tuv (
-  tuid VARCHAR(40) NOT NULL,
-  lang VARCHAR(15) NOT NULL,
-  seg VARCHAR(6000) NOT NULL,
-  puretext VARCHAR(4000) NOT NULL,
-  textlength INTEGER NOT NULL,
-  PRIMARY KEY(tuid, lang)
-);

@@ -12,16 +12,14 @@
 
 package com.maxprograms.fluenta;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.Iterator;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
 
@@ -35,27 +33,22 @@ import org.xml.sax.SAXException;
 import com.maxprograms.fluenta.controllers.LocalController;
 import com.maxprograms.fluenta.models.Memory;
 import com.maxprograms.fluenta.models.Project;
+import com.maxprograms.fluenta.models.ProjectEvent;
 import com.maxprograms.languages.Language;
 import com.maxprograms.languages.LanguageUtils;
+import com.maxprograms.utils.FileUtils;
 import com.maxprograms.utils.SimpleLogger;
 
 public class API {
+
+	private API() {
+		// do not instantiate this class
+	}
+
 	protected static void addProject(String jsonFile)
 			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
 		File projectFile = new File(jsonFile);
-		String string = "";
-		try (FileInputStream input = new FileInputStream(projectFile)) {
-			try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) {
-				try (BufferedReader buffer = new BufferedReader(reader)) {
-					String line = "";
-					while ((line = buffer.readLine()) != null) {
-						string = string + line + "\n";
-					}
-				}
-			}
-		}
-
-		JSONObject jsonObject = new JSONObject(string);
+		JSONObject jsonObject = FileUtils.readJSON(projectFile);
 		long id = jsonObject.getLong("id");
 		String title = jsonObject.getString("title");
 		String description = jsonObject.getString("description");
@@ -77,127 +70,53 @@ public class API {
 		} catch (JSONException je) {
 			// ignore
 		}
-
 		addProject(id, title, description, map, srcLang, tgtLang, memIds);
 	}
 
 	public static void addProject(long id, String title, String description, String map, String srcLang,
 			String[] tgtLang, long[] memIds)
 			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
-		Language srcLanguage = LanguageUtils.getLanguage(srcLang);
-
-		List<Language> tgtLanguages = new Vector<>();
-		for (int i = 0; i < tgtLang.length; i++) {
-			tgtLanguages.add(LanguageUtils.getLanguage(tgtLang[i]));
-		}
-
-		Memory mem = new Memory(id, title, description, System.getProperty("user.name"), new Date(), null, srcLanguage,
-				tgtLanguages);
+		List<String> tgtCodes = Arrays.asList(tgtLang);
 		LocalController controller = new LocalController();
-		controller.createMemory(mem);
-
-		List<Memory> memories = new Vector<>();
-		memories.add(mem);
+		List<Long> memories = new Vector<>();
 		for (int i = 0; i < memIds.length; i++) {
-			memories.add(controller.getMemory(memIds[i]));
+			memories.add(memIds[i]);
 		}
-
-		Project p = new Project(id, title, description, System.getProperty("user.name"), map, new Date(),
-				Project.NEW, null, srcLanguage, tgtLanguages, memories);
-
-		controller.createProject(p);
-		controller.close();
+		Project project = new Project(id, title, description, System.getProperty("user.name"), map, new Date(),
+				Project.NEW, new Date(), srcLang, tgtCodes, memories, new Vector<ProjectEvent>(),
+				new Hashtable<String, String>());
+		project.getMemories().add(id);
+		controller.createProject(project);
 	}
 
-	public static String getProjects() throws IOException {
+	public static String getProjects() throws IOException, JSONException, ParseException {
 		LocalController controller = new LocalController();
 		List<Project> projects = controller.getProjects();
-		controller.close();
 
 		JSONObject result = new JSONObject();
 		JSONArray array = new JSONArray();
 		result.put("projects", array);
 		for (int i = 0; i < projects.size(); i++) {
-			Project p = projects.get(i);
-			JSONObject proj = new JSONObject();
-			proj.put("id", p.getId());
-			proj.put("title", p.getTitle());
-			proj.put("description", p.getDescription());
-			proj.put("owner", p.getOwner());
-			proj.put("map", p.getMap());
-			proj.put("creationDate", p.getCreationDateString());
-			proj.put("status", p.getStatus());
-			proj.put("srcLang", p.getSrcLanguage().getCode());
-			JSONArray tgtArray = new JSONArray();
-			JSONObject statusArray = new JSONObject();
-			List<Language> tgtLanguages = p.getLanguages();
-			Iterator<Language> lt = tgtLanguages.iterator();
-			while (lt.hasNext()) {
-				Language l = lt.next();
-				tgtArray.put(l.getCode());
-				statusArray.put(l.getCode(), p.getTargetStatus(l.getCode()));
-			}
-			proj.put("tgtLang", tgtArray);
-			proj.put("targetStatus", statusArray);
-			proj.put("lastUpdate", p.getLastUpdateString());
-			JSONArray memArray = new JSONArray();
-			List<Memory> mems = p.getMemories();
-			Iterator<Memory> mt = mems.iterator();
-			while (mt.hasNext()) {
-				Memory m = mt.next();
-				memArray.put(m.getId());
-			}
-			proj.put("memories", memArray);
-			array.put(proj);
+			array.put(projects.get(i).toJSON());
 		}
 		return result.toString(3);
 	}
 
-	public static String getMemories() throws IOException {
+	public static String getMemories() throws IOException, JSONException, ParseException {
 		LocalController controller = new LocalController();
 		List<Memory> memories = controller.getMemories();
-		controller.close();
 		JSONObject result = new JSONObject();
 		JSONArray array = new JSONArray();
 		result.put("memories", array);
 		for (int i = 0; i < memories.size(); i++) {
-			Memory m = memories.get(i);
-			JSONObject mem = new JSONObject();
-			mem.put("id", m.getId());
-			mem.put("name", m.getName());
-			mem.put("description", m.getDescription());
-			mem.put("owner", m.getOwner());
-			mem.put("creationDate", m.getCreationDateString());
-			mem.put("lastUpdate", m.getLastUpdateString());
-			mem.put("srcLang", m.getSrcLanguage().getCode());
-			JSONArray tgtArray = new JSONArray();
-			List<Language> langs = m.getTgtLanguages();
-			Iterator<Language> it = langs.iterator();
-			while (it.hasNext()) {
-				Language l = it.next();
-				tgtArray.put(l.getCode());
-			}
-			mem.put("tgtLang", tgtArray);
-			array.put(mem);
+			array.put(memories.get(i).toJSON());
 		}
 		return result.toString(3);
 	}
 
 	protected static void addMemory(String jsonFile) throws IOException {
 		File memoryFile = new File(jsonFile);
-		String string = "";
-		try (FileInputStream input = new FileInputStream(memoryFile)) {
-			try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) {
-				try (BufferedReader buffer = new BufferedReader(reader)) {
-					String line = "";
-					while ((line = buffer.readLine()) != null) {
-						string = string + line + "\n";
-					}
-				}
-			}
-		}
-
-		JSONObject jsonObject = new JSONObject(string);
+		JSONObject jsonObject = FileUtils.readJSON(memoryFile);
 		long id = jsonObject.getLong("id");
 		String title = jsonObject.getString("title");
 		String description = jsonObject.getString("description");
@@ -215,63 +134,54 @@ public class API {
 			throws IOException {
 		Language srcLanguage = LanguageUtils.getLanguage(srcLang);
 		if (tgtLang == null || tgtLang.length == 0) {
-			throw new IOException(Messages.getString("API.174"));
+			throw new IOException("Missing target languages");
 		}
 		List<Language> tgtLanguages = new Vector<>();
 		for (int i = 0; i < tgtLang.length; i++) {
 			tgtLanguages.add(LanguageUtils.getLanguage(tgtLang[i]));
 		}
 
-		Memory mem = new Memory(id, title, description, System.getProperty("user.name"), new Date(), null, srcLanguage,
-				tgtLanguages);
+		Memory mem = new Memory(id, title, description, System.getProperty("user.name"), new Date(), new Date(),
+				srcLanguage, tgtLanguages);
 		LocalController controller = new LocalController();
 		controller.createMemory(mem);
-		controller.close();
 	}
 
-	public static void importMemory(long id, String tmxFile, boolean verbose)
-			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
+	public static int importMemory(long id, String tmxFile) throws IOException, ClassNotFoundException, SQLException,
+			SAXException, ParserConfigurationException, JSONException, ParseException {
 		LocalController controller = new LocalController();
 		Memory memory = controller.getMemory(id);
 		if (memory == null) {
-			controller.close();
-			throw new IOException(Messages.getString("API.177"));
+			throw new IOException("Unknown memory");
 		}
-		SimpleLogger logger = new SimpleLogger(verbose);
-		controller.importTMX(memory, tmxFile, logger);
-		controller.close();
-		if (logger.getSuccess()) {
-			return;
-		}
-		throw new IOException(logger.getError());
+		return controller.importTMX(memory, tmxFile);
 	}
 
-	public static void exportMemory(long id, String tmxFile) throws Exception {
+	public static void exportMemory(long id, String tmxFile) throws IOException, ClassNotFoundException, SQLException,
+			SAXException, ParserConfigurationException, JSONException, ParseException {
 		LocalController controller = new LocalController();
 		Memory memory = controller.getMemory(id);
 		if (memory == null) {
-			controller.close();
-			throw new Exception(Messages.getString("API.179"));
+			throw new IOException("Unknown memory");
 		}
 		controller.exportTMX(memory, tmxFile);
-		controller.close();
 	}
 
 	public static void generateXLIFF(long id, String xliffFolder, String[] tgtLang, boolean useICE, boolean useTM,
-			boolean generateCount, boolean verbose, String ditaval, boolean useXliff20) throws IOException,
-			ClassNotFoundException, SAXException, ParserConfigurationException, URISyntaxException, SQLException {
+			boolean generateCount, boolean verbose, String ditaval, boolean useXliff20, boolean embedSkeleton)
+			throws IOException, ClassNotFoundException, SAXException, ParserConfigurationException, URISyntaxException,
+			SQLException, JSONException, ParseException {
 		LocalController controller = new LocalController();
 		Project project = controller.getProject(id);
 		if (project == null) {
-			controller.close();
-			throw new IOException(Messages.getString("API.181"));
+			throw new IOException("Unknown project");
 		}
 		File f = new File(xliffFolder);
 		if (!f.exists()) {
 			f.mkdirs();
 		}
 		if (tgtLang == null || tgtLang.length == 0) {
-			throw new IOException(Messages.getString("API.182"));
+			throw new IOException("Missing target languages");
 		}
 		List<Language> langs = new Vector<>();
 		for (int i = 0; i < tgtLang.length; i++) {
@@ -279,59 +189,55 @@ public class API {
 		}
 		SimpleLogger logger = new SimpleLogger(verbose);
 		controller.generateXliff(project, xliffFolder, langs, useICE, useTM, generateCount, ditaval, useXliff20,
-				logger);
-		controller.close();
+				embedSkeleton, logger);
 	}
 
 	protected static void generateXLIFF(String jsonFile, boolean verbose) throws IOException, SAXException,
-			ParserConfigurationException, URISyntaxException, ClassNotFoundException, SQLException {
+			ParserConfigurationException, URISyntaxException, ClassNotFoundException, SQLException, JSONException,
+			ParseException {
 		File projectFile = new File(jsonFile);
-		String string = "";
-		try (FileInputStream input = new FileInputStream(projectFile)) {
-			try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) {
-				try (BufferedReader buffer = new BufferedReader(reader)) {
-					String line = "";
-					while ((line = buffer.readLine()) != null) {
-						string = string + line + "\n";
-					}
-				}
-			}
-		}
-
-		JSONObject jsonObject = new JSONObject(string);
+		JSONObject jsonObject = FileUtils.readJSON(projectFile);
 		long id = jsonObject.getLong("id");
-
 		String xliffFolder = jsonObject.getString("xliffFolder");
-		String ditaval = "";
-		try {
-			ditaval = jsonObject.getString("ditaval");
-		} catch (JSONException jse) {
-			// ignore
+		String ditaval = jsonObject.has("ditaval") ? jsonObject.getString("ditaval") : "";
+		boolean useICE = false;
+		if (jsonObject.has("useICE")) {
+			useICE = jsonObject.getBoolean("useICE");
 		}
-
-		boolean useICE = jsonObject.getBoolean("useICE");
-		boolean useTM = jsonObject.getBoolean("useTM");
-		boolean generateCount = jsonObject.getBoolean("generateCount");
-		boolean useXliff20 = jsonObject.getBoolean("useXLIFF20");
-
+		boolean useTM = false;
+		if (jsonObject.has("useTM")) {
+			useTM = jsonObject.getBoolean("useTM");
+		}
+		boolean generateCount = false;
+		if (jsonObject.has("generateCount")) {
+			generateCount = jsonObject.getBoolean("generateCount");
+		}
+		boolean useXliff20 = false;
+		if (jsonObject.has("useXLIFF20")) {
+			useXliff20 = jsonObject.getBoolean("useXLIFF20");
+		}
+		boolean embedSkeleton = false;
+		if (jsonObject.has("embedSkeleton")) {
+			embedSkeleton = jsonObject.getBoolean("embedSkeleton");
+		}
 		JSONArray tgtArray = jsonObject.getJSONArray("tgtLang");
 		String[] tgtLang = new String[tgtArray.length()];
 		for (int i = 0; i < tgtArray.length(); i++) {
 			tgtLang[i] = tgtArray.getString(i);
 		}
 
-		generateXLIFF(id, xliffFolder, tgtLang, useICE, useTM, generateCount, verbose, ditaval, useXliff20);
+		generateXLIFF(id, xliffFolder, tgtLang, useICE, useTM, generateCount, verbose, ditaval, useXliff20,
+				embedSkeleton);
 	}
 
 	public static void importXLIFF(long id, String xliffFile, String outputFolder, boolean updateTM,
 			boolean acceptUnapproved, boolean ignoreTagErrors, boolean cleanAttributes, boolean verbose)
 			throws IOException, NumberFormatException, ClassNotFoundException, SAXException,
-			ParserConfigurationException, SQLException, URISyntaxException {
+			ParserConfigurationException, SQLException, URISyntaxException, JSONException, ParseException {
 		LocalController controller = new LocalController();
 		Project project = controller.getProject(id);
 		if (project == null) {
-			controller.close();
-			throw new IOException(Messages.getString("API.196"));
+			throw new IOException("Unknown project");
 		}
 		File f = new File(outputFolder);
 		if (!f.exists()) {
@@ -343,21 +249,10 @@ public class API {
 	}
 
 	protected static void importXLIFF(String jsonFile, boolean verbose) throws IOException, NumberFormatException,
-			ClassNotFoundException, SAXException, ParserConfigurationException, SQLException, URISyntaxException {
+			ClassNotFoundException, SAXException, ParserConfigurationException, SQLException, URISyntaxException,
+			JSONException, ParseException {
 		File projectFile = new File(jsonFile);
-		String string = "";
-		try (FileInputStream input = new FileInputStream(projectFile)) {
-			try (InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8)) {
-				try (BufferedReader buffer = new BufferedReader(reader)) {
-					String line = "";
-					while ((line = buffer.readLine()) != null) {
-						string = string + line + "\n";
-					}
-				}
-			}
-		}
-
-		JSONObject jsonObject = new JSONObject(string);
+		JSONObject jsonObject = FileUtils.readJSON(projectFile);
 		long id = jsonObject.getLong("id");
 
 		String xliffFile = jsonObject.getString("xliffFile");
@@ -369,14 +264,12 @@ public class API {
 		importXLIFF(id, xliffFile, outputFolder, updateTM, acceptUnapproved, ignoreTagErrors, cleanAttributes, verbose);
 	}
 
-	public static void removeProject(long id) throws IOException {
+	public static void removeProject(long id) throws IOException, JSONException, ParseException {
 		LocalController controller = new LocalController();
 		Project project = controller.getProject(id);
 		if (project == null) {
-			controller.close();
-			throw new IOException(Messages.getString("API.196"));
+			throw new IOException("Unknown project");
 		}
 		controller.removeProject(project);
-		controller.close();
 	}
 }

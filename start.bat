@@ -1,0 +1,2 @@
+@echo off
+start bin\javaw -cp "lib/h2-1.4.200.jar" --module-path lib -m fluenta/com.maxprograms.fluenta.Fluenta

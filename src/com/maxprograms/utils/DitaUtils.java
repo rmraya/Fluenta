@@ -14,9 +14,11 @@ package com.maxprograms.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Vector;
@@ -25,7 +27,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import com.maxprograms.fluenta.Fluenta;
 import com.maxprograms.xml.Catalog;
 import com.maxprograms.xml.Document;
 import com.maxprograms.xml.Element;
@@ -34,7 +35,7 @@ import com.maxprograms.xml.SilentErrorHandler;
 
 public class DitaUtils {
 
-	private static Hashtable<String, String> filesTable;
+	private static Map<String, String> filesTable;
 	private static List<String> filesMap;
 
 	public static SortedSet<String> getFiles(String map) {
@@ -48,7 +49,7 @@ public class DitaUtils {
 	}
 
 	private static void parseMap(String map, String home) {
-		if (map.startsWith("#")) { 
+		if (map.startsWith("#")) {
 			// self file
 			return;
 		}
@@ -56,8 +57,8 @@ public class DitaUtils {
 			String path = map;
 			File f = new File(map);
 			if (!f.isAbsolute()) {
-				if (map.indexOf("#") != -1) { 
-					path = FileUtils.getAbsolutePath(home, map.substring(0, map.indexOf("#"))); 
+				if (map.indexOf("#") != -1) {
+					path = FileUtils.getAbsolutePath(home, map.substring(0, map.indexOf("#")));
 				} else {
 					path = FileUtils.getAbsolutePath(home, map);
 				}
@@ -70,32 +71,32 @@ public class DitaUtils {
 				return;
 			}
 			SAXBuilder builder = new SAXBuilder();
-			builder.setEntityResolver(new Catalog(Fluenta.getCatalogFile()));
+			builder.setEntityResolver(new Catalog(Preferences.getInstance().getCatalogFile()));
 			builder.setErrorHandler(new SilentErrorHandler());
 			Document doc = builder.build(path);
 			Element mapRoot = doc.getRootElement();
 			if (!filesTable.containsKey(path)) {
-				filesTable.put(path, ""); 
+				filesTable.put(path, "");
 				filesMap.add(path);
 			} else {
 				return;
 			}
 			recurse(mapRoot, path);
-		} catch (Exception e) {
+		} catch (IOException | SAXException | ParserConfigurationException | URISyntaxException e) {
 			// do nothing
 		}
 	}
 
 	private static void recurse(Element root, String parent)
 			throws SAXException, IOException, ParserConfigurationException {
-		String href = root.getAttributeValue("href"); 
-		if (!href.isEmpty()) { 
+		String href = root.getAttributeValue("href");
+		if (!href.isEmpty()) {
 			parseMap(href, parent);
 		}
-		String conref = root.getAttributeValue("conref"); 
-		if (!conref.isEmpty()) { 
-			if (conref.indexOf("#") != -1) { 
-				conref = conref.substring(0, conref.indexOf("#")); 
+		String conref = root.getAttributeValue("conref");
+		if (!conref.isEmpty()) {
+			if (conref.indexOf("#") != -1) {
+				conref = conref.substring(0, conref.indexOf("#"));
 			}
 			parseMap(conref, parent);
 		}

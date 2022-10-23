@@ -13,6 +13,8 @@
 package com.maxprograms.fluenta.views;
 
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -40,6 +42,8 @@ import com.maxprograms.utils.Locator;
 
 public class LanguageAddDialog extends Dialog {
 
+	Logger logger = System.getLogger(LanguageAddDialog.class.getName());
+
 	protected Shell shell;
 	protected boolean cancelled = true;
 	private Display display;
@@ -51,13 +55,13 @@ public class LanguageAddDialog extends Dialog {
 
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
-		shell.setText(Messages.getString("LanguageAddDialog.0")); 
+		shell.setText("Add Language");
 		shell.setLayout(new GridLayout());
 		shell.addListener(SWT.Close, new Listener() {
 
 			@Override
 			public void handleEvent(Event arg0) {
-				Locator.remember(shell, "LanguageAddDialog"); 
+				Locator.remember(shell, "LanguageAddDialog");
 			}
 		});
 		display = shell.getDisplay();
@@ -66,16 +70,16 @@ public class LanguageAddDialog extends Dialog {
 		top.setLayout(new GridLayout(2, false));
 
 		Label sourceLabel = new Label(top, SWT.NONE);
-		sourceLabel.setText(Messages.getString("LanguageAddDialog.2")); 
+		sourceLabel.setText("Language");
 
 		langCombo = new Combo(top, SWT.DROP_DOWN | SWT.READ_ONLY);
 		langCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		try {
 			langCombo.setItems(LanguageUtils.getLanguageNames());
 		} catch (SAXException | IOException | ParserConfigurationException e) {
-			e.printStackTrace();
+			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("LanguageAddDialog.3")); 
+			box.setMessage("Error retrieving language list");
 			box.open();
 			shell.close();
 		}
@@ -85,27 +89,27 @@ public class LanguageAddDialog extends Dialog {
 		bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label filler2 = new Label(bottom, SWT.NONE);
-		filler2.setText(""); 
+		filler2.setText("");
 		filler2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button add = new Button(bottom, SWT.PUSH);
-		add.setText(Messages.getString("LanguageAddDialog.5")); 
+		add.setText("Add Language");
 		add.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				if (langCombo.getSelectionIndex() == -1) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage(Messages.getString("LanguageAddDialog.6")); 
+					box.setMessage("Select language");
 					box.open();
 					return;
 				}
 				try {
 					language = LanguageUtils.languageFromName(langCombo.getItem(langCombo.getSelectionIndex()));
 				} catch (IOException | SAXException | ParserConfigurationException e) {
-					e.printStackTrace();
+					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage(Messages.getString("LanguageAddDialog.7")); 
+					box.setMessage("Error retrieving selected language");
 					box.open();
 					shell.close();
 				}
@@ -123,7 +127,7 @@ public class LanguageAddDialog extends Dialog {
 	}
 
 	public void show() {
-		Locator.setLocation(shell, "LanguageAddDialog"); 
+		Locator.setLocation(shell, "LanguageAddDialog");
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {

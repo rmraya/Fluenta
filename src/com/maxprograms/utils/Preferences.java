@@ -38,7 +38,7 @@ public class Preferences {
 	}
 
 	private Preferences() throws IOException {
-		preferencesFile = new File(getPreferencesDir(), "preferences.json"); 
+		preferencesFile = new File(getPreferencesFolder(), "preferences.json");
 		if (!preferencesFile.exists()) {
 			preferences = new JSONObject();
 			savePreferences();
@@ -52,7 +52,7 @@ public class Preferences {
 				}
 			}
 		}
-		preferences = new JSONObject(buffer.toString());
+		preferences = FileUtils.readJSON(preferencesFile);
 	}
 
 	private void savePreferences() throws IOException {
@@ -61,18 +61,21 @@ public class Preferences {
 		}
 	}
 
-	public static synchronized File getPreferencesDir() throws IOException {
+	public synchronized File getPreferencesFolder() throws IOException {
 		if (workDir == null) {
-			String os = System.getProperty("os.name").toLowerCase(); 
-			if (os.startsWith("mac")) { 
-				workDir = new File(System.getProperty("user.home") + "/Library/Application Support/Fluenta/");  
-			} else if (os.startsWith("windows")) { 
-				workDir = new File(System.getenv("AppData") + "\\Fluenta\\");  
+			String os = System.getProperty("os.name").toLowerCase();
+			if (os.startsWith("mac")) {
+				workDir = new File(System.getProperty("user.home") + "/Library/Application Support/Fluenta-3/");
+			} else if (os.startsWith("windows")) {
+				workDir = new File(System.getenv("AppData") + "\\Fluenta-3\\");
 			} else {
-				workDir = new File(System.getProperty("user.home") + "/.config/Fluenta/");  
+				workDir = new File(System.getProperty("user.home") + "/.config/Fluenta-3/");
 			}
 			if (!workDir.exists()) {
 				Files.createDirectories(workDir.toPath());
+				FileUtils.copyFolder(new File("catalog"), new File(workDir, "catalog"));
+				FileUtils.copyFolder(new File("xmlfilter"), new File(workDir, "xmlfilter"));
+				FileUtils.copyFolder(new File("srx"), new File(workDir, "srx"));
 			}
 		}
 		return workDir;
@@ -124,6 +127,41 @@ public class Preferences {
 			preferences.remove(group);
 			savePreferences();
 		}
+	}
+
+	public File getProjectsFolder() throws IOException {
+		File folder = new File(get("workDir", "projects",
+				new File(getPreferencesFolder(), "projects").getAbsolutePath()));
+		if (!folder.exists()) {
+			Files.createDirectories(folder.toPath());
+		}
+		return folder;
+	}
+
+	public File getMemoriesFolder() throws IOException {
+		File folder = new File(get("workDir", "memories",
+				new File(getPreferencesFolder(), "memories").getAbsolutePath()));
+		if (!folder.exists()) {
+			Files.createDirectories(folder.toPath());
+		}
+		return folder;
+	}
+
+	public String getDefaultSRX() throws IOException {
+		File srxFolder = new File(getPreferencesFolder(), "srx");
+		File defaultSRX = new File(srxFolder, "default.srx");
+		return get("workDir", "defaultSRX", defaultSRX.getAbsolutePath());
+	}
+
+	public String getCatalogFile() throws IOException {
+		File catalogFolder = new File(getPreferencesFolder(), "catalog");
+		File defaultCatalog = new File(catalogFolder, "catalog.xml");
+		return defaultCatalog.getAbsolutePath();
+	}
+
+	public String getFiltersFolder() throws IOException {
+		File filtersFolder = new File(getPreferencesFolder(), "xmlfilter");
+		return filtersFolder.getAbsolutePath();
 	}
 
 }

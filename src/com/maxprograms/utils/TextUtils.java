@@ -13,11 +13,16 @@
 package com.maxprograms.utils;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 
 public class TextUtils {
+
+	private TextUtils() {
+		// do not instantiate this class
+	}
 
 	public static int geIndex(String[] items, String description) {
 		for (int i = 0; i < items.length; i++) {
@@ -34,7 +39,7 @@ public class TextUtils {
 
 	public static String normalise(String string, boolean trim) {
 		boolean repeat = false;
-		String rs = ""; 
+		String rs = "";
 		int length = string.length();
 		for (int i = 0; i < length; i++) {
 			char ch = string.charAt(i);
@@ -42,11 +47,11 @@ public class TextUtils {
 				if (ch != '\n') {
 					rs = rs + ch;
 				} else {
-					rs = rs + " "; 
+					rs = rs + " ";
 					repeat = true;
 				}
 			} else {
-				rs = rs + " "; 
+				rs = rs + " ";
 				while (i < length - 1 && Character.isSpaceChar(string.charAt(i + 1))) {
 					i++;
 				}
@@ -61,29 +66,38 @@ public class TextUtils {
 		return rs;
 	}
 
-	public static long getGMTtime(String TMXDate) {
-		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT")); 
+	public static long getGMTtime(String tmxDate) {
+		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
 		try {
-			int second = Integer.parseInt(TMXDate.substring(13, 15));
-			int minute = Integer.parseInt(TMXDate.substring(11, 13));
-			int hour = Integer.parseInt(TMXDate.substring(9, 11));
-			int date = Integer.parseInt(TMXDate.substring(6, 8));
-			int month = Integer.parseInt(TMXDate.substring(4, 6)) - 1;
-			int year = Integer.parseInt(TMXDate.substring(0, 4));
+			int second = Integer.parseInt(tmxDate.substring(13, 15));
+			int minute = Integer.parseInt(tmxDate.substring(11, 13));
+			int hour = Integer.parseInt(tmxDate.substring(9, 11));
+			int date = Integer.parseInt(tmxDate.substring(6, 8));
+			int month = Integer.parseInt(tmxDate.substring(4, 6)) - 1;
+			int year = Integer.parseInt(tmxDate.substring(0, 4));
 			calendar.set(year, month, date, hour, minute, second);
 			return calendar.getTimeInMillis();
-		} catch (Exception e) {
+		} catch (NumberFormatException | IndexOutOfBoundsException e) {
 			Logger logger = System.getLogger(TextUtils.class.getName());
-			logger.log(Level.WARNING, "Error getting GMT time", e); 
+			logger.log(Level.WARNING, "Error getting GMT time", e);
 			return 0l;
 		}
 	}
 
 	public static String pad(int i, int length) {
-		String res = "" + i; 
+		String res = "" + i;
 		while (res.length() < length) {
-			res = "0" + res; 
+			res = "0" + res;
 		}
 		return res;
 	}
+
+	public static String date2string(Date date) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		return c.get(Calendar.YEAR) + "-" + pad(c.get(Calendar.MONTH) + 1, 2) + "-"
+				+ pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + pad(c.get(Calendar.HOUR_OF_DAY), 2) + ":"
+				+ pad(c.get(Calendar.MINUTE), 2);
+	}
+
 }

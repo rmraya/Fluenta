@@ -1,4 +1,15 @@
 .DS_Store
+jars/fluenta.jar
+jars/swt.jar
+out
 bin
-lib/fluenta.jar
-.vscode
+conf
+include
+legal
+lib
+release
+docs/out
+dist
+.vscode/launch.json
+.vscode/settings.json
+.scannerwork

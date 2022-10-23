@@ -23,7 +23,9 @@ import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import com.maxprograms.fluenta.Fluenta;
+import org.xml.sax.SAXException;
+
+import com.maxprograms.utils.Preferences;
 import com.maxprograms.xml.Attribute;
 import com.maxprograms.xml.Catalog;
 import com.maxprograms.xml.Document;
@@ -32,8 +34,6 @@ import com.maxprograms.xml.SAXBuilder;
 import com.maxprograms.xml.TextNode;
 import com.maxprograms.xml.XMLNode;
 import com.maxprograms.xml.XMLUtils;
-
-import org.xml.sax.SAXException;
 
 public class TagErrorsReport {
 
@@ -133,9 +133,9 @@ public class TagErrorsReport {
 		writeStr("    <table class='analysis'>\n"); 
 		writeStr("      <tr>\n"); 
 		writeStr("        <th>#</th>\n"); 
-		writeStr("        <th>" + Messages.getString("TagErrorsReport.77") + "</th>\n");   
-		writeStr("        <th>" + Messages.getString("TagErrorsReport.80") + "</th>\n");   
-		writeStr("        <th>" + Messages.getString("TagErrorsReport.83") + "</th>\n");   
+		writeStr("        <th>Source</th>\n");   
+		writeStr("        <th>Translation</th>\n");   
+		writeStr("        <th>Description</th>\n");   
 		writeStr("      </tr>\n"); 
 
 		int size = segments.size();
@@ -155,9 +155,9 @@ public class TagErrorsReport {
 				int tLength = trglist.size();
 				int j;
 				if (tLength > srclist.size()) {
-					writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.88")); 
+					writeSegment(i + 1, source, target, "Extra Tag"); 
 				} else if (tLength < srclist.size()) {
-					writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.89")); 
+					writeSegment(i + 1, source, target, "Missing Tag"); 
 				} else {
 					for (j = 0; j < srclist.size(); j++) {
 						String es = srclist.get(j);
@@ -171,7 +171,7 @@ public class TagErrorsReport {
 							}
 						}
 						if (!paired) {
-							writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.90")); 
+							writeSegment(i + 1, source, target, "Different Tag"); 
 						}
 					}
 					trglist = buildTagList(target);
@@ -179,14 +179,14 @@ public class TagErrorsReport {
 						String es = srclist.get(j);
 						String et = trglist.get(j);
 						if (!es.equals(et)) {
-							writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.91")); 
+							writeSegment(i + 1, source, target, "Tags in wrong order"); 
 						}
 					}
 				}
 			} else {
 				// all tags are missing
 				if (!srclist.isEmpty()) {
-					writeSegment(i + 1, source, target, Messages.getString("TagErrorsReport.89")); 
+					writeSegment(i + 1, source, target, "Missing Tag"); 
 				}
 			}
 		}
@@ -318,23 +318,23 @@ public class TagErrorsReport {
 	private static Document loadXliff(String fileName)
 			throws SAXException, IOException, ParserConfigurationException, URISyntaxException {
 		SAXBuilder builder = new SAXBuilder();
-		builder.setEntityResolver(new Catalog(Fluenta.getCatalogFile()));
+		builder.setEntityResolver(new Catalog(Preferences.getInstance().getCatalogFile()));
 		Document doc = builder.build(fileName);
 		Element root = doc.getRootElement();
 		if (!root.getName().equals("xliff")) { 
-			throw new IOException(Messages.getString("TagErrorsReport.147")); 
+			throw new IOException("Selected file is not an XLIFF document"); 
 		}
 		try {
 			Element tool = root.getChild("file").getChild("header").getChild("tool");   
 			if (tool == null) {
-				throw new IOException(Messages.getString("TagErrorsReport.151")); 
+				throw new IOException("Unsupported XLIFF file"); 
 			}
 			String toolId = tool.getAttributeValue("tool-id"); 
 			if (!toolId.equals("OpenXLIFF")) { 
-				throw new IOException(Messages.getString("TagErrorsReport.151")); 
+				throw new IOException("Unsupported XLIFF file"); 
 			}
-		} catch (Exception e) {
-			throw new IOException(Messages.getString("TagErrorsReport.151")); 
+		} catch (IOException e) {
+			throw new IOException("Unsupported XLIFF file"); 
 		}
 		checkXliffMarkup(doc.getRootElement());
 		return doc;
