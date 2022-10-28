@@ -211,17 +211,17 @@ public class Project implements Serializable {
 	private String getStatusString() {
 		switch (status) {
 			case NEW:
-				return Messages.getString("Project.0");
+				return NEW;
 			case NEEDS_UPDATE:
-				return Messages.getString("Project.1");
+				return NEEDS_UPDATE;
 			case IN_PROGRESS:
-				return Messages.getString("Project.2");
+				return IN_PROGRESS;
 			case COMPLETED:
-				return Messages.getString("Project.3");
+				return COMPLETED;
 			case UNTRANSLATED:
-				return Messages.getString("Project.4");
+				return UNTRANSLATED;
 			default:
-				return Messages.getString("Project.5");
+				return "Unknown";
 		}
 	}
 
@@ -328,17 +328,17 @@ public class Project implements Serializable {
 	public String getTargetStatus(String langCode) {
 		switch (languageStatus.get(langCode)) {
 			case NEW:
-				return Messages.getString("Project.0");
+				return NEW;
 			case NEEDS_UPDATE:
-				return Messages.getString("Project.1");
+				return NEEDS_UPDATE;
 			case IN_PROGRESS:
-				return Messages.getString("Project.2");
+				return IN_PROGRESS;
 			case COMPLETED:
-				return Messages.getString("Project.3");
+				return COMPLETED;
 			case UNTRANSLATED:
-				return Messages.getString("Project.4");
+				return UNTRANSLATED;
 			default:
-				return Messages.getString("Project.5");
+				return "Unknown";
 		}
 	}
 

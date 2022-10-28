@@ -87,13 +87,13 @@ public class ProjectEvent implements Serializable {
 	public static String getDescription(String event) {
 		switch (event) {
 			case XLIFF_CREATED:
-				return Messages.getString("ProjectEvent.0");
+				return XLIFF_CREATED;
 			case XLIFF_CANCELLED:
-				return Messages.getString("ProjectEvent.1");
+				return XLIFF_CANCELLED;
 			case XLIFF_IMPORTED:
-				return Messages.getString("ProjectEvent.2");
+				return XLIFF_IMPORTED;
 			default:
-				return Messages.getString("ProjectEvent.3");
+				return"Unknown";
 		}
 	}
 }
