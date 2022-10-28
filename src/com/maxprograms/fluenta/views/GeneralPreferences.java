@@ -52,7 +52,7 @@ import org.eclipse.swt.widgets.Text;
 import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
-public class GeneralPreferences extends Composite {
+public class GeneralPreferences extends Composite implements AddLanguageListener {
 
 	Logger logger = System.getLogger(GeneralPreferences.class.getName());
 
@@ -62,9 +62,12 @@ public class GeneralPreferences extends Composite {
 	protected Text projectsText;
 	protected Text memoriesText;
 	protected Text srxText;
+	Table langsTable;
+	AddLanguageListener instance;
 
 	public GeneralPreferences(Composite parent, int style) {
 		super(parent, style);
+		instance = this;
 		setLayout(new GridLayout());
 		setLayoutData(new GridData(GridData.FILL_BOTH));
 
@@ -170,7 +173,7 @@ public class GeneralPreferences extends Composite {
 			public void widgetSelected(SelectionEvent arg0) {
 				FileDialog fd = new FileDialog(getShell(), SWT.OPEN | SWT.SINGLE);
 				fd.setFilterExtensions(new String[] { "*.srx", "*.*" });
-				fd.setFilterNames(new String[] { "SRX Files [*.srx]","ALL Files [*.*]"});
+				fd.setFilterNames(new String[] { "SRX Files [*.srx]", "ALL Files [*.*]" });
 				if (!srxText.getText().isEmpty()) {
 					File f = new File(srxText.getText());
 					if (f.exists()) {
@@ -231,7 +234,7 @@ public class GeneralPreferences extends Composite {
 		targetLanguages.setLayoutData(new GridData(GridData.FILL_BOTH));
 		targetLanguages.setLayout(new GridLayout());
 
-		Table langsTable = new Table(targetLanguages, SWT.V_SCROLL | SWT.H_SCROLL | SWT.CHECK | SWT.BORDER);
+		langsTable = new Table(targetLanguages, SWT.V_SCROLL | SWT.H_SCROLL | SWT.CHECK | SWT.BORDER);
 		langsTable.setLinesVisible(true);
 		langsTable.setHeaderVisible(false);
 		GridData langData = new GridData(GridData.FILL_BOTH);
@@ -281,23 +284,8 @@ public class GeneralPreferences extends Composite {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				try {
-					LanguageAddDialog dialog = new LanguageAddDialog(getShell(), SWT.DIALOG_TRIM);
-					dialog.show();
-					if (!dialog.wasCancelled()) {
-						Language l = dialog.getLanguage();
-						TableItem item = new TableItem(langsTable, SWT.NONE);
-						item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
-						item.setData("language", l);
-						defaultTargets.add(l);
-					}
-				} catch (IOException e) {
-					logger.log(Level.ERROR, e);
-					MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-					box.setMessage("Error adding language");
-					box.open();
-				}
-
+				LanguageAddDialog dialog = new LanguageAddDialog(getShell(), SWT.DIALOG_TRIM, instance);
+				dialog.show();
 			}
 
 			@Override
@@ -440,6 +428,22 @@ public class GeneralPreferences extends Composite {
 		List<Language> result = new Vector<>();
 		result.addAll(tree);
 		return result;
+	}
+
+	@Override
+	public void addLanguage(String language) {
+		try {
+			Language l = LanguageUtils.getLanguage(language);
+			TableItem item = new TableItem(langsTable, SWT.NONE);
+			item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
+			item.setData("language", l);
+			defaultTargets.add(l);
+		} catch (IOException ex) {
+			logger.log(Level.ERROR, ex);
+			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
+			box.setMessage("Error adding language");
+			box.open();
+		}
 	}
 
 }

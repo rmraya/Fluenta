@@ -203,7 +203,14 @@ public class LocalController {
 		if (!result.get(0).equals(Constants.SUCCESS)) {
 			throw new IOException(result.get(1));
 		}
-
+		if (embedSkeleton) {
+			logger.setStage("Embedding Skeletons");
+			logger.log(xliffFile.getAbsolutePath());
+			result = Convert.addSkeleton(xliffFile.getAbsolutePath(), Preferences.getInstance().getCatalogFile());
+			if (!result.get(0).equals(Constants.SUCCESS)) {
+				throw new IOException(result.get(1));
+			}
+		}
 		makeFilesRelative(xliffFile);
 		logger.setStage("Writing Target XLIFF Files");
 		MessageFormat mf = new MessageFormat("Target Language: {0}");
@@ -322,19 +329,7 @@ public class LocalController {
 				analysis.analyse(targetXliff.getAbsolutePath(), Preferences.getInstance().getCatalogFile());
 			}
 		}
-		if (embedSkeleton) {
-			logger.setStage("Embedding Skeletons");
-			for (int i = 0; i < tgtLangs.size(); i++) {
-				String targetName = getName(map.getName(), tgtLangs.get(i).getCode());
-				File targetXliff = new File(folder, targetName);
-				logger.log(targetXliff.getAbsolutePath());
-				result = Convert.addSkeleton(targetXliff.getAbsolutePath(),
-						Preferences.getInstance().getCatalogFile());
-				if (!result.get(0).equals(Constants.SUCCESS)) {
-					throw new IOException(result.get(1));
-				}
-			}
-		}
+
 		if (useXliff20) {
 			logger.setStage("Generating XLIFF 2.0");
 			for (int i = 0; i < tgtLangs.size(); i++) {
@@ -1637,17 +1632,16 @@ public class LocalController {
 	}
 
 	private void deltree(File file) throws IOException {
-		if (file.isFile()) {
-			Files.delete(Paths.get(file.toURI()));
-		} else {
+		if (file.isDirectory()) {
 			File[] list = file.listFiles();
 			if (list != null) {
 				for (int i = 0; i < list.length; i++) {
 					deltree(list[i]);
 				}
 			}
-			Files.delete(Paths.get(file.toURI()));
+
 		}
+		Files.deleteIfExists(Paths.get(file.toURI()));
 	}
 
 	public void exportTMX(Memory memory, String file)
@@ -1661,7 +1655,7 @@ public class LocalController {
 	public Project getProject(long id) throws IOException, JSONException, ParseException {
 		if (projectsManager == null) {
 			Preferences preferences = Preferences.getInstance();
-			projectsManager = new ProjectsManager(preferences.getMemoriesFolder());
+			projectsManager = new ProjectsManager(preferences.getProjectsFolder());
 		}
 		return projectsManager.getProject(id);
 	}

@@ -404,7 +404,6 @@ public class MainView {
 			}
 		});
 		
-
 		if (!isMac) {
 			new MenuItem(helpMenu, SWT.SEPARATOR);
 

@@ -11,10 +11,8 @@
  *******************************************************************************/
 package com.maxprograms.fluenta.controllers;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -27,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.maxprograms.fluenta.models.Project;
+import com.maxprograms.utils.FileUtils;
 
 public class ProjectsManager {
 
@@ -43,16 +42,7 @@ public class ProjectsManager {
             projects.put("projects", new JSONArray());
             saveProjects();
         }
-        StringBuffer buffer = new StringBuffer();
-        try (FileReader input = new FileReader(projectsFile, StandardCharsets.UTF_8)) {
-            try (BufferedReader reader = new BufferedReader(input)) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    buffer.append(line);
-                }
-            }
-        }
-        projects = new JSONObject(buffer.toString());
+        projects = FileUtils.readJSON(projectsFile);
     }
 
     private synchronized void saveProjects() throws IOException {
@@ -82,17 +72,8 @@ public class ProjectsManager {
     }
 
     public void update(Project project) throws IOException, JSONException, ParseException {
-        JSONArray array = projects.getJSONArray("projects");
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject json = array.getJSONObject(i);
-            if (project.getId() == json.getLong("id")) {
-                array.remove(i);
-                array.put(i, project.toJSON());
-                saveProjects();
-                return;
-            }
-        }
-        throw new IOException("Project does not exist");
+        remove(project.getId());
+        add(project);
     }
 
     public void remove(long id) throws IOException {

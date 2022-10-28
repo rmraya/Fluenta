@@ -12,10 +12,8 @@
 
 package com.maxprograms.utils;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -42,15 +40,6 @@ public class Preferences {
 		if (!preferencesFile.exists()) {
 			preferences = new JSONObject();
 			savePreferences();
-		}
-		StringBuffer buffer = new StringBuffer();
-		try (FileReader input = new FileReader(preferencesFile, StandardCharsets.UTF_8)) {
-			try (BufferedReader reader = new BufferedReader(input)) {
-				String line;
-				while ((line = reader.readLine()) != null) {
-					buffer.append(line);
-				}
-			}
 		}
 		preferences = FileUtils.readJSON(preferencesFile);
 	}

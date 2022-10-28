@@ -318,11 +318,16 @@ public class ProjectsView extends Composite {
 					return 0;
 				}
 			});
+			String userHome = System.getProperty("user.home");
 			for (int i = 0; i < array.length; i++) {
 				Project p = array[i];
 				TableItem item = new TableItem(table, SWT.NONE);
 				item.setData("project", p);
-				item.setText(new String[] { p.getTitle(), p.getMap(), p.getStatus(), p.getCreationDateString(),
+				String map = p.getMap();
+				if (map.startsWith(userHome)) {
+					map = '~' + map.substring(userHome.length());
+				}
+				item.setText(new String[] { p.getTitle(), map, p.getStatus(), p.getCreationDateString(),
 						p.getLastUpdateString() });
 			}
 		} catch (IOException | JSONException | ParseException e) {

@@ -11,10 +11,8 @@
  *******************************************************************************/
 package com.maxprograms.fluenta.controllers;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -27,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.maxprograms.fluenta.models.Memory;
+import com.maxprograms.utils.FileUtils;
 
 public class MemoriesManager {
 
@@ -43,16 +42,7 @@ public class MemoriesManager {
             memories.put("memories", new JSONArray());
             saveMemories();
         }
-        StringBuffer buffer = new StringBuffer();
-        try (FileReader input = new FileReader(memoriesFile, StandardCharsets.UTF_8)) {
-            try (BufferedReader reader = new BufferedReader(input)) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    buffer.append(line);
-                }
-            }
-        }
-        memories = new JSONObject(buffer.toString());
+        memories = FileUtils.readJSON(memoriesFile);
     }
 
     private synchronized void saveMemories() throws IOException {
@@ -82,17 +72,8 @@ public class MemoriesManager {
     }
 
     public void update(Memory memory) throws IOException, JSONException, ParseException {
-        JSONArray array = memories.getJSONArray("memories");
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject json = array.getJSONObject(i);
-            if (memory.getId() == json.getLong("id")) {
-                array.remove(i);
-                array.put(i, memory.toJSON());
-                saveMemories();
-                return;
-            }
-        }
-        throw new IOException("Memory does not exist");
+        remove(memory.getId());
+        add(memory);
     }
 
     public void remove(long id) throws IOException {

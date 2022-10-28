@@ -15,6 +15,10 @@ package com.maxprograms.fluenta.views;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -45,13 +49,13 @@ public class LanguageAddDialog extends Dialog {
 	Logger logger = System.getLogger(LanguageAddDialog.class.getName());
 
 	protected Shell shell;
-	protected boolean cancelled = true;
 	private Display display;
 	protected Combo langCombo;
-	protected Language language;
+	Map<String, String> langsMap;
 
-	public LanguageAddDialog(Shell parent, int style) {
+	public LanguageAddDialog(Shell parent, int style, AddLanguageListener view) {
 		super(parent, style);
+		langsMap = new Hashtable<>();
 
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
@@ -75,6 +79,13 @@ public class LanguageAddDialog extends Dialog {
 		langCombo = new Combo(top, SWT.DROP_DOWN | SWT.READ_ONLY);
 		langCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		try {
+			List<Language> langs = LanguageUtils.getCommonLanguages();
+			Iterator<Language> it = langs.iterator();
+			while (it.hasNext()) {
+				Language lang = it.next();
+				langCombo.add(lang.getDescription());
+				langsMap.put(lang.getDescription(), lang.getCode());
+			}
 			langCombo.setItems(LanguageUtils.getLanguageNames());
 		} catch (SAXException | IOException | ParserConfigurationException e) {
 			logger.log(Level.ERROR, e);
@@ -104,16 +115,14 @@ public class LanguageAddDialog extends Dialog {
 					box.open();
 					return;
 				}
-				try {
-					language = LanguageUtils.languageFromName(langCombo.getItem(langCombo.getSelectionIndex()));
-				} catch (IOException | SAXException | ParserConfigurationException e) {
-					logger.log(Level.ERROR, e);
-					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage("Error retrieving selected language");
+				String language = langCombo.getText();
+				if (language == null || language.isEmpty()) {
+					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
+					box.setMessage("Select language");
 					box.open();
-					shell.close();
+					return;
 				}
-				cancelled = false;
+				view.addLanguage(langsMap.get(language));
 				shell.close();
 			}
 
@@ -135,13 +144,4 @@ public class LanguageAddDialog extends Dialog {
 			}
 		}
 	}
-
-	public boolean wasCancelled() {
-		return cancelled;
-	}
-
-	public Language getLanguage() {
-		return language;
-	}
-
 }

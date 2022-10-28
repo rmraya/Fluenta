@@ -32,9 +32,11 @@ public class ResourceManager {
 	private Image right;
 	private Cursor arrowCursor;
 	private Cursor waitCursor;
+	private boolean isWindows;
 
 	public ResourceManager(Display display) {
 		this.display = display;
+		isWindows = File.separatorChar == '\\';
 	}
 
 	public Image getSplash() {
@@ -53,7 +55,7 @@ public class ResourceManager {
 
 	public Image getAdd() {
 		if (add == null) {
-			if (Display.isSystemDarkTheme() && File.separatorChar != '\\') {
+			if (Display.isSystemDarkTheme() && !isWindows) {
 				add = new Image(display, ResourceManager.class.getResourceAsStream("add_white.png"));
 			} else {
 				add = new Image(display, ResourceManager.class.getResourceAsStream("add.png"));
@@ -64,7 +66,7 @@ public class ResourceManager {
 
 	public Image getEdit() {
 		if (edit == null) {
-			if (Display.isSystemDarkTheme() && File.separatorChar != '\\') {
+			if (Display.isSystemDarkTheme() && !isWindows) {
 				edit = new Image(display, ResourceManager.class.getResourceAsStream("edit_white.png"));
 			} else {
 				edit = new Image(display, ResourceManager.class.getResourceAsStream("edit.png"));
@@ -75,7 +77,7 @@ public class ResourceManager {
 
 	public Image getInfo() {
 		if (info == null) {
-			if (Display.isSystemDarkTheme() && File.separatorChar != '\\') {
+			if (Display.isSystemDarkTheme() && !isWindows) {
 				info = new Image(display, ResourceManager.class.getResourceAsStream("info_white.png"));
 			} else {
 				info = new Image(display, ResourceManager.class.getResourceAsStream("info.png"));
@@ -86,7 +88,7 @@ public class ResourceManager {
 
 	public Image getKey() {
 		if (key == null) {
-			if (Display.isSystemDarkTheme() && File.separatorChar != '\\') {
+			if (Display.isSystemDarkTheme() && !isWindows) {
 				key = new Image(display, ResourceManager.class.getResourceAsStream("key_white.png"));
 			} else {
 				key = new Image(display, ResourceManager.class.getResourceAsStream("key.png"));
@@ -97,7 +99,7 @@ public class ResourceManager {
 
 	public Image getLeft() {
 		if (left == null) {
-			if (Display.isSystemDarkTheme() && File.separatorChar != '\\') {
+			if (Display.isSystemDarkTheme() && !isWindows) {
 				left = new Image(display, ResourceManager.class.getResourceAsStream("left_white.png"));
 			} else {
 				left = new Image(display, ResourceManager.class.getResourceAsStream("left.png"));
@@ -108,7 +110,7 @@ public class ResourceManager {
 
 	public Image getRemove() {
 		if (remove == null) {
-			if (Display.isSystemDarkTheme() && File.separatorChar != '\\') {
+			if (Display.isSystemDarkTheme() && !isWindows) {
 				remove = new Image(display, ResourceManager.class.getResourceAsStream("remove_white.png"));
 			} else {
 				remove = new Image(display, ResourceManager.class.getResourceAsStream("remove.png"));
@@ -119,7 +121,7 @@ public class ResourceManager {
 
 	public Image getRight() {
 		if (right == null) {
-			if (Display.isSystemDarkTheme() && File.separatorChar != '\\') {
+			if (Display.isSystemDarkTheme() && !isWindows) {
 				right = new Image(display, ResourceManager.class.getResourceAsStream("right_white.png"));
 			} else {
 				right = new Image(display, ResourceManager.class.getResourceAsStream("right.png"));

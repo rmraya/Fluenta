@@ -63,7 +63,7 @@ import com.maxprograms.languages.LanguageUtils;
 import com.maxprograms.utils.Locator;
 import com.maxprograms.utils.TextUtils;
 
-public class ProjectDialog extends Dialog {
+public class ProjectDialog extends Dialog implements AddLanguageListener {
 
 	private static Logger logger = System.getLogger(ProjectDialog.class.getName());
 
@@ -73,9 +73,12 @@ public class ProjectDialog extends Dialog {
 	protected Text mapText;
 	protected Combo sourceLanguages;
 	protected Project project;
+	Table langsTable;
+	AddLanguageListener instance;
 
 	public ProjectDialog(Shell parent, int style, Project proj, MainView mainView) {
 		super(parent, style);
+		instance = this;
 		project = proj;
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
@@ -209,7 +212,7 @@ public class ProjectDialog extends Dialog {
 		languagesComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 		languagesItem.setControl(languagesComposite);
 
-		Table langsTable = new Table(languagesComposite, SWT.CHECK | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+		langsTable = new Table(languagesComposite, SWT.CHECK | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		langsTable.setLinesVisible(true);
 		langsTable.setHeaderVisible(false);
 		GridData langData = new GridData(GridData.FILL_BOTH);
@@ -278,33 +281,8 @@ public class ProjectDialog extends Dialog {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				try {
-					LanguageAddDialog dialog = new LanguageAddDialog(shell, SWT.DIALOG_TRIM);
-					dialog.show();
-					if (!dialog.wasCancelled()) {
-						Language l = dialog.getLanguage();
-						TableItem[] oldItems = langsTable.getItems();
-						for (int i = 0; i < oldItems.length; i++) {
-							Language lang = (Language) oldItems[i].getData("language");
-							if (l.getCode().equals(lang.getCode())) {
-								MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-								box.setMessage("Duplicated language");
-								box.open();
-								return;
-							}
-						}
-						TableItem item = new TableItem(langsTable, SWT.NONE);
-						item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
-						item.setData("language", l);
-					}
-				} catch (IOException e) {
-					logger.log(Level.ERROR, e);
-					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage("Error adding language");
-					box.open();
-					shell.close();
-				}
-
+				LanguageAddDialog dialog = new LanguageAddDialog(shell, SWT.DIALOG_TRIM, instance);
+				dialog.show();
 			}
 
 			@Override
@@ -581,6 +559,37 @@ public class ProjectDialog extends Dialog {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
+		}
+	}
+
+	@Override
+	public void addLanguage(String language) {
+		if (language == null) {
+			MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
+			box.setMessage("Null language");
+			box.open();
+			return;
+		}
+		try {
+			Language l = LanguageUtils.getLanguage(language);
+			TableItem[] oldItems = langsTable.getItems();
+			for (int i = 0; i < oldItems.length; i++) {
+				Language lang = (Language) oldItems[i].getData("language");
+				if (l.getCode().equals(lang.getCode())) {
+					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
+					box.setMessage("Duplicated language");
+					box.open();
+					return;
+				}
+			}
+			TableItem item = new TableItem(langsTable, SWT.NONE);
+			item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
+			item.setData("language", l);
+		} catch (IOException ex) {
+			logger.log(Level.ERROR, ex);
+			MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
+			box.setMessage("Error adding language");
+			box.open();
 		}
 	}
 

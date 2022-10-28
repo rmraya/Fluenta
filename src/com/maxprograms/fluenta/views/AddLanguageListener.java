@@ -10,15 +10,10 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-package com.maxprograms.fluenta;
+ package com.maxprograms.fluenta.views;
 
-public class Constants {
+public interface AddLanguageListener {
 
-	private Constants() {
-		// private for security
-	}
-	
-	public static final String NAME = "Fluenta"; 
-	public static final String VERSION = "3.0.0"; 
-	public static final String BUILD = "20221026_0936"; 
+    void addLanguage(String language);
+
 }
