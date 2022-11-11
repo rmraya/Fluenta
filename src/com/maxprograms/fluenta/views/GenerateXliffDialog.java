@@ -310,7 +310,8 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 							mainView.getController().generateXliff(project, xliffFolder, tgtLangs, useice, usetm, count,
 									ditaval, useXliff20, embedSkeleton, aLogger);
 						} catch (IOException | ClassNotFoundException | JSONException | SAXException
-								| ParserConfigurationException | URISyntaxException | SQLException | ParseException e) {
+								| NullPointerException | ParserConfigurationException | URISyntaxException
+								| SQLException | ParseException e) {
 							aLogger.displayError(e.getMessage());
 							logger.log(Level.ERROR, e);
 						}

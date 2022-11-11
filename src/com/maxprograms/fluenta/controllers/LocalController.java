@@ -12,6 +12,7 @@
 
 package com.maxprograms.fluenta.controllers;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -45,6 +45,7 @@ import com.maxprograms.converters.Convert;
 import com.maxprograms.converters.EncodingResolver;
 import com.maxprograms.converters.FileFormats;
 import com.maxprograms.converters.ILogger;
+import com.maxprograms.converters.TmxExporter;
 import com.maxprograms.converters.Utils;
 import com.maxprograms.converters.ditamap.DitaMap2Xliff;
 import com.maxprograms.converters.ditamap.Xliff2DitaMap;
@@ -74,7 +75,6 @@ import com.maxprograms.swordfish.tm.MatchQuality;
 import com.maxprograms.swordfish.tm.TMUtils;
 import com.maxprograms.utils.FileUtils;
 import com.maxprograms.utils.Preferences;
-import com.maxprograms.utils.TMXExporter;
 import com.maxprograms.widgets.AsyncLogger;
 import com.maxprograms.xliff2.FromXliff2;
 import com.maxprograms.xliff2.ToXliff2;
@@ -299,6 +299,7 @@ public class LocalController {
 						try {
 							if (Float.parseFloat(match.getAttributeValue("match-quality")) >= 70) {
 								seg.addContent(match);
+								seg.addContent("\n");
 							}
 						} catch (NumberFormatException e) {
 							// do nothing
@@ -738,7 +739,7 @@ public class LocalController {
 			logger.log("");
 			logger.log(xliffDocument.substring(0, xliffDocument.lastIndexOf('.')) + ".tmx");
 			String tmxFile = xliffDocument.substring(0, xliffDocument.lastIndexOf('.')) + ".tmx";
-			TMXExporter.export(workDocument, tmxFile, acceptUnapproved);
+			TmxExporter.export(workDocument, tmxFile, Preferences.getInstance().getCatalogFile());
 			logger.setStage("Importing TMX");
 			Memory m = getMemory(project.getId());
 			if (m != null) {
@@ -862,7 +863,7 @@ public class LocalController {
 		for (int i = 0; i < size; i++) {
 
 			Element e = segments.get(i);
-			if (!e.getAttributeValue("approved", "no").equalsIgnoreCase("yes")) {
+			if ("no".equals(e.getAttributeValue("approved", "no"))) {
 				continue;
 			}
 			source = e.getChild("source");
@@ -1354,46 +1355,29 @@ public class LocalController {
 			float fuzzyLevel, boolean caseSensitive)
 			throws SAXException, IOException, ParserConfigurationException, SQLException {
 
-		Hashtable<String, Element> existingMatches = new Hashtable<>();
-		List<Element> translations = seg.getChildren("alt-trans");
-		Iterator<Element> t = translations.iterator();
-		while (t.hasNext()) {
-			Element trans = t.next();
-			if (!trans.getAttributeValue("tool", "TM Search").equals("TT")) {
-				List<PI> pis = trans.getPI("id");
-				if (pis.isEmpty()) {
-					trans.addContent(new PI("id", "" + System.currentTimeMillis()));
-					pis = trans.getPI("id");
-				}
-				String pid = pis.get(0).getData();
-				if (!existingMatches.containsKey(pid)) {
-					existingMatches.put(pid, trans);
-				}
-			}
-		}
-
+		List<Element> result = new Vector<>();
 		List<Match> res = database.searchTranslation(TMUtils.pureText(seg.getChild("source")),
 				srcLang, tgtLang, (int) fuzzyLevel, caseSensitive);
 
 		Iterator<Match> r = res.iterator();
 		while (r.hasNext()) {
 			Match match = r.next();
-			String tid = match.getProperties().get("tuid");
 			int quality = match.getSimilarity();
 
 			Element alttrans = new Element("alt-trans");
 
-			Element src = match.getSource();
-			Element tgt = match.getTarget();
+			Element srcTuv = match.getSource();
+			Element tgtTuv = match.getTarget();
+			Element src = new Element("source");
+			src.setContent(toXliff(srcTuv.getChild("seg").getContent()));
+			Element tgt = new Element("target");
+			tgt.setContent(toXliff(tgtTuv.getChild("seg").getContent()));
 
-			alttrans.addContent("\n");
-			alttrans.addContent(new PI("id", tid));
-			alttrans.addContent("\n");
+			alttrans.addContent("\n      ");
 			alttrans.addContent(src);
-			alttrans.addContent("\n");
+			alttrans.addContent("\n      ");
 			alttrans.addContent(tgt);
-			alttrans.addContent("\n");
-
+			alttrans.addContent("\n   ");
 			alttrans = fixTags(seg.getChild("source"), alttrans);
 			quality = MatchQuality.similarity(TMUtils.pureText(seg.getChild("source")),
 					TMUtils.pureText(alttrans.getChild("source")));
@@ -1403,19 +1387,63 @@ public class LocalController {
 			alttrans.setAttribute("match-quality", "" + quality);
 			alttrans.setAttribute("xml:space", "default");
 			alttrans.setAttribute("origin", match.getOrigin());
-
-			if (!existingMatches.containsKey(tid)) {
-				existingMatches.put(tid, alttrans);
-			}
-		}
-
-		List<Element> result = new Vector<>();
-		Enumeration<Element> en = existingMatches.elements();
-		while (en.hasMoreElements()) {
-			Element e = en.nextElement();
-			result.add(e);
+			
+			result.add(alttrans);
 		}
 		return sortMatches(result);
+	}
+
+	private List<XMLNode> toXliff(List<XMLNode> content)
+			throws SAXException, IOException, ParserConfigurationException {
+		List<XMLNode> result = new Vector<>();
+		Iterator<XMLNode> it = content.iterator();
+		while (it.hasNext()) {
+			XMLNode node = it.next();
+			if (node.getNodeType() == XMLNode.TEXT_NODE) {
+				result.add(node);
+			}
+			if (node.getNodeType() == XMLNode.ELEMENT_NODE) {
+				Element tag = (Element) node;
+				if ("ph".equals(tag.getName()) && !"xliff-x".equals(tag.getAttributeValue("type"))) {
+					tag.setAttribute("id", tag.getAttributeValue("x"));
+					tag.removeAttribute("x");
+					result.add(tag);
+				}
+				if ("ph".equals(tag.getName()) && "xliff-x".equals(tag.getAttributeValue("type"))) {
+					String x = tag.getText();
+					result.add(new SAXBuilder().build(new ByteArrayInputStream(x.getBytes(StandardCharsets.UTF_8)))
+							.getRootElement());
+				}
+				if ("bpt".equals(tag.getName()) && "xliff-g".equals(tag.getAttributeValue("type"))) {
+					Element g = new Element("g");
+					g.setAttributes(parseAttributes(tag.getText()));
+					String i = tag.getAttributeValue("i");
+					while (it.hasNext()) {
+						node = it.next();
+						if (node.getNodeType() == XMLNode.TEXT_NODE) {
+							g.addContent(node);
+						}
+						if (node.getNodeType() == XMLNode.ELEMENT_NODE) {
+							Element child = (Element) node;
+							if ("ept".equals(child.getName()) && i.equals(child.getAttributeValue("i"))) {
+								break;
+							}
+							g.addContent(child);
+						}
+					}
+					g.setContent(toXliff(g.getContent()));
+					result.add(g);
+				}
+			}
+		}
+		return result;
+	}
+
+	private List<Attribute> parseAttributes(String text)
+			throws SAXException, IOException, ParserConfigurationException {
+		String element = text + "</g>";
+		return new SAXBuilder().build(new ByteArrayInputStream(element.getBytes(StandardCharsets.UTF_8)))
+				.getRootElement().getAttributes();
 	}
 
 	private void cleanCtype(Element e) {

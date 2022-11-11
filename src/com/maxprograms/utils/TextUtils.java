@@ -39,31 +39,31 @@ public class TextUtils {
 
 	public static String normalise(String string, boolean trim) {
 		boolean repeat = false;
-		String rs = "";
+		StringBuilder result = new StringBuilder();
 		int length = string.length();
 		for (int i = 0; i < length; i++) {
 			char ch = string.charAt(i);
 			if (!Character.isSpaceChar(ch)) {
 				if (ch != '\n') {
-					rs = rs + ch;
+					result.append(ch);
 				} else {
-					rs = rs + " ";
+					result.append(' ');
 					repeat = true;
 				}
 			} else {
-				rs = rs + " ";
+				result.append(' ');
 				while (i < length - 1 && Character.isSpaceChar(string.charAt(i + 1))) {
 					i++;
 				}
 			}
 		}
 		if (repeat) {
-			return normalise(rs, trim);
+			return normalise(result.toString(), trim);
 		}
 		if (trim) {
-			return rs.trim();
+			return result.toString().trim();
 		}
-		return rs;
+		return result.toString();
 	}
 
 	public static long getGMTtime(String tmxDate) {

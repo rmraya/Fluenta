@@ -258,9 +258,18 @@ public class API {
 		String xliffFile = jsonObject.getString("xliffFile");
 		String outputFolder = jsonObject.getString("outputFolder");
 		boolean updateTM = jsonObject.getBoolean("updateTM");
-		boolean acceptUnapproved = jsonObject.getBoolean("acceptUnapproved");
-		boolean ignoreTagErrors = jsonObject.getBoolean("ignoreTagErrors");
-		boolean cleanAttributes = jsonObject.getBoolean("cleanAttributes");
+		boolean acceptUnapproved = false;
+		if (jsonObject.has("acceptUnapproved")) {
+			acceptUnapproved = jsonObject.getBoolean("acceptUnapproved");
+		}
+		boolean ignoreTagErrors = false;
+		if (jsonObject.has("ignoreTagErrors")) {
+			ignoreTagErrors = jsonObject.getBoolean("ignoreTagErrors");
+		}
+		boolean cleanAttributes = true;
+		if (jsonObject.has("cleanAttributes")) {
+			cleanAttributes = jsonObject.getBoolean("cleanAttributes");
+		}
 		importXLIFF(id, xliffFile, outputFolder, updateTM, acceptUnapproved, ignoreTagErrors, cleanAttributes, verbose);
 	}
 

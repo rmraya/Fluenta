@@ -71,7 +71,7 @@ public class ProjectsManager {
         throw new IOException("Project does not exist");
     }
 
-    public void update(Project project) throws IOException, JSONException, ParseException {
+    public void update(Project project) throws IOException, JSONException {
         remove(project.getId());
         add(project);
     }

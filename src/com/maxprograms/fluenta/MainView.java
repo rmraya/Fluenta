@@ -403,7 +403,7 @@ public class MainView {
 				Program.launch("https://www.maxprograms.com/products/fluentalog.html");
 			}
 		});
-		
+
 		if (!isMac) {
 			new MenuItem(helpMenu, SWT.SEPARATOR);
 
@@ -426,20 +426,19 @@ public class MainView {
 			URLConnection connection = url.openConnection();
 			connection.setConnectTimeout(10000);
 			byte[] array = new byte[2048];
+			int read = 0;
 			try (InputStream input = connection.getInputStream()) {
-				int read = input.read(array);
-				if (read == 0) {
+				if ((read = input.read(array)) == 0) {
 					throw new IOException("Error reading server response");
 				}
 			}
-			String version = new String(array).trim();
-			if (!version.equals(Constants.VERSION + " (" + Constants.BUILD + ")")) {
+			String version = new String(array, 0, read).trim();
+			String installedVersion = Constants.VERSION + " (" + Constants.BUILD + ")";
+			if (!version.equals(installedVersion)) {
 				MessageBox box = new MessageBox(shell, SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-				MessageFormat mf = new MessageFormat("Installed version is: {0}\n" +
-						"Available version is: {1}\n" +
-						"\nVisit download site?");
-				Object[] args = { Constants.VERSION + " (" + Constants.BUILD + ")", version };
-				box.setMessage(mf.format(args));
+				MessageFormat mf = new MessageFormat(
+						"Installed version is: {0}\nAvailable version is: {1}\n\nVisit download site?");
+				box.setMessage(mf.format(new String[] { installedVersion, version }));
 				if (box.open() == SWT.YES) {
 					Program.launch("https://www.maxprograms.com/downloads/");
 				}

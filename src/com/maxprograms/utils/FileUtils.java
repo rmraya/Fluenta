@@ -125,14 +125,14 @@ public class FileUtils {
 	}
 
 	public static String findTreeRoot(SortedSet<String> set) {
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		MTree<String> tree = filesTree(set);
 		MTree.Node<String> root = tree.getRoot();
 		while (root.size() == 1) {
-			result = result + root.getData();
+			result.append(root.getData());
 			root = root.getChild(0);
 		}
-		return result;
+		return result.toString();
 	}
 
 	private static MTree<String> filesTree(SortedSet<String> files) {

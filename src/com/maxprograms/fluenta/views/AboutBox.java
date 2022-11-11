@@ -159,9 +159,9 @@ public class AboutBox {
 		swt.setText("SWT");
 
 		CustomLink swtLink = new CustomLink(licenses, SWT.NONE);
-		swtLink.setText("Eclipse Public License Version 1.0");
+		swtLink.setText("Eclipse Public License Version 2.0");
 		try {
-			swtLink.setURL(new File("licenses/EclipsePublicLicense1.0.html").toURI().toURL().toString());
+			swtLink.setURL(new File("licenses/EclipsePublicLicense2.0.html").toURI().toURL().toString());
 		} catch (MalformedURLException e) {
 			logger.log(Level.WARNING, "Error setting license link", e);
 		}

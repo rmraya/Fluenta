@@ -406,9 +406,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 							project.getMemories().add(m.getId());
 						}
 						memoriesTable.layout();
-					} else {
-						// TODO
-					}
+					} 
 				}
 			}
 		});
