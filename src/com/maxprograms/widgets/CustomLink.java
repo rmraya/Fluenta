@@ -12,10 +12,12 @@
 
 package com.maxprograms.widgets;
 
+import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.graphics.Color;
@@ -66,7 +68,7 @@ public class CustomLink  {
 			viewer.display(url);
 			viewer.show();
 			link.setForeground(parent.getDisplay().getSystemColor(SWT.COLOR_MAGENTA));
-		} catch (Exception e) {
+		} catch (SWTException | IOException e) {
 			Logger logger = System.getLogger(CustomLink.class.getName());
 			logger.log(Level.WARNING, "Error displaying link", e); 
 			MessageBox box = new MessageBox(parent.getShell(), SWT.ICON_ERROR);

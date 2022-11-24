@@ -12,10 +12,10 @@
 
 package com.maxprograms.fluenta.models;
 
+import java.io.IOException;
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -24,16 +24,19 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
-import com.maxprograms.languages.Language;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.maxprograms.utils.TextUtils;
 
 public class Project implements Serializable {
 
-	public static final String NEW = "New"; 
-	public static final String NEEDS_UPDATE = "Needs Update"; 
-	public static final String IN_PROGRESS = "In Progress"; 
-	public static final String COMPLETED = "Completed"; 
-	private static final String UNTRANSLATED = "Untranslated"; 
+	public static final String NEW = "New";
+	public static final String NEEDS_UPDATE = "Needs Update";
+	public static final String IN_PROGRESS = "In Progress";
+	public static final String COMPLETED = "Completed";
+	private static final String UNTRANSLATED = "Untranslated";
 
 	private static final long serialVersionUID = 6996995538736280348L;
 
@@ -45,30 +48,16 @@ public class Project implements Serializable {
 	private Date creationDate;
 	private String status;
 	private Date lastUpdate;
-	private Language srcLanguage;
-	private List<Language> tgtLanguages;
-	private List<Memory> memories;
+	private String srcLanguage;
+	private List<String> tgtLanguages;
+	private List<Long> memories;
 	private String xliffFolder;
 	private List<ProjectEvent> history;
 	private Map<String, String> languageStatus;
 
-	public Project() {
-		// empty constructor for GWT
-		id = 0l;
-		title = ""; 
-		description = ""; 
-		map = ""; 
-		xliffFolder = ""; 
-		creationDate = new Date();
-		status = NEW;
-		tgtLanguages = new Vector<>();
-		memories = new Vector<>();
-		history = new Vector<>();
-		languageStatus = new Hashtable<>();
-	}
-
 	public Project(long id, String title, String description, String owner, String map, Date creationDate,
-			String status, Date lastUpdate, Language srcLanguage, List<Language> tgtLanguages, List<Memory> memories) {
+			String status, Date lastUpdate, String srcLanguage, List<String> tgtLanguages, List<Long> memories,
+			List<ProjectEvent> history, Map<String, String> languageStatus) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -80,14 +69,93 @@ public class Project implements Serializable {
 		this.srcLanguage = srcLanguage;
 		this.tgtLanguages = tgtLanguages;
 		this.memories = memories;
-		history = new Vector<>();
-		languageStatus = new Hashtable<>();
+		this.history = history;
+		this.languageStatus = languageStatus;
 		for (int i = 0; i < tgtLanguages.size(); i++) {
-			Language l = tgtLanguages.get(i);
-			if (!languageStatus.containsKey(l.getCode())) {
-				languageStatus.put(l.getCode(), UNTRANSLATED);
+			String lang = tgtLanguages.get(i);
+			if (!languageStatus.containsKey(lang)) {
+				languageStatus.put(lang, UNTRANSLATED);
 			}
 		}
+	}
+
+	public Project(JSONObject json) throws JSONException, ParseException, IOException {
+		this.id = json.getLong("id");
+		this.title = json.getString("title");
+		this.description = json.getString("description");
+		this.owner = json.getString("owner");
+		this.map = json.getString("map");
+		DateFormat df = DateFormat.getDateTimeInstance();
+		this.creationDate = df.parse(json.getString("creationDate"));
+		this.status = json.getString("status");
+		this.lastUpdate = df.parse(json.getString("lastUpdate"));
+		this.srcLanguage = json.getString("srcLanguage");
+		this.tgtLanguages = new Vector<>();
+		JSONArray tgtLangs = json.getJSONArray("tgtLanguages");
+		for (int i = 0; i < tgtLangs.length(); i++) {
+			this.tgtLanguages.add(tgtLangs.getString(i));
+		}
+		this.memories = new Vector<>();
+		JSONArray memArray = json.getJSONArray("memories");
+		for (int i = 0; i < memArray.length(); i++) {
+			this.memories.add(memArray.getLong(i));
+		}
+		history = new Vector<>();
+		JSONArray eventArray = json.getJSONArray("history");
+		for (int i = 0; i < eventArray.length(); i++) {
+			history.add(new ProjectEvent(eventArray.getJSONObject(i)));
+		}
+		languageStatus = new Hashtable<>();
+		JSONObject langStatus = json.getJSONObject("languageStatus");
+		Iterator<String> langs = langStatus.keys();
+		while (langs.hasNext()) {
+			String lang = langs.next();
+			languageStatus.put(lang, langStatus.getString(lang));
+		}
+		for (int i = 0; i < tgtLanguages.size(); i++) {
+			String l = tgtLanguages.get(i);
+			if (!languageStatus.containsKey(l)) {
+				languageStatus.put(l, UNTRANSLATED);
+			}
+		}
+	}
+
+	public JSONObject toJSON() {
+		JSONObject json = new JSONObject();
+		DateFormat df = DateFormat.getDateTimeInstance();
+		json.put("id", id);
+		json.put("title", title);
+		json.put("description", description);
+		json.put("owner", owner);
+		json.put("map", map);
+		json.put("creationDate", df.format(creationDate));
+		json.put("status", status);
+		json.put("lastUpdate", df.format(lastUpdate));
+		json.put("srcLanguage", srcLanguage);
+		JSONArray tgtArray = new JSONArray();
+		for (int i = 0; i < tgtLanguages.size(); i++) {
+			tgtArray.put(tgtLanguages.get(i));
+		}
+		json.put("tgtLanguages", tgtArray);
+		JSONArray memsArray = new JSONArray();
+		for (int i = 0; i < memories.size(); i++) {
+			memsArray.put(memories.get(i));
+		}
+		json.put("memories", memsArray);
+		JSONArray eventArray = new JSONArray();
+		for (int i = 0; i < history.size(); i++) {
+			eventArray.put(history.get(i).toJSON());
+		}
+		json.put("history", eventArray);
+		JSONObject langStatus = new JSONObject();
+		Set<String> langs = languageStatus.keySet();
+		Iterator<String> it = langs.iterator();
+		while (it.hasNext()) {
+			String lang = it.next();
+			langStatus.put(lang, languageStatus.get(lang));
+		}
+		json.put("languageStatus", langStatus);
+		return json;
 	}
 
 	public long getId() {
@@ -143,17 +211,17 @@ public class Project implements Serializable {
 	private String getStatusString() {
 		switch (status) {
 			case NEW:
-				return Messages.getString("Project.0"); 
+				return NEW;
 			case NEEDS_UPDATE:
-				return Messages.getString("Project.1"); 
+				return NEEDS_UPDATE;
 			case IN_PROGRESS:
-				return Messages.getString("Project.2"); 
+				return IN_PROGRESS;
 			case COMPLETED:
-				return Messages.getString("Project.3"); 
+				return COMPLETED;
 			case UNTRANSLATED:
-				return Messages.getString("Project.4"); 
+				return UNTRANSLATED;
 			default:
-				return Messages.getString("Project.5"); 
+				return "Unknown";
 		}
 	}
 
@@ -167,40 +235,28 @@ public class Project implements Serializable {
 
 	public String getLastUpdateString() {
 		if (lastUpdate == null) {
-			return ""; 
+			return "";
 		}
-		Calendar c = Calendar.getInstance();
-		c.setTime(lastUpdate);
-		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-"  
-				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2)
-				+ " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2);  
+		return TextUtils.date2string(lastUpdate);
 	}
 
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public List<Language> getLanguages() {
-		Collections.sort(tgtLanguages, new Comparator<Language>() {
-
-			@Override
-			public int compare(Language o1, Language o2) {
-				return o1.getDescription().compareTo(o2.getDescription());
-			}
-
-		});
+	public List<String> getLanguages() {
 		return tgtLanguages;
 	}
 
-	public void setLanguages(List<Language> languages) {
+	public void setLanguages(List<String> languages) {
 		this.tgtLanguages = languages;
 	}
 
-	public List<Memory> getMemories() {
+	public List<Long> getMemories() {
 		return memories;
 	}
 
-	public void setMemories(List<Memory> memories) {
+	public void setMemories(List<Long> memories) {
 		this.memories = memories;
 	}
 
@@ -213,11 +269,7 @@ public class Project implements Serializable {
 	}
 
 	public String getCreationDateString() {
-		Calendar c = Calendar.getInstance();
-		c.setTime(creationDate);
-		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-"  
-				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2)
-				+ " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) + ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2);  
+		return TextUtils.date2string(creationDate);
 	}
 
 	public String getTitle() {
@@ -228,20 +280,20 @@ public class Project implements Serializable {
 		this.title = title;
 	}
 
-	public Language getSrcLanguage() {
+	public String getSrcLanguage() {
 		return srcLanguage;
 	}
 
-	public void setSrcLanguage(Language srcLanguage) {
+	public void setSrcLanguage(String srcLanguage) {
 		this.srcLanguage = srcLanguage;
 	}
 
-	public void setTgtLanguages(List<Language> tgtLanguages) {
+	public void setTgtLanguages(List<String> tgtLanguages) {
 		this.tgtLanguages = tgtLanguages;
 		for (int i = 0; i < tgtLanguages.size(); i++) {
-			Language l = tgtLanguages.get(i);
-			if (!languageStatus.containsKey(l.getCode())) {
-				languageStatus.put(l.getCode(), UNTRANSLATED);
+			String l = tgtLanguages.get(i);
+			if (!languageStatus.containsKey(l)) {
+				languageStatus.put(l, UNTRANSLATED);
 			}
 		}
 	}
@@ -258,7 +310,7 @@ public class Project implements Serializable {
 		return history;
 	}
 
-	public void setHistory(Vector<ProjectEvent> history) {
+	public void setHistory(List<ProjectEvent> history) {
 		this.history = history;
 	}
 
@@ -266,7 +318,7 @@ public class Project implements Serializable {
 		int count = 0;
 		for (int i = 0; i < history.size(); i++) {
 			ProjectEvent event = history.get(i);
-			if (event.getLanguage().getCode().equals(langCode) && event.getType().equals(ProjectEvent.XLIFF_CREATED)) {
+			if (event.getLanguage().equals(langCode) && event.getType().equals(ProjectEvent.XLIFF_CREATED)) {
 				count++;
 			}
 		}
@@ -276,22 +328,21 @@ public class Project implements Serializable {
 	public String getTargetStatus(String langCode) {
 		switch (languageStatus.get(langCode)) {
 			case NEW:
-				return Messages.getString("Project.0"); 
+				return NEW;
 			case NEEDS_UPDATE:
-				return Messages.getString("Project.1"); 
+				return NEEDS_UPDATE;
 			case IN_PROGRESS:
-				return Messages.getString("Project.2"); 
+				return IN_PROGRESS;
 			case COMPLETED:
-				return Messages.getString("Project.3"); 
+				return COMPLETED;
 			case UNTRANSLATED:
-				return Messages.getString("Project.4"); 
+				return UNTRANSLATED;
 			default:
-				return Messages.getString("Project.5"); 
+				return "Unknown";
 		}
 	}
 
 	public void setLanguageStatus(String langCode, String status) {
 		languageStatus.put(langCode, status);
 	}
-
 }

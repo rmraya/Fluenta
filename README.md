@@ -28,31 +28,26 @@ The version of Fluenta included in the official installers from [Fluenta's Home 
 Subscription version includes unlimited email support at tech@maxprograms.com
 
 ### Differences sumary
+
 Differences | Source Code | Subscription Based
--|----------- | -------------
+-|:----------:|:-------------:
 Ready To Use Installers| No | Yes
 Notarized macOS launcher| No | Yes
 Signed launcher and installer for Windows | No | Yes
 Restricted Features | None | None
-Technical Support |  Peer support at  [Groups.io](https://groups.io/g/maxprograms/)| - Direct email at tech@maxprograms.com  <br> - Peer support at [Groups.io](https://groups.io/g/maxprograms/)
-
+Technical Support |  Peer support at  [Groups.io](https://groups.io/g/maxprograms/)| - Direct email at tech@maxprograms.com <br> - Peer support at [Groups.io](https://groups.io/g/maxprograms/)
 
 ## Installers
-Ready to use installers are available at https://www.maxprograms.com/products/fluenta.html
+
+Ready to use installers are available at <https://www.maxprograms.com/products/fluenta.html>
 
 ## Building Yourself
+
 You need JAVA 17 and [Apache Ant 1.10.12](https://ant.apache.org) or newer
 
- - Checkout this repository
- - Point your JAVA_HOME variabe to JDK 17
- - Run `ant ` to compile the source code
+- Checkout this repository
+- Point your JAVA_HOME variable to JDK 17
+- Copy the appropriate version of `swt.jar` from `SWT` folder to `jars` folder
+- Run `ant` to compile the source code
 
-### Steps for building
-
-``` bash
-  git clone https://github.com/rmraya/Fluenta.git
-  cd Fluenta
-  ant 
-```
-
-Use the `.bat` or `.sh` launchers included in the project to run Fluenta.
+Use  `fluenta.bat`, `fluenta_mac.sh` of `fluenta_linux.sh` to run Fluenta.

@@ -12,6 +12,8 @@
 
 package com.maxprograms.fluenta.views.resources;
 
+import java.io.File;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Image;
@@ -21,7 +23,6 @@ public class ResourceManager {
 	private Display display;
 	private Image splash;
 	private Image icon;
-	private Image background;
 	private Image add;
 	private Image edit;
 	private Image info;
@@ -31,77 +32,100 @@ public class ResourceManager {
 	private Image right;
 	private Cursor arrowCursor;
 	private Cursor waitCursor;
+	private boolean isWindows;
 
 	public ResourceManager(Display display) {
 		this.display = display;
+		isWindows = File.separatorChar == '\\';
 	}
-	
+
 	public Image getSplash() {
 		if (splash == null) {
-			splash = new Image(display, ResourceManager.class.getResourceAsStream("splash.png")); 
+			splash = new Image(display, ResourceManager.class.getResourceAsStream("splash.png"));
 		}
 		return splash;
 	}
 
 	public Image getIcon() {
 		if (icon == null) {
-			icon = new Image(display, ResourceManager.class.getResourceAsStream("icon.png")); 
+			icon = new Image(display, ResourceManager.class.getResourceAsStream("icon.png"));
 		}
 		return icon;
 	}
 
-	public Image getBackground() {
-		if (background == null) {
-			background = new Image(display, ResourceManager.class.getResourceAsStream("background.png")); 
-		}
-		return background;
-	}
-
 	public Image getAdd() {
 		if (add == null) {
-			add = new Image(display, ResourceManager.class.getResourceAsStream("add.png")); 
+			if (Display.isSystemDarkTheme() && !isWindows) {
+				add = new Image(display, ResourceManager.class.getResourceAsStream("add_white.png"));
+			} else {
+				add = new Image(display, ResourceManager.class.getResourceAsStream("add.png"));
+			}
 		}
 		return add;
 	}
 
 	public Image getEdit() {
 		if (edit == null) {
-			edit = new Image(display, ResourceManager.class.getResourceAsStream("edit.png")); 
+			if (Display.isSystemDarkTheme() && !isWindows) {
+				edit = new Image(display, ResourceManager.class.getResourceAsStream("edit_white.png"));
+			} else {
+				edit = new Image(display, ResourceManager.class.getResourceAsStream("edit.png"));
+			}
 		}
 		return edit;
 	}
-	
+
 	public Image getInfo() {
 		if (info == null) {
-			info = new Image(display, ResourceManager.class.getResourceAsStream("info.png")); 
+			if (Display.isSystemDarkTheme() && !isWindows) {
+				info = new Image(display, ResourceManager.class.getResourceAsStream("info_white.png"));
+			} else {
+				info = new Image(display, ResourceManager.class.getResourceAsStream("info.png"));
+			}
 		}
 		return info;
 	}
 
 	public Image getKey() {
 		if (key == null) {
-			key = new Image(display, ResourceManager.class.getResourceAsStream("key.png")); 
+			if (Display.isSystemDarkTheme() && !isWindows) {
+				key = new Image(display, ResourceManager.class.getResourceAsStream("key_white.png"));
+			} else {
+				key = new Image(display, ResourceManager.class.getResourceAsStream("key.png"));
+			}
 		}
 		return key;
 	}
 
 	public Image getLeft() {
 		if (left == null) {
-			left = new Image(display, ResourceManager.class.getResourceAsStream("left.png")); 
+			if (Display.isSystemDarkTheme() && !isWindows) {
+				left = new Image(display, ResourceManager.class.getResourceAsStream("left_white.png"));
+			} else {
+				left = new Image(display, ResourceManager.class.getResourceAsStream("left.png"));
+			}
 		}
 		return left;
 	}
 
 	public Image getRemove() {
 		if (remove == null) {
-			remove = new Image(display, ResourceManager.class.getResourceAsStream("remove.png")); 
+			if (Display.isSystemDarkTheme() && !isWindows) {
+				remove = new Image(display, ResourceManager.class.getResourceAsStream("remove_white.png"));
+			} else {
+				remove = new Image(display, ResourceManager.class.getResourceAsStream("remove.png"));
+			}
 		}
 		return remove;
 	}
 
 	public Image getRight() {
 		if (right == null) {
-			right = new Image(display, ResourceManager.class.getResourceAsStream("right.png")); 
+			if (Display.isSystemDarkTheme() && !isWindows) {
+				right = new Image(display, ResourceManager.class.getResourceAsStream("right_white.png"));
+			} else {
+				right = new Image(display, ResourceManager.class.getResourceAsStream("right.png"));
+			}
 		}
 		return right;
 	}
@@ -119,6 +143,5 @@ public class ResourceManager {
 		}
 		return waitCursor;
 	}
-
 
 }

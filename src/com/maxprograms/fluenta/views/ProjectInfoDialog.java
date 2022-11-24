@@ -13,16 +13,11 @@
 package com.maxprograms.fluenta.views;
 
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import java.text.ParseException;
 import java.util.Iterator;
 import java.util.List;
-
-import com.maxprograms.fluenta.Fluenta;
-import com.maxprograms.fluenta.MainView;
-import com.maxprograms.fluenta.models.Project;
-import com.maxprograms.fluenta.models.ProjectEvent;
-import com.maxprograms.languages.Language;
-import com.maxprograms.languages.LanguageUtils;
-import com.maxprograms.utils.Locator;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -43,14 +38,25 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.json.JSONException;
+
+import com.maxprograms.fluenta.Fluenta;
+import com.maxprograms.fluenta.MainView;
+import com.maxprograms.fluenta.models.Project;
+import com.maxprograms.fluenta.models.ProjectEvent;
+import com.maxprograms.languages.Language;
+import com.maxprograms.languages.LanguageUtils;
+import com.maxprograms.utils.Locator;
 
 public class ProjectInfoDialog extends Dialog {
+
+	Logger logger = System.getLogger(ProjectInfoDialog.class.getName());
 
 	protected Shell shell;
 	private Display display;
 	protected Table statusTable;
 
-	public ProjectInfoDialog(Shell parent, int style, Project project) {
+	public ProjectInfoDialog(Shell parent, int style, Project project, MainView mainView) {
 		super(parent, style);
 
 		shell = new Shell(parent, style);
@@ -64,7 +70,7 @@ public class ProjectInfoDialog extends Dialog {
 
 			@Override
 			public void handleEvent(Event arg0) {
-				Locator.remember(shell, "ProjectInfoDialog"); 
+				Locator.remember(shell, "ProjectInfoDialog");
 			}
 		});
 		display = shell.getDisplay();
@@ -73,7 +79,7 @@ public class ProjectInfoDialog extends Dialog {
 		folder.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		CTabItem statusItem = new CTabItem(folder, SWT.NONE);
-		statusItem.setText(Messages.getString("ProjectInfoDialog.1")); 
+		statusItem.setText("Status");
 
 		Composite statusComposite = new Composite(folder, SWT.NONE);
 		statusComposite.setLayout(new GridLayout());
@@ -88,19 +94,19 @@ public class ProjectInfoDialog extends Dialog {
 		statusTable.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		TableColumn language = new TableColumn(statusTable, SWT.NONE);
-		language.setText(Messages.getString("ProjectInfoDialog.2")); 
+		language.setText("Language");
 		language.setWidth(200);
 
 		TableColumn statusColumn = new TableColumn(statusTable, SWT.CENTER);
-		statusColumn.setText(Messages.getString("ProjectInfoDialog.3")); 
+		statusColumn.setText("Status");
 		statusColumn.setWidth(120);
 
 		try {
 			populateStatusTable(project);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("ProjectInfoDialog.0")); 
+			box.setMessage("Error populating status table");
 			box.open();
 			shell.close();
 		}
@@ -110,11 +116,11 @@ public class ProjectInfoDialog extends Dialog {
 		bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label filler = new Label(bottom, SWT.NONE);
-		filler.setText(""); 
+		filler.setText("");
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button translated = new Button(bottom, SWT.PUSH);
-		translated.setText(Messages.getString("ProjectInfoDialog.5")); 
+		translated.setText("Mark Selection as Translated");
 		translated.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -122,16 +128,16 @@ public class ProjectInfoDialog extends Dialog {
 				for (int i = 0; i < statusTable.getItemCount(); i++) {
 					if (statusTable.getItem(i).getChecked()) {
 						TableItem item = statusTable.getItem(i);
-						project.setLanguageStatus(((Language) item.getData("language")).getCode(), Project.COMPLETED); 
+						project.setLanguageStatus(((Language) item.getData("language")).getCode(), Project.COMPLETED);
 					}
 				}
-				MainView.getController().updateProject(project);
 				try {
+					mainView.getController().updateProject(project);
 					populateStatusTable(project);
-				} catch (IOException e) {
-					e.printStackTrace();
+				} catch (IOException | JSONException | ParseException e) {
+					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage(Messages.getString("ProjectInfoDialog.4")); 
+					box.setMessage("Error populating status table");
 					box.open();
 					shell.close();
 				}
@@ -140,7 +146,7 @@ public class ProjectInfoDialog extends Dialog {
 		});
 
 		CTabItem historyItem = new CTabItem(folder, SWT.NONE);
-		historyItem.setText(Messages.getString("ProjectInfoDialog.7")); 
+		historyItem.setText("History");
 
 		Composite historyComposite = new Composite(folder, SWT.NONE);
 		historyComposite.setLayout(new GridLayout());
@@ -157,20 +163,20 @@ public class ProjectInfoDialog extends Dialog {
 		eventsTable.setLayoutData(tableData);
 
 		TableColumn date = new TableColumn(eventsTable, SWT.CENTER);
-		date.setText(Messages.getString("ProjectInfoDialog.8")); 
+		date.setText("Date");
 		date.setWidth(150);
 		date.setResizable(false);
 
 		TableColumn eventBuild = new TableColumn(eventsTable, SWT.CENTER);
-		eventBuild.setText(Messages.getString("ProjectInfoDialog.9")); 
+		eventBuild.setText("Version");
 		eventBuild.setWidth(50);
 
 		TableColumn eventLanguage = new TableColumn(eventsTable, SWT.NONE);
-		eventLanguage.setText(Messages.getString("ProjectInfoDialog.10")); 
+		eventLanguage.setText("Language");
 		eventLanguage.setWidth(200);
 
 		TableColumn events = new TableColumn(eventsTable, SWT.CENTER);
-		events.setText(Messages.getString("ProjectInfoDialog.11")); 
+		events.setText("Event");
 		events.setWidth(130);
 
 		try {
@@ -179,14 +185,14 @@ public class ProjectInfoDialog extends Dialog {
 			while (it.hasNext()) {
 				ProjectEvent event = it.next();
 				TableItem item = new TableItem(eventsTable, SWT.NONE);
-				item.setText(new String[] { event.getDateString(), "" + event.getBuild(), 
-						LanguageUtils.getLanguage(event.getLanguage().getCode()).getDescription(),
+				item.setText(new String[] { event.getDateString(), "" + event.getBuild(),
+						LanguageUtils.getLanguage(event.getLanguage()).getDescription(),
 						ProjectEvent.getDescription(event.getType()) });
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("ProjectInfoDialog.6")); 
+			box.setMessage("Error populating project history");
 			box.open();
 			shell.close();
 		}
@@ -198,19 +204,19 @@ public class ProjectInfoDialog extends Dialog {
 
 	protected void populateStatusTable(Project project) throws IOException {
 		statusTable.removeAll();
-		List<Language> tgtLangs = project.getLanguages();
-		Iterator<Language> tl = tgtLangs.iterator();
+		List<String> tgtLangs = project.getLanguages();
+		Iterator<String> tl = tgtLangs.iterator();
 		while (tl.hasNext()) {
-			Language l = tl.next();
+			Language lang = LanguageUtils.getLanguage(tl.next());
 			TableItem item = new TableItem(statusTable, SWT.NONE);
-			item.setText(new String[] { LanguageUtils.getLanguage(l.getCode()).getDescription(),
-					project.getTargetStatus(l.getCode()) });
-			item.setData("language", l); 
+			item.setText(new String[] { LanguageUtils.getLanguage(lang.getCode()).getDescription(),
+					project.getTargetStatus(lang.getCode()) });
+			item.setData("language", lang);
 		}
 	}
 
 	public void show() {
-		Locator.setLocation(shell, "ProjectInfoDialog"); 
+		Locator.setLocation(shell, "ProjectInfoDialog");
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {

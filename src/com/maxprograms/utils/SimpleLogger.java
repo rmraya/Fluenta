@@ -16,8 +16,6 @@ import java.util.List;
 
 import com.maxprograms.converters.ILogger;
 
-
-
 public class SimpleLogger implements ILogger{
 
 	String error;

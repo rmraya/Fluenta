@@ -14,12 +14,18 @@ package com.maxprograms.fluenta.models;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.maxprograms.languages.Language;
 import com.maxprograms.languages.LanguageUtils;
@@ -38,15 +44,6 @@ public class Memory implements Serializable {
 	private Language srcLanguage;
 	private List<Language> tgtLanguages;
 
-	public Memory() throws IOException {
-		id = 0l;
-		name = ""; 
-		description = ""; 
-		creationDate = new Date();
-		srcLanguage = LanguageUtils.getLanguage("en-US"); 
-		tgtLanguages = new Vector<>();
-	}
-
 	public Memory(long id, String name, String description, String owner, Date creationDate, Date lastUpdate,
 			Language srcLanguage, List<Language> tgtLanguages) {
 		this.id = id;
@@ -57,6 +54,40 @@ public class Memory implements Serializable {
 		this.lastUpdate = lastUpdate;
 		this.srcLanguage = srcLanguage;
 		this.tgtLanguages = tgtLanguages;
+	}
+
+	public Memory(JSONObject json) throws JSONException, ParseException, IOException {
+		this.id = json.getLong("id");
+		this.name = json.getString("name");
+		this.description = json.getString("description");
+		this.owner = json.getString("owner");
+		DateFormat df = DateFormat.getDateTimeInstance();
+		this.creationDate = df.parse(json.getString("creationDate"));
+		this.lastUpdate = df.parse(json.getString("lastUpdate"));
+		this.srcLanguage = LanguageUtils.getLanguage(json.getString("srcLanguage"));
+		this.tgtLanguages = new Vector<>();
+		JSONArray tgtLangs = json.getJSONArray("tgtLanguages");
+		for (int i = 0; i < tgtLangs.length(); i++) {
+			this.tgtLanguages.add(LanguageUtils.getLanguage(tgtLangs.getString(i)));
+		}
+	}
+
+	public JSONObject toJSON() {
+		JSONObject json = new JSONObject();
+		DateFormat df = DateFormat.getDateTimeInstance();
+		json.put("id", id);
+		json.put("name", name);
+		json.put("description", description);
+		json.put("owner", owner);
+		json.put("creationDate", df.format(creationDate));
+		json.put("lastUpdate", df.format(lastUpdate));
+		json.put("srcLanguage", srcLanguage.getCode());
+		JSONArray tgtLangs = new JSONArray();
+		for (int i = 0; i < tgtLanguages.size(); i++) {
+			tgtLangs.put(tgtLanguages.get(i).getCode());
+		}
+		json.put("tgtLanguages", tgtLangs);
+		return json;
 	}
 
 	public long getId() {
@@ -98,20 +129,20 @@ public class Memory implements Serializable {
 	public String getCreationDateString() {
 		Calendar c = Calendar.getInstance();
 		c.setTime(creationDate);
-		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-"  
-				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) 
-				+ ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); 
+		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-"
+				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2)
+				+ ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2);
 	}
 
 	public String getLastUpdateString() {
 		if (lastUpdate == null) {
-			return ""; 
+			return "";
 		}
 		Calendar c = Calendar.getInstance();
 		c.setTime(lastUpdate);
-		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-"  
-				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2) 
-				+ ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2); 
+		return c.get(Calendar.YEAR) + "-" + TextUtils.pad(c.get(Calendar.MONTH) + 1, 2) + "-"
+				+ TextUtils.pad(c.get(Calendar.DAY_OF_MONTH), 2) + " " + TextUtils.pad(c.get(Calendar.HOUR_OF_DAY), 2)
+				+ ":" + TextUtils.pad(c.get(Calendar.MINUTE), 2);
 	}
 
 	public void setCreationDate(Date creationDate) {

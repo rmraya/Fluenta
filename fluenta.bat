@@ -1,7 +1,2 @@
 @echo off
-
-set CLASSPATH="lib\dtd.jar;lib\fluenta.jar;lib\h2-1.4.200.jar;lib\json.jar;lib\jsoup.jar;lib\mapdb.jar;lib\openxliff.jar;lib\win64\swt.jar"
-
-start javaw.exe  -cp %CLASSPATH% com.maxprograms.fluenta.Fluenta
-
-
+start bin\javaw -cp "lib/h2-1.4.200.jar" --module-path lib -m fluenta/com.maxprograms.fluenta.Fluenta

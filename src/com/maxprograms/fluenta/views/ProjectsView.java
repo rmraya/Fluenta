@@ -14,17 +14,14 @@ package com.maxprograms.fluenta.views;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.text.Collator;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-
-import com.maxprograms.fluenta.Fluenta;
-import com.maxprograms.fluenta.MainView;
-import com.maxprograms.fluenta.models.Project;
-import com.maxprograms.widgets.CustomBar;
-import com.maxprograms.widgets.CustomItem;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -38,14 +35,25 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.json.JSONException;
+
+import com.maxprograms.fluenta.Fluenta;
+import com.maxprograms.fluenta.MainView;
+import com.maxprograms.fluenta.models.Project;
+import com.maxprograms.widgets.CustomBar;
+import com.maxprograms.widgets.CustomItem;
 
 public class ProjectsView extends Composite {
 
+	Logger logger = System.getLogger(ProjectsView.class.getName());
+
+	private MainView mainView;
 	protected Table table;
 	protected int sortField = 0;
 
-	public ProjectsView(Composite parent, int style) {
+	public ProjectsView(Composite parent, int style, MainView mainView) {
 		super(parent, style);
+		this.mainView = mainView;
 
 		GridLayout projectsLayout = new GridLayout();
 		projectsLayout.marginWidth = 0;
@@ -56,7 +64,7 @@ public class ProjectsView extends Composite {
 		bar.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		CustomItem create = bar.addItem(SWT.PUSH);
-		create.setText(Messages.getString("ProjectsView.1")); 
+		create.setText("Create Project");
 		create.setImage(Fluenta.getResourceManager().getAdd());
 		create.addMouseListener(new MouseListener() {
 
@@ -79,7 +87,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem update = bar.addItem(SWT.PUSH);
-		update.setText(Messages.getString("ProjectsView.3")); 
+		update.setText("Edit Project");
 		update.setImage(Fluenta.getResourceManager().getEdit());
 		update.addMouseListener(new MouseListener() {
 
@@ -102,7 +110,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem details = bar.addItem(SWT.PUSH);
-		details.setText(Messages.getString("ProjectsView.5")); 
+		details.setText("Project Information");
 		details.setImage(Fluenta.getResourceManager().getInfo());
 		details.addMouseListener(new MouseListener() {
 
@@ -125,7 +133,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem generateXliff = bar.addItem(SWT.PUSH);
-		generateXliff.setText(Messages.getString("ProjectsView.7")); 
+		generateXliff.setText("Generate XLIFF");
 		generateXliff.setImage(Fluenta.getResourceManager().getRight());
 		generateXliff.addMouseListener(new MouseListener() {
 
@@ -148,7 +156,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem importXliff = bar.addItem(SWT.PUSH);
-		importXliff.setText(Messages.getString("ProjectsView.9")); 
+		importXliff.setText("Import XLIFF");
 		importXliff.setImage(Fluenta.getResourceManager().getLeft());
 		importXliff.addMouseListener(new MouseListener() {
 
@@ -171,7 +179,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem remove = bar.addItem(SWT.PUSH);
-		remove.setText(Messages.getString("ProjectsView.11")); 
+		remove.setText("Remove Project");
 		remove.setImage(Fluenta.getResourceManager().getRemove());
 		remove.addMouseListener(new MouseListener() {
 
@@ -196,26 +204,25 @@ public class ProjectsView extends Composite {
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
 		table.setFocus();
-		table.setBackgroundImage(Fluenta.getResourceManager().getBackground());
 
 		TableColumn description = new TableColumn(table, SWT.NONE);
-		description.setText(Messages.getString("ProjectsView.13")); 
+		description.setText("Project");
 		description.setWidth(250);
 
 		TableColumn map = new TableColumn(table, SWT.NONE);
-		map.setText(Messages.getString("ProjectsView.14")); 
+		map.setText("Map File");
 		map.setWidth(350);
 
 		TableColumn status = new TableColumn(table, SWT.NONE);
-		status.setText(Messages.getString("ProjectsView.15")); 
+		status.setText("Status");
 		status.setWidth(150);
 
 		TableColumn created = new TableColumn(table, SWT.NONE);
-		created.setText(Messages.getString("ProjectsView.16")); 
+		created.setText("Created");
 		created.setWidth(200);
 
 		TableColumn updated = new TableColumn(table, SWT.NONE);
-		updated.setText(Messages.getString("ProjectsView.17")); 
+		updated.setText("Updated");
 		updated.setWidth(200);
 
 		table.addListener(SWT.Resize, new Listener() {
@@ -271,9 +278,9 @@ public class ProjectsView extends Composite {
 	public void loadProjects() {
 		table.removeAll();
 		try {
-			List<Project> projects = MainView.getController().getProjects();
+			List<Project> projects = mainView.getController().getProjects();
 			Project[] array = projects.toArray(new Project[projects.size()]);
-			final Collator collator = Collator.getInstance(new Locale("en")); 
+			final Collator collator = Collator.getInstance(new Locale("en"));
 			Arrays.sort(array, new Comparator<Project>() {
 
 				@Override
@@ -311,103 +318,108 @@ public class ProjectsView extends Composite {
 					return 0;
 				}
 			});
+			String userHome = System.getProperty("user.home");
 			for (int i = 0; i < array.length; i++) {
 				Project p = array[i];
 				TableItem item = new TableItem(table, SWT.NONE);
-				item.setData("project", p); 
-				item.setText(new String[] { p.getTitle(), p.getMap(), p.getStatus(), p.getCreationDateString(),
+				item.setData("project", p);
+				String map = p.getMap();
+				if (map.startsWith(userHome)) {
+					map = '~' + map.substring(userHome.length());
+				}
+				item.setText(new String[] { p.getTitle(), map, p.getStatus(), p.getCreationDateString(),
 						p.getLastUpdateString() });
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException | JSONException | ParseException e) {
+			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.19")); 
+			box.setMessage("Error loading projects");
 			box.open();
 		}
 	}
 
 	public void addProject() {
-		ProjectDialog addProject = new ProjectDialog(getShell(), SWT.DIALOG_TRIM | SWT.RESIZE, new Project());
+		ProjectDialog addProject = new ProjectDialog(getShell(), SWT.DIALOG_TRIM | SWT.RESIZE, null, mainView);
 		addProject.show();
 	}
 
 	public void updateProject() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.20")); 
+			box.setMessage("Select project");
 			box.open();
 			return;
 		}
 		ProjectDialog updateProject = new ProjectDialog(getShell(), SWT.DIALOG_TRIM | SWT.RESIZE,
-				(Project) table.getSelection()[0].getData("project")); 
+				(Project) table.getSelection()[0].getData("project"), mainView);
 		updateProject.show();
 	}
 
 	public void projectDetails() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.22")); 
+			box.setMessage("Select project");
 			box.open();
 			return;
 		}
 		ProjectInfoDialog dialog = new ProjectInfoDialog(getShell(), SWT.DIALOG_TRIM | SWT.RESIZE,
-				(Project) table.getSelection()[0].getData("project")); // $NON-NLS-1$ 
+				(Project) table.getSelection()[0].getData("project"), mainView); 
 		dialog.show();
 	}
 
 	public void generateXliff() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.24")); 
+			box.setMessage("Select project");
 			box.open();
 			return;
 		}
-		Project project = (Project) table.getSelection()[0].getData("project"); // $NON-NLS-1$ 
+		Project project = (Project) table.getSelection()[0].getData("project"); 
 		File map = new File(project.getMap());
 		if (!map.exists()) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.4")); 
+			box.setMessage("DITA map not found");
 			box.open();
 			return;
 		}
 		GenerateXliffDialog dialog = new GenerateXliffDialog(getShell(), SWT.DIALOG_TRIM,
-				(Project) table.getSelection()[0].getData("project")); 
+				(Project) table.getSelection()[0].getData("project"), mainView);
 		dialog.show();
 	}
 
 	public void importXliff() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.26")); 
+			box.setMessage("Select project");
 			box.open();
 			return;
 		}
 		ImportXliffDialog dialog = new ImportXliffDialog(getShell(), SWT.DIALOG_TRIM,
-				(Project) table.getSelection()[0].getData("project")); 
+				(Project) table.getSelection()[0].getData("project"), mainView);
 		dialog.show();
 	}
 
 	public void removeProject() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage(Messages.getString("ProjectsView.28")); 
+			box.setMessage("Select project");
 			box.open();
 			return;
 		}
 		MessageBox box = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-		box.setMessage(Messages.getString("ProjectsView.29")); 
+		box.setMessage("Remove selected project?");
 		int result = box.open();
 		if (result == SWT.YES) {
 			try {
-				MainView.getController().removeProject((Project) table.getSelection()[0].getData("project")); 
-			} catch (IOException e) {
-				e.printStackTrace();
+				mainView.getController().removeProject((Project) table.getSelection()[0].getData("project"));
+			} catch (IOException | JSONException | ParseException e) {
+				logger.log(Level.ERROR, e);
 				MessageBox box2 = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-				box2.setMessage(Messages.getString("ProjectsView.31")); 
+				box2.setMessage("Error deleting project");
 				box2.open();
 			}
 			loadProjects();
-			MainView.getMemoriesView().loadMemories();
+			mainView.getMemoriesView().loadMemories();
 		}
 	}
 

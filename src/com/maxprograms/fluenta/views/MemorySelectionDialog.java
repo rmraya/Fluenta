@@ -15,13 +15,10 @@ package com.maxprograms.fluenta.views;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.text.ParseException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
-
-import com.maxprograms.fluenta.MainView;
-import com.maxprograms.fluenta.models.Memory;
-import com.maxprograms.utils.Locator;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
@@ -42,6 +39,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.json.JSONException;
+
+import com.maxprograms.fluenta.MainView;
+import com.maxprograms.fluenta.models.Memory;
+import com.maxprograms.utils.Locator;
 
 public class MemorySelectionDialog extends Dialog {
 
@@ -51,20 +53,20 @@ public class MemorySelectionDialog extends Dialog {
 	protected Table table;
 	protected List<Memory> selected;
 
-	public MemorySelectionDialog(Shell parent, int style, List<Memory> existing) {
+	public MemorySelectionDialog(Shell parent, int style, List<Memory> existing, MainView mainView) {
 		super(parent, style);
 		shell = new Shell(parent, style);
-		shell.setText(Messages.getString("MemorySelectionDialog.0")); 
+		shell.setText("Additional Memories");
 		shell.setLayout(new GridLayout());
 		shell.addListener(SWT.Close, new Listener() {
 
 			@Override
 			public void handleEvent(Event arg0) {
-				Locator.remember(shell, "MemorySelectionDialog"); 
+				Locator.remember(shell, "MemorySelectionDialog");
 			}
 		});
 		display = shell.getDisplay();
-		
+
 		table = new Table(shell, SWT.CHECK | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
 		table.setLinesVisible(true);
 		table.setHeaderVisible(false);
@@ -72,50 +74,50 @@ public class MemorySelectionDialog extends Dialog {
 		tableData.heightHint = table.getItemHeight() * 10;
 		tableData.widthHint = 350;
 		table.setLayoutData(tableData);
-		
+
 		TableColumn description = new TableColumn(table, SWT.NONE);
-		description.setText(Messages.getString("MemorySelectionDialog.2")); 
-		
+		description.setText("Description");
+
 		table.addPaintListener(new PaintListener() {
-			
+
 			@Override
 			public void paintControl(PaintEvent arg0) {
 				description.setWidth(table.getClientArea().width);
 			}
 		});
-		
+
 		Composite bottom = new Composite(shell, SWT.NONE);
 		bottom.setLayout(new GridLayout(2, false));
 		bottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		
+
 		Label filler = new Label(bottom, SWT.NONE);
-		filler.setText(""); 
+		filler.setText("");
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		
+
 		Button add = new Button(bottom, SWT.PUSH);
-		add.setText(Messages.getString("MemorySelectionDialog.4")); 
+		add.setText("Add Selected Memories");
 		add.addSelectionListener(new SelectionAdapter() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				cancelled = false;
 				selected = new Vector<>();
-				for (int i=0 ; i<table.getItemCount() ; i++) {
+				for (int i = 0; i < table.getItemCount(); i++) {
 					if (table.getItem(i).getChecked()) {
-						selected.add((Memory)table.getItem(i).getData("memory")); 
+						selected.add((Memory) table.getItem(i).getData("memory"));
 					}
 				}
 				shell.close();
 			}
 		});
-		
+
 		try {
-			List<Memory> memories = MainView.getController().getMemories();
+			List<Memory> memories = mainView.getController().getMemories();
 			Iterator<Memory> it = memories.iterator();
 			while (it.hasNext()) {
 				Memory mem = it.next();
 				boolean exists = false;
-				for (int i=0 ; i<existing.size() ; i++) {
+				for (int i = 0; i < existing.size(); i++) {
 					Memory m = existing.get(i);
 					if (mem.getId() == m.getId()) {
 						exists = true;
@@ -125,24 +127,23 @@ public class MemorySelectionDialog extends Dialog {
 				if (!exists) {
 					TableItem item = new TableItem(table, SWT.NONE);
 					item.setText(mem.getName());
-					item.setData("memory", mem); 
+					item.setData("memory", mem);
 				}
 			}
-		} catch (IOException e) {
+		} catch (IOException | JSONException | ParseException e) {
 			Logger logger = System.getLogger(MemorySelectionDialog.class.getName());
-			logger.log(Level.WARNING, "Error selecting memory", e); 
-			MessageBox box = new MessageBox(shell, SWT.OK|SWT.ICON_ERROR);
-			box.setMessage(Messages.getString("MemorySelectionDialog.7")); 
+			logger.log(Level.WARNING, "Error selecting memory", e);
+			MessageBox box = new MessageBox(shell, SWT.OK | SWT.ICON_ERROR);
+			box.setMessage("Error loading memories");
 			box.open();
 			return;
 		}
-		
+
 		shell.pack();
 	}
 
-
 	public void show() {
-		Locator.setLocation(shell, "MemorySelectionDialog"); 
+		Locator.setLocation(shell, "MemorySelectionDialog");
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
@@ -152,7 +153,7 @@ public class MemorySelectionDialog extends Dialog {
 	}
 
 	public boolean wasCancelled() {
-		return cancelled ;
+		return cancelled;
 	}
 
 	public List<Memory> getSelected() {

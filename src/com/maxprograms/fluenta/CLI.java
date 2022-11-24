@@ -25,13 +25,15 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Date;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import com.maxprograms.utils.Preferences;
-
+import org.json.JSONException;
 import org.xml.sax.SAXException;
+
+import com.maxprograms.utils.Preferences;
 
 public class CLI {
 
@@ -40,7 +42,7 @@ public class CLI {
 	private static FileChannel channel;
 	private static FileLock flock;
 
-	protected static final Logger LOGGER = System.getLogger(CLI.class.getName());
+	protected static Logger logger = System.getLogger(CLI.class.getName());
 
 	public static void main(String[] args) {
 		boolean addProject = false;
@@ -62,7 +64,7 @@ public class CLI {
 		String projectId = "";
 
 		if (args.length == 0) {
-			LOGGER.log(Level.WARNING, Messages.getString("CLI.0"));
+			logger.log(Level.WARNING, "Parameters are missing");
 			System.exit(3);
 		}
 
@@ -70,7 +72,7 @@ public class CLI {
 			checkLock();
 			lock();
 		} catch (IOException e1) {
-			LOGGER.log(Level.ERROR, "Error locking process", e1);
+			logger.log(Level.ERROR, "Error locking process", e1);
 			System.exit(3);
 		}
 
@@ -121,7 +123,7 @@ public class CLI {
 				API.addProject(addFile);
 			} catch (IOException | ClassNotFoundException | SQLException | SAXException
 					| ParserConfigurationException e) {
-				LOGGER.log(Level.ERROR, "Error adding project", e);
+				logger.log(Level.ERROR, "Error adding project", e);
 				System.exit(3);
 			}
 		}
@@ -129,8 +131,8 @@ public class CLI {
 			try {
 				long number = Long.parseLong(projectId);
 				API.removeProject(number);
-			} catch (Exception e) {
-				LOGGER.log(Level.ERROR, "Error removing project", e);
+			} catch (IOException | JSONException | ParseException e) {
+				logger.log(Level.ERROR, "Error removing project", e);
 				System.exit(3);
 			}
 		}
@@ -138,8 +140,8 @@ public class CLI {
 			try {
 				API.generateXLIFF(genXliffFile, verbose);
 			} catch (IOException | ClassNotFoundException | SAXException | ParserConfigurationException
-					| URISyntaxException | SQLException ioe) {
-				LOGGER.log(Level.ERROR, "Error generating XLIFF", ioe);
+					| URISyntaxException | SQLException | JSONException | ParseException ioe) {
+				logger.log(Level.ERROR, "Error generating XLIFF", ioe);
 				System.exit(3);
 			}
 		}
@@ -147,16 +149,17 @@ public class CLI {
 			try {
 				API.importXLIFF(xliffFile, verbose);
 			} catch (IOException | NumberFormatException | ClassNotFoundException | SAXException
-					| ParserConfigurationException | SQLException | URISyntaxException ioe) {
-				LOGGER.log(Level.ERROR, "Error importing XLIFF", ioe);
+					| ParserConfigurationException | SQLException | URISyntaxException | JSONException
+					| ParseException ioe) {
+				logger.log(Level.ERROR, "Error importing XLIFF", ioe);
 				System.exit(3);
 			}
 		}
 		if (getProjects) {
 			try {
 				System.out.println(API.getProjects());
-			} catch (IOException e) {
-				LOGGER.log(Level.ERROR, "Error getting projects", e);
+			} catch (IOException | JSONException | ParseException e) {
+				logger.log(Level.ERROR, "Error getting projects", e);
 				System.exit(3);
 			}
 		}
@@ -164,15 +167,15 @@ public class CLI {
 			try {
 				API.addMemory(addMemFile);
 			} catch (IOException e) {
-				LOGGER.log(Level.ERROR, "Error adding memory", e);
+				logger.log(Level.ERROR, "Error adding memory", e);
 				System.exit(3);
 			}
 		}
 		if (getMemories) {
 			try {
 				System.out.println(API.getMemories());
-			} catch (IOException e) {
-				LOGGER.log(Level.ERROR, "Error getting memories", e);
+			} catch (IOException | JSONException | ParseException e) {
+				logger.log(Level.ERROR, "Error getting memories", e);
 				System.exit(3);
 			}
 		}
@@ -180,23 +183,24 @@ public class CLI {
 			long id = 0;
 			try {
 				id = Long.parseLong(memId);
-			} catch (Exception ex) {
-				LOGGER.log(Level.ERROR, Messages.getString("CLI.13"));
+			} catch (NumberFormatException ex) {
+				logger.log(Level.ERROR, "Invalid memory id");
 				System.exit(3);
 			}
 			if (tmxFile == null) {
-				LOGGER.log(Level.ERROR, Messages.getString("CLI.14"));
+				logger.log(Level.ERROR, "Missing TMX file");
 				System.exit(3);
 			}
 			File f = new File(tmxFile);
 			if (!f.exists()) {
-				LOGGER.log(Level.ERROR, Messages.getString("CLI.15"));
+				logger.log(Level.ERROR, "TMX file does not exist");
 				System.exit(3);
 			}
 			try {
-				API.importMemory(id, tmxFile, verbose);
-			} catch (Exception e) {
-				LOGGER.log(Level.ERROR, e.getMessage());
+				API.importMemory(id, tmxFile);
+			} catch (IOException | ClassNotFoundException | JSONException | SQLException | SAXException
+					| ParserConfigurationException | ParseException e) {
+				logger.log(Level.ERROR, e.getMessage());
 				System.exit(3);
 			}
 		}
@@ -204,36 +208,36 @@ public class CLI {
 			long id = 0;
 			try {
 				id = Long.parseLong(memId);
-			} catch (Exception ex) {
-				LOGGER.log(Level.ERROR, Messages.getString("CLI.16"));
+			} catch (NumberFormatException ex) {
+				logger.log(Level.ERROR, "Invalid memory id");
 				System.exit(3);
 			}
 			if (tmxFile == null) {
-				LOGGER.log(Level.ERROR, Messages.getString("CLI.17"));
+				logger.log(Level.ERROR, "Missing TMX file");
 				System.exit(3);
 			}
 			try {
 				API.exportMemory(id, tmxFile);
 			} catch (Exception e) {
-				LOGGER.log(Level.ERROR, e.getMessage());
+				logger.log(Level.ERROR, e.getMessage());
 				System.exit(3);
 			}
 		}
 		try {
 			unlock();
 		} catch (IOException e) {
-			LOGGER.log(Level.ERROR, "Error unlocking process", e);
+			logger.log(Level.ERROR, "Error unlocking process", e);
 		}
 	}
 
 	private static void checkLock() throws IOException {
-		File old = new File(Preferences.getPreferencesDir().getParentFile(), "lock");
+		File old = new File(Preferences.getInstance().getPreferencesFolder().getParentFile(), "lock");
 		if (old.exists()) {
 			try (RandomAccessFile file = new RandomAccessFile(old, "rw")) {
 				try (FileChannel oldchannel = file.getChannel()) {
 					FileLock newlock = oldchannel.tryLock();
 					if (newlock == null) {
-						LOGGER.log(Level.ERROR, Messages.getString("CLI.8"));
+						logger.log(Level.ERROR, "Error locking process");
 						System.exit(1);
 					} else {
 						newlock.release();
@@ -246,7 +250,7 @@ public class CLI {
 	}
 
 	private static void lock() throws IOException {
-		lock = new File(Preferences.getPreferencesDir(), "lock");
+		lock = new File(Preferences.getInstance().getPreferencesFolder(), "lock");
 		lockStream = new FileOutputStream(lock);
 		Date d = new Date(System.currentTimeMillis());
 		lockStream.write(d.toString().getBytes(StandardCharsets.UTF_8));
