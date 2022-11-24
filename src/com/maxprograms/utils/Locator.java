@@ -24,6 +24,10 @@ public class Locator {
 
 	protected static Logger logger = System.getLogger(Locator.class.getName());
 
+	private Locator() {
+		// do not instantiate this class
+	}
+
 	public static void setLocation(Shell shell, String type) {
 		try {
 			JSONObject values = Preferences.getInstance().get(type);

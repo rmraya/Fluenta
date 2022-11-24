@@ -44,6 +44,10 @@ public class TagErrorsReport {
 
 	private static FileOutputStream out;
 
+	private TagErrorsReport() {
+		// do not instantiate this class
+	}
+
 	public static String run(String file)
 			throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 

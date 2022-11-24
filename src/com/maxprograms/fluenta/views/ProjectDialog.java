@@ -395,18 +395,16 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 				}
 				MemorySelectionDialog dialog = new MemorySelectionDialog(shell, SWT.DIALOG_TRIM, memories, mainView);
 				dialog.show();
-				if (!dialog.wasCancelled()) {
-					if (project != null) {
-						List<Memory> selected = dialog.getSelected();
-						for (int i = 0; i < selected.size(); i++) {
-							Memory m = selected.get(i);
-							TableItem item = new TableItem(memoriesTable, SWT.NONE);
-							item.setText(m.getName());
-							item.setData("memory", m);
-							project.getMemories().add(m.getId());
-						}
-						memoriesTable.layout();
-					} 
+				if (!dialog.wasCancelled() && project != null) {
+					List<Memory> selected = dialog.getSelected();
+					for (int i = 0; i < selected.size(); i++) {
+						Memory m = selected.get(i);
+						TableItem item = new TableItem(memoriesTable, SWT.NONE);
+						item.setText(m.getName());
+						item.setData("memory", m);
+						project.getMemories().add(m.getId());
+					}
+					memoriesTable.layout();
 				}
 			}
 		});

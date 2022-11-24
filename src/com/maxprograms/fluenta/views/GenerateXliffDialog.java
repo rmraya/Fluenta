@@ -26,6 +26,7 @@ import java.util.Vector;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -437,7 +438,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 						}
 						viewer.setContent(sb.toString());
 						viewer.show();
-					} catch (Exception e) {
+					} catch (SWTException e) {
 						logger.log(Level.ERROR, e);
 						MessageBox box2 = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
 						box2.setMessage("Error creating error log");

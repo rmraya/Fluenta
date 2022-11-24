@@ -13,10 +13,10 @@
 package com.maxprograms.fluenta.views;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.text.MessageFormat;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.net.MalformedURLException;
+import java.text.MessageFormat;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -98,6 +98,10 @@ public class AboutBox {
 		MessageFormat mfsw = new MessageFormat("Swordfish: {0} {1}");
 		swordfishLabel.setText(mfsw.format(new String[] { com.maxprograms.swordfish.Constants.VERSION,
 				com.maxprograms.swordfish.Constants.BUILD }));
+
+		Label swtLabel = new Label(info, SWT.NONE);
+		MessageFormat mfswt = new MessageFormat("SWT: {0}");
+		swtLabel.setText(mfswt.format(new String[] { "" + SWT.getVersion() }));
 
 		Label java2 = new Label(info, SWT.NONE);
 		MessageFormat mf2 = new MessageFormat("Maximum / Allocated / Free JVM Memory: {0} / {1} / {2}");

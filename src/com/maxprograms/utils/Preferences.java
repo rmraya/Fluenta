@@ -26,7 +26,7 @@ public class Preferences {
 	private static Preferences instance;
 	private static File preferencesFile;
 	private static File workDir;
-	JSONObject preferences;
+	private JSONObject preferences;
 
 	public static Preferences getInstance() throws IOException {
 		if (instance == null) {

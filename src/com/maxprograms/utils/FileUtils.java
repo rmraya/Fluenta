@@ -157,12 +157,12 @@ public class FileUtils {
 	}
 
 	public static synchronized JSONObject readJSON(File file) throws IOException, JSONException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		try (FileReader input = new FileReader(file, StandardCharsets.UTF_8)) {
 			try (BufferedReader reader = new BufferedReader(input)) {
 				String line;
 				while ((line = reader.readLine()) != null) {
-					if (sb.length() > 0) {
+					if (!sb.isEmpty()) {
 						sb.append('\n');
 					}
 					sb.append(line);

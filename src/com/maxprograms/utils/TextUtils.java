@@ -85,11 +85,12 @@ public class TextUtils {
 	}
 
 	public static String pad(int i, int length) {
-		String res = "" + i;
-		while (res.length() < length) {
-			res = "0" + res;
+		StringBuilder sb = new StringBuilder();
+		sb.append(i);
+		while (sb.length() < length) {
+			sb.insert(0, '0');
 		}
-		return res;
+		return sb.toString();
 	}
 
 	public static String date2string(Date date) {

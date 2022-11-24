@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Vector;
@@ -53,15 +54,22 @@ import com.maxprograms.converters.html.Xliff2Html;
 import com.maxprograms.converters.idml.Xliff2Idml;
 import com.maxprograms.converters.javaproperties.Xliff2Properties;
 import com.maxprograms.converters.javascript.Xliff2jscript;
+import com.maxprograms.converters.json.Xliff2json;
 import com.maxprograms.converters.mif.Xliff2Mif;
 import com.maxprograms.converters.office.Xliff2Office;
+import com.maxprograms.converters.php.Xliff2Php;
 import com.maxprograms.converters.plaintext.Xliff2Text;
 import com.maxprograms.converters.po.Xliff2Po;
 import com.maxprograms.converters.rc.Xliff2Rc;
 import com.maxprograms.converters.resx.Xliff2Resx;
+import com.maxprograms.converters.sdlppx.Xliff2Sdlrpx;
 import com.maxprograms.converters.sdlxliff.Xliff2Sdl;
+import com.maxprograms.converters.srt.Xliff2Srt;
 import com.maxprograms.converters.ts.Xliff2Ts;
+import com.maxprograms.converters.txlf.Xliff2Txlf;
 import com.maxprograms.converters.txml.Xliff2Txml;
+import com.maxprograms.converters.wpml.Xliff2Wpml;
+import com.maxprograms.converters.xliff.FromOpenXliff;
 import com.maxprograms.converters.xml.Xliff2Xml;
 import com.maxprograms.fluenta.models.Memory;
 import com.maxprograms.fluenta.models.Project;
@@ -90,8 +98,8 @@ import com.maxprograms.xml.XMLOutputter;
 
 public class LocalController {
 
-	private Hashtable<String, String> validCtypes;
-	private Hashtable<String, String> phCtypes;
+	private Map<String, String> validCtypes;
+	private Map<String, String> phCtypes;
 
 	private ProjectsManager projectsManager;
 	private MemoriesManager memoriesManager;
@@ -164,7 +172,7 @@ public class LocalController {
 			throws IOException, SAXException, ParserConfigurationException, URISyntaxException, ClassNotFoundException,
 			SQLException, JSONException, ParseException {
 
-		Hashtable<String, String> params = new Hashtable<>();
+		Map<String, String> params = new Hashtable<>();
 		params.put("source", project.getMap());
 		File map = new File(project.getMap());
 		String name = map.getName();
@@ -508,7 +516,7 @@ public class LocalController {
 			File f = files[i];
 			int build = Integer.parseInt(f.getName().substring("build_".length(), f.getName().indexOf('.')));
 			if (build > lastBuild) {
-				build = lastBuild;
+				lastBuild = build;
 				bestMatch = f;
 			}
 		}
@@ -667,7 +675,7 @@ public class LocalController {
 			}
 		}
 		Iterator<String> it = fileSet.iterator();
-		List<Hashtable<String, String>> paramsList = new Vector<>();
+		List<Map<String, String>> paramsList = new Vector<>();
 		logger.setStage("Splitting XLIFF");
 		List<String> targetFiles = new Vector<>();
 		while (it.hasNext()) {
@@ -678,7 +686,7 @@ public class LocalController {
 			String file = it.next();
 			File xliff = File.createTempFile("temp", ".xlf");
 			encoding = saveXliff(file, xliff, root);
-			Hashtable<String, String> params = new Hashtable<>();
+			Map<String, String> params = new Hashtable<>();
 			params.put("xliff", xliff.getAbsolutePath());
 			if (fileSet.size() == 1) {
 				params.put("backfile", targetFolder);
@@ -700,11 +708,11 @@ public class LocalController {
 				logger.displayError("User cancelled");
 				return;
 			}
-			Hashtable<String, String> par = paramsList.get(i);
+			Map<String, String> par = paramsList.get(i);
 			String backfile = par.get("backfile");
 			logger.log(backfile.substring(backfile.lastIndexOf(System.getProperty("file.separator"))));
 			List<String> result = xliffToOriginal(par);
-			if (!"0".equals(result.get(0))) {
+			if (!Constants.SUCCESS.equals(result.get(0))) {
 				String error = result.get(1);
 				if (error == null) {
 					error = "Unknown error converting file";
@@ -1055,7 +1063,7 @@ public class LocalController {
 		return left;
 	}
 
-	private List<String> xliffToOriginal(Hashtable<String, String> params) {
+	private List<String> xliffToOriginal(Map<String, String> params) {
 		List<String> result = new ArrayList<>();
 		File temporary = null;
 		try {
@@ -1072,51 +1080,68 @@ public class LocalController {
 				params.put("xliff", temporary.getAbsolutePath());
 			}
 
-			if (dataType.equals(FileFormats.HTML) || dataType.equals("html")) {
+			if (dataType.equals(FileFormats.INX) || dataType.equals("x-inx")) {
+				params.put("InDesign", "yes");
+				result = Xliff2Xml.run(params);
+			} else if (dataType.equals(FileFormats.ICML) || dataType.equals("x-icml")) {
+				params.put("IDML", "true");
+				result = Xliff2Xml.run(params);
+			} else if (dataType.equals(FileFormats.IDML) || dataType.equals("x-idml")) {
+				result = Xliff2Idml.run(params);
+			} else if (dataType.equals(FileFormats.DITA) || dataType.equals("x-ditamap")) {
+				result = Xliff2DitaMap.run(params);
+			} else if (dataType.equals(FileFormats.HTML) || dataType.equals("html")) {
 				File folder = new File("xmlfilter");
 				params.put("iniFile", new File(folder, "init_html.xml").getAbsolutePath());
 				result = Xliff2Html.run(params);
 			} else if (dataType.equals(FileFormats.JS) || dataType.equals("javascript")) {
 				result = Xliff2jscript.run(params);
+			} else if (dataType.equals(FileFormats.JSON) || dataType.endsWith("json")) {
+				result = Xliff2json.run(params);
+			} else if (dataType.equals(FileFormats.JAVA) || dataType.equals("javapropertyresourcebundle")
+					|| dataType.equals("javalistresourcebundle")) {
+				result = Xliff2Properties.run(params);
 			} else if (dataType.equals(FileFormats.MIF) || dataType.equals("mif")) {
 				result = Xliff2Mif.run(params);
 			} else if (dataType.equals(FileFormats.OFF) || dataType.equals("x-office")) {
 				result = Xliff2Office.run(params);
-			} else if (dataType.equals(FileFormats.RESX) || dataType.equals("resx")) {
-				result = Xliff2Resx.run(params);
-			} else if (dataType.equals(FileFormats.RC) || dataType.equals("winres")) {
-				result = Xliff2Rc.run(params);
-			} else if (dataType.equals(FileFormats.TXML) || dataType.equals("x-txml")) {
-				result = Xliff2Txml.run(params);
-			} else if (dataType.equals(FileFormats.SDLXLIFF) || dataType.equals("x-sdlxliff")) {
-				result = Xliff2Sdl.run(params);
-			} else if (dataType.equals(FileFormats.TEXT) || dataType.equals("plaintext")) {
-				result = Xliff2Text.run(params);
-			} else if (dataType.equals(FileFormats.XML) || dataType.equals("xml")) {
-				result = Xliff2Xml.run(params);
-			} else if (dataType.equals(FileFormats.INX) || dataType.equals("x-inx")) {
-				params.put("InDesign", "yes");
-				result = Xliff2Xml.run(params);
-			} else if (dataType.equals(FileFormats.IDML) || dataType.equals("x-idml")) {
-				result = Xliff2Idml.run(params);
 			} else if (dataType.equals(FileFormats.PO) || dataType.equals("po")) {
 				result = Xliff2Po.run(params);
-			} else if (dataType.equals(FileFormats.JAVA) || dataType.equals("javapropertyresourcebundle")
-					|| dataType.equals("javalistresourcebundle")) {
-				result = Xliff2Properties.run(params);
+			} else if (dataType.equals(FileFormats.PHPA) || dataType.equals("x-phparray")) {
+				result = Xliff2Php.run(params);
+			} else if (dataType.equals(FileFormats.RC) || dataType.equals("winres")) {
+				result = Xliff2Rc.run(params);
+			} else if (dataType.equals(FileFormats.RESX) || dataType.equals("resx")) {
+				result = Xliff2Resx.run(params);
+			} else if (dataType.equals(FileFormats.SDLPPX) || dataType.equals("x-sdlpackage")) {
+				result = Xliff2Sdlrpx.run(params);
+			} else if (dataType.equals(FileFormats.SDLXLIFF) || dataType.equals("x-sdlxliff")) {
+				result = Xliff2Sdl.run(params);
+			} else if (dataType.equals(FileFormats.SRT) || dataType.equals("x-srt")) {
+				result = Xliff2Srt.run(params);
+			} else if (dataType.equals(FileFormats.TEXT) || dataType.equals("plaintext")) {
+				result = Xliff2Text.run(params);
 			} else if (dataType.equals(FileFormats.TS) || dataType.equals("x-ts")) {
 				result = Xliff2Ts.run(params);
-			} else if (dataType.equals(FileFormats.DITA) || dataType.equals("x-ditamap")) {
-				result = Xliff2DitaMap.run(params);
+			} else if (dataType.equals(FileFormats.TXML) || dataType.equals("x-txml")) {
+				result = Xliff2Txml.run(params);
+			} else if (dataType.equals(FileFormats.TXLF) || dataType.equals("x-txlf")) {
+				result = Xliff2Txlf.run(params);
+			} else if (dataType.equals(FileFormats.WPML) || dataType.equals("x-wpmlxliff")) {
+				result = Xliff2Wpml.run(params);
+			} else if (dataType.equals(FileFormats.XML) || dataType.equals("xml")) {
+				result = Xliff2Xml.run(params);
+			} else if (dataType.equals(FileFormats.XLIFF) || dataType.equals("x-xliff")) {
+				result = FromOpenXliff.run(params);
 			} else {
-				result.add(0, "1");
-				result.add(1, "Unsupported XLIFF file");
+				result.add(Constants.ERROR);
+				result.add("Unsupported XLIFF file.");
 			}
 			if (temporary != null) {
 				Files.delete(Paths.get(temporary.toURI()));
 			}
 		} catch (IOException | SAXException | ParserConfigurationException | URISyntaxException e) {
-			result.add(0, "1");
+			result.add(0, Constants.ERROR);
 			result.add(1, e.getMessage());
 		}
 		return result;
@@ -1387,7 +1412,7 @@ public class LocalController {
 			alttrans.setAttribute("match-quality", "" + quality);
 			alttrans.setAttribute("xml:space", "default");
 			alttrans.setAttribute("origin", match.getOrigin());
-			
+
 			result.add(alttrans);
 		}
 		return sortMatches(result);
@@ -1462,10 +1487,8 @@ public class LocalController {
 				|| e.getName().equals("g")
 				|| e.getName().equals("it")) {
 			String value = e.getAttributeValue("ctype");
-			if (!value.isEmpty()) {
-				if (!validCtypes.containsKey(value) && !value.startsWith("x-")) {
-					e.setAttribute("ctype", "x-" + value);
-				}
+			if (!value.isEmpty() && !validCtypes.containsKey(value) && !value.startsWith("x-")) {
+				e.setAttribute("ctype", "x-" + value);
 			}
 		}
 		List<XMLNode> content = e.getContent();
@@ -1589,7 +1612,7 @@ public class LocalController {
 			altTgt.setContent(newContent);
 			return match;
 		}
-		Hashtable<String, Element> srcTable = new Hashtable<>();
+		Map<String, Element> srcTable = new Hashtable<>();
 		for (int i = 0; i < srcList.size(); i++) {
 			Element e = srcList.get(i);
 			srcTable.put(e.getAttributeValue("id", "-1"), e);

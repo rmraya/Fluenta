@@ -38,6 +38,10 @@ public class DitaUtils {
 	private static Map<String, String> filesTable;
 	private static List<String> filesMap;
 
+	private DitaUtils() {
+		// do not instantiate this class
+	}
+
 	public static SortedSet<String> getFiles(String map) {
 		filesMap = new Vector<>();
 		filesTable = new Hashtable<>();

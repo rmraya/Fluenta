@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTError;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.KeyEvent;
@@ -46,7 +47,7 @@ public class HTMLViewer extends Dialog {
 	private StyledText styled;
 	private boolean isLinux;
 
-	public HTMLViewer(Shell parent) throws Exception {
+	public HTMLViewer(Shell parent) throws SWTException {
 		super(parent, SWT.NONE);
 		shell = new Shell(parent, SWT.CLOSE | SWT.TITLE | SWT.MODELESS | SWT.BORDER | SWT.RESIZE);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
@@ -67,7 +68,7 @@ public class HTMLViewer extends Dialog {
 				Logger logger = System.getLogger(HTMLViewer.class.getName());
 				logger.log(Level.WARNING, "Error creating browser", e);
 				String message = "Error embedding browser";
-				throw new Exception(message);
+				throw new SWTException(message);
 			}
 			browser.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL | GridData.FILL_BOTH));
 		} else {
