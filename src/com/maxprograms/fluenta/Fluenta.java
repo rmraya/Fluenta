@@ -25,16 +25,15 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
-import java.util.Locale;
-
-import com.maxprograms.fluenta.views.resources.ResourceManager;
-import com.maxprograms.utils.Preferences;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+
+import com.maxprograms.fluenta.views.resources.ResourceManager;
+import com.maxprograms.utils.Preferences;
 
 public class Fluenta {
 
@@ -49,12 +48,10 @@ public class Fluenta {
 
 	public static void main(String[] args) {
 		try {
-			System.setProperty("OpenXLIFF_HOME", Preferences.getInstance().getPreferencesFolder().getAbsolutePath());
 			if (args.length > 0) {
 				CLI.main(args);
 				return;
 			}
-			Locale.setDefault(new Locale("en"));
 			Display.setAppName("Fluenta");
 			Display.setAppVersion(Constants.VERSION);
 			display = Display.getDefault();
@@ -69,7 +66,8 @@ public class Fluenta {
 			unlock();
 		} catch (Error e) {
 			try {
-				File log = new File(Preferences.getInstance().getPreferencesFolder().getParentFile(), "Fluenta_error.log");
+				File log = new File(Preferences.getInstance().getPreferencesFolder().getParentFile(),
+						"Fluenta_error.log");
 				try (PrintStream stream = new PrintStream(log)) {
 					e.printStackTrace(stream);
 				}
@@ -79,7 +77,8 @@ public class Fluenta {
 			}
 		} catch (Exception e) {
 			try {
-				File log = new File(Preferences.getInstance().getPreferencesFolder().getParentFile(), "Fluenta_error.log");
+				File log = new File(Preferences.getInstance().getPreferencesFolder().getParentFile(),
+						"Fluenta_error.log");
 				try (PrintStream stream = new PrintStream(log)) {
 					e.printStackTrace(stream);
 				}

@@ -204,6 +204,7 @@ public class LocalController {
 		params.put("format", FileFormats.DITA);
 		params.put("srxFile", preferences.getDefaultSRX());
 		params.put("translateComments", translateComments ? "yes" : "no");
+		params.put("xmlfilter", preferences.getFiltersFolder());
 		logger.setStage("Generating Master XLIFF");
 
 		DitaMap2Xliff.setDataLogger(logger);
@@ -614,7 +615,6 @@ public class LocalController {
 			if (!tagErrors.isEmpty()) {
 				tagErrors = "There are segments with tag errors\n\n";
 				String report = TagErrorsReport.run(workDocument);
-				// TODO remove SWT dependency
 				if (logger instanceof AsyncLogger aLogger) {
 					aLogger.displayReport(tagErrors, report);
 				} else {
