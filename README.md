@@ -50,4 +50,4 @@ You need JAVA 17 and [Apache Ant 1.10.12](https://ant.apache.org) or newer
 - Copy the appropriate version of `swt.jar` from `SWT` folder to `jars` folder
 - Run `ant` to compile the source code
 
-Use  `fluenta.bat`, `fluenta_mac.sh` of `fluenta_linux.sh` to run Fluenta.
+Use  `fluenta.bat`, `fluenta_mac.sh` or `fluenta_linux.sh` to run Fluenta.
