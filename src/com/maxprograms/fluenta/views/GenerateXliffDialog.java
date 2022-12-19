@@ -78,9 +78,11 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 	protected AsyncLogger aLogger;
 	protected Listener closeListener;
 	protected Button useICE;
+	protected Button modifiedOnly;
 	protected Text ditavalText;
 	private long projectId;
 	protected Button xliff20;
+	protected Button ignoretc;
 	protected Button embed;
 
 	public GenerateXliffDialog(Shell parent, int style, Project project, MainView mainView) {
@@ -182,6 +184,26 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 		useICE = new Button(optionsGroup, SWT.CHECK);
 		useICE.setText("Reuse ICE Matches");
 		useICE.setSelection(true);
+		useICE.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (!useICE.getSelection()) {
+					modifiedOnly.setSelection(false);
+				}
+			}
+		});
+
+		modifiedOnly = new Button(optionsGroup, SWT.CHECK);
+		modifiedOnly.setText("Modified Files Only");
+		modifiedOnly.setSelection(false);
+		modifiedOnly.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (modifiedOnly.getSelection()) {
+					useICE.setSelection(true);
+				}
+			}
+		});
 
 		useTM = new Button(optionsGroup, SWT.CHECK);
 		useTM.setText("Use Translation Memories");
@@ -194,6 +216,10 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 		xliff20 = new Button(optionsGroup, SWT.CHECK);
 		xliff20.setText("Generate XLIFF 2.0");
 		xliff20.setSelection(false);
+
+		ignoretc = new Button(optionsGroup, SWT.CHECK);
+		ignoretc.setText("Ignore Tracked Changes");
+		ignoretc.setSelection(false);
 
 		embed = new Button(optionsGroup, SWT.CHECK);
 		embed.setText("Embed Skeleton");
@@ -303,13 +329,15 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 				boolean count = generateCount.getSelection();
 				boolean useXliff20 = xliff20.getSelection();
 				boolean embedSkeleton = embed.getSelection();
+				boolean modifiedFilesOnly = modifiedOnly.getSelection();
+				boolean ignoreTrackedChanges = ignoretc.getSelection();
 				Thread thread = new Thread() {
 
 					@Override
 					public void run() {
 						try {
 							mainView.getController().generateXliff(project, xliffFolder, tgtLangs, useice, usetm, count,
-									ditaval, useXliff20, embedSkeleton, aLogger);
+									ditaval, useXliff20, embedSkeleton, modifiedFilesOnly, ignoreTrackedChanges, aLogger);
 						} catch (IOException | ClassNotFoundException | JSONException | SAXException
 								| NullPointerException | ParserConfigurationException | URISyntaxException
 								| SQLException | ParseException e) {
@@ -337,6 +365,9 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 			useTM.setSelection(pref.get("GenerateXliffDialog", "useTM", "yes").equalsIgnoreCase("yes"));
 			generateCount.setSelection(pref.get("GenerateXliffDialog", "generateCount", "no").equalsIgnoreCase("yes"));
 			xliff20.setSelection(pref.get("GenerateXliffDialog", "xliff20", "no").equalsIgnoreCase("yes"));
+			embed.setSelection(pref.get("GenerateXliffDialog", "embed", "no").equalsIgnoreCase("yes"));
+			modifiedOnly.setSelection(pref.get("GenerateXliffDialog", "modified", "no").equalsIgnoreCase("yes"));
+			ignoretc.setSelection(pref.get("GenerateXliffDialog", "ignoretc", "no").equalsIgnoreCase("yes"));
 		} catch (IOException e) {
 			logger.log(Level.ERROR, e);
 		}
@@ -351,6 +382,9 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 			pref.save("GenerateXliffDialog", "useTM", useTM.getSelection() ? "yes" : "no");
 			pref.save("GenerateXliffDialog", "generateCount", generateCount.getSelection() ? "yes" : "no");
 			pref.save("GenerateXliffDialog", "xliff20", xliff20.getSelection() ? "yes" : "no");
+			pref.save("GenerateXliffDialog", "embed", embed.getSelection() ? "yes" : "no");
+			pref.save("GenerateXliffDialog", "modified", modifiedOnly.getSelection() ? "yes" : "no");
+			pref.save("GenerateXliffDialog", "ignoretc", ignoretc.getSelection() ? "yes" : "no");
 		} catch (IOException e) {
 			logger.log(Level.ERROR, e);
 		}

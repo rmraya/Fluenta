@@ -16,18 +16,12 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.TreeSet;
 import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import com.maxprograms.languages.Language;
-import com.maxprograms.languages.LanguageUtils;
-import com.maxprograms.utils.Preferences;
-import com.maxprograms.utils.TextUtils;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -51,6 +45,11 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.json.JSONObject;
 import org.xml.sax.SAXException;
+
+import com.maxprograms.languages.Language;
+import com.maxprograms.languages.LanguageUtils;
+import com.maxprograms.utils.Preferences;
+import com.maxprograms.utils.TextUtils;
 
 public class GeneralPreferences extends Composite implements AddLanguageListener {
 
@@ -259,7 +258,7 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 			for (int i = 0; i < defaultTargets.size(); i++) {
 				Language l = defaultTargets.get(i);
 				TableItem item = new TableItem(langsTable, SWT.NONE);
-				item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
+				item.setText(l.getDescription());
 				item.setData("language", l);
 			}
 		} catch (IOException e) {
@@ -300,28 +299,20 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				try {
-					TableItem[] oldItems = langsTable.getItems();
-					defaultTargets.clear();
-					for (int i = 0; i < oldItems.length; i++) {
-						if (!oldItems[i].getChecked()) {
-							defaultTargets.add((Language) oldItems[i].getData("language"));
-						}
+				TableItem[] oldItems = langsTable.getItems();
+				defaultTargets.clear();
+				for (int i = 0; i < oldItems.length; i++) {
+					if (!oldItems[i].getChecked()) {
+						defaultTargets.add((Language) oldItems[i].getData("language"));
 					}
-					langsTable.removeAll();
-					for (int i = 0; i < defaultTargets.size(); i++) {
-						Language l = defaultTargets.get(i);
-						TableItem item = new TableItem(langsTable, SWT.NONE);
-						item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
-						item.setData("language", l);
-					}
-				} catch (IOException e) {
-					logger.log(Level.ERROR, e);
-					MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-					box.setMessage("Error removing language");
-					box.open();
 				}
-
+				langsTable.removeAll();
+				for (int i = 0; i < defaultTargets.size(); i++) {
+					Language l = defaultTargets.get(i);
+					TableItem item = new TableItem(langsTable, SWT.NONE);
+					item.setText(l.getDescription());
+					item.setData("language", l);
+				}
 			}
 
 			@Override
@@ -371,6 +362,7 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 						Language l = it.next();
 						targetLangs.put(l.getCode(), LanguageUtils.getLanguage(l.getCode()).getDescription());
 					}
+					preferences.remove("DefaultTargetLanguages");
 					preferences.save("DefaultTargetLanguages", targetLangs);
 					if (sourceLangCombo.getSelectionIndex() != -1) {
 						JSONObject sourceLangs = new JSONObject();
@@ -403,30 +395,21 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 	}
 
 	public static List<Language> getDefaultTargets() throws IOException {
-		TreeSet<Language> tree = new TreeSet<>(new Comparator<Language>() {
-
-			@Override
-			public int compare(Language o1, Language o2) {
-				return o1.getDescription().compareTo(o2.getDescription());
-			}
-
-		});
-		Preferences preferences = Preferences.getInstance();
-		JSONObject table = preferences.get("DefaultTargetLanguages");
-		Iterator<String> keys = table.keys();
-		while (keys.hasNext()) {
-			String key = keys.next();
-			tree.add(new Language(key, table.getString(key)));
-		}
-		if (tree.isEmpty()) {
-			tree.add(LanguageUtils.getLanguage("fr"));
-			tree.add(LanguageUtils.getLanguage("de"));
-			tree.add(LanguageUtils.getLanguage("it"));
-			tree.add(LanguageUtils.getLanguage("es"));
-			tree.add(LanguageUtils.getLanguage("ja-JP"));
-		}
 		List<Language> result = new Vector<>();
-		result.addAll(tree);
+		Preferences preferences = Preferences.getInstance();
+		JSONObject json = preferences.get("DefaultTargetLanguages");
+		Iterator<String> keys = json.keys();
+		while (keys.hasNext()) {
+			result.add(LanguageUtils.getLanguage(keys.next()));
+		}
+		if (result.isEmpty()) {
+			result.add(LanguageUtils.getLanguage("fr"));
+			result.add(LanguageUtils.getLanguage("de"));
+			result.add(LanguageUtils.getLanguage("it"));
+			result.add(LanguageUtils.getLanguage("es"));
+			result.add(LanguageUtils.getLanguage("ja-JP"));
+		}
+		Collections.sort(result);
 		return result;
 	}
 
@@ -435,7 +418,7 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		try {
 			Language l = LanguageUtils.getLanguage(language);
 			TableItem item = new TableItem(langsTable, SWT.NONE);
-			item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
+			item.setText(l.getDescription());
 			item.setData("language", l);
 			defaultTargets.add(l);
 		} catch (IOException ex) {

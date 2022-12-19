@@ -206,13 +206,13 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				if (xliffText.getText() == null && xliffText.getText().isEmpty()) {
+				if (xliffText.getText() == null || xliffText.getText().isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
 					box.setMessage("Select XLIFF file");
 					box.open();
 					return;
 				}
-				if (folderText.getText() == null && folderText.getText().isEmpty()) {
+				if (folderText.getText() == null || folderText.getText().isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
 					box.setMessage("Select output folder");
 					box.open();

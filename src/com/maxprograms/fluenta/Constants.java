@@ -19,6 +19,6 @@ public class Constants {
 	}
 	
 	public static final String NAME = "Fluenta"; 
-	public static final String VERSION = "3.1.1"; 
-	public static final String BUILD = "20221205_1416"; 
+	public static final String VERSION = "3.2.0"; 
+	public static final String BUILD = "20221219_0645"; 
 }

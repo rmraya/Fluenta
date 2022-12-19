@@ -24,7 +24,7 @@ import org.json.JSONObject;
 public class Preferences {
 
 	private static Preferences instance;
-	private static File preferencesFile;
+	private File preferencesFile;
 	private static File workDir;
 	private JSONObject preferences;
 

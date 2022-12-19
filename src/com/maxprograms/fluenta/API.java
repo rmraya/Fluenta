@@ -168,7 +168,8 @@ public class API {
 	}
 
 	public static void generateXLIFF(long id, String xliffFolder, String[] tgtLang, boolean useICE, boolean useTM,
-			boolean generateCount, boolean verbose, String ditaval, boolean useXliff20, boolean embedSkeleton)
+			boolean generateCount, boolean verbose, String ditaval, boolean useXliff20, boolean embedSkeleton,
+			boolean modifiedFilesOnly, boolean ignoreTrackedChanges)
 			throws IOException, ClassNotFoundException, SAXException, ParserConfigurationException, URISyntaxException,
 			SQLException, JSONException, ParseException {
 		LocalController controller = new LocalController();
@@ -189,7 +190,7 @@ public class API {
 		}
 		SimpleLogger logger = new SimpleLogger(verbose);
 		controller.generateXliff(project, xliffFolder, langs, useICE, useTM, generateCount, ditaval, useXliff20,
-				embedSkeleton, logger);
+				embedSkeleton, modifiedFilesOnly, ignoreTrackedChanges, logger);
 	}
 
 	protected static void generateXLIFF(String jsonFile, boolean verbose) throws IOException, SAXException,
@@ -220,6 +221,14 @@ public class API {
 		if (jsonObject.has("embedSkeleton")) {
 			embedSkeleton = jsonObject.getBoolean("embedSkeleton");
 		}
+		boolean modifiedFilesOnly = false;
+		if (jsonObject.has("modifiedFilesOnly")) {
+			modifiedFilesOnly = jsonObject.getBoolean("modifiedFilesOnly");
+		}
+		boolean ignoreTrackedChanges = false;
+		if (jsonObject.has("ignoreTrackedChanges")) {
+			ignoreTrackedChanges = jsonObject.getBoolean("ignoreTrackedChanges");
+		}
 		JSONArray tgtArray = jsonObject.getJSONArray("tgtLang");
 		String[] tgtLang = new String[tgtArray.length()];
 		for (int i = 0; i < tgtArray.length(); i++) {
@@ -227,7 +236,7 @@ public class API {
 		}
 
 		generateXLIFF(id, xliffFolder, tgtLang, useICE, useTM, generateCount, verbose, ditaval, useXliff20,
-				embedSkeleton);
+				embedSkeleton, modifiedFilesOnly, ignoreTrackedChanges);
 	}
 
 	public static void importXLIFF(long id, String xliffFile, String outputFolder, boolean updateTM,

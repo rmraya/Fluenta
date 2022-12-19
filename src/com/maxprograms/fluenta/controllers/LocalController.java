@@ -168,7 +168,7 @@ public class LocalController {
 
 	public void generateXliff(Project project, String xliffFolder, List<Language> tgtLangs, boolean useICE,
 			boolean useTM, boolean generateCount, String ditavalFile, boolean useXliff20, boolean embedSkeleton,
-			ILogger logger)
+			boolean modifiedFilesOnly, boolean ignoreTrackedChanges, ILogger logger)
 			throws IOException, SAXException, ParserConfigurationException, URISyntaxException, ClassNotFoundException,
 			SQLException, JSONException, ParseException {
 
@@ -205,6 +205,7 @@ public class LocalController {
 		params.put("srxFile", preferences.getDefaultSRX());
 		params.put("translateComments", translateComments ? "yes" : "no");
 		params.put("xmlfilter", preferences.getFiltersFolder());
+		params.put("ignoretc", ignoreTrackedChanges ? "yes" : "no");
 		logger.setStage("Generating Master XLIFF");
 
 		DitaMap2Xliff.setDataLogger(logger);
@@ -250,6 +251,9 @@ public class LocalController {
 				File previousBuild = getPreviousBuild(project, tgtLangs.get(i).getCode());
 				if (previousBuild != null) {
 					leverage(xliff, previousBuild, logger);
+				}
+				if (modifiedFilesOnly) {
+					removeUnchanged(xliff);
 				}
 			}
 		}
@@ -360,6 +364,39 @@ public class LocalController {
 		}
 	}
 
+	private void removeUnchanged(File xliff) throws SAXException, IOException, ParserConfigurationException {
+		SAXBuilder builder = new SAXBuilder();
+		Document doc = builder.build(xliff);
+		Element root = doc.getRootElement();
+		List<Element> files = root.getChildren("file");
+		boolean removedFile = false;
+		for (int i=0 ; i<files.size() ; i++) {
+			Element file = files.get(i);
+			if (!hasUnapproved(file)) {
+				root.removeChild(file);
+				removedFile = true;
+			}
+		}
+		if (removedFile) {
+			try (FileOutputStream out = new FileOutputStream(xliff)) {
+				XMLOutputter outputter = new XMLOutputter();
+				outputter.preserveSpace(true);
+				outputter.output(doc, out);
+			}
+		}
+	}
+
+	private boolean hasUnapproved(Element file) {
+		List<Element> units = file.getChild("body").getChildren("trans-unit");
+		Iterator<Element> it = units.iterator();
+		while (it.hasNext()) {
+			if (it.next().getAttributeValue("approved", "no").equals("no")) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private void leverage(File xliff, File previousBuild, ILogger logger)
 			throws IOException, SAXException, ParserConfigurationException {
 
@@ -422,7 +459,7 @@ public class LocalController {
 				}
 				for (int j = 0; j < leveraged.size(); j++) {
 					Element newUnit = leveraged.get(j);
-					if (newUnit.getAttributeValue("approved", "no").equalsIgnoreCase("no")) {
+					if (newUnit.getAttributeValue("approved", "no").equals("no")) {
 						continue;
 					}
 					Element newSource = newUnit.getChild("source");
@@ -688,7 +725,7 @@ public class LocalController {
 			encoding = saveXliff(file, xliff, root);
 			Map<String, String> params = new Hashtable<>();
 			params.put("xliff", xliff.getAbsolutePath());
-			if (fileSet.size() == 1) {
+			if (fileSet.size() > 1) {
 				params.put("backfile", targetFolder);
 			} else {
 				String backfile = FileUtils.getAbsolutePath(targetFolder, file);

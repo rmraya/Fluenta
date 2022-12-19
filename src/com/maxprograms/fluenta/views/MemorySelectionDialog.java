@@ -41,6 +41,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.json.JSONException;
 
+import com.maxprograms.fluenta.Fluenta;
 import com.maxprograms.fluenta.MainView;
 import com.maxprograms.fluenta.models.Memory;
 import com.maxprograms.utils.Locator;
@@ -57,6 +58,7 @@ public class MemorySelectionDialog extends Dialog {
 		super(parent, style);
 		shell = new Shell(parent, style);
 		shell.setText("Additional Memories");
+		shell.setImage(Fluenta.getResourceManager().getIcon());
 		shell.setLayout(new GridLayout());
 		shell.addListener(SWT.Close, new Listener() {
 
