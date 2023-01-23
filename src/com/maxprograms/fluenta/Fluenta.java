@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015-2022 Maxprograms.
+ * Copyright (c) 2023 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -23,7 +23,6 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Date;
 
 import org.eclipse.swt.SWT;
@@ -102,7 +101,7 @@ public class Fluenta {
 		flock.release();
 		channel.close();
 		lockStream.close();
-		Files.delete(Paths.get(lock.toURI()));
+		Files.delete(lock.toPath());
 	}
 
 	private static void checkLock() throws IOException {
@@ -126,7 +125,7 @@ public class Fluenta {
 					}
 				}
 			}
-			Files.delete(Paths.get(old.toURI()));
+			Files.delete(old.toPath());
 		}
 	}
 

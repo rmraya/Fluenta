@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015-2022 Maxprograms.
+ * Copyright (c) 2023 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -78,7 +78,6 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 	protected Thread thread;
 	protected Button unapproved;
 	protected Button ignoreTagErrors;
-	protected Button cleanAttributes;
 	private long projectId;
 
 	public ImportXliffDialog(Shell parent, int style, Project project, MainView mainView) {
@@ -170,9 +169,6 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 		ignoreTagErrors = new Button(shell, SWT.CHECK);
 		ignoreTagErrors.setText("Ignore Inline Tag Errors");
 
-		cleanAttributes = new Button(shell, SWT.CHECK);
-		cleanAttributes.setText("Clean Default DITA Attributes in Translated Files");
-
 		loggerPanel = System.getProperty("file.separator").equals("\\") ? new LogPanel(shell, SWT.BORDER)
 				: new LogTable(shell, SWT.NONE);
 
@@ -242,7 +238,6 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 				boolean updateTM = update.getSelection();
 				boolean acceptUnapproved = unapproved.getSelection();
 				boolean ignoreTags = ignoreTagErrors.getSelection();
-				boolean clean = cleanAttributes.getSelection();
 
 				cancel.setEnabled(true);
 				importXliff.setEnabled(false);
@@ -262,7 +257,7 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 					public void run() {
 						try {
 							mainView.getController().importXliff(project, xliffDocument, targetFolder, updateTM,
-									acceptUnapproved, ignoreTags, clean, aLogger);
+									acceptUnapproved, ignoreTags, aLogger);
 						} catch (NumberFormatException | ClassNotFoundException | IOException | SAXException
 								| ParserConfigurationException | SQLException | URISyntaxException | JSONException
 								| ParseException e) {
@@ -289,9 +284,7 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 			ignoreTagErrors
 					.setSelection(
 							preferences.get("ImportXliffDialog", "ignoreTagErrors", "no").equalsIgnoreCase("yes"));
-			cleanAttributes
-					.setSelection(
-							preferences.get("ImportXliffDialog", "cleanAttributes", "yes").equalsIgnoreCase("yes"));
+			
 		} catch (IOException e) {
 			logger.log(Level.ERROR, e);
 		}
@@ -303,8 +296,7 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 			preferences.save("ImportXliffDialog", "folderText." + projectId, folderText.getText());
 			preferences.save("ImportXliffDialog", "update", update.getSelection() ? "yes" : "no");
 			preferences.save("ImportXliffDialog", "unapproved", unapproved.getSelection() ? "yes" : "no");
-			preferences.save("ImportXliffDialog", "ignoreTagErrors", ignoreTagErrors.getSelection() ? "yes" : "no");
-			preferences.save("ImportXliffDialog", "cleanAttributes", cleanAttributes.getSelection() ? "yes" : "no");
+			preferences.save("ImportXliffDialog", "ignoreTagErrors", ignoreTagErrors.getSelection() ? "yes" : "no");			
 		} catch (IOException e) {
 			logger.log(Level.ERROR, e);
 		}

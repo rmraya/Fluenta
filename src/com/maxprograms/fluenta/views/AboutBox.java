@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015-2022 Maxprograms.
+ * Copyright (c) 2023 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -94,6 +94,11 @@ public class AboutBox {
 		openXliffLabel.setText(mfox.format(new String[] { com.maxprograms.converters.Constants.VERSION,
 				com.maxprograms.converters.Constants.BUILD }));
 
+		Label xmlJavaLabel = new Label(info, SWT.NONE);
+		MessageFormat mfxml = new MessageFormat("XMLJava: {0} {1}");
+		xmlJavaLabel.setText(mfxml.format(new String[] { com.maxprograms.xml.Constants.VERSION,
+				com.maxprograms.xml.Constants.BUILD }));
+
 		Label swordfishLabel = new Label(info, SWT.NONE);
 		MessageFormat mfsw = new MessageFormat("Swordfish: {0} {1}");
 		swordfishLabel.setText(mfsw.format(new String[] { com.maxprograms.swordfish.Constants.VERSION,
@@ -127,56 +132,13 @@ public class AboutBox {
 			logger.log(Level.WARNING, "Error setting license link", e);
 		}
 
-		Label openXliff = new Label(licenses, SWT.NONE);
-		openXliff.setText("OpenXLIFF Filters");
+		Label dtdParser = new Label(licenses, SWT.NONE);
+		dtdParser.setText("DTDParser");
 
-		CustomLink openXliffLink = new CustomLink(licenses, SWT.NONE);
-		openXliffLink.setText("Eclipse Public License Version 1.0");
+		CustomLink dtdLink = new CustomLink(licenses, SWT.NONE);
+		dtdLink.setText("LGPL 2.1");
 		try {
-			openXliffLink.setURL(new File("licenses/EclipsePublicLicense1.0.html").toURI().toURL().toString());
-		} catch (MalformedURLException e) {
-			logger.log(Level.WARNING, "Error setting license link", e);
-		}
-
-		Label swordfish = new Label(licenses, SWT.NONE);
-		swordfish.setText("Swordfish");
-
-		CustomLink swordfishLink = new CustomLink(licenses, SWT.NONE);
-		swordfishLink.setText("Eclipse Public License Version 1.0");
-		try {
-			swordfishLink.setURL(new File("licenses/EclipsePublicLicense1.0.html").toURI().toURL().toString());
-		} catch (MalformedURLException e) {
-			logger.log(Level.WARNING, "Error setting license link", e);
-		}
-
-		Label java = new Label(licenses, SWT.NONE);
-		java.setText("Java");
-
-		CustomLink javaLink = new CustomLink(licenses, SWT.NONE);
-		javaLink.setText("GPL2 with Classpath Exception");
-		try {
-			javaLink.setURL(new File("licenses/Java.html").toURI().toURL().toString());
-		} catch (MalformedURLException e) {
-			logger.log(Level.WARNING, "Error setting license link", e);
-		}
-		Label swt = new Label(licenses, SWT.NONE);
-		swt.setText("SWT");
-
-		CustomLink swtLink = new CustomLink(licenses, SWT.NONE);
-		swtLink.setText("Eclipse Public License Version 2.0");
-		try {
-			swtLink.setURL(new File("licenses/EclipsePublicLicense2.0.html").toURI().toURL().toString());
-		} catch (MalformedURLException e) {
-			logger.log(Level.WARNING, "Error setting license link", e);
-		}
-
-		Label mapDB = new Label(licenses, SWT.NONE);
-		mapDB.setText("MapDB");
-
-		CustomLink mapdbLink = new CustomLink(licenses, SWT.NONE);
-		mapdbLink.setText("Apache License 2.0");
-		try {
-			mapdbLink.setURL(new File("licenses/Apache2.0.html").toURI().toURL().toString());
+			dtdLink.setURL(new File("licenses/LGPL2.1.txt").toURI().toURL().toString());
 		} catch (MalformedURLException e) {
 			logger.log(Level.WARNING, "Error setting license link", e);
 		}
@@ -188,6 +150,17 @@ public class AboutBox {
 		h2Link.setText("Eclipse Public License Version 1.0");
 		try {
 			h2Link.setURL(new File("licenses/EclipsePublicLicense1.0.html").toURI().toURL().toString());
+		} catch (MalformedURLException e) {
+			logger.log(Level.WARNING, "Error setting license link", e);
+		}
+
+		Label java = new Label(licenses, SWT.NONE);
+		java.setText("Java");
+
+		CustomLink javaLink = new CustomLink(licenses, SWT.NONE);
+		javaLink.setText("GPL2 with Classpath Exception");
+		try {
+			javaLink.setURL(new File("licenses/Java.html").toURI().toURL().toString());
 		} catch (MalformedURLException e) {
 			logger.log(Level.WARNING, "Error setting license link", e);
 		}
@@ -214,13 +187,57 @@ public class AboutBox {
 			logger.log(Level.WARNING, "Error setting license link", e);
 		}
 
-		Label dtdParser = new Label(licenses, SWT.NONE);
-		dtdParser.setText("DTDParser");
+		Label mapDB = new Label(licenses, SWT.NONE);
+		mapDB.setText("MapDB");
 
-		CustomLink dtdLink = new CustomLink(licenses, SWT.NONE);
-		dtdLink.setText("LGPL 2.1");
+		CustomLink mapdbLink = new CustomLink(licenses, SWT.NONE);
+		mapdbLink.setText("Apache License 2.0");
 		try {
-			dtdLink.setURL(new File("licenses/LGPL2.1.txt").toURI().toURL().toString());
+			mapdbLink.setURL(new File("licenses/Apache2.0.html").toURI().toURL().toString());
+		} catch (MalformedURLException e) {
+			logger.log(Level.WARNING, "Error setting license link", e);
+		}
+
+		Label openXliff = new Label(licenses, SWT.NONE);
+		openXliff.setText("OpenXLIFF Filters");
+
+		CustomLink openXliffLink = new CustomLink(licenses, SWT.NONE);
+		openXliffLink.setText("Eclipse Public License Version 1.0");
+		try {
+			openXliffLink.setURL(new File("licenses/EclipsePublicLicense1.0.html").toURI().toURL().toString());
+		} catch (MalformedURLException e) {
+			logger.log(Level.WARNING, "Error setting license link", e);
+		}
+
+		Label swordfish = new Label(licenses, SWT.NONE);
+		swordfish.setText("Swordfish");
+
+		CustomLink swordfishLink = new CustomLink(licenses, SWT.NONE);
+		swordfishLink.setText("Eclipse Public License Version 1.0");
+		try {
+			swordfishLink.setURL(new File("licenses/EclipsePublicLicense1.0.html").toURI().toURL().toString());
+		} catch (MalformedURLException e) {
+			logger.log(Level.WARNING, "Error setting license link", e);
+		}
+
+		Label swt = new Label(licenses, SWT.NONE);
+		swt.setText("SWT");
+
+		CustomLink swtLink = new CustomLink(licenses, SWT.NONE);
+		swtLink.setText("Eclipse Public License Version 2.0");
+		try {
+			swtLink.setURL(new File("licenses/EclipsePublicLicense2.0.html").toURI().toURL().toString());
+		} catch (MalformedURLException e) {
+			logger.log(Level.WARNING, "Error setting license link", e);
+		}
+
+		Label xmlJava = new Label(licenses, SWT.NONE);
+		xmlJava.setText("XMLJava");
+
+		CustomLink xmlJavaLink = new CustomLink(licenses, SWT.NONE);
+		xmlJavaLink.setText("Eclipse Public License Version 1.0");
+		try {
+			xmlJavaLink.setURL(new File("licenses/EclipsePublicLicense1.0.html").toURI().toURL().toString());
 		} catch (MalformedURLException e) {
 			logger.log(Level.WARNING, "Error setting license link", e);
 		}

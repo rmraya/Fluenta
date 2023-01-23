@@ -12,6 +12,7 @@ module fluenta {
     requires transitive openxliff;
     requires transitive swordfish;
     requires transitive swt;
+    requires transitive xmljava;
 	requires java.sql;
 	requires mapdb;
     requires jsoup;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015-2022 Maxprograms.
+ * Copyright (c) 2023 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -18,7 +18,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -166,14 +165,7 @@ public class Memory implements Serializable {
 	}
 
 	public List<Language> getTgtLanguages() {
-		Collections.sort(tgtLanguages, new Comparator<Language>() {
-
-			@Override
-			public int compare(Language o1, Language o2) {
-				return o1.getDescription().compareTo(o2.getDescription());
-			}
-
-		});
+		Collections.sort(tgtLanguages);
 		return tgtLanguages;
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015-2022 Maxprograms.
+ * Copyright (c) 2023 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -18,6 +18,7 @@ import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -222,12 +223,18 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		TableColumn langColumn = new TableColumn(langsTable, SWT.FILL);
 		if (project != null) {
 			try {
+				List<Language> langs = new Vector<>();
 				List<String> tgtLangs = project.getLanguages();
 				Iterator<String> it = tgtLangs.iterator();
 				while (it.hasNext()) {
-					Language lang = LanguageUtils.getLanguage(it.next());
+					langs.add(LanguageUtils.getLanguage(it.next()));
+				}
+				Collections.sort(langs);
+				Iterator<Language> lt = langs.iterator();
+				while (lt.hasNext()) {
+					Language lang = lt.next();
 					TableItem item = new TableItem(langsTable, SWT.NONE);
-					item.setText(LanguageUtils.getLanguage(lang.getCode()).getDescription());
+					item.setText(lang.getDescription());
 					item.setData("language", lang);
 				}
 			} catch (IOException e) {
@@ -568,19 +575,29 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		}
 		try {
 			Language l = LanguageUtils.getLanguage(language);
+			List<Language> langs = new Vector<>();
 			TableItem[] oldItems = langsTable.getItems();
 			for (int i = 0; i < oldItems.length; i++) {
 				Language lang = (Language) oldItems[i].getData("language");
-				if (l.getCode().equals(lang.getCode())) {
-					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage("Duplicated language");
-					box.open();
-					return;
-				}
+				langs.add(lang);
 			}
-			TableItem item = new TableItem(langsTable, SWT.NONE);
-			item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
-			item.setData("language", l);
+			if (langs.contains(l)) {
+				MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
+				box.setMessage("Duplicated language");
+				box.open();
+				return;
+			}
+			langs.add(l);
+			Collections.sort(langs);
+			langsTable.removeAll();
+			langsTable.setItemCount(0);
+			Iterator<Language> it = langs.iterator();
+			while (it.hasNext()) {
+				Language lang = it.next();
+				TableItem item = new TableItem(langsTable, SWT.NONE);
+				item.setText(lang.getDescription());
+				item.setData("language", lang);
+			}
 		} catch (IOException ex) {
 			logger.log(Level.ERROR, ex);
 			MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);

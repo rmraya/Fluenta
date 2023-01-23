@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015-2022 Maxprograms.
+ * Copyright (c) 2023 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -417,10 +417,23 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 	public void addLanguage(String language) {
 		try {
 			Language l = LanguageUtils.getLanguage(language);
-			TableItem item = new TableItem(langsTable, SWT.NONE);
-			item.setText(l.getDescription());
-			item.setData("language", l);
+			if (defaultTargets.contains(l)) {
+				MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
+				box.setMessage("Duplicated language");
+				box.open();
+				return;
+			}
 			defaultTargets.add(l);
+			Collections.sort(defaultTargets);
+			langsTable.removeAll();
+			langsTable.setItemCount(0);
+			Iterator<Language> it = defaultTargets.iterator();
+			while (it.hasNext()) {
+				Language lang = it.next();
+				TableItem item = new TableItem(langsTable, SWT.NONE);
+				item.setText(lang.getDescription());
+				item.setData("language", lang);
+			}
 		} catch (IOException ex) {
 			logger.log(Level.ERROR, ex);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);

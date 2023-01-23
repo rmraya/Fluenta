@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015-2022 Maxprograms.
+ * Copyright (c) 2023 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -9,7 +9,6 @@
  * Contributors:
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
-
 package com.maxprograms.fluenta.controllers;
 
 import java.io.ByteArrayInputStream;
@@ -19,12 +18,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -47,30 +44,8 @@ import com.maxprograms.converters.EncodingResolver;
 import com.maxprograms.converters.FileFormats;
 import com.maxprograms.converters.ILogger;
 import com.maxprograms.converters.TmxExporter;
-import com.maxprograms.converters.Utils;
 import com.maxprograms.converters.ditamap.DitaMap2Xliff;
 import com.maxprograms.converters.ditamap.Xliff2DitaMap;
-import com.maxprograms.converters.html.Xliff2Html;
-import com.maxprograms.converters.idml.Xliff2Idml;
-import com.maxprograms.converters.javaproperties.Xliff2Properties;
-import com.maxprograms.converters.javascript.Xliff2jscript;
-import com.maxprograms.converters.json.Xliff2json;
-import com.maxprograms.converters.mif.Xliff2Mif;
-import com.maxprograms.converters.office.Xliff2Office;
-import com.maxprograms.converters.php.Xliff2Php;
-import com.maxprograms.converters.plaintext.Xliff2Text;
-import com.maxprograms.converters.po.Xliff2Po;
-import com.maxprograms.converters.rc.Xliff2Rc;
-import com.maxprograms.converters.resx.Xliff2Resx;
-import com.maxprograms.converters.sdlppx.Xliff2Sdlrpx;
-import com.maxprograms.converters.sdlxliff.Xliff2Sdl;
-import com.maxprograms.converters.srt.Xliff2Srt;
-import com.maxprograms.converters.ts.Xliff2Ts;
-import com.maxprograms.converters.txlf.Xliff2Txlf;
-import com.maxprograms.converters.txml.Xliff2Txml;
-import com.maxprograms.converters.wpml.Xliff2Wpml;
-import com.maxprograms.converters.xliff.FromOpenXliff;
-import com.maxprograms.converters.xml.Xliff2Xml;
 import com.maxprograms.fluenta.models.Memory;
 import com.maxprograms.fluenta.models.Project;
 import com.maxprograms.fluenta.models.ProjectEvent;
@@ -370,7 +345,7 @@ public class LocalController {
 		Element root = doc.getRootElement();
 		List<Element> files = root.getChildren("file");
 		boolean removedFile = false;
-		for (int i=0 ; i<files.size() ; i++) {
+		for (int i = 0; i < files.size(); i++) {
 			Element file = files.get(i);
 			if (!hasUnapproved(file)) {
 				root.removeChild(file);
@@ -629,7 +604,7 @@ public class LocalController {
 	}
 
 	public void importXliff(Project project, String xliffDocument, String targetFolder, boolean updateTM,
-			boolean acceptUnapproved, boolean ignoreTagErrors, boolean cleanAttributes, ILogger logger)
+			boolean acceptUnapproved, boolean ignoreTagErrors, ILogger logger)
 			throws NumberFormatException, IOException, SAXException, ParserConfigurationException,
 			ClassNotFoundException, SQLException, URISyntaxException, JSONException, ParseException {
 
@@ -660,7 +635,7 @@ public class LocalController {
 				return;
 			}
 		}
-		if (!xliffDocument.equals(workDocument)) {
+		if (!xliffDocument.equals(workDocument) || acceptUnapproved) {
 			// save changes
 			XMLOutputter outputter = new XMLOutputter();
 			outputter.preserveSpace(true);
@@ -699,82 +674,20 @@ public class LocalController {
 			return;
 		}
 		String encoding = getEncoding(root);
-		TreeSet<String> fileSet = getFileSet(root);
-		if (fileSet.size() != 1) {
-			File f = new File(targetFolder);
-			if (f.exists()) {
-				if (!f.isDirectory()) {
-					logger.displayError("A file with the name of selected output folder exists");
-					return;
-				}
-			} else {
-				f.mkdirs();
-			}
+
+		Map<String, String> params = new Hashtable<>();
+		params.put("xliff", workDocument);
+		params.put("encoding", encoding);
+		params.put("catalog", Preferences.getInstance().getCatalogFile());
+		params.put("backfile", targetFolder);
+		Xliff2DitaMap.setDataLogger(logger);
+		logger.setStage("Merging XLIFF");
+		List<String> res = Xliff2DitaMap.run(params);
+		if (!Constants.SUCCESS.equals(res.get(0))) {
+			logger.displayError(res.get(1));
+			return;
 		}
-		Iterator<String> it = fileSet.iterator();
-		List<Map<String, String>> paramsList = new Vector<>();
-		logger.setStage("Splitting XLIFF");
-		List<String> targetFiles = new Vector<>();
-		while (it.hasNext()) {
-			if (logger.isCancelled()) {
-				logger.displayError("User cancelled");
-				return;
-			}
-			String file = it.next();
-			File xliff = File.createTempFile("temp", ".xlf");
-			encoding = saveXliff(file, xliff, root);
-			Map<String, String> params = new Hashtable<>();
-			params.put("xliff", xliff.getAbsolutePath());
-			if (fileSet.size() > 1) {
-				params.put("backfile", targetFolder);
-			} else {
-				String backfile = FileUtils.getAbsolutePath(targetFolder, file);
-				logger.log(backfile);
-				params.put("backfile", backfile);
-			}
-			params.put("encoding", encoding);
-			params.put("catalog", Preferences.getInstance().getCatalogFile());
-			String dataType = root.getChild("file").getAttributeValue("datatype", FileFormats.DITA);
-			params.put("format", dataType);
-			paramsList.add(params);
-			targetFiles.add(params.get("backfile"));
-		}
-		logger.setStage("Converting XLIFF");
-		for (int i = 0; i < paramsList.size(); i++) {
-			if (logger.isCancelled()) {
-				logger.displayError("User cancelled");
-				return;
-			}
-			Map<String, String> par = paramsList.get(i);
-			String backfile = par.get("backfile");
-			logger.log(backfile.substring(backfile.lastIndexOf(System.getProperty("file.separator"))));
-			List<String> result = xliffToOriginal(par);
-			if (!Constants.SUCCESS.equals(result.get(0))) {
-				String error = result.get(1);
-				if (error == null) {
-					error = "Unknown error converting file";
-				}
-				root = null;
-				logger.displayError(error);
-				return;
-			}
-			// remove referenced content imported on XLIFF creation
-			SAXBuilder builder = new SAXBuilder();
-			Catalog catalog = new Catalog(Preferences.getInstance().getCatalogFile());
-			builder.setEntityResolver(catalog);
-			XMLOutputter outputter = new XMLOutputter();
-			outputter.preserveSpace(true);
-			Document d = builder.build(backfile);
-			Element r = d.getRootElement();
-			removeContent(r);
-			Indenter.indent(r, 2);
-			try (FileOutputStream out = new FileOutputStream(new File(backfile))) {
-				outputter.output(d, out);
-			}
-			// remove temporay XLIFF
-			File f = new File(paramsList.get(i).get("xliff"));
-			Files.delete(Paths.get(f.toURI()));
-		}
+
 		if (updateTM) {
 			if (logger.isCancelled()) {
 				logger.displayError("User cancelled");
@@ -800,35 +713,7 @@ public class LocalController {
 				return;
 			}
 		}
-		if (cleanAttributes) {
-			logger.setStage("Cleaning Default Attributes");
-			logger.log("");
 
-			SAXBuilder builder = new SAXBuilder();
-			Catalog catalog = new Catalog(Preferences.getInstance().getCatalogFile());
-			builder.setEntityResolver(catalog);
-
-			XMLOutputter outputter = new XMLOutputter();
-			outputter.preserveSpace(true);
-
-			for (int i = 0; i < targetFiles.size(); i++) {
-				if (logger.isCancelled()) {
-					logger.displayError("User cancelled");
-					return;
-				}
-				String target = targetFiles.get(i);
-				logger.log(target);
-				Document d = builder.build(target);
-				Element r = d.getRootElement();
-				if (r.getName().equals("svg")) {
-					continue;
-				}
-				recurse(r);
-				try (FileOutputStream out = new FileOutputStream(new File(target))) {
-					outputter.output(d, out);
-				}
-			}
-		}
 		Preferences preferences = Preferences.getInstance();
 		File projectFolder = new File(preferences.getProjectsFolder(), "" + project.getId());
 		File languageFolder = new File(projectFolder, targetLanguage);
@@ -848,7 +733,7 @@ public class LocalController {
 		}
 		if (!xliffDocument.equals(workDocument)) {
 			File f = new File(workDocument);
-			Files.delete(Paths.get(f.toURI()));
+			Files.delete(f.toPath());
 		}
 		project.getHistory().add(new ProjectEvent(ProjectEvent.XLIFF_IMPORTED, new Date(),
 				targetLanguage, Integer.parseInt(build)));
@@ -1060,197 +945,6 @@ public class LocalController {
 				file.getAttributeValue("product-version"), file.getAttributeValue("build-num") };
 	}
 
-	private static Element joinGroup(Element child) {
-		List<Element> pair = child.getChildren();
-		Element left = pair.get(0);
-		if (left.getName().equals("group")) {
-			left = joinGroup(left);
-		}
-		Element right = pair.get(1);
-		if (right.getName().equals("group")) {
-			right = joinGroup(right);
-		}
-		List<XMLNode> srcContent = right.getChild("source").getContent();
-		for (int k = 0; k < srcContent.size(); k++) {
-			XMLNode n = srcContent.get(k);
-			if (n.getNodeType() == XMLNode.ELEMENT_NODE) {
-				left.getChild("source").addContent(n);
-			}
-			if (n.getNodeType() == XMLNode.TEXT_NODE) {
-				left.getChild("source").addContent(n);
-			}
-		}
-		List<XMLNode> tgtContent = right.getChild("target").getContent();
-		for (int k = 0; k < tgtContent.size(); k++) {
-			XMLNode n = tgtContent.get(k);
-			if (n.getNodeType() == XMLNode.ELEMENT_NODE) {
-				left.getChild("target").addContent(n);
-			}
-			if (n.getNodeType() == XMLNode.TEXT_NODE) {
-				left.getChild("target").addContent(n);
-			}
-		}
-		left.setAttribute("id", child.getAttributeValue("id"));
-		if (left.getAttributeValue("approved").equalsIgnoreCase("yes")
-				&& right.getAttributeValue("approved").equalsIgnoreCase("yes")) {
-			left.setAttribute("approved", "yes");
-		} else {
-			left.setAttribute("approved", "no");
-		}
-		return left;
-	}
-
-	private List<String> xliffToOriginal(Map<String, String> params) {
-		List<String> result = new ArrayList<>();
-		File temporary = null;
-		try {
-			String dataType = params.get("format");
-			Document doc = loadXliff(params.get("xliff"));
-			Element root = doc.getRootElement();
-			params.put("skeleton", getSkeleton(root));
-			if (checkGroups(root)) {
-				temporary = File.createTempFile("group", ".xlf");
-				removeGroups(root, doc);
-				try (FileOutputStream out = new FileOutputStream(temporary.getAbsolutePath())) {
-					doc.writeBytes(out, doc.getEncoding());
-				}
-				params.put("xliff", temporary.getAbsolutePath());
-			}
-
-			if (dataType.equals(FileFormats.INX) || dataType.equals("x-inx")) {
-				params.put("InDesign", "yes");
-				result = Xliff2Xml.run(params);
-			} else if (dataType.equals(FileFormats.ICML) || dataType.equals("x-icml")) {
-				params.put("IDML", "true");
-				result = Xliff2Xml.run(params);
-			} else if (dataType.equals(FileFormats.IDML) || dataType.equals("x-idml")) {
-				result = Xliff2Idml.run(params);
-			} else if (dataType.equals(FileFormats.DITA) || dataType.equals("x-ditamap")) {
-				result = Xliff2DitaMap.run(params);
-			} else if (dataType.equals(FileFormats.HTML) || dataType.equals("html")) {
-				File folder = new File("xmlfilter");
-				params.put("iniFile", new File(folder, "init_html.xml").getAbsolutePath());
-				result = Xliff2Html.run(params);
-			} else if (dataType.equals(FileFormats.JS) || dataType.equals("javascript")) {
-				result = Xliff2jscript.run(params);
-			} else if (dataType.equals(FileFormats.JSON) || dataType.endsWith("json")) {
-				result = Xliff2json.run(params);
-			} else if (dataType.equals(FileFormats.JAVA) || dataType.equals("javapropertyresourcebundle")
-					|| dataType.equals("javalistresourcebundle")) {
-				result = Xliff2Properties.run(params);
-			} else if (dataType.equals(FileFormats.MIF) || dataType.equals("mif")) {
-				result = Xliff2Mif.run(params);
-			} else if (dataType.equals(FileFormats.OFF) || dataType.equals("x-office")) {
-				result = Xliff2Office.run(params);
-			} else if (dataType.equals(FileFormats.PO) || dataType.equals("po")) {
-				result = Xliff2Po.run(params);
-			} else if (dataType.equals(FileFormats.PHPA) || dataType.equals("x-phparray")) {
-				result = Xliff2Php.run(params);
-			} else if (dataType.equals(FileFormats.RC) || dataType.equals("winres")) {
-				result = Xliff2Rc.run(params);
-			} else if (dataType.equals(FileFormats.RESX) || dataType.equals("resx")) {
-				result = Xliff2Resx.run(params);
-			} else if (dataType.equals(FileFormats.SDLPPX) || dataType.equals("x-sdlpackage")) {
-				result = Xliff2Sdlrpx.run(params);
-			} else if (dataType.equals(FileFormats.SDLXLIFF) || dataType.equals("x-sdlxliff")) {
-				result = Xliff2Sdl.run(params);
-			} else if (dataType.equals(FileFormats.SRT) || dataType.equals("x-srt")) {
-				result = Xliff2Srt.run(params);
-			} else if (dataType.equals(FileFormats.TEXT) || dataType.equals("plaintext")) {
-				result = Xliff2Text.run(params);
-			} else if (dataType.equals(FileFormats.TS) || dataType.equals("x-ts")) {
-				result = Xliff2Ts.run(params);
-			} else if (dataType.equals(FileFormats.TXML) || dataType.equals("x-txml")) {
-				result = Xliff2Txml.run(params);
-			} else if (dataType.equals(FileFormats.TXLF) || dataType.equals("x-txlf")) {
-				result = Xliff2Txlf.run(params);
-			} else if (dataType.equals(FileFormats.WPML) || dataType.equals("x-wpmlxliff")) {
-				result = Xliff2Wpml.run(params);
-			} else if (dataType.equals(FileFormats.XML) || dataType.equals("xml")) {
-				result = Xliff2Xml.run(params);
-			} else if (dataType.equals(FileFormats.XLIFF) || dataType.equals("x-xliff")) {
-				result = FromOpenXliff.run(params);
-			} else {
-				result.add(Constants.ERROR);
-				result.add("Unsupported XLIFF file.");
-			}
-			if (temporary != null) {
-				Files.delete(Paths.get(temporary.toURI()));
-			}
-		} catch (IOException | SAXException | ParserConfigurationException | URISyntaxException e) {
-			result.add(0, Constants.ERROR);
-			result.add(1, e.getMessage());
-		}
-		return result;
-	}
-
-	private boolean checkGroups(Element e) {
-		if (e.getName().equals("group") && e.getAttributeValue("ts").equals("hs-split")) {
-			return true;
-		}
-		List<Element> children = e.getChildren();
-		Iterator<Element> i = children.iterator();
-		while (i.hasNext()) {
-			Element child = i.next();
-			if (checkGroups(child)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private static String getSkeleton(Element root) throws IOException {
-		String result = "";
-		Element file = root.getChild("file");
-		if (file != null) {
-			Element header = file.getChild("header");
-			if (header != null) {
-				Element skl = header.getChild("skl");
-				if (skl != null) {
-					Element external = skl.getChild("external-file");
-					if (external != null) {
-						result = external.getAttributeValue("href");
-						result = result.replace("&amp;", "&");
-						result = result.replace("&lt;", "<");
-						result = result.replace("&gt;", ">");
-						result = result.replace("&apos;", "\'");
-						result = result.replace("&quot;", "\"");
-					} else {
-						Element internal = skl.getChild("internal-file");
-						if (internal != null) {
-							File tmp = File.createTempFile("internal", ".skl");
-							tmp.deleteOnExit();
-							Utils.decodeToFile(internal.getText(), tmp.getAbsolutePath());
-							return tmp.getAbsolutePath();
-						}
-						return result;
-					}
-				}
-			}
-		}
-		return result;
-	}
-
-	private void removeGroups(Element e, Document d) {
-		List<XMLNode> children = e.getContent();
-		for (int i = 0; i < children.size(); i++) {
-			XMLNode n = children.get(i);
-			if (n.getNodeType() == XMLNode.ELEMENT_NODE) {
-				Element child = (Element) n;
-				if (child.getName().equals("group") && child.getAttributeValue("ts").equals("hs-split")) {
-					child = joinGroup(child);
-					Element tu = new Element("trans-unit");
-					tu.clone(child);
-					children.remove(i);
-					children.add(i, tu);
-					e.setContent(children);
-				} else {
-					removeGroups(child, d);
-				}
-			}
-		}
-	}
-
 	private static Document loadXliff(String fileName)
 			throws SAXException, IOException, ParserConfigurationException, URISyntaxException {
 		SAXBuilder builder = new SAXBuilder();
@@ -1313,17 +1007,6 @@ public class LocalController {
 		target.setContent(vector);
 	}
 
-	private TreeSet<String> getFileSet(Element root) {
-		List<Element> files = root.getChildren("file");
-		TreeSet<String> fileSet = new TreeSet<>();
-		Iterator<Element> it = files.iterator();
-		while (it.hasNext()) {
-			Element file = it.next();
-			fileSet.add(file.getAttributeValue("original"));
-		}
-		return fileSet;
-	}
-
 	private static String getEncoding(Element root) {
 		String encoding = StandardCharsets.UTF_8.name();
 		List<PI> pis = root.getPI("encoding");
@@ -1331,36 +1014,6 @@ public class LocalController {
 			encoding = pis.get(0).getData();
 		}
 		return encoding;
-	}
-
-	private static String saveXliff(String fileName, File xliff, Element root) throws IOException {
-		String encoding = StandardCharsets.UTF_8.name();
-		try (FileOutputStream out = new FileOutputStream(xliff)) {
-			writeStr(out, "<xliff version=\"1.2\">\n");
-			List<Element> files = root.getChildren("file");
-			Iterator<Element> it = files.iterator();
-			while (it.hasNext()) {
-				Element file = it.next();
-				if (file.getAttributeValue("original").equals(fileName)) {
-					List<PI> pis = file.getPI();
-					Iterator<PI> pt = pis.iterator();
-					while (pt.hasNext()) {
-						PI pi = pt.next();
-						if (pi.getTarget().equals("encoding")) {
-							encoding = pi.getData();
-						}
-						writeStr(out, pi.toString());
-					}
-					writeStr(out, file.toString());
-				}
-			}
-			writeStr(out, "</xliff>\n");
-		}
-		return encoding;
-	}
-
-	private static void writeStr(FileOutputStream out, String string) throws IOException {
-		out.write(string.getBytes(StandardCharsets.UTF_8));
 	}
 
 	public int importTMX(Memory memory, String tmxFile)
@@ -1729,7 +1382,7 @@ public class LocalController {
 			}
 
 		}
-		Files.deleteIfExists(Paths.get(file.toURI()));
+		Files.deleteIfExists(file.toPath());
 	}
 
 	public void exportTMX(Memory memory, String file)
@@ -1746,30 +1399,6 @@ public class LocalController {
 			projectsManager = new ProjectsManager(preferences.getProjectsFolder());
 		}
 		return projectsManager.getProject(id);
-	}
-
-	private void removeContent(Element e) {
-		if ("removeContent".equals(e.getAttributeValue("state"))) {
-			e.setContent(new ArrayList<>());
-			e.removeAttribute("state");
-		}
-		List<Element> children = e.getChildren();
-		Iterator<Element> it = children.iterator();
-		while (it.hasNext()) {
-			removeContent(it.next());
-		}
-	}
-
-	private void recurse(Element e) {
-		e.removeAttribute("class");
-		e.removeAttribute("xmlns:ditaarch");
-		e.removeAttribute("ditaarch:DITAArchVersion");
-		e.removeAttribute("domains");
-		List<Element> children = e.getChildren();
-		Iterator<Element> it = children.iterator();
-		while (it.hasNext()) {
-			recurse(it.next());
-		}
 	}
 
 	public static List<Element> sortMatches(List<Element> matches) {

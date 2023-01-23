@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015-2022 Maxprograms.
+ * Copyright (c) 2023 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -19,6 +19,6 @@ public class Constants {
 	}
 	
 	public static final String NAME = "Fluenta"; 
-	public static final String VERSION = "3.2.0"; 
-	public static final String BUILD = "20221219_0645"; 
+	public static final String VERSION = "3.3.0"; 
+	public static final String BUILD = "20230123_1450"; 
 }

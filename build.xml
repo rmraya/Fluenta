@@ -11,6 +11,7 @@
         <pathelement location="jars/mapdb.jar" />
         <pathelement location="jars/openxliff.jar" />
         <pathelement location="jars/swordfish.jar" />
+        <pathelement location="jars/xmljava.jar" />
         <pathelement location="jars/swt.jar" />
     </path>
     <condition property="isWindows">

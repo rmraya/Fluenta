@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015-2022 Maxprograms.
+ * Copyright (c) 2023 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -240,7 +240,7 @@ public class API {
 	}
 
 	public static void importXLIFF(long id, String xliffFile, String outputFolder, boolean updateTM,
-			boolean acceptUnapproved, boolean ignoreTagErrors, boolean cleanAttributes, boolean verbose)
+			boolean acceptUnapproved, boolean ignoreTagErrors, boolean verbose)
 			throws IOException, NumberFormatException, ClassNotFoundException, SAXException,
 			ParserConfigurationException, SQLException, URISyntaxException, JSONException, ParseException {
 		LocalController controller = new LocalController();
@@ -254,7 +254,7 @@ public class API {
 		}
 		SimpleLogger logger = new SimpleLogger(verbose);
 		controller.importXliff(project, xliffFile, outputFolder, updateTM, acceptUnapproved, ignoreTagErrors,
-				cleanAttributes, logger);
+				logger);
 	}
 
 	protected static void importXLIFF(String jsonFile, boolean verbose) throws IOException, NumberFormatException,
@@ -275,11 +275,7 @@ public class API {
 		if (jsonObject.has("ignoreTagErrors")) {
 			ignoreTagErrors = jsonObject.getBoolean("ignoreTagErrors");
 		}
-		boolean cleanAttributes = true;
-		if (jsonObject.has("cleanAttributes")) {
-			cleanAttributes = jsonObject.getBoolean("cleanAttributes");
-		}
-		importXLIFF(id, xliffFile, outputFolder, updateTM, acceptUnapproved, ignoreTagErrors, cleanAttributes, verbose);
+		importXLIFF(id, xliffFile, outputFolder, updateTM, acceptUnapproved, ignoreTagErrors, verbose);
 	}
 
 	public static void removeProject(long id) throws IOException, JSONException, ParseException {
