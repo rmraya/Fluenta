@@ -20,5 +20,5 @@ public class Constants {
 	
 	public static final String NAME = "Fluenta"; 
 	public static final String VERSION = "3.3.0"; 
-	public static final String BUILD = "20230123_1450"; 
+	public static final String BUILD = "20230124_1543"; 
 }
