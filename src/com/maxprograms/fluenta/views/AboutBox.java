@@ -66,7 +66,7 @@ public class AboutBox {
 		image.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
 
 		Label copyright = new Label(shell, SWT.CENTER);
-		copyright.setText("Copyright \u00a9 2015 - 2022 Maxprograms");
+		copyright.setText("Copyright \u00a9 2015 - 2023 Maxprograms");
 		copyright.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
 		copyright.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
