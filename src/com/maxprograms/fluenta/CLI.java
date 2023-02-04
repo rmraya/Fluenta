@@ -121,7 +121,7 @@ public class CLI {
 			try {
 				API.addProject(addFile);
 			} catch (IOException | ClassNotFoundException | SQLException | SAXException
-					| ParserConfigurationException e) {
+					| ParserConfigurationException | JSONException | ParseException e) {
 				logger.log(Level.ERROR, "Error adding project", e);
 				System.exit(3);
 			}

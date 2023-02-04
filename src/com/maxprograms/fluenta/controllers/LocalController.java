@@ -30,7 +30,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -43,6 +42,7 @@ import com.maxprograms.converters.Convert;
 import com.maxprograms.converters.EncodingResolver;
 import com.maxprograms.converters.FileFormats;
 import com.maxprograms.converters.ILogger;
+import com.maxprograms.converters.Merge;
 import com.maxprograms.converters.TmxExporter;
 import com.maxprograms.converters.ditamap.DitaMap2Xliff;
 import com.maxprograms.converters.ditamap.Xliff2DitaMap;
@@ -56,7 +56,6 @@ import com.maxprograms.swordfish.tm.InternalDatabase;
 import com.maxprograms.swordfish.tm.Match;
 import com.maxprograms.swordfish.tm.MatchQuality;
 import com.maxprograms.swordfish.tm.TMUtils;
-import com.maxprograms.utils.FileUtils;
 import com.maxprograms.utils.Preferences;
 import com.maxprograms.widgets.AsyncLogger;
 import com.maxprograms.xliff2.FromXliff2;
@@ -66,7 +65,6 @@ import com.maxprograms.xml.Catalog;
 import com.maxprograms.xml.Document;
 import com.maxprograms.xml.Element;
 import com.maxprograms.xml.Indenter;
-import com.maxprograms.xml.PI;
 import com.maxprograms.xml.SAXBuilder;
 import com.maxprograms.xml.XMLNode;
 import com.maxprograms.xml.XMLOutputter;
@@ -89,7 +87,8 @@ public class LocalController {
 	}
 
 	public void createProject(Project project)
-			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
+			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException,
+			JSONException, ParseException {
 		if (projectsManager == null) {
 			Preferences preferences = Preferences.getInstance();
 			projectsManager = new ProjectsManager(preferences.getProjectsFolder());
@@ -167,6 +166,7 @@ public class LocalController {
 				.equalsIgnoreCase("Yes");
 		File skl;
 		skl = File.createTempFile("temp", ".skl", skldir);
+		params.put("format", FileFormats.DITA);
 		params.put("skeleton", skl.getAbsolutePath());
 		params.put("catalog", preferences.getCatalogFile());
 		params.put("customer", "");
@@ -181,22 +181,15 @@ public class LocalController {
 		params.put("translateComments", translateComments ? "yes" : "no");
 		params.put("xmlfilter", preferences.getFiltersFolder());
 		params.put("ignoretc", ignoreTrackedChanges ? "yes" : "no");
+		params.put("embed", embedSkeleton ? "yes" : "no");
+
 		logger.setStage("Generating Master XLIFF");
 
 		DitaMap2Xliff.setDataLogger(logger);
-		List<String> result = DitaMap2Xliff.run(params);
+		List<String> result = Convert.run(params);
 		if (!result.get(0).equals(Constants.SUCCESS)) {
 			throw new IOException(result.get(1));
 		}
-		if (embedSkeleton) {
-			logger.setStage("Embedding Skeletons");
-			logger.log(xliffFile.getAbsolutePath());
-			result = Convert.addSkeleton(xliffFile.getAbsolutePath(), Preferences.getInstance().getCatalogFile());
-			if (!result.get(0).equals(Constants.SUCCESS)) {
-				throw new IOException(result.get(1));
-			}
-		}
-		makeFilesRelative(xliffFile);
 		logger.setStage("Writing Target XLIFF Files");
 		MessageFormat mf = new MessageFormat("Target Language: {0}");
 		for (int i = 0; i < tgtLangs.size(); i++) {
@@ -318,7 +311,6 @@ public class LocalController {
 				analysis.analyse(targetXliff.getAbsolutePath(), Preferences.getInstance().getCatalogFile());
 			}
 		}
-
 		if (useXliff20) {
 			logger.setStage("Generating XLIFF 2.0");
 			for (int i = 0; i < tgtLangs.size(); i++) {
@@ -536,32 +528,6 @@ public class LocalController {
 		return bestMatch;
 	}
 
-	private static void makeFilesRelative(File xliffFile)
-			throws IOException, SAXException, ParserConfigurationException {
-		SAXBuilder builder = new SAXBuilder();
-		Document doc = builder.build(xliffFile);
-		Element root = doc.getRootElement();
-		List<Element> files1 = root.getChildren("file");
-		TreeSet<String> set = new TreeSet<>();
-		for (int i = 0; i < files1.size(); i++) {
-			Element file = files1.get(i);
-			String original = file.getAttributeValue("original");
-			set.add(original);
-		}
-		String treeRoot = FileUtils.findTreeRoot(set);
-		for (int i = 0; i < files1.size(); i++) {
-			Element file = files1.get(i);
-			String original = file.getAttributeValue("original");
-			file.setAttribute("original", FileUtils.getRelativePath(treeRoot, original));
-		}
-		set = null;
-		try (FileOutputStream output = new FileOutputStream(xliffFile)) {
-			XMLOutputter outputter = new XMLOutputter();
-			outputter.preserveSpace(true);
-			outputter.output(doc, output);
-		}
-	}
-
 	private static String getName(String name, String code) {
 		String result = name.substring(0, name.lastIndexOf('.')) + "@@@@" + name.substring(name.lastIndexOf('.'));
 		return result.replace("@@@@", "_" + code) + ".xlf";
@@ -673,16 +639,11 @@ public class LocalController {
 			logger.displayError("XLIFF file does not correspond to selected project");
 			return;
 		}
-		String encoding = getEncoding(root);
 
-		Map<String, String> params = new Hashtable<>();
-		params.put("xliff", workDocument);
-		params.put("encoding", encoding);
-		params.put("catalog", Preferences.getInstance().getCatalogFile());
-		params.put("backfile", targetFolder);
 		Xliff2DitaMap.setDataLogger(logger);
 		logger.setStage("Merging XLIFF");
-		List<String> res = Xliff2DitaMap.run(params);
+		List<String> res = Merge.merge(xliffDocument, targetFolder, Preferences.getInstance().getCatalogFile(),
+				acceptUnapproved);
 		if (!Constants.SUCCESS.equals(res.get(0))) {
 			logger.displayError(res.get(1));
 			return;
@@ -1005,15 +966,6 @@ public class LocalController {
 			}
 		}
 		target.setContent(vector);
-	}
-
-	private static String getEncoding(Element root) {
-		String encoding = StandardCharsets.UTF_8.name();
-		List<PI> pis = root.getPI("encoding");
-		if (!pis.isEmpty()) {
-			encoding = pis.get(0).getData();
-		}
-		return encoding;
 	}
 
 	public int importTMX(Memory memory, String tmxFile)

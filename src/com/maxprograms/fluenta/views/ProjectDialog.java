@@ -525,7 +525,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 					try {
 						mainView.getController().createProject(p);
 					} catch (IOException | ClassNotFoundException | SQLException | SAXException
-							| ParserConfigurationException e) {
+							| ParserConfigurationException | JSONException | ParseException e) {
 						logger.log(Level.ERROR, e);
 						MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
 						box.setMessage("Error creating project");

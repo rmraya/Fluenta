@@ -50,7 +50,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.xml.sax.SAXException;
 
-import com.maxprograms.utils.FileUtils;
+import com.maxprograms.converters.Utils;
 import com.maxprograms.utils.Preferences;
 import com.maxprograms.xml.Document;
 import com.maxprograms.xml.Element;
@@ -466,7 +466,7 @@ public class XmlPreferences extends Composite {
 			try {
 				Element next = new Element("nextCatalog");
 				File catalog = new File(Preferences.getInstance().getCatalogFile());
-				next.setAttribute("catalog", FileUtils.getRelativePath(catalog.getAbsolutePath(), name));
+				next.setAttribute("catalog", Utils.getRelativePath(catalog.getAbsolutePath(), name));
 				catalogDoc.getRootElement().addContent(next);
 				catalogDoc.getRootElement().addContent("\n");
 				saveCatalog();

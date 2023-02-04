@@ -12,6 +12,7 @@
 
 package com.maxprograms.fluenta.models;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -28,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.maxprograms.converters.Utils;
 import com.maxprograms.utils.TextUtils;
 
 public class Project implements Serializable {
@@ -80,25 +82,29 @@ public class Project implements Serializable {
 	}
 
 	public Project(JSONObject json) throws JSONException, ParseException, IOException {
-		this.id = json.getLong("id");
-		this.title = json.getString("title");
-		this.description = json.getString("description");
-		this.owner = json.getString("owner");
-		this.map = json.getString("map");
+		id = json.getLong("id");
+		title = json.getString("title");
+		description = json.getString("description");
+		owner = json.getString("owner");
+		map = json.getString("map");
+		File mapFile = new File(map);
+		if (!mapFile.isAbsolute()) {
+			map = Utils.getAbsolutePath(System.getProperty("user.home"), map);
+		}
 		DateFormat df = DateFormat.getDateTimeInstance();
-		this.creationDate = df.parse(json.getString("creationDate"));
-		this.status = json.getString("status");
-		this.lastUpdate = df.parse(json.getString("lastUpdate"));
-		this.srcLanguage = json.getString("srcLanguage");
-		this.tgtLanguages = new Vector<>();
+		creationDate = df.parse(json.getString("creationDate"));
+		status = json.getString("status");
+		lastUpdate = df.parse(json.getString("lastUpdate"));
+		srcLanguage = json.getString("srcLanguage");
+		tgtLanguages = new Vector<>();
 		JSONArray tgtLangs = json.getJSONArray("tgtLanguages");
 		for (int i = 0; i < tgtLangs.length(); i++) {
-			this.tgtLanguages.add(tgtLangs.getString(i));
+			tgtLanguages.add(tgtLangs.getString(i));
 		}
-		this.memories = new Vector<>();
+		memories = new Vector<>();
 		JSONArray memArray = json.getJSONArray("memories");
 		for (int i = 0; i < memArray.length(); i++) {
-			this.memories.add(memArray.getLong(i));
+			memories.add(memArray.getLong(i));
 		}
 		history = new Vector<>();
 		JSONArray eventArray = json.getJSONArray("history");
@@ -120,14 +126,14 @@ public class Project implements Serializable {
 		}
 	}
 
-	public JSONObject toJSON() {
+	public JSONObject toJSON() throws JSONException, IOException {
 		JSONObject json = new JSONObject();
 		DateFormat df = DateFormat.getDateTimeInstance();
 		json.put("id", id);
 		json.put("title", title);
 		json.put("description", description);
 		json.put("owner", owner);
-		json.put("map", map);
+		json.put("map", Utils.getRelativePath(System.getProperty("user.home"), map));
 		json.put("creationDate", df.format(creationDate));
 		json.put("status", status);
 		json.put("lastUpdate", df.format(lastUpdate));
@@ -176,6 +182,10 @@ public class Project implements Serializable {
 
 	public void setMap(String map) {
 		this.map = map;
+	}
+
+	public boolean isValidMap() {
+		return new File(map).exists();
 	}
 
 	public String getStatus() {

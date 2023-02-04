@@ -29,6 +29,7 @@ import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
@@ -329,6 +330,9 @@ public class ProjectsView extends Composite {
 				}
 				item.setText(new String[] { p.getTitle(), map, p.getStatus(), p.getCreationDateString(),
 						p.getLastUpdateString() });
+				if (!p.isValidMap()) {
+					item.setForeground(1, Display.getCurrent().getSystemColor(SWT.COLOR_RED));
+				}
 			}
 		} catch (IOException | JSONException | ParseException e) {
 			logger.log(Level.ERROR, e);
@@ -363,7 +367,7 @@ public class ProjectsView extends Composite {
 			return;
 		}
 		ProjectInfoDialog dialog = new ProjectInfoDialog(getShell(), SWT.DIALOG_TRIM | SWT.RESIZE,
-				(Project) table.getSelection()[0].getData("project"), mainView); 
+				(Project) table.getSelection()[0].getData("project"), mainView);
 		dialog.show();
 	}
 
@@ -374,7 +378,7 @@ public class ProjectsView extends Composite {
 			box.open();
 			return;
 		}
-		Project project = (Project) table.getSelection()[0].getData("project"); 
+		Project project = (Project) table.getSelection()[0].getData("project");
 		File map = new File(project.getMap());
 		if (!map.exists()) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);

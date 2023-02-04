@@ -46,7 +46,7 @@ public class API {
 	}
 
 	protected static void addProject(String jsonFile)
-			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
+			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException, JSONException, ParseException {
 		File projectFile = new File(jsonFile);
 		JSONObject jsonObject = FileUtils.readJSON(projectFile);
 		long id = jsonObject.getLong("id");
@@ -75,7 +75,7 @@ public class API {
 
 	public static void addProject(long id, String title, String description, String map, String srcLang,
 			String[] tgtLang, long[] memIds)
-			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
+			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException, JSONException, ParseException {
 		List<String> tgtCodes = Arrays.asList(tgtLang);
 		LocalController controller = new LocalController();
 		List<Long> memories = new Vector<>();
@@ -169,6 +169,7 @@ public class API {
 
 	public static void generateXLIFF(long id, String xliffFolder, String[] tgtLang, boolean useICE, boolean useTM,
 			boolean generateCount, boolean verbose, String ditaval, boolean useXliff20, boolean embedSkeleton,
+			
 			boolean modifiedFilesOnly, boolean ignoreTrackedChanges)
 			throws IOException, ClassNotFoundException, SAXException, ParserConfigurationException, URISyntaxException,
 			SQLException, JSONException, ParseException {
@@ -198,6 +199,7 @@ public class API {
 			ParseException {
 		File projectFile = new File(jsonFile);
 		JSONObject jsonObject = FileUtils.readJSON(projectFile);
+			
 		long id = jsonObject.getLong("id");
 		String xliffFolder = jsonObject.getString("xliffFolder");
 		String ditaval = jsonObject.has("ditaval") ? jsonObject.getString("ditaval") : "";
@@ -254,7 +256,7 @@ public class API {
 		}
 		SimpleLogger logger = new SimpleLogger(verbose);
 		controller.importXliff(project, xliffFile, outputFolder, updateTM, acceptUnapproved, ignoreTagErrors,
-				logger);
+				 logger);
 	}
 
 	protected static void importXLIFF(String jsonFile, boolean verbose) throws IOException, NumberFormatException,
@@ -287,3 +289,5 @@ public class API {
 		controller.removeProject(project);
 	}
 }
+
+				

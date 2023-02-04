@@ -105,8 +105,8 @@ public class AboutBox {
 				com.maxprograms.swordfish.Constants.BUILD }));
 
 		Label swtLabel = new Label(info, SWT.NONE);
-		MessageFormat mfswt = new MessageFormat("SWT: {0}");
-		swtLabel.setText(mfswt.format(new String[] { "" + SWT.getVersion() }));
+		MessageFormat mfswt = new MessageFormat("SWT: {0} {1}");
+		swtLabel.setText(mfswt.format(new String[] { SWT.getPlatform(), "" + SWT.getVersion() }));
 
 		Label java2 = new Label(info, SWT.NONE);
 		MessageFormat mf2 = new MessageFormat("Maximum / Allocated / Free JVM Memory: {0} / {1} / {2}");

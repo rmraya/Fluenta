@@ -30,42 +30,47 @@ import com.maxprograms.utils.FileUtils;
 public class ProjectsManager {
 
     private File projectsFile;
-    private JSONObject projects;
+    private List<Project> projects;
 
-    public ProjectsManager(File home) throws IOException, JSONException {
+    public ProjectsManager(File home) throws IOException, JSONException, ParseException {
         if (!home.exists()) {
             Files.createDirectories(home.toPath());
         }
         projectsFile = new File(home, "projects.json");
         if (!projectsFile.exists()) {
-            projects = new JSONObject();
-            projects.put("projects", new JSONArray());
+            JSONObject json = new JSONObject();
+            json.put("projects", new JSONArray());
             saveProjects();
         }
-        projects = FileUtils.readJSON(projectsFile);
+        projects = new Vector<>();
+        JSONObject json = FileUtils.readJSON(projectsFile);
+        JSONArray array = json.getJSONArray("projects");
+        for (int i = 0; i < array.length(); i++) {
+            projects.add(new Project(array.getJSONObject(i)));
+        }
     }
 
     private synchronized void saveProjects() throws IOException {
+        JSONObject json = new JSONObject();
+        JSONArray array = new JSONArray();
+        for (int i = 0; i < projects.size(); i++) {
+            array.put(projects.get(i).toJSON());
+        }
+        json.put("projects", array);
         try (FileOutputStream out = new FileOutputStream(projectsFile)) {
-            out.write(projects.toString(2).getBytes(StandardCharsets.UTF_8));
+            out.write(json.toString(2).getBytes(StandardCharsets.UTF_8));
         }
     }
 
     List<Project> getProjects() throws JSONException, ParseException, IOException {
-        List<Project> result = new Vector<>();
-        JSONArray array = projects.getJSONArray("projects");
-        for (int i = 0; i < array.length(); i++) {
-            result.add(new Project(array.getJSONObject(i)));
-        }
-        return result;
+        return projects;
     }
 
     public Project getProject(long id) throws JSONException, ParseException, IOException {
-        JSONArray array = projects.getJSONArray("projects");
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject json = array.getJSONObject(i);
-            if (id == json.getLong("id")) {
-                return new Project(json);
+        for (int i = 0; i < projects.size(); i++) {
+            Project project = projects.get(i);
+            if (id == project.getId()) {
+                return project;
             }
         }
         throw new IOException("Project does not exist");
@@ -77,11 +82,10 @@ public class ProjectsManager {
     }
 
     public void remove(long id) throws IOException {
-        JSONArray array = projects.getJSONArray("projects");
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject json = array.getJSONObject(i);
-            if (id == json.getLong("id")) {
-                array.remove(i);
+        for (int i = 0; i < projects.size(); i++) {
+            Project project = projects.get(i);
+            if (id == project.getId()) {
+                projects.remove(project);
                 saveProjects();
                 return;
             }
@@ -90,8 +94,7 @@ public class ProjectsManager {
     }
 
     public void add(Project project) throws IOException {
-        JSONArray array = projects.getJSONArray("projects");
-        array.put(project.toJSON());
+        projects.add(project);
         saveProjects();
     }
 }

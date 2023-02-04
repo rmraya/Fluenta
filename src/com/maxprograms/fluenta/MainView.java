@@ -436,6 +436,7 @@ public class MainView {
 			String installedVersion = Constants.VERSION + " (" + Constants.BUILD + ")";
 			if (!version.equals(installedVersion)) {
 				MessageBox box = new MessageBox(shell, SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+				box.setText("Update available");
 				MessageFormat mf = new MessageFormat(
 						"Installed version is: {0}\nAvailable version is: {1}\n\nVisit download site?");
 				box.setMessage(mf.format(new String[] { installedVersion, version }));
