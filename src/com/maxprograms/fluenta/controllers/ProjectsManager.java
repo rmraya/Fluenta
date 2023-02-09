@@ -40,7 +40,9 @@ public class ProjectsManager {
         if (!projectsFile.exists()) {
             JSONObject json = new JSONObject();
             json.put("projects", new JSONArray());
-            saveProjects();
+            try (FileOutputStream out = new FileOutputStream(projectsFile)) {
+                out.write(json.toString(2).getBytes(StandardCharsets.UTF_8));
+            }
         }
         projects = new Vector<>();
         JSONObject json = FileUtils.readJSON(projectsFile);
