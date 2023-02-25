@@ -84,6 +84,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 	protected Button xliff20;
 	protected Button ignoretc;
 	protected Button embed;
+	protected Button paragraph;
 
 	public GenerateXliffDialog(Shell parent, int style, Project project, MainView mainView) {
 		super(parent, style);
@@ -209,6 +210,10 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 		useTM.setText("Use Translation Memories");
 		useTM.setSelection(true);
 
+		paragraph = new Button(optionsGroup, SWT.CHECK);
+		paragraph.setText("Paragraph Segmentation");
+		paragraph.setSelection(false);
+
 		generateCount = new Button(optionsGroup, SWT.CHECK);
 		generateCount.setText("Generate Word Count");
 		generateCount.setSelection(true);
@@ -329,6 +334,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 				boolean count = generateCount.getSelection();
 				boolean useXliff20 = xliff20.getSelection();
 				boolean embedSkeleton = embed.getSelection();
+				boolean paragraphSegmentation = paragraph.getSelection();
 				boolean modifiedFilesOnly = modifiedOnly.getSelection();
 				boolean ignoreTrackedChanges = ignoretc.getSelection();
 				Thread thread = new Thread() {
@@ -337,7 +343,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 					public void run() {
 						try {
 							mainView.getController().generateXliff(project, xliffFolder, tgtLangs, useice, usetm, count,
-									ditaval, useXliff20, embedSkeleton, modifiedFilesOnly, ignoreTrackedChanges, aLogger);
+									ditaval, useXliff20, embedSkeleton, modifiedFilesOnly, ignoreTrackedChanges, paragraphSegmentation, aLogger);
 						} catch (IOException | ClassNotFoundException | JSONException | SAXException
 								| NullPointerException | ParserConfigurationException | URISyntaxException
 								| SQLException | ParseException e) {
@@ -366,6 +372,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 			generateCount.setSelection(pref.get("GenerateXliffDialog", "generateCount", "no").equalsIgnoreCase("yes"));
 			xliff20.setSelection(pref.get("GenerateXliffDialog", "xliff20", "no").equalsIgnoreCase("yes"));
 			embed.setSelection(pref.get("GenerateXliffDialog", "embed", "no").equalsIgnoreCase("yes"));
+			paragraph.setSelection(pref.get("GenerateXliffDialog", "paragraph", "no").equalsIgnoreCase("yes"));
 			modifiedOnly.setSelection(pref.get("GenerateXliffDialog", "modified", "no").equalsIgnoreCase("yes"));
 			ignoretc.setSelection(pref.get("GenerateXliffDialog", "ignoretc", "no").equalsIgnoreCase("yes"));
 		} catch (IOException e) {
@@ -383,6 +390,7 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 			pref.save("GenerateXliffDialog", "generateCount", generateCount.getSelection() ? "yes" : "no");
 			pref.save("GenerateXliffDialog", "xliff20", xliff20.getSelection() ? "yes" : "no");
 			pref.save("GenerateXliffDialog", "embed", embed.getSelection() ? "yes" : "no");
+			pref.save("GenerateXliffDialog", "paragraph", paragraph.getSelection() ? "yes" : "no");
 			pref.save("GenerateXliffDialog", "modified", modifiedOnly.getSelection() ? "yes" : "no");
 			pref.save("GenerateXliffDialog", "ignoretc", ignoretc.getSelection() ? "yes" : "no");
 		} catch (IOException e) {

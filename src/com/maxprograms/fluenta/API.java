@@ -46,7 +46,8 @@ public class API {
 	}
 
 	protected static void addProject(String jsonFile)
-			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException, JSONException, ParseException {
+			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException,
+			JSONException, ParseException {
 		File projectFile = new File(jsonFile);
 		JSONObject jsonObject = FileUtils.readJSON(projectFile);
 		long id = jsonObject.getLong("id");
@@ -75,7 +76,8 @@ public class API {
 
 	public static void addProject(long id, String title, String description, String map, String srcLang,
 			String[] tgtLang, long[] memIds)
-			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException, JSONException, ParseException {
+			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException,
+			JSONException, ParseException {
 		List<String> tgtCodes = Arrays.asList(tgtLang);
 		LocalController controller = new LocalController();
 		List<Long> memories = new Vector<>();
@@ -169,8 +171,7 @@ public class API {
 
 	public static void generateXLIFF(long id, String xliffFolder, String[] tgtLang, boolean useICE, boolean useTM,
 			boolean generateCount, boolean verbose, String ditaval, boolean useXliff20, boolean embedSkeleton,
-			
-			boolean modifiedFilesOnly, boolean ignoreTrackedChanges)
+			boolean modifiedFilesOnly, boolean ignoreTrackedChanges, boolean paragraphSegmentation)
 			throws IOException, ClassNotFoundException, SAXException, ParserConfigurationException, URISyntaxException,
 			SQLException, JSONException, ParseException {
 		LocalController controller = new LocalController();
@@ -191,7 +192,7 @@ public class API {
 		}
 		SimpleLogger logger = new SimpleLogger(verbose);
 		controller.generateXliff(project, xliffFolder, langs, useICE, useTM, generateCount, ditaval, useXliff20,
-				embedSkeleton, modifiedFilesOnly, ignoreTrackedChanges, logger);
+				embedSkeleton, modifiedFilesOnly, ignoreTrackedChanges, paragraphSegmentation, logger);
 	}
 
 	protected static void generateXLIFF(String jsonFile, boolean verbose) throws IOException, SAXException,
@@ -199,7 +200,6 @@ public class API {
 			ParseException {
 		File projectFile = new File(jsonFile);
 		JSONObject jsonObject = FileUtils.readJSON(projectFile);
-			
 		long id = jsonObject.getLong("id");
 		String xliffFolder = jsonObject.getString("xliffFolder");
 		String ditaval = jsonObject.has("ditaval") ? jsonObject.getString("ditaval") : "";
@@ -223,6 +223,10 @@ public class API {
 		if (jsonObject.has("embedSkeleton")) {
 			embedSkeleton = jsonObject.getBoolean("embedSkeleton");
 		}
+		boolean paragraphSegmentation = false;
+		if (jsonObject.has("paragraph")) {
+			paragraphSegmentation = jsonObject.getBoolean("paragraph");
+		}
 		boolean modifiedFilesOnly = false;
 		if (jsonObject.has("modifiedFilesOnly")) {
 			modifiedFilesOnly = jsonObject.getBoolean("modifiedFilesOnly");
@@ -238,7 +242,7 @@ public class API {
 		}
 
 		generateXLIFF(id, xliffFolder, tgtLang, useICE, useTM, generateCount, verbose, ditaval, useXliff20,
-				embedSkeleton, modifiedFilesOnly, ignoreTrackedChanges);
+				embedSkeleton, modifiedFilesOnly, ignoreTrackedChanges, paragraphSegmentation);
 	}
 
 	public static void importXLIFF(long id, String xliffFile, String outputFolder, boolean updateTM,
@@ -256,7 +260,7 @@ public class API {
 		}
 		SimpleLogger logger = new SimpleLogger(verbose);
 		controller.importXliff(project, xliffFile, outputFolder, updateTM, acceptUnapproved, ignoreTagErrors,
-				 logger);
+				logger);
 	}
 
 	protected static void importXLIFF(String jsonFile, boolean verbose) throws IOException, NumberFormatException,
@@ -289,5 +293,3 @@ public class API {
 		controller.removeProject(project);
 	}
 }
-
-				

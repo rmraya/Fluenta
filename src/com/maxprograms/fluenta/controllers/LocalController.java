@@ -142,7 +142,7 @@ public class LocalController {
 
 	public void generateXliff(Project project, String xliffFolder, List<Language> tgtLangs, boolean useICE,
 			boolean useTM, boolean generateCount, String ditavalFile, boolean useXliff20, boolean embedSkeleton,
-			boolean modifiedFilesOnly, boolean ignoreTrackedChanges, ILogger logger)
+			boolean modifiedFilesOnly, boolean ignoreTrackedChanges, boolean paragraphSegmentation, ILogger logger)
 			throws IOException, SAXException, ParserConfigurationException, URISyntaxException, ClassNotFoundException,
 			SQLException, JSONException, ParseException {
 
@@ -181,6 +181,7 @@ public class LocalController {
 		params.put("translateComments", translateComments ? "yes" : "no");
 		params.put("xmlfilter", preferences.getFiltersFolder());
 		params.put("ignoretc", ignoreTrackedChanges ? "yes" : "no");
+		params.put("paragraph", paragraphSegmentation ? "yes" : "no");
 		params.put("embed", embedSkeleton ? "yes" : "no");
 
 		logger.setStage("Generating Master XLIFF");
