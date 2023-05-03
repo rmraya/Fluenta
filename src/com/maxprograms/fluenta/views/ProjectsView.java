@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.text.Collator;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -337,7 +338,8 @@ public class ProjectsView extends Composite {
 		} catch (IOException | JSONException | ParseException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error loading projects");
+			MessageFormat mf = new MessageFormat("Error loading projects: {0}");
+			box.setMessage(mf.format(new String[] { e.getMessage() }));
 			box.open();
 		}
 	}

@@ -15,7 +15,7 @@ package com.maxprograms.fluenta.models;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Hashtable;
@@ -39,6 +39,8 @@ public class Project implements Serializable {
 	public static final String IN_PROGRESS = "In Progress";
 	public static final String COMPLETED = "Completed";
 	private static final String UNTRANSLATED = "Untranslated";
+
+	public static final int VERSION = 1;
 
 	private static final long serialVersionUID = 6996995538736280348L;
 
@@ -91,7 +93,7 @@ public class Project implements Serializable {
 		if (!mapFile.isAbsolute()) {
 			map = Utils.getAbsolutePath(System.getProperty("user.home"), map);
 		}
-		DateFormat df = DateFormat.getDateTimeInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		creationDate = df.parse(json.getString("creationDate"));
 		status = json.getString("status");
 		lastUpdate = df.parse(json.getString("lastUpdate"));
@@ -128,7 +130,7 @@ public class Project implements Serializable {
 
 	public JSONObject toJSON() throws JSONException, IOException {
 		JSONObject json = new JSONObject();
-		DateFormat df = DateFormat.getDateTimeInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		json.put("id", id);
 		json.put("title", title);
 		json.put("description", description);

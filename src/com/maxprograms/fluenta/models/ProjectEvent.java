@@ -13,7 +13,7 @@
 package com.maxprograms.fluenta.models;
 
 import java.io.Serializable;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,7 +45,7 @@ public class ProjectEvent implements Serializable {
 
 	public ProjectEvent(JSONObject json) throws JSONException, ParseException {
 		this.type = json.getString("type");
-		this.date = DateFormat.getDateInstance(DateFormat.LONG).parse(json.getString("date"));
+		this.date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(json.getString("date"));
 		this.language = json.getString("language");
 		this.build = json.getInt("build");
 	}
@@ -53,7 +53,7 @@ public class ProjectEvent implements Serializable {
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
 		json.put("type", type);
-		json.put("date", DateFormat.getDateInstance(DateFormat.LONG).format(date));
+		json.put("date", new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date));
 		json.put("language", language);
 		json.put("build", build);
 		return json;

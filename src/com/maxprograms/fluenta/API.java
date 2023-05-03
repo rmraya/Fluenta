@@ -116,7 +116,7 @@ public class API {
 		return result.toString(3);
 	}
 
-	protected static void addMemory(String jsonFile) throws IOException {
+	protected static void addMemory(String jsonFile) throws IOException, JSONException, ParseException {
 		File memoryFile = new File(jsonFile);
 		JSONObject jsonObject = FileUtils.readJSON(memoryFile);
 		long id = jsonObject.getLong("id");
@@ -133,7 +133,7 @@ public class API {
 	}
 
 	public static void addMemory(long id, String title, String description, String srcLang, String[] tgtLang)
-			throws IOException {
+			throws IOException, JSONException, ParseException {
 		Language srcLanguage = LanguageUtils.getLanguage(srcLang);
 		if (tgtLang == null || tgtLang.length == 0) {
 			throw new IOException("Missing target languages");

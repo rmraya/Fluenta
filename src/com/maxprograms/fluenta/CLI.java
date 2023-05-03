@@ -165,7 +165,7 @@ public class CLI {
 		if (addMemory) {
 			try {
 				API.addMemory(addMemFile);
-			} catch (IOException e) {
+			} catch (IOException | JSONException | ParseException e) {
 				logger.log(Level.ERROR, "Error adding memory", e);
 				System.exit(3);
 			}

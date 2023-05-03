@@ -14,7 +14,7 @@ package com.maxprograms.fluenta.models;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Collections;
@@ -33,6 +33,8 @@ import com.maxprograms.utils.TextUtils;
 public class Memory implements Serializable {
 
 	private static final long serialVersionUID = -2993476438052822309L;
+
+	public static final int VERSION = 1;
 
 	private long id;
 	private String name;
@@ -60,7 +62,7 @@ public class Memory implements Serializable {
 		this.name = json.getString("name");
 		this.description = json.getString("description");
 		this.owner = json.getString("owner");
-		DateFormat df = DateFormat.getDateTimeInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		this.creationDate = df.parse(json.getString("creationDate"));
 		this.lastUpdate = df.parse(json.getString("lastUpdate"));
 		this.srcLanguage = LanguageUtils.getLanguage(json.getString("srcLanguage"));
@@ -73,7 +75,7 @@ public class Memory implements Serializable {
 
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
-		DateFormat df = DateFormat.getDateTimeInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		json.put("id", id);
 		json.put("name", name);
 		json.put("description", description);

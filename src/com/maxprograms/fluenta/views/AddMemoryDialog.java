@@ -15,6 +15,8 @@ package com.maxprograms.fluenta.views;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.text.MessageFormat;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Vector;
 
@@ -38,6 +40,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.json.JSONException;
 import org.xml.sax.SAXException;
 
 import com.maxprograms.fluenta.Fluenta;
@@ -155,10 +158,11 @@ public class AddMemoryDialog extends Dialog {
 						System.getProperty("user.name"), new Date(), new Date(), srcLang, new Vector<>());
 				try {
 					mainView.getController().createMemory(mem);
-				} catch (IOException e) {
+				} catch (IOException | JSONException | ParseException e) {
 					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage("Error creating memory");
+					MessageFormat mf = new MessageFormat("Error creating memory: {0}");
+					box.setMessage(mf.format(new String[] { e.getMessage() }));
 					box.open();
 				}
 				mainView.getMemoriesView().loadMemories();

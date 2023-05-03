@@ -16,7 +16,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -39,6 +42,7 @@ public class ProjectsManager {
         projectsFile = new File(home, "projects.json");
         if (!projectsFile.exists()) {
             JSONObject json = new JSONObject();
+            json.put("version", Project.VERSION);
             json.put("projects", new JSONArray());
             try (FileOutputStream out = new FileOutputStream(projectsFile)) {
                 out.write(json.toString(2).getBytes(StandardCharsets.UTF_8));
@@ -46,10 +50,37 @@ public class ProjectsManager {
         }
         projects = new Vector<>();
         JSONObject json = FileUtils.readJSON(projectsFile);
+        if (!json.has("version") || json.getInt("version") != Project.VERSION) {
+            json = upgradeProjects(json);
+        }
         JSONArray array = json.getJSONArray("projects");
         for (int i = 0; i < array.length(); i++) {
             projects.add(new Project(array.getJSONObject(i)));
         }
+        if (!json.has("version") || json.getInt("version") != Project.VERSION) {
+            saveProjects();
+        }
+    }
+
+    private JSONObject upgradeProjects(JSONObject json) throws JSONException, ParseException {
+        JSONArray projects = json.getJSONArray("projects");
+        DateFormat df = DateFormat.getDateTimeInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        DateFormat ldf = DateFormat.getDateInstance(DateFormat.LONG);
+        for (int i = 0; i < projects.length(); i++) {
+            JSONObject project = projects.getJSONObject(i);
+            Date creationDate = df.parse(project.getString("creationDate"));
+            project.put("creationDate", sdf.format(creationDate));
+            Date lastUpdate = df.parse(project.getString("lastUpdate"));
+            project.put("lastUpdate", sdf.format(lastUpdate));
+            JSONArray history = project.getJSONArray("history");
+            for (int j = 0; j < history.length(); j++) {
+                JSONObject entry = history.getJSONObject(j);
+                Date date = ldf.parse(entry.getString("date"));
+                entry.put("date", sdf.format(date));
+            }
+        }
+        return json;
     }
 
     private synchronized void saveProjects() throws IOException {
@@ -59,6 +90,7 @@ public class ProjectsManager {
             array.put(projects.get(i).toJSON());
         }
         json.put("projects", array);
+        json.put("version", Project.VERSION);
         try (FileOutputStream out = new FileOutputStream(projectsFile)) {
             out.write(json.toString(2).getBytes(StandardCharsets.UTF_8));
         }

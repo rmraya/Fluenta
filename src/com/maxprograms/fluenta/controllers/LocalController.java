@@ -109,7 +109,7 @@ public class LocalController {
 		memoriesManager.add(memory);
 	}
 
-	public void createMemory(Memory memory) throws IOException {
+	public void createMemory(Memory memory) throws IOException, JSONException, ParseException {
 		if (memoriesManager == null) {
 			Preferences preferences = Preferences.getInstance();
 			memoriesManager = new MemoriesManager(preferences.getMemoriesFolder());
