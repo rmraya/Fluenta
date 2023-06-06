@@ -175,8 +175,6 @@ public class LocalController {
 		params.put("srcLang", project.getSrcLanguage());
 		params.put("tgtLang", project.getSrcLanguage()); // use src language in master
 		params.put("srcEncoding", EncodingResolver.getEncoding(project.getMap(), FileFormats.DITA).name());
-		params.put("paragraph", "no");
-		params.put("format", FileFormats.DITA);
 		params.put("srxFile", preferences.getDefaultSRX());
 		params.put("translateComments", translateComments ? "yes" : "no");
 		params.put("xmlfilter", preferences.getFiltersFolder());
@@ -1030,7 +1028,6 @@ public class LocalController {
 		Iterator<Match> r = res.iterator();
 		while (r.hasNext()) {
 			Match match = r.next();
-			int quality = match.getSimilarity();
 
 			Element alttrans = new Element("alt-trans");
 
@@ -1047,7 +1044,7 @@ public class LocalController {
 			alttrans.addContent(tgt);
 			alttrans.addContent("\n   ");
 			alttrans = fixTags(seg.getChild("source"), alttrans);
-			quality = MatchQuality.similarity(TMUtils.pureText(seg.getChild("source")),
+			int quality = MatchQuality.similarity(TMUtils.pureText(seg.getChild("source")),
 					TMUtils.pureText(alttrans.getChild("source")));
 			double discount = wrongTags(alttrans.getChild("source"), seg.getChild("source"), penalty);
 			quality = (int) Math.floor(quality - discount);
@@ -1118,10 +1115,8 @@ public class LocalController {
 		if (e.getName().equals("ph")
 				|| e.getName().equals("x")) {
 			String value = e.getAttributeValue("ctype");
-			if (!value.isEmpty()) {
-				if (!phCtypes.containsKey(value) && !value.startsWith("x-")) {
-					e.setAttribute("ctype", "x-" + value);
-				}
+			if (!value.isEmpty() && !phCtypes.containsKey(value) && !value.startsWith("x-")) {
+				e.setAttribute("ctype", "x-" + value);
 			}
 		}
 		if (e.getName().equals("bpt")

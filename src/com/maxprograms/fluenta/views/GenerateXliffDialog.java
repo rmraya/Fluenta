@@ -16,14 +16,9 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
-import java.net.URISyntaxException;
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -45,8 +40,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.json.JSONException;
-import org.xml.sax.SAXException;
 
 import com.maxprograms.converters.ILogger;
 import com.maxprograms.fluenta.Fluenta;
@@ -343,10 +336,9 @@ public class GenerateXliffDialog extends Dialog implements ILogger {
 					public void run() {
 						try {
 							mainView.getController().generateXliff(project, xliffFolder, tgtLangs, useice, usetm, count,
-									ditaval, useXliff20, embedSkeleton, modifiedFilesOnly, ignoreTrackedChanges, paragraphSegmentation, aLogger);
-						} catch (IOException | ClassNotFoundException | JSONException | SAXException
-								| NullPointerException | ParserConfigurationException | URISyntaxException
-								| SQLException | ParseException e) {
+									ditaval, useXliff20, embedSkeleton, modifiedFilesOnly, ignoreTrackedChanges,
+									paragraphSegmentation, aLogger);
+						} catch (Exception e) {
 							aLogger.displayError(e.getMessage());
 							logger.log(Level.ERROR, e);
 						}

@@ -4,7 +4,7 @@
 
 Fluenta is an open source tool designed to simplify the translation and localization of DITA projects combining two open standards from OASIS: *DITA* and *XLIFF*.
 
-Fluenta implements the workflow described in the article [Use XLIFF to Translate DITA Projects](https://www.maxprograms.com/articles/ditaxliff.html), making it easy to manage the translation side of your DITA projects following the procedure recommended by the *OASIS DITA Adoption Technical Committee* (see the official publication from the TC available in PDF format from [OASIS](https://www.oasis-open.org/committees/download.php/48340/DITA12XLIFFArticle.pdf) and in HTML format at [ditatranslation.com](https://www.ditatranslation.com/articles/ditaxliff.html)).
+Fluenta implements the workflow described in the article [Use XLIFF to Translate DITA Projects](https://www.maxprograms.com/articles/ditaxliff.html), making it easy to manage the translation side of your DITA projects according to the procedure recommended by the *OASIS DITA Adoption Technical Committee* (see the official TC publication, available in PDF at [OASIS](https://www.oasis-open.org/committees/download.php/48340/DITA12XLIFFArticle.pdf) and in HTML format at [ditatranslation.com](https://www.ditatranslation.com/articles/ditaxliff.html)).
 
 ## Licenses
 
@@ -25,21 +25,21 @@ Ready to use installers and technical support for Fluenta are available as yearl
 
 The version of Fluenta included in the official installers from [Fluenta's Home Page](https://www.maxprograms.com/products/fluenta.html) can be used at no cost for 30 days requesting a free Evaluation Key.
 
-Subscription version includes unlimited email support at tech@maxprograms.com
+Subscription version includes unlimited email support at [tech@maxprograms.com](mailto:tech@maxprograms.com).
 
 ### Differences sumary
 
-Differences | Source Code | Subscription Based
+Differences | From Source Code | Subscription Based
 -|:----------:|:-------------:
 Ready To Use Installers| No | Yes
 Notarized macOS launcher| No | Yes
 Signed launcher and installer for Windows | No | Yes
 Restricted Features | None | None
-Technical Support |  Peer support at  [Groups.io](https://groups.io/g/maxprograms/)| - Direct email at tech@maxprograms.com <br> - Peer support at [Groups.io](https://groups.io/g/maxprograms/)
+Technical Support |  Peer support at  [Groups.io](https://groups.io/g/maxprograms/)| - Direct email at [tech@maxprograms.com](mailto:tech@maxprograms.com) <br> - Peer support at [Groups.io](https://groups.io/g/maxprograms/)
 
 ## Installers
 
-Ready to use installers are available at <https://www.maxprograms.com/products/fluenta.html>
+Ready to use installers are available at [https://www.maxprograms.com/products/fluenta.html](https://www.maxprograms.com/products/fluenta.html).
 
 ## Building Yourself
 

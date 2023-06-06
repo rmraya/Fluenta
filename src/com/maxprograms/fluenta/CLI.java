@@ -30,6 +30,7 @@ import java.util.Date;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
 import com.maxprograms.utils.Preferences;
@@ -76,6 +77,13 @@ public class CLI {
 		}
 
 		for (int i = 0; i < args.length; i++) {
+			if (args[i].equals("-version")) {
+				JSONObject json = new JSONObject();
+				json.put("version", Constants.VERSION);
+				json.put("build", Constants.BUILD);
+				System.out.println(json.toString(2));
+				System.exit(0);
+			}
 			if (args[i].equals("-add") && (i + 1) < args.length) {
 				addProject = true;
 				addFile = args[i + 1];

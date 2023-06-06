@@ -63,12 +63,12 @@ public class ProjectsManager {
     }
 
     private JSONObject upgradeProjects(JSONObject json) throws JSONException, ParseException {
-        JSONArray projects = json.getJSONArray("projects");
+        JSONArray projectsArray = json.getJSONArray("projects");
         DateFormat df = DateFormat.getDateTimeInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         DateFormat ldf = DateFormat.getDateInstance(DateFormat.LONG);
-        for (int i = 0; i < projects.length(); i++) {
-            JSONObject project = projects.getJSONObject(i);
+        for (int i = 0; i < projectsArray.length(); i++) {
+            JSONObject project = projectsArray.getJSONObject(i);
             Date creationDate = df.parse(project.getString("creationDate"));
             project.put("creationDate", sdf.format(creationDate));
             Date lastUpdate = df.parse(project.getString("lastUpdate"));
@@ -96,11 +96,11 @@ public class ProjectsManager {
         }
     }
 
-    List<Project> getProjects() throws JSONException, ParseException, IOException {
+    List<Project> getProjects() throws JSONException {
         return projects;
     }
 
-    public Project getProject(long id) throws JSONException, ParseException, IOException {
+    public Project getProject(long id) throws JSONException, IOException {
         for (int i = 0; i < projects.size(); i++) {
             Project project = projects.get(i);
             if (id == project.getId()) {
