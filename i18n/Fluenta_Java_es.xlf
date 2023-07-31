@@ -1,0 +1,5204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff xmlns:mtc="urn:oasis:names:tc:xliff:matches:2.0" srcLang="en" version="2.0" xmlns:mda="urn:oasis:names:tc:xliff:metadata:2.0" trgLang="es" xmlns="urn:oasis:names:tc:xliff:document:2.0">
+<file original="com/maxprograms/utils/utils.properties" id="0">
+    <skeleton>TG9jYXRvci4wPSUlJTAlJSUKTG9jYXRvci4xPSUlJTElJSUKTG9jYXRvci4yPSUlJTIlJSUKVGV4
+dFV0aWxzLjA9JSUlMyUlJQo=</skeleton>
+    <mda:metadata>
+      <mda:metaGroup category="format">
+        <mda:meta type="datatype">javapropertyresourcebundle</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="tool">
+        <mda:meta type="tool-id">OpenXLIFF</mda:meta>
+        <mda:meta type="tool-name">OpenXLIFF Filters</mda:meta>
+        <mda:meta type="tool-version">3.11.0 20230726_0946</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="PI">
+        <mda:meta type="encoding">UTF-8</mda:meta>
+      </mda:metaGroup>
+    </mda:metadata>
+    <unit id="0">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">Locator.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="0">
+        <source xml:space="preserve">Error setting location</source>
+        <target>Error estableciendo ubicación</target>
+      </segment>
+    </unit>
+    <unit id="1">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">Locator.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="1">
+        <source xml:space="preserve">Error setting position</source>
+        <target>Error estableciendo posición</target>
+      </segment>
+    </unit>
+    <unit id="2">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">Locator.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="2">
+        <source xml:space="preserve">Error saving location</source>
+        <target>Error al guardar la ubicación</target>
+      </segment>
+    </unit>
+    <unit id="3">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TextUtils.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="3">
+        <source xml:space="preserve">Error getting GMT time</source>
+        <target>Error al obtener la hora GMT</target>
+      </segment>
+    </unit>
+  </file>
+<file original="com/maxprograms/fluenta/fluenta.properties" id="1">
+    <skeleton>QVBJLjA9JSUlMCUlJQpBUEkuMT0lJSUxJSUlCkFQSS4xMD0lJSUyJSUlCkFQSS4xMT0lJSUzJSUl
+CkFQSS4xMj0lJSU0JSUlCkFQSS4xMz0lJSU1JSUlCkFQSS4xND0lJSU2JSUlCkFQSS4xNT0lJSU3
+JSUlCkFQSS4xNz0lJSU4JSUlCkFQSS4xOD0lJSU5JSUlCkFQSS4yPSUlJTEwJSUlCkFQSS4zPSUl
+JTExJSUlCkFQSS40PSUlJTEyJSUlCkFQSS41PSUlJTEzJSUlCkFQSS42PSUlJTE0JSUlCkFQSS43
+PSUlJTE1JSUlCkFQSS44PSUlJTE2JSUlCkFQSS45PSUlJTE3JSUlCkNMSS4wPSUlJTE4JSUlCkNM
+SS4xPSUlJTE5JSUlCkNMSS4xMD0lJSUyMCUlJQpDTEkuMTE9JSUlMjElJSUKQ0xJLjEyPSUlJTIy
+JSUlCkNMSS4xMz0lJSUyMyUlJQpDTEkuMTQ9JSUlMjQlJSUKQ0xJLjI9JSUlMjUlJSUKQ0xJLjM9
+JSUlMjYlJSUKQ0xJLjQ9JSUlMjclJSUKQ0xJLjU9JSUlMjglJSUKQ0xJLjY9JSUlMjklJSUKQ0xJ
+Ljc9JSUlMzAlJSUKQ0xJLjg9JSUlMzElJSUKQ0xJLjk9JSUlMzIlJSUKRmx1ZW50YS4wPSUlJTMz
+JSUlCkZsdWVudGEuMT0lJSUzNCUlJQpNYWluVmlldy4wPSUlJTM1JSUlCk1haW5WaWV3LjE9JSUl
+MzYlJSUKTWFpblZpZXcuMTA9JSUlMzclJSUKTWFpblZpZXcuMTE9JSUlMzglJSUKTWFpblZpZXcu
+MTI9JSUlMzklJSUKTWFpblZpZXcuMTM9JSUlNDAlJSUKTWFpblZpZXcuMTQ9JSUlNDElJSUKTWFp
+blZpZXcuMTU9JSUlNDIlJSUKTWFpblZpZXcuMTY9JSUlNDMlJSUKTWFpblZpZXcuMTc9JSUlNDQl
+JSUKTWFpblZpZXcuMTg9JSUlNDUlJSUKTWFpblZpZXcuMTk9JSUlNDYlJSUKTWFpblZpZXcuMj0l
+JSU0NyUlJQpNYWluVmlldy4yMD0lJSU0OCUlJQpNYWluVmlldy4yMT0lJSU0OSUlJQpNYWluVmll
+dy4yMj0lJSU1MCUlJQpNYWluVmlldy4yMz0lJSU1MSUlJQpNYWluVmlldy4yND0lJSU1MiUlJQpN
+YWluVmlldy4yNT0lJSU1MyUlJQpNYWluVmlldy4yNj0lJSU1NCUlJQpNYWluVmlldy4yNz0lJSU1
+NSUlJQpNYWluVmlldy4yOD0lJSU1NiUlJQpNYWluVmlldy4yOT0lJSU1NyUlJQpNYWluVmlldy4z
+PSUlJTU4JSUlCk1haW5WaWV3LjMwPSUlJTU5JSUlCk1haW5WaWV3LjMxPSUlJTYwJSUlCk1haW5W
+aWV3LjMyPSUlJTYxJSUlCk1haW5WaWV3LjMzPSUlJTYyJSUlCk1haW5WaWV3LjM0PSUlJTYzJSUl
+Ck1haW5WaWV3LjM1PSUlJTY0JSUlCk1haW5WaWV3LjM2PSUlJTY1JSUlCk1haW5WaWV3LjQ9JSUl
+NjYlJSUKTWFpblZpZXcuNT0lJSU2NyUlJQpNYWluVmlldy42PSUlJTY4JSUlCk1haW5WaWV3Ljc9
+JSUlNjklJSUKTWFpblZpZXcuOD0lJSU3MCUlJQpNYWluVmlldy45PSUlJTcxJSUlCg==</skeleton>
+    <mda:metadata>
+      <mda:metaGroup category="format">
+        <mda:meta type="datatype">javapropertyresourcebundle</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="tool">
+        <mda:meta type="tool-id">OpenXLIFF</mda:meta>
+        <mda:meta type="tool-name">OpenXLIFF Filters</mda:meta>
+        <mda:meta type="tool-version">3.11.0 20230726_0946</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="PI">
+        <mda:meta type="encoding">UTF-8</mda:meta>
+      </mda:metaGroup>
+    </mda:metadata>
+    <unit id="0">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="0">
+        <source xml:space="preserve">Error generating registration key</source>
+        <target>Error al generar clave de registro</target>
+      </segment>
+    </unit>
+    <unit id="1">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="1">
+        <source xml:space="preserve">Cannot register on this computer</source>
+        <target>No se puede registrar en este equipo</target>
+      </segment>
+    </unit>
+    <unit id="2">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="2">
+        <source xml:space="preserve">Subscription key is in use</source>
+        <target>Clave de suscripción en uso</target>
+      </segment>
+    </unit>
+    <unit id="3">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="3">
+        <source xml:space="preserve">Error saving subscription information</source>
+        <target>Error al guardar información de suscripción</target>
+      </segment>
+    </unit>
+    <unit id="4">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="4">
+        <source xml:space="preserve">Registration failed</source>
+        <target>Registro de suscripción falló</target>
+      </segment>
+    </unit>
+    <unit id="5">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="5">
+        <source xml:space="preserve">Register subscription</source>
+        <target>Registrar suscripción</target>
+      </segment>
+    </unit>
+    <unit id="6">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="6">
+        <source xml:space="preserve">Missing target languages</source>
+        <target>Faltan los idiomas destino</target>
+      </segment>
+    </unit>
+    <unit id="7">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.15</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="7">
+        <source xml:space="preserve">Unknown memory</source>
+        <target>Memoria desconocida</target>
+      </segment>
+    </unit>
+    <unit id="8">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.17</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="8">
+        <source xml:space="preserve">Unknown project</source>
+        <target>Projecto desconocido</target>
+      </segment>
+    </unit>
+    <unit id="9">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.18</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="9">
+        <source xml:space="preserve">Missing target languages</source>
+        <target>Faltan los idiomas destino</target>
+      </segment>
+    </unit>
+    <unit id="10">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="10">
+        <source xml:space="preserve">Unsupported version of macOS</source>
+        <target>Versión no compatible de macOS</target>
+      </segment>
+    </unit>
+    <unit id="11">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="11">
+        <source xml:space="preserve">Unsupported Linux distribution</source>
+        <target>Distribución de Linux no compatible</target>
+      </segment>
+    </unit>
+    <unit id="12">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="12">
+        <source xml:space="preserve">Unsupported Windows version</source>
+        <target>Versión de Windows no compatible</target>
+      </segment>
+    </unit>
+    <unit id="13">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="13">
+        <source xml:space="preserve">Unsupported computer type</source>
+        <target>Tipo de ordenador no compatible</target>
+      </segment>
+    </unit>
+    <unit id="14">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="14">
+        <source xml:space="preserve">Error reading server response</source>
+        <target>Error al leer la respuesta del servidor</target>
+      </segment>
+    </unit>
+    <unit id="15">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="15">
+        <source xml:space="preserve">Error sending registration to server</source>
+        <target>Error al enviar registro al servidor</target>
+      </segment>
+    </unit>
+    <unit id="16">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="16">
+        <source xml:space="preserve">Error reading answer from subscription server</source>
+        <target>Error al leer respuesta del servidor de suscripciones</target>
+      </segment>
+    </unit>
+    <unit id="17">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">API.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="17">
+        <source xml:space="preserve">Subscription key is invalid</source>
+        <target>La clave de suscripción no es válida</target>
+      </segment>
+    </unit>
+    <unit id="18">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="18">
+        <source xml:space="preserve">Parameters are missing</source>
+        <target>Faltan parámetros</target>
+      </segment>
+    </unit>
+    <unit id="19">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="19">
+        <source xml:space="preserve">Error locking process</source>
+        <target>Error bloqueando proceso</target>
+      </segment>
+    </unit>
+    <unit id="20">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="20">
+        <source xml:space="preserve">Missing TMX file</source>
+        <target>Falta archivo TMX</target>
+      </segment>
+    </unit>
+    <unit id="21">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="21">
+        <source xml:space="preserve">TMX file does not exist</source>
+        <target>El archivo TMX no existe</target>
+      </segment>
+    </unit>
+    <unit id="22">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="22">
+        <source xml:space="preserve">Invalid memory identifier</source>
+        <target>Identificador de memoria no válido</target>
+      </segment>
+    </unit>
+    <unit id="23">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="23">
+        <source xml:space="preserve">Missing TMX file</source>
+        <target>Falta archivo TMX</target>
+      </segment>
+    </unit>
+    <unit id="24">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="24">
+        <source xml:space="preserve">Error unlocking process</source>
+        <target>Error desbloqueando proceso</target>
+      </segment>
+    </unit>
+    <unit id="25">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="25">
+        <source xml:space="preserve">Error adding project</source>
+        <target>Error al añadir proyecto</target>
+      </segment>
+    </unit>
+    <unit id="26">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="26">
+        <source xml:space="preserve">Error removing project</source>
+        <target>Error al eliminar proyecto</target>
+      </segment>
+    </unit>
+    <unit id="27">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="27">
+        <source xml:space="preserve">Error generating XLIFF</source>
+        <target>Error al generar XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="28">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="28">
+        <source xml:space="preserve">Error importing XLIFF</source>
+        <target>Error al importar XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="29">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="29">
+        <source xml:space="preserve">Error getting projects</source>
+        <target>Error al obtener proyectos</target>
+      </segment>
+    </unit>
+    <unit id="30">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="30">
+        <source xml:space="preserve">Error adding memory</source>
+        <target>Error al añadir memoria</target>
+      </segment>
+    </unit>
+    <unit id="31">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="31">
+        <source xml:space="preserve">Error getting memories</source>
+        <target>Error al obtener memorias</target>
+      </segment>
+    </unit>
+    <unit id="32">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CLI.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="32">
+        <source xml:space="preserve">Invalid memory identifier</source>
+        <target>Identificador de memoria no válido</target>
+      </segment>
+    </unit>
+    <unit id="33">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">Fluenta.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="33">
+        <source xml:space="preserve">Error writing to log file</source>
+        <target>Error al escribir en el registro de errores</target>
+      </segment>
+    </unit>
+    <unit id="34">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">Fluenta.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="34">
+        <source xml:space="preserve">An instance of this application is already running</source>
+        <target>Ya se está ejecutando una instancia de esta aplicación</target>
+      </segment>
+    </unit>
+    <unit id="35">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="35">
+        <source xml:space="preserve">Projects</source>
+        <target>Proyectos</target>
+      </segment>
+    </unit>
+    <unit id="36">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="36">
+        <source xml:space="preserve">Memories</source>
+        <target>Memorias</target>
+      </segment>
+    </unit>
+    <unit id="37">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="37">
+        <source xml:space="preserve">Import XLIFF</source>
+        <target>Importar XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="38">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="38">
+        <source xml:space="preserve">Remove Project</source>
+        <target>Eliminar Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="39">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="39">
+        <source xml:space="preserve">&amp;Memories</source>
+        <target>&amp;Memorias</target>
+      </segment>
+    </unit>
+    <unit id="40">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="40">
+        <source xml:space="preserve">Create Memory</source>
+        <target>Crear Memoria</target>
+      </segment>
+    </unit>
+    <unit id="41">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="41">
+        <source xml:space="preserve">Edit Memory</source>
+        <target>Modificar Memoria</target>
+      </segment>
+    </unit>
+    <unit id="42">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.15</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="42">
+        <source xml:space="preserve">Error editing memory</source>
+        <target>Error al modificar memoria</target>
+      </segment>
+    </unit>
+    <unit id="43">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.16</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="43">
+        <source xml:space="preserve">Import TMX File</source>
+        <target>Importar Archivo TMX</target>
+      </segment>
+    </unit>
+    <unit id="44">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.17</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="44">
+        <source xml:space="preserve">Export TMX File</source>
+        <target>Exportar Archivo TMX</target>
+      </segment>
+    </unit>
+    <unit id="45">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.18</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="45">
+        <source xml:space="preserve">Remove Memory</source>
+        <target>Eliminar Memoria</target>
+      </segment>
+    </unit>
+    <unit id="46">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.19</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="46">
+        <source xml:space="preserve">&amp;Settings</source>
+        <target>&amp;Configuración</target>
+      </segment>
+    </unit>
+    <unit id="47">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="47">
+        <source xml:space="preserve">&amp;File</source>
+        <target>&amp;Archivo</target>
+      </segment>
+    </unit>
+    <unit id="48">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.20</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="48">
+        <source xml:space="preserve">Preferences</source>
+        <target>Preferencias</target>
+      </segment>
+    </unit>
+    <unit id="49">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.21</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="49">
+        <source xml:space="preserve">&amp;Help</source>
+        <target>A&amp;yuda</target>
+      </segment>
+    </unit>
+    <unit id="50">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.22</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="50">
+        <source xml:space="preserve">Fluenta Help\tF1</source>
+        <target>Ayuda de Fluenta	F1</target>
+      </segment>
+    </unit>
+    <unit id="51">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.23</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="51">
+        <source xml:space="preserve">Error opening help file</source>
+        <target>Error al mostrar ayuda</target>
+      </segment>
+    </unit>
+    <unit id="52">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.24</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="52">
+        <source xml:space="preserve">Check for Updates</source>
+        <target>Buscar actualizaciones</target>
+      </segment>
+    </unit>
+    <unit id="53">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.25</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="53">
+        <source xml:space="preserve">Fluenta Release History</source>
+        <target>Historial de Versiones</target>
+      </segment>
+    </unit>
+    <unit id="54">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.26</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="54">
+        <source xml:space="preserve">Subscription Management</source>
+        <target>Manejo de Suscripciones</target>
+      </segment>
+    </unit>
+    <unit id="55">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.27</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="55">
+        <source xml:space="preserve">About Fluenta...</source>
+        <target>Acerca de Fluenta...</target>
+      </segment>
+    </unit>
+    <unit id="56">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.28</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="56">
+        <source xml:space="preserve">Error verifying subscription</source>
+        <target>Error al verificar suscripción</target>
+      </segment>
+    </unit>
+    <unit id="57">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.29</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="57">
+        <source xml:space="preserve">Error reading server response</source>
+        <target>Error al leer respuesta del servidor</target>
+      </segment>
+    </unit>
+    <unit id="58">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="58">
+        <source xml:space="preserve">Exit\tAlt + F4</source>
+        <target>Salir	Alt + F4</target>
+      </segment>
+    </unit>
+    <unit id="59">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.30</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="59">
+        <source xml:space="preserve">Update available</source>
+        <target>Actualización disponible</target>
+      </segment>
+    </unit>
+    <unit id="60">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.31</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="60">
+        <source xml:space="preserve">Installed version is: {0}
+Available version is: {1}
+
+Visit download site?</source>
+        <target>Versión instalada es: {0}
+Versión disponible es: {1}
+
+¿Visitar sitio de descarga?</target>
+      </segment>
+    </unit>
+    <unit id="61">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.32</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="61">
+        <source xml:space="preserve">No updates available</source>
+        <target>No hay actualizaciones disponibles</target>
+      </segment>
+    </unit>
+    <unit id="62">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.33</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="62">
+        <source xml:space="preserve">Unable to check for updates</source>
+        <target>No se puede buscar actualizaciones</target>
+      </segment>
+    </unit>
+    <unit id="63">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.34</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="63">
+        <source xml:space="preserve">Running on sandbox</source>
+        <target>Corriendo en sandbox</target>
+      </segment>
+    </unit>
+    <unit id="64">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.35</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="64">
+        <source xml:space="preserve">Your subscription will expire in {0} days</source>
+        <target>Su suscripción expirará en {0} días</target>
+      </segment>
+    </unit>
+    <unit id="65">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.36</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="65">
+        <source xml:space="preserve">Fatal error verifying subscription</source>
+        <target>Error fatal al verificar suscripción</target>
+      </segment>
+    </unit>
+    <unit id="66">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="66">
+        <source xml:space="preserve">Quit\tCtrl + Q</source>
+        <target>Salir	Ctrl + Q</target>
+      </segment>
+    </unit>
+    <unit id="67">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="67">
+        <source xml:space="preserve">&amp;Projects</source>
+        <target>&amp;Proyectos</target>
+      </segment>
+    </unit>
+    <unit id="68">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="68">
+        <source xml:space="preserve">Create Project</source>
+        <target>Crear Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="69">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="69">
+        <source xml:space="preserve">Edit Project</source>
+        <target>Modificar Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="70">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="70">
+        <source xml:space="preserve">Project Information</source>
+        <target>Información del Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="71">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MainView.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="71">
+        <source xml:space="preserve">Generate XLIFF</source>
+        <target>Generar XLIFF</target>
+      </segment>
+    </unit>
+  </file>
+<file original="com/maxprograms/fluenta/models/models.properties" id="2">
+    <skeleton>UHJvamVjdC4wPSUlJTAlJSUKUHJvamVjdC4xPSUlJTElJSUKUHJvamVjdC4yPSUlJTIlJSUKUHJv
+amVjdC4zPSUlJTMlJSUKUHJvamVjdC40PSUlJTQlJSUKUHJvamVjdC41PSUlJTUlJSUKUHJvamVj
+dEV2ZW50LjA9JSUlNiUlJQpQcm9qZWN0RXZlbnQuMT0lJSU3JSUlClByb2plY3RFdmVudC4yPSUl
+JTglJSUKUHJvamVjdEV2ZW50LjM9JSUlOSUlJQo=</skeleton>
+    <mda:metadata>
+      <mda:metaGroup category="format">
+        <mda:meta type="datatype">javapropertyresourcebundle</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="tool">
+        <mda:meta type="tool-id">OpenXLIFF</mda:meta>
+        <mda:meta type="tool-name">OpenXLIFF Filters</mda:meta>
+        <mda:meta type="tool-version">3.11.0 20230726_0946</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="PI">
+        <mda:meta type="encoding">UTF-8</mda:meta>
+      </mda:metaGroup>
+    </mda:metadata>
+    <unit id="0">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">Project.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="0">
+        <source xml:space="preserve">New</source>
+        <target>Nuevo</target>
+      </segment>
+    </unit>
+    <unit id="1">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">Project.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="1">
+        <source xml:space="preserve">Needs Update</source>
+        <target>Necesita Actualización</target>
+      </segment>
+    </unit>
+    <unit id="2">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">Project.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="2">
+        <source xml:space="preserve">In Progress</source>
+        <target>En Progreso</target>
+      </segment>
+    </unit>
+    <unit id="3">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">Project.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="3">
+        <source xml:space="preserve">Completed</source>
+        <target>Completado</target>
+      </segment>
+    </unit>
+    <unit id="4">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">Project.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="4">
+        <source xml:space="preserve">Untranslated</source>
+        <target>Sin Traducir</target>
+      </segment>
+    </unit>
+    <unit id="5">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">Project.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="5">
+        <source xml:space="preserve">Unknown Status</source>
+        <target>Estado Desconocido</target>
+      </segment>
+    </unit>
+    <unit id="6">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectEvent.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="6">
+        <source xml:space="preserve">XLIFF Created</source>
+        <target>XLIFF Creado</target>
+      </segment>
+    </unit>
+    <unit id="7">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectEvent.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="7">
+        <source xml:space="preserve">XLIFF Cancelled</source>
+        <target>XLIFF Cancelado</target>
+      </segment>
+    </unit>
+    <unit id="8">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectEvent.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="8">
+        <source xml:space="preserve">XLIFF Imported</source>
+        <target>XLIFF Importado</target>
+      </segment>
+    </unit>
+    <unit id="9">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectEvent.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="9">
+        <source xml:space="preserve">Unknown Event Type</source>
+        <target>Tipo de evento desconocido</target>
+      </segment>
+    </unit>
+  </file>
+<file original="com/maxprograms/fluenta/controllers/controllers.properties" id="3">
+    <skeleton>TG9jYWxDb250cm9sbGVyLjA9JSUlMCUlJQpMb2NhbENvbnRyb2xsZXIuMT0lJSUxJSUlCkxvY2Fs
+Q29udHJvbGxlci4xMD0lJSUyJSUlCkxvY2FsQ29udHJvbGxlci4xMT0lJSUzJSUlCkxvY2FsQ29u
+dHJvbGxlci4xMj0lJSU0JSUlCkxvY2FsQ29udHJvbGxlci4xMz0lJSU1JSUlCkxvY2FsQ29udHJv
+bGxlci4xND0lJSU2JSUlCkxvY2FsQ29udHJvbGxlci4xNT0lJSU3JSUlCkxvY2FsQ29udHJvbGxl
+ci4xNj0lJSU4JSUlCkxvY2FsQ29udHJvbGxlci4xNz0lJSU5JSUlCkxvY2FsQ29udHJvbGxlci4x
+OD0lJSUxMCUlJQpMb2NhbENvbnRyb2xsZXIuMTk9JSUlMTElJSUKTG9jYWxDb250cm9sbGVyLjI9
+JSUlMTIlJSUKTG9jYWxDb250cm9sbGVyLjIwPSUlJTEzJSUlCkxvY2FsQ29udHJvbGxlci4yMT0l
+JSUxNCUlJQpMb2NhbENvbnRyb2xsZXIuMjI9JSUlMTUlJSUKTG9jYWxDb250cm9sbGVyLjIzPSUl
+JTE2JSUlCkxvY2FsQ29udHJvbGxlci4yND0lJSUxNyUlJQpMb2NhbENvbnRyb2xsZXIuMjU9JSUl
+MTglJSUKTG9jYWxDb250cm9sbGVyLjI2PSUlJTE5JSUlCkxvY2FsQ29udHJvbGxlci4yNz0lJSUy
+MCUlJQpMb2NhbENvbnRyb2xsZXIuMjg9JSUlMjElJSUKTG9jYWxDb250cm9sbGVyLjI5PSUlJTIy
+JSUlCkxvY2FsQ29udHJvbGxlci4zPSUlJTIzJSUlCkxvY2FsQ29udHJvbGxlci4zMD0lJSUyNCUl
+JQpMb2NhbENvbnRyb2xsZXIuMzE9JSUlMjUlJSUKTG9jYWxDb250cm9sbGVyLjMyPSUlJTI2JSUl
+CkxvY2FsQ29udHJvbGxlci4zMz0lJSUyNyUlJQpMb2NhbENvbnRyb2xsZXIuMzQ9JSUlMjglJSUK
+TG9jYWxDb250cm9sbGVyLjQ9JSUlMjklJSUKTG9jYWxDb250cm9sbGVyLjU9JSUlMzAlJSUKTG9j
+YWxDb250cm9sbGVyLjY9JSUlMzElJSUKTG9jYWxDb250cm9sbGVyLjc9JSUlMzIlJSUKTG9jYWxD
+b250cm9sbGVyLjg9JSUlMzMlJSUKTG9jYWxDb250cm9sbGVyLjk9JSUlMzQlJSUKTWVtb3JpZXNN
+YW5hZ2VyLjA9JSUlMzUlJSUKUHJvamVjdHNNYW5hZ2VyLjA9JSUlMzYlJSUKVGFnRXJyb3JzUmVw
+b3J0LjA9JSUlMzclJSUKVGFnRXJyb3JzUmVwb3J0LjE9JSUlMzglJSUKVGFnRXJyb3JzUmVwb3J0
+LjI9JSUlMzklJSUKVGFnRXJyb3JzUmVwb3J0LjM9JSUlNDAlJSUKVGFnRXJyb3JzUmVwb3J0LjQ9
+JSUlNDElJSUKVGFnRXJyb3JzUmVwb3J0LjU9JSUlNDIlJSUKVGFnRXJyb3JzUmVwb3J0LjY9JSUl
+NDMlJSUKVGFnRXJyb3JzUmVwb3J0Ljc9JSUlNDQlJSUKVGFnRXJyb3JzUmVwb3J0Ljg9JSUlNDUl
+JSUKVGFnRXJyb3JzUmVwb3J0Ljk9JSUlNDYlJSUK</skeleton>
+    <mda:metadata>
+      <mda:metaGroup category="format">
+        <mda:meta type="datatype">javapropertyresourcebundle</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="tool">
+        <mda:meta type="tool-id">OpenXLIFF</mda:meta>
+        <mda:meta type="tool-name">OpenXLIFF Filters</mda:meta>
+        <mda:meta type="tool-version">3.11.0 20230726_0946</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="PI">
+        <mda:meta type="encoding">UTF-8</mda:meta>
+      </mda:metaGroup>
+    </mda:metadata>
+    <unit id="0">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="0">
+        <source xml:space="preserve">Generating Master XLIFF</source>
+        <target>Generando  XLIFF Maestro</target>
+      </segment>
+    </unit>
+    <unit id="1">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="1">
+        <source xml:space="preserve">Writing Target XLIFF Files</source>
+        <target>Escribiendo Archivos XLIFF Destino</target>
+      </segment>
+    </unit>
+    <unit id="2">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="2">
+        <source xml:space="preserve">Generating XLIFF 2.0</source>
+        <target>Generando XLIFF 2.0</target>
+      </segment>
+    </unit>
+    <unit id="3">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="3">
+        <source xml:space="preserve">XLIFF files generated</source>
+        <target>Archivos XLIFF generados</target>
+      </segment>
+    </unit>
+    <unit id="4">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="4">
+        <source xml:space="preserve">User cancelled</source>
+        <target>Cancelado por el usuario</target>
+      </segment>
+    </unit>
+    <unit id="5">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="5">
+        <source xml:space="preserve">Loading XLIFF</source>
+        <target>Cargando XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="6">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="6">
+        <source xml:space="preserve">There are segments with tag errors</source>
+        <target>Hay segmentos con errores de etiquetas</target>
+      </segment>
+    </unit>
+    <unit id="7">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.15</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="7">
+        <source xml:space="preserve">Wrong target language</source>
+        <target>Idioma de destino incorrecto</target>
+      </segment>
+    </unit>
+    <unit id="8">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.16</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="8">
+        <source xml:space="preserve">XLIFF file does not correspond to selected project</source>
+        <target>El archivo XLIFF no corresponde al proyecto seleccionado</target>
+      </segment>
+    </unit>
+    <unit id="9">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.17</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="9">
+        <source xml:space="preserve">Merging XLIFF</source>
+        <target>Combinando XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="10">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.18</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="10">
+        <source xml:space="preserve">Generating TMX</source>
+        <target>Generando TMX</target>
+      </segment>
+    </unit>
+    <unit id="11">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.19</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="11">
+        <source xml:space="preserve">Importing TMX</source>
+        <target>Importando TMX</target>
+      </segment>
+    </unit>
+    <unit id="12">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="12">
+        <source xml:space="preserve">Target Language: {0}</source>
+        <target>Idioma destino: {0}</target>
+      </segment>
+    </unit>
+    <unit id="13">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.20</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="13">
+        <source xml:space="preserve">Imported: {0} segments</source>
+        <target>Importado: {0} segmentos.</target>
+      </segment>
+    </unit>
+    <unit id="14">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.21</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="14">
+        <source xml:space="preserve">Project memory does not exist</source>
+        <target>La memoria del proyecto no existe</target>
+      </segment>
+    </unit>
+    <unit id="15">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.22</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="15">
+        <source xml:space="preserve">Saving XLIFF as future reference</source>
+        <target>Guardando XLIFF como referencia futura</target>
+      </segment>
+    </unit>
+    <unit id="16">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.23</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="16">
+        <source xml:space="preserve">Finishing...</source>
+        <target>Finalizando...</target>
+      </segment>
+    </unit>
+    <unit id="17">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.24</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="17">
+        <source xml:space="preserve">XLIFF file imported</source>
+        <target>Archivo XLIFF importado</target>
+      </segment>
+    </unit>
+    <unit id="18">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.25</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="18">
+        <source xml:space="preserve">Selected file is not an XLIFF document</source>
+        <target>El archivo seleccionado no es un documento XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="19">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.26</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="19">
+        <source xml:space="preserve">Extra Tag</source>
+        <target>Sobra etiqueta</target>
+      </segment>
+    </unit>
+    <unit id="20">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.27</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="20">
+        <source xml:space="preserve">Missing Tag</source>
+        <target>Falta etiqueta</target>
+      </segment>
+    </unit>
+    <unit id="21">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.28</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="21">
+        <source xml:space="preserve">Different Tag</source>
+        <target>Etiqueta diferente</target>
+      </segment>
+    </unit>
+    <unit id="22">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.29</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="22">
+        <source xml:space="preserve">Tags in wrong order</source>
+        <target>Etiquetas en orden erróneo</target>
+      </segment>
+    </unit>
+    <unit id="23">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="23">
+        <source xml:space="preserve">Applying ICE Matches - {0}</source>
+        <target>Aplicando coincidencias ICE - {0}</target>
+      </segment>
+    </unit>
+    <unit id="24">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.30</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="24">
+        <source xml:space="preserve">Empty Target</source>
+        <target>Traducción vacía</target>
+      </segment>
+    </unit>
+    <unit id="25">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.31</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="25">
+        <source xml:space="preserve">Selected file is not an XLIFF document</source>
+        <target>El archivo seleccionado no es un documento XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="26">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.32</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="26">
+        <source xml:space="preserve">Selected file was not created with Fluenta</source>
+        <target>El archivo seleccionado no fue creado con Fluenta</target>
+      </segment>
+    </unit>
+    <unit id="27">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.33</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="27">
+        <source xml:space="preserve">Selected file was not created with this version of Fluenta</source>
+        <target>El archivo seleccionado no fue creado con esta versión de Fluenta</target>
+      </segment>
+    </unit>
+    <unit id="28">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.34</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="28">
+        <source xml:space="preserve">Memory is in use</source>
+        <target>Memoria en uso</target>
+      </segment>
+    </unit>
+    <unit id="29">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="29">
+        <source xml:space="preserve">Reading Previous XLIFF file...</source>
+        <target>Leyendo archivo XLIFF anterior...</target>
+      </segment>
+    </unit>
+    <unit id="30">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="30">
+        <source xml:space="preserve">Applying TM - {0}</source>
+        <target>Aplicando TM - {0}</target>
+      </segment>
+    </unit>
+    <unit id="31">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="31">
+        <source xml:space="preserve">Reading XLIFF file...</source>
+        <target>Leyendo archivo XLIFF...</target>
+      </segment>
+    </unit>
+    <unit id="32">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="32">
+        <source xml:space="preserve">Empty XLIFF, check your DITA customizations</source>
+        <target>XLIFF vacío, compruebe sus personalizaciones DITA</target>
+      </segment>
+    </unit>
+    <unit id="33">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="33">
+        <source xml:space="preserve">{0} of {1} segments processed</source>
+        <target>{0} de {1} segmentos procesados</target>
+      </segment>
+    </unit>
+    <unit id="34">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LocalController.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="34">
+        <source xml:space="preserve">Generating Word Counts - {0}</source>
+        <target>Generando Estadísticas - {0}</target>
+      </segment>
+    </unit>
+    <unit id="35">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesManager.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="35">
+        <source xml:space="preserve">Memory does not exist</source>
+        <target>La memoria no existe</target>
+      </segment>
+    </unit>
+    <unit id="36">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsManager.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="36">
+        <source xml:space="preserve">Project does not exist</source>
+        <target>El proyecto no existe</target>
+      </segment>
+    </unit>
+    <unit id="37">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TagErrorsReport.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="37">
+        <source xml:space="preserve">Tags Analysis</source>
+        <target>Análisis de etiquetas</target>
+      </segment>
+    </unit>
+    <unit id="38">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TagErrorsReport.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="38">
+        <source xml:space="preserve">Source</source>
+        <target>Origen</target>
+      </segment>
+    </unit>
+    <unit id="39">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TagErrorsReport.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="39">
+        <source xml:space="preserve">Translation</source>
+        <target>Traducción</target>
+      </segment>
+    </unit>
+    <unit id="40">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TagErrorsReport.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="40">
+        <source xml:space="preserve">Description</source>
+        <target>Descripción</target>
+      </segment>
+    </unit>
+    <unit id="41">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TagErrorsReport.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="41">
+        <source xml:space="preserve">Extra Tag</source>
+        <target>Sobra etiqueta</target>
+      </segment>
+    </unit>
+    <unit id="42">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TagErrorsReport.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="42">
+        <source xml:space="preserve">Missing Tag</source>
+        <target>Falta etiqueta</target>
+      </segment>
+    </unit>
+    <unit id="43">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TagErrorsReport.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="43">
+        <source xml:space="preserve">Different Tag</source>
+        <target>Etiqueta diferente</target>
+      </segment>
+    </unit>
+    <unit id="44">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TagErrorsReport.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="44">
+        <source xml:space="preserve">Tags in wrong order</source>
+        <target>Etiquetas en orden erróneo</target>
+      </segment>
+    </unit>
+    <unit id="45">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TagErrorsReport.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="45">
+        <source xml:space="preserve">Selected file is not an XLIFF document</source>
+        <target>El archivo seleccionado no es un documento XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="46">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TagErrorsReport.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="46">
+        <source xml:space="preserve">Unsupported XLIFF file</source>
+        <target>Archivo XLIFF no compatible</target>
+      </segment>
+    </unit>
+  </file>
+<file original="com/maxprograms/fluenta/views/views.properties" id="4">
+    <skeleton>R2VuZXJhbFByZWZlcmVuY2VzLjA9JSUlMCUlJQpHZW5lcmFsUHJlZmVyZW5jZXMuMT0lJSUxJSUl
+CkdlbmVyYWxQcmVmZXJlbmNlcy4xMD0lJSUyJSUlCkdlbmVyYWxQcmVmZXJlbmNlcy4xMT0lJSUz
+JSUlCkdlbmVyYWxQcmVmZXJlbmNlcy4xMj0lJSU0JSUlCkdlbmVyYWxQcmVmZXJlbmNlcy4xMz0l
+JSU1JSUlCkdlbmVyYWxQcmVmZXJlbmNlcy4xND0lJSU2JSUlCkdlbmVyYWxQcmVmZXJlbmNlcy4x
+NT0lJSU3JSUlCkdlbmVyYWxQcmVmZXJlbmNlcy4xNj0lJSU4JSUlCkdlbmVyYWxQcmVmZXJlbmNl
+cy4xNz0lJSU5JSUlCkdlbmVyYWxQcmVmZXJlbmNlcy4xOD0lJSUxMCUlJQpHZW5lcmFsUHJlZmVy
+ZW5jZXMuMTk9JSUlMTElJSUKR2VuZXJhbFByZWZlcmVuY2VzLjI9JSUlMTIlJSUKR2VuZXJhbFBy
+ZWZlcmVuY2VzLjIwPSUlJTEzJSUlCkdlbmVyYWxQcmVmZXJlbmNlcy4yMT0lJSUxNCUlJQpHZW5l
+cmFsUHJlZmVyZW5jZXMuMjI9JSUlMTUlJSUKR2VuZXJhbFByZWZlcmVuY2VzLjIzPSUlJTE2JSUl
+CkdlbmVyYWxQcmVmZXJlbmNlcy4yND0lJSUxNyUlJQpHZW5lcmFsUHJlZmVyZW5jZXMuMjU9JSUl
+MTglJSUKR2VuZXJhbFByZWZlcmVuY2VzLjI2PSUlJTE5JSUlCkdlbmVyYWxQcmVmZXJlbmNlcy4z
+PSUlJTIwJSUlCkdlbmVyYWxQcmVmZXJlbmNlcy40PSUlJTIxJSUlCkdlbmVyYWxQcmVmZXJlbmNl
+cy41PSUlJTIyJSUlCkdlbmVyYWxQcmVmZXJlbmNlcy42PSUlJTIzJSUlCkdlbmVyYWxQcmVmZXJl
+bmNlcy43PSUlJTI0JSUlCkdlbmVyYWxQcmVmZXJlbmNlcy44PSUlJTI1JSUlCkdlbmVyYWxQcmVm
+ZXJlbmNlcy45PSUlJTI2JSUlCkdlbmVyYXRlWGxpZmZEaWFsb2cuMD0lJSUyNyUlJQpHZW5lcmF0
+ZVhsaWZmRGlhbG9nLjE9JSUlMjglJSUKR2VuZXJhdGVYbGlmZkRpYWxvZy4xMD0lJSUyOSUlJQpH
+ZW5lcmF0ZVhsaWZmRGlhbG9nLjExPSUlJTMwJSUlCkdlbmVyYXRlWGxpZmZEaWFsb2cuMTI9JSUl
+MzElJSUKR2VuZXJhdGVYbGlmZkRpYWxvZy4xMz0lJSUzMiUlJQpHZW5lcmF0ZVhsaWZmRGlhbG9n
+LjE0PSUlJTMzJSUlCkdlbmVyYXRlWGxpZmZEaWFsb2cuMTU9JSUlMzQlJSUKR2VuZXJhdGVYbGlm
+ZkRpYWxvZy4xNj0lJSUzNSUlJQpHZW5lcmF0ZVhsaWZmRGlhbG9nLjE3PSUlJTM2JSUlCkdlbmVy
+YXRlWGxpZmZEaWFsb2cuMTg9JSUlMzclJSUKR2VuZXJhdGVYbGlmZkRpYWxvZy4xOT0lJSUzOCUl
+JQpHZW5lcmF0ZVhsaWZmRGlhbG9nLjI9JSUlMzklJSUKR2VuZXJhdGVYbGlmZkRpYWxvZy4yMD0l
+JSU0MCUlJQpHZW5lcmF0ZVhsaWZmRGlhbG9nLjIxPSUlJTQxJSUlCkdlbmVyYXRlWGxpZmZEaWFs
+b2cuMjI9JSUlNDIlJSUKR2VuZXJhdGVYbGlmZkRpYWxvZy4yMz0lJSU0MyUlJQpHZW5lcmF0ZVhs
+aWZmRGlhbG9nLjM9JSUlNDQlJSUKR2VuZXJhdGVYbGlmZkRpYWxvZy40PSUlJTQ1JSUlCkdlbmVy
+YXRlWGxpZmZEaWFsb2cuNT0lJSU0NiUlJQpHZW5lcmF0ZVhsaWZmRGlhbG9nLjY9JSUlNDclJSUK
+R2VuZXJhdGVYbGlmZkRpYWxvZy43PSUlJTQ4JSUlCkdlbmVyYXRlWGxpZmZEaWFsb2cuOD0lJSU0
+OSUlJQpHZW5lcmF0ZVhsaWZmRGlhbG9nLjk9JSUlNTAlJSUKR2V0Um9vdEVsZW1lbnREaWFsb2cu
+MD0lJSU1MSUlJQpHZXRSb290RWxlbWVudERpYWxvZy4xPSUlJTUyJSUlCkdldFJvb3RFbGVtZW50
+RGlhbG9nLjI9JSUlNTMlJSUKR2V0Um9vdEVsZW1lbnREaWFsb2cuMz0lJSU1NCUlJQpIVE1MVmll
+d2VyLjA9JSUlNTUlJSUKSFRNTFZpZXdlci4xPSUlJTU2JSUlCkFib3V0Qm94LjA9JSUlNTclJSUK
+QWJvdXRCb3guMT0lJSU1OCUlJQpBYm91dEJveC4xMD0lJSU1OSUlJQpBYm91dEJveC4xMT0lJSU2
+MCUlJQpBYm91dEJveC4yPSUlJTYxJSUlCkFib3V0Qm94LjM9JSUlNjIlJSUKQWJvdXRCb3guND0l
+JSU2MyUlJQpBYm91dEJveC41PSUlJTY0JSUlCkFib3V0Qm94LjY9JSUlNjUlJSUKQWJvdXRCb3gu
+Nz0lJSU2NiUlJQpBYm91dEJveC44PSUlJTY3JSUlCkFib3V0Qm94Ljk9JSUlNjglJSUKQWRkTGFu
+Z3VhZ2VEaWFsb2cuMD0lJSU2OSUlJQpBZGRMYW5ndWFnZURpYWxvZy4xPSUlJTcwJSUlCkFkZExh
+bmd1YWdlRGlhbG9nLjI9JSUlNzElJSUKQWRkTGFuZ3VhZ2VEaWFsb2cuMz0lJSU3MiUlJQpBZGRM
+YW5ndWFnZURpYWxvZy40PSUlJTczJSUlCkFkZE1lbW9yeURpYWxvZy4wPSUlJTc0JSUlCkFkZE1l
+bW9yeURpYWxvZy4xPSUlJTc1JSUlCkFkZE1lbW9yeURpYWxvZy4yPSUlJTc2JSUlCkFkZE1lbW9y
+eURpYWxvZy4zPSUlJTc3JSUlCkFkZE1lbW9yeURpYWxvZy40PSUlJTc4JSUlCkFkZE1lbW9yeURp
+YWxvZy41PSUlJTc5JSUlCkFkZE1lbW9yeURpYWxvZy42PSUlJTgwJSUlCkFkZE1lbW9yeURpYWxv
+Zy43PSUlJTgxJSUlCkFkZE1lbW9yeURpYWxvZy44PSUlJTgyJSUlCkFkZE1lbW9yeURpYWxvZy45
+PSUlJTgzJSUlCkRURENvbmZpZ3VyYXRpb25EaWFsb2cuMD0lJSU4NCUlJQpEVERDb25maWd1cmF0
+aW9uRGlhbG9nLjE9JSUlODUlJSUKRFREQ29uZmlndXJhdGlvbkRpYWxvZy4xMD0lJSU4NiUlJQpE
+VERDb25maWd1cmF0aW9uRGlhbG9nLjI9JSUlODclJSUKRFREQ29uZmlndXJhdGlvbkRpYWxvZy4z
+PSUlJTg4JSUlCkRURENvbmZpZ3VyYXRpb25EaWFsb2cuND0lJSU4OSUlJQpEVERDb25maWd1cmF0
+aW9uRGlhbG9nLjU9JSUlOTAlJSUKRFREQ29uZmlndXJhdGlvbkRpYWxvZy42PSUlJTkxJSUlCkRU
+RENvbmZpZ3VyYXRpb25EaWFsb2cuNz0lJSU5MiUlJQpEVERDb25maWd1cmF0aW9uRGlhbG9nLjg9
+JSUlOTMlJSUKRFREQ29uZmlndXJhdGlvbkRpYWxvZy45PSUlJTk0JSUlCkVkaXRNZW1vcnlEaWFs
+b2cuMD0lJSU5NSUlJQpFZGl0TWVtb3J5RGlhbG9nLjE9JSUlOTYlJSUKRWRpdE1lbW9yeURpYWxv
+Zy4yPSUlJTk3JSUlCkVkaXRNZW1vcnlEaWFsb2cuMz0lJSU5OCUlJQpFZGl0TWVtb3J5RGlhbG9n
+LjQ9JSUlOTklJSUKRWRpdE1lbW9yeURpYWxvZy41PSUlJTEwMCUlJQpFZGl0TWVtb3J5RGlhbG9n
+LjY9JSUlMTAxJSUlCkVkaXRNZW1vcnlEaWFsb2cuNz0lJSUxMDIlJSUKRWRpdE1lbW9yeURpYWxv
+Zy44PSUlJTEwMyUlJQpFbGVtZW50Q29uZmlndXJhdGlvbkRpYWxvZy4wPSUlJTEwNCUlJQpFbGVt
+ZW50Q29uZmlndXJhdGlvbkRpYWxvZy4xPSUlJTEwNSUlJQpFbGVtZW50Q29uZmlndXJhdGlvbkRp
+YWxvZy4yPSUlJTEwNiUlJQpFbGVtZW50Q29uZmlndXJhdGlvbkRpYWxvZy4zPSUlJTEwNyUlJQpF
+bGVtZW50Q29uZmlndXJhdGlvbkRpYWxvZy40PSUlJTEwOCUlJQpFbGVtZW50Q29uZmlndXJhdGlv
+bkRpYWxvZy41PSUlJTEwOSUlJQpFbGVtZW50Q29uZmlndXJhdGlvbkRpYWxvZy42PSUlJTExMCUl
+JQpJbXBvcnRUbXhEaWFsb2cuMD0lJSUxMTElJSUKSW1wb3J0VG14RGlhbG9nLjE9JSUlMTEyJSUl
+CkltcG9ydFRteERpYWxvZy4yPSUlJTExMyUlJQpJbXBvcnRUbXhEaWFsb2cuMz0lJSUxMTQlJSUK
+SW1wb3J0VG14RGlhbG9nLjQ9JSUlMTE1JSUlCkltcG9ydFRteERpYWxvZy41PSUlJTExNiUlJQpJ
+bXBvcnRUbXhEaWFsb2cuNj0lJSUxMTclJSUKSW1wb3J0VG14RGlhbG9nLjc9JSUlMTE4JSUlCklt
+cG9ydFhsaWZmRGlhbG9nLjA9JSUlMTE5JSUlCkltcG9ydFhsaWZmRGlhbG9nLjE9JSUlMTIwJSUl
+CkltcG9ydFhsaWZmRGlhbG9nLjEwPSUlJTEyMSUlJQpJbXBvcnRYbGlmZkRpYWxvZy4xMT0lJSUx
+MjIlJSUKSW1wb3J0WGxpZmZEaWFsb2cuMTI9JSUlMTIzJSUlCkltcG9ydFhsaWZmRGlhbG9nLjEz
+PSUlJTEyNCUlJQpJbXBvcnRYbGlmZkRpYWxvZy4xND0lJSUxMjUlJSUKSW1wb3J0WGxpZmZEaWFs
+b2cuMTU9JSUlMTI2JSUlCkltcG9ydFhsaWZmRGlhbG9nLjI9JSUlMTI3JSUlCkltcG9ydFhsaWZm
+RGlhbG9nLjM9JSUlMTI4JSUlCkltcG9ydFhsaWZmRGlhbG9nLjQ9JSUlMTI5JSUlCkltcG9ydFhs
+aWZmRGlhbG9nLjU9JSUlMTMwJSUlCkltcG9ydFhsaWZmRGlhbG9nLjY9JSUlMTMxJSUlCkltcG9y
+dFhsaWZmRGlhbG9nLjc9JSUlMTMyJSUlCkltcG9ydFhsaWZmRGlhbG9nLjg9JSUlMTMzJSUlCklt
+cG9ydFhsaWZmRGlhbG9nLjk9JSUlMTM0JSUlCkxpY2Vuc2VNYW5hZ2VyLjA9JSUlMTM1JSUlCkxp
+Y2Vuc2VNYW5hZ2VyLjE9JSUlMTM2JSUlCkxpY2Vuc2VNYW5hZ2VyLjEwPSUlJTEzNyUlJQpMaWNl
+bnNlTWFuYWdlci4xMT0lJSUxMzglJSUKTGljZW5zZU1hbmFnZXIuMTI9JSUlMTM5JSUlCkxpY2Vu
+c2VNYW5hZ2VyLjEzPSUlJTE0MCUlJQpMaWNlbnNlTWFuYWdlci4xND0lJSUxNDElJSUKTGljZW5z
+ZU1hbmFnZXIuMTU9JSUlMTQyJSUlCkxpY2Vuc2VNYW5hZ2VyLjE2PSUlJTE0MyUlJQpMaWNlbnNl
+TWFuYWdlci4xNz0lJSUxNDQlJSUKTGljZW5zZU1hbmFnZXIuMTg9JSUlMTQ1JSUlCkxpY2Vuc2VN
+YW5hZ2VyLjE5PSUlJTE0NiUlJQpMaWNlbnNlTWFuYWdlci4yPSUlJTE0NyUlJQpMaWNlbnNlTWFu
+YWdlci4yMD0lJSUxNDglJSUKTGljZW5zZU1hbmFnZXIuMjE9JSUlMTQ5JSUlCkxpY2Vuc2VNYW5h
+Z2VyLjIyPSUlJTE1MCUlJQpMaWNlbnNlTWFuYWdlci4yMz0lJSUxNTElJSUKTGljZW5zZU1hbmFn
+ZXIuMjQ9JSUlMTUyJSUlCkxpY2Vuc2VNYW5hZ2VyLjI1PSUlJTE1MyUlJQpMaWNlbnNlTWFuYWdl
+ci4zPSUlJTE1NCUlJQpMaWNlbnNlTWFuYWdlci40PSUlJTE1NSUlJQpMaWNlbnNlTWFuYWdlci41
+PSUlJTE1NiUlJQpMaWNlbnNlTWFuYWdlci42PSUlJTE1NyUlJQpMaWNlbnNlTWFuYWdlci43PSUl
+JTE1OCUlJQpMaWNlbnNlTWFuYWdlci44PSUlJTE1OSUlJQpMaWNlbnNlTWFuYWdlci45PSUlJTE2
+MCUlJQpNZW1vcmllc1ZpZXcuMD0lJSUxNjElJSUKTWVtb3JpZXNWaWV3LjE9JSUlMTYyJSUlCk1l
+bW9yaWVzVmlldy4xMD0lJSUxNjMlJSUKTWVtb3JpZXNWaWV3LjExPSUlJTE2NCUlJQpNZW1vcmll
+c1ZpZXcuMTI9JSUlMTY1JSUlCk1lbW9yaWVzVmlldy4xMz0lJSUxNjYlJSUKTWVtb3JpZXNWaWV3
+LjE0PSUlJTE2NyUlJQpNZW1vcmllc1ZpZXcuMTU9JSUlMTY4JSUlCk1lbW9yaWVzVmlldy4yPSUl
+JTE2OSUlJQpNZW1vcmllc1ZpZXcuMz0lJSUxNzAlJSUKTWVtb3JpZXNWaWV3LjQ9JSUlMTcxJSUl
+Ck1lbW9yaWVzVmlldy41PSUlJTE3MiUlJQpNZW1vcmllc1ZpZXcuNj0lJSUxNzMlJSUKTWVtb3Jp
+ZXNWaWV3Ljc9JSUlMTc0JSUlCk1lbW9yaWVzVmlldy44PSUlJTE3NSUlJQpNZW1vcmllc1ZpZXcu
+OT0lJSUxNzYlJSUKTWVtb3J5U2VsZWN0aW9uRGlhbG9nLjA9JSUlMTc3JSUlCk1lbW9yeVNlbGVj
+dGlvbkRpYWxvZy4xPSUlJTE3OCUlJQpNZW1vcnlTZWxlY3Rpb25EaWFsb2cuMj0lJSUxNzklJSUK
+TWVtb3J5U2VsZWN0aW9uRGlhbG9nLjM9JSUlMTgwJSUlCk1lbW9yeVNlbGVjdGlvbkRpYWxvZy40
+PSUlJTE4MSUlJQpQcmVmZXJlbmNlc0RpYWxvZy4wPSUlJTE4MiUlJQpQcmVmZXJlbmNlc0RpYWxv
+Zy4xPSUlJTE4MyUlJQpQcmVmZXJlbmNlc0RpYWxvZy4yPSUlJTE4NCUlJQpQcm9qZWN0RGlhbG9n
+LjA9JSUlMTg1JSUlClByb2plY3REaWFsb2cuMT0lJSUxODYlJSUKUHJvamVjdERpYWxvZy4xMD0l
+JSUxODclJSUKUHJvamVjdERpYWxvZy4xMT0lJSUxODglJSUKUHJvamVjdERpYWxvZy4xMj0lJSUx
+ODklJSUKUHJvamVjdERpYWxvZy4xMz0lJSUxOTAlJSUKUHJvamVjdERpYWxvZy4xND0lJSUxOTEl
+JSUKUHJvamVjdERpYWxvZy4xNT0lJSUxOTIlJSUKUHJvamVjdERpYWxvZy4xNj0lJSUxOTMlJSUK
+UHJvamVjdERpYWxvZy4xNz0lJSUxOTQlJSUKUHJvamVjdERpYWxvZy4xOD0lJSUxOTUlJSUKUHJv
+amVjdERpYWxvZy4xOT0lJSUxOTYlJSUKUHJvamVjdERpYWxvZy4yPSUlJTE5NyUlJQpQcm9qZWN0
+RGlhbG9nLjIwPSUlJTE5OCUlJQpQcm9qZWN0RGlhbG9nLjIxPSUlJTE5OSUlJQpQcm9qZWN0RGlh
+bG9nLjIyPSUlJTIwMCUlJQpQcm9qZWN0RGlhbG9nLjIzPSUlJTIwMSUlJQpQcm9qZWN0RGlhbG9n
+LjI0PSUlJTIwMiUlJQpQcm9qZWN0RGlhbG9nLjI1PSUlJTIwMyUlJQpQcm9qZWN0RGlhbG9nLjI2
+PSUlJTIwNCUlJQpQcm9qZWN0RGlhbG9nLjI3PSUlJTIwNSUlJQpQcm9qZWN0RGlhbG9nLjI4PSUl
+JTIwNiUlJQpQcm9qZWN0RGlhbG9nLjI5PSUlJTIwNyUlJQpQcm9qZWN0RGlhbG9nLjM9JSUlMjA4
+JSUlClByb2plY3REaWFsb2cuMzA9JSUlMjA5JSUlClByb2plY3REaWFsb2cuMzE9JSUlMjEwJSUl
+ClByb2plY3REaWFsb2cuMzI9JSUlMjExJSUlClByb2plY3REaWFsb2cuMzM9JSUlMjEyJSUlClBy
+b2plY3REaWFsb2cuMzQ9JSUlMjEzJSUlClByb2plY3REaWFsb2cuMzU9JSUlMjE0JSUlClByb2pl
+Y3REaWFsb2cuMzY9JSUlMjE1JSUlClByb2plY3REaWFsb2cuND0lJSUyMTYlJSUKUHJvamVjdERp
+YWxvZy41PSUlJTIxNyUlJQpQcm9qZWN0RGlhbG9nLjY9JSUlMjE4JSUlClByb2plY3REaWFsb2cu
+Nz0lJSUyMTklJSUKUHJvamVjdERpYWxvZy44PSUlJTIyMCUlJQpQcm9qZWN0RGlhbG9nLjk9JSUl
+MjIxJSUlClByb2plY3RJbmZvRGlhbG9nLjA9JSUlMjIyJSUlClByb2plY3RJbmZvRGlhbG9nLjE9
+JSUlMjIzJSUlClByb2plY3RJbmZvRGlhbG9nLjEwPSUlJTIyNCUlJQpQcm9qZWN0SW5mb0RpYWxv
+Zy4xMT0lJSUyMjUlJSUKUHJvamVjdEluZm9EaWFsb2cuMTI9JSUlMjI2JSUlClByb2plY3RJbmZv
+RGlhbG9nLjEzPSUlJTIyNyUlJQpQcm9qZWN0SW5mb0RpYWxvZy4yPSUlJTIyOCUlJQpQcm9qZWN0
+SW5mb0RpYWxvZy4zPSUlJTIyOSUlJQpQcm9qZWN0SW5mb0RpYWxvZy40PSUlJTIzMCUlJQpQcm9q
+ZWN0SW5mb0RpYWxvZy41PSUlJTIzMSUlJQpQcm9qZWN0SW5mb0RpYWxvZy42PSUlJTIzMiUlJQpQ
+cm9qZWN0SW5mb0RpYWxvZy43PSUlJTIzMyUlJQpQcm9qZWN0SW5mb0RpYWxvZy44PSUlJTIzNCUl
+JQpQcm9qZWN0SW5mb0RpYWxvZy45PSUlJTIzNSUlJQpQcm9qZWN0c1ZpZXcuMD0lJSUyMzYlJSUK
+UHJvamVjdHNWaWV3LjE9JSUlMjM3JSUlClByb2plY3RzVmlldy4xMD0lJSUyMzglJSUKUHJvamVj
+dHNWaWV3LjExPSUlJTIzOSUlJQpQcm9qZWN0c1ZpZXcuMTI9JSUlMjQwJSUlClByb2plY3RzVmll
+dy4xMz0lJSUyNDElJSUKUHJvamVjdHNWaWV3LjE0PSUlJTI0MiUlJQpQcm9qZWN0c1ZpZXcuMTU9
+JSUlMjQzJSUlClByb2plY3RzVmlldy4yPSUlJTI0NCUlJQpQcm9qZWN0c1ZpZXcuMz0lJSUyNDUl
+JSUKUHJvamVjdHNWaWV3LjQ9JSUlMjQ2JSUlClByb2plY3RzVmlldy41PSUlJTI0NyUlJQpQcm9q
+ZWN0c1ZpZXcuNj0lJSUyNDglJSUKUHJvamVjdHNWaWV3Ljc9JSUlMjQ5JSUlClByb2plY3RzVmll
+dy44PSUlJTI1MCUlJQpQcm9qZWN0c1ZpZXcuOT0lJSUyNTElJSUKUHJveHlTZXR0aW5ncy4wPSUl
+JTI1MiUlJQpQcm94eVNldHRpbmdzLjE9JSUlMjUzJSUlClByb3h5U2V0dGluZ3MuMj0lJSUyNTQl
+JSUKUHJveHlTZXR0aW5ncy4zPSUlJTI1NSUlJQpQcm94eVNldHRpbmdzLjQ9JSUlMjU2JSUlClBy
+b3h5U2V0dGluZ3MuNT0lJSUyNTclJSUKUHJveHlTZXR0aW5ncy42PSUlJTI1OCUlJQpQcm94eVNl
+dHRpbmdzLjc9JSUlMjU5JSUlClJlcXVlc3RUcmlhbC4wPSUlJTI2MCUlJQpSZXF1ZXN0VHJpYWwu
+MT0lJSUyNjElJSUKUmVxdWVzdFRyaWFsLjEwPSUlJTI2MiUlJQpSZXF1ZXN0VHJpYWwuMTE9JSUl
+MjYzJSUlClJlcXVlc3RUcmlhbC4xMj0lJSUyNjQlJSUKUmVxdWVzdFRyaWFsLjEzPSUlJTI2NSUl
+JQpSZXF1ZXN0VHJpYWwuMTQ9JSUlMjY2JSUlClJlcXVlc3RUcmlhbC4xNT0lJSUyNjclJSUKUmVx
+dWVzdFRyaWFsLjE2PSUlJTI2OCUlJQpSZXF1ZXN0VHJpYWwuMTc9JSUlMjY5JSUlClJlcXVlc3RU
+cmlhbC4xOD0lJSUyNzAlJSUKUmVxdWVzdFRyaWFsLjE5PSUlJTI3MSUlJQpSZXF1ZXN0VHJpYWwu
+Mj0lJSUyNzIlJSUKUmVxdWVzdFRyaWFsLjIwPSUlJTI3MyUlJQpSZXF1ZXN0VHJpYWwuMjE9JSUl
+Mjc0JSUlClJlcXVlc3RUcmlhbC4yMj0lJSUyNzUlJSUKUmVxdWVzdFRyaWFsLjIzPSUlJTI3NiUl
+JQpSZXF1ZXN0VHJpYWwuMjQ9JSUlMjc3JSUlClJlcXVlc3RUcmlhbC4yNT0lJSUyNzglJSUKUmVx
+dWVzdFRyaWFsLjI2PSUlJTI3OSUlJQpSZXF1ZXN0VHJpYWwuMjc9JSUlMjgwJSUlClJlcXVlc3RU
+cmlhbC4zPSUlJTI4MSUlJQpSZXF1ZXN0VHJpYWwuND0lJSUyODIlJSUKUmVxdWVzdFRyaWFsLjU9
+JSUlMjgzJSUlClJlcXVlc3RUcmlhbC42PSUlJTI4NCUlJQpSZXF1ZXN0VHJpYWwuNz0lJSUyODUl
+JSUKUmVxdWVzdFRyaWFsLjg9JSUlMjg2JSUlClJlcXVlc3RUcmlhbC45PSUlJTI4NyUlJQpYbWxQ
+cmVmZXJlbmNlcy4wPSUlJTI4OCUlJQpYbWxQcmVmZXJlbmNlcy4xPSUlJTI4OSUlJQpYbWxQcmVm
+ZXJlbmNlcy4xMD0lJSUyOTAlJSUKWG1sUHJlZmVyZW5jZXMuMTE9JSUlMjkxJSUlClhtbFByZWZl
+cmVuY2VzLjEyPSUlJTI5MiUlJQpYbWxQcmVmZXJlbmNlcy4xMz0lJSUyOTMlJSUKWG1sUHJlZmVy
+ZW5jZXMuMTQ9JSUlMjk0JSUlClhtbFByZWZlcmVuY2VzLjE1PSUlJTI5NSUlJQpYbWxQcmVmZXJl
+bmNlcy4xNj0lJSUyOTYlJSUKWG1sUHJlZmVyZW5jZXMuMTc9JSUlMjk3JSUlClhtbFByZWZlcmVu
+Y2VzLjE4PSUlJTI5OCUlJQpYbWxQcmVmZXJlbmNlcy4xOT0lJSUyOTklJSUKWG1sUHJlZmVyZW5j
+ZXMuMj0lJSUzMDAlJSUKWG1sUHJlZmVyZW5jZXMuMjA9JSUlMzAxJSUlClhtbFByZWZlcmVuY2Vz
+LjIxPSUlJTMwMiUlJQpYbWxQcmVmZXJlbmNlcy4zPSUlJTMwMyUlJQpYbWxQcmVmZXJlbmNlcy40
+PSUlJTMwNCUlJQpYbWxQcmVmZXJlbmNlcy41PSUlJTMwNSUlJQpYbWxQcmVmZXJlbmNlcy42PSUl
+JTMwNiUlJQpYbWxQcmVmZXJlbmNlcy43PSUlJTMwNyUlJQpYbWxQcmVmZXJlbmNlcy44PSUlJTMw
+OCUlJQpYbWxQcmVmZXJlbmNlcy45PSUlJTMwOSUlJQo=</skeleton>
+    <mda:metadata>
+      <mda:metaGroup category="format">
+        <mda:meta type="datatype">javapropertyresourcebundle</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="tool">
+        <mda:meta type="tool-id">OpenXLIFF</mda:meta>
+        <mda:meta type="tool-name">OpenXLIFF Filters</mda:meta>
+        <mda:meta type="tool-version">3.11.0 20230726_0946</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="PI">
+        <mda:meta type="encoding">UTF-8</mda:meta>
+      </mda:metaGroup>
+    </mda:metadata>
+    <unit id="0">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="0">
+        <source xml:space="preserve">Projects Folder</source>
+        <target>Carpeta de Proyectos</target>
+      </segment>
+    </unit>
+    <unit id="1">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="1">
+        <source xml:space="preserve">Error retrieving projects folder</source>
+        <target>Error al recuperar carpeta de proyectos</target>
+      </segment>
+    </unit>
+    <unit id="2">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="2">
+        <source xml:space="preserve">Default Source Language</source>
+        <target>Idioma Origen Predeterminado</target>
+      </segment>
+    </unit>
+    <unit id="3">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="3">
+        <source xml:space="preserve">Error retrieving language list</source>
+        <target>Error al recuperar lista de idiomas</target>
+      </segment>
+    </unit>
+    <unit id="4">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="4">
+        <source xml:space="preserve">Error retrieving default source language</source>
+        <target>Error al recuperar idioma origen predeterminado</target>
+      </segment>
+    </unit>
+    <unit id="5">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="5">
+        <source xml:space="preserve">Default Target Languages</source>
+        <target>Idiomas Destino Predeterminados</target>
+      </segment>
+    </unit>
+    <unit id="6">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="6">
+        <source xml:space="preserve">Description</source>
+        <target>Descripción</target>
+      </segment>
+    </unit>
+    <unit id="7">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.15</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="7">
+        <source xml:space="preserve">Error retrieving default target languages</source>
+        <target>Error al recuperar idiomas destino predeterminados</target>
+      </segment>
+    </unit>
+    <unit id="8">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.16</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="8">
+        <source xml:space="preserve">Add Target Language</source>
+        <target>Añadir Idioma Destino</target>
+      </segment>
+    </unit>
+    <unit id="9">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.17</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="9">
+        <source xml:space="preserve">Remove Selected Languages</source>
+        <target>Eliminar Idiomas Seleccionados</target>
+      </segment>
+    </unit>
+    <unit id="10">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.18</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="10">
+        <source xml:space="preserve">Save Preferences</source>
+        <target>Guardar Preferencias</target>
+      </segment>
+    </unit>
+    <unit id="11">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.19</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="11">
+        <source xml:space="preserve">Select SRX file</source>
+        <target>Seleccione archivo SRX</target>
+      </segment>
+    </unit>
+    <unit id="12">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="12">
+        <source xml:space="preserve">Browse...</source>
+        <target>Examinar...</target>
+      </segment>
+    </unit>
+    <unit id="13">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.20</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="13">
+        <source xml:space="preserve">Selected SRX file does not exist</source>
+        <target>El archivo SRX seleccionado no existe</target>
+      </segment>
+    </unit>
+    <unit id="14">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.21</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="14">
+        <source xml:space="preserve">Error saving project preferences</source>
+        <target>Error al guardar preferencias de proyectos</target>
+      </segment>
+    </unit>
+    <unit id="15">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.22</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="15">
+        <source xml:space="preserve">Duplicated language</source>
+        <target>Idioma duplicado</target>
+      </segment>
+    </unit>
+    <unit id="16">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.23</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="16">
+        <source xml:space="preserve">Error adding language</source>
+        <target>Error al añadir idioma</target>
+      </segment>
+    </unit>
+    <unit id="17">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.24</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="17">
+        <source xml:space="preserve">Application Language</source>
+        <target>Idioma de la Aplicación</target>
+      </segment>
+    </unit>
+    <unit id="18">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.25</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="18">
+        <source xml:space="preserve">Error retrieving application languages</source>
+        <target>Error al recuperar idiomas de la aplicación</target>
+      </segment>
+    </unit>
+    <unit id="19">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.26</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="19">
+        <source xml:space="preserve">Application language settings will be applied on next start</source>
+        <target>El cambio de idioma se aplicará en el siguiente inicio</target>
+      </segment>
+    </unit>
+    <unit id="20">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="20">
+        <source xml:space="preserve">Memories Folder</source>
+        <target>Carpeta de Memorias</target>
+      </segment>
+    </unit>
+    <unit id="21">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="21">
+        <source xml:space="preserve">Error retrieving memories folder</source>
+        <target>Error al recuperar carpeta de memorias</target>
+      </segment>
+    </unit>
+    <unit id="22">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="22">
+        <source xml:space="preserve">Default SRX File</source>
+        <target>Archivo SRX Predeterminado</target>
+      </segment>
+    </unit>
+    <unit id="23">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="23">
+        <source xml:space="preserve">Error retrieving default SRX file</source>
+        <target>Error al recuperar archivo SRX predeterminado</target>
+      </segment>
+    </unit>
+    <unit id="24">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="24">
+        <source xml:space="preserve">SRX Files [*.srx]</source>
+        <target>Archivos SRX [*.srx]</target>
+      </segment>
+    </unit>
+    <unit id="25">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="25">
+        <source xml:space="preserve">ALL Files [*.*]</source>
+        <target>Todos los archivos [*.*]</target>
+      </segment>
+    </unit>
+    <unit id="26">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GeneralPreferences.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="26">
+        <source xml:space="preserve">Default Languages</source>
+        <target>Idiomas Predeterminados</target>
+      </segment>
+    </unit>
+    <unit id="27">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="27">
+        <source xml:space="preserve">Generate XLIFF</source>
+        <target>Generar XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="28">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="28">
+        <source xml:space="preserve">XLIFF Folder</source>
+        <target>Carpeta XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="29">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="29">
+        <source xml:space="preserve">Paragraph Segmentation</source>
+        <target>Segmentar por párrafos</target>
+      </segment>
+    </unit>
+    <unit id="30">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="30">
+        <source xml:space="preserve">Generate Word Count</source>
+        <target>Generar estadísticas</target>
+      </segment>
+    </unit>
+    <unit id="31">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="31">
+        <source xml:space="preserve">Generate XLIFF 2.0</source>
+        <target>Generar XLIFF 2.0</target>
+      </segment>
+    </unit>
+    <unit id="32">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="32">
+        <source xml:space="preserve">Ignore Tracked Changes</source>
+        <target>Ignorar revisiones</target>
+      </segment>
+    </unit>
+    <unit id="33">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="33">
+        <source xml:space="preserve">Embed Skeleton</source>
+        <target>Incrustar esqueleto</target>
+      </segment>
+    </unit>
+    <unit id="34">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.15</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="34">
+        <source xml:space="preserve">Target Languages</source>
+        <target>Idiomas Destino</target>
+      </segment>
+    </unit>
+    <unit id="35">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.16</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="35">
+        <source xml:space="preserve">Error getting project languages</source>
+        <target>Error al obtener idiomas del proyecto</target>
+      </segment>
+    </unit>
+    <unit id="36">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.17</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="36">
+        <source xml:space="preserve">Cancel</source>
+        <target>Cancelar</target>
+      </segment>
+    </unit>
+    <unit id="37">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.18</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="37">
+        <source xml:space="preserve">Generate XLIFF</source>
+        <target>Generar XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="38">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.19</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="38">
+        <source xml:space="preserve">Select XLIFF folder</source>
+        <target>Seleccione carpeta XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="39">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="39">
+        <source xml:space="preserve">Browse...</source>
+        <target>Examinar...</target>
+      </segment>
+    </unit>
+    <unit id="40">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.20</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="40">
+        <source xml:space="preserve">Error retrieving language</source>
+        <target>Error al recuperar idioma</target>
+      </segment>
+    </unit>
+    <unit id="41">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.21</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="41">
+        <source xml:space="preserve">Select a target language</source>
+        <target>Seleccione idioma destino</target>
+      </segment>
+    </unit>
+    <unit id="42">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.22</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="42">
+        <source xml:space="preserve">Unknown error. Please check logs.</source>
+        <target>Error desconocido. Por favor compruebe los registros.</target>
+      </segment>
+    </unit>
+    <unit id="43">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.23</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="43">
+        <source xml:space="preserve">Error creating error log</source>
+        <target>Error creando registro de errores</target>
+      </segment>
+    </unit>
+    <unit id="44">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="44">
+        <source xml:space="preserve">DITAVAL file</source>
+        <target>Archivo DITAVAL</target>
+      </segment>
+    </unit>
+    <unit id="45">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="45">
+        <source xml:space="preserve">DITAVAL Files [*.ditaval]</source>
+        <target>Archivos DITAVAL [*.ditaval]</target>
+      </segment>
+    </unit>
+    <unit id="46">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="46">
+        <source xml:space="preserve">All Files [*.*]</source>
+        <target>Todos los archivos [*.*]</target>
+      </segment>
+    </unit>
+    <unit id="47">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="47">
+        <source xml:space="preserve">Process Options</source>
+        <target>Opciones de Procesamiento</target>
+      </segment>
+    </unit>
+    <unit id="48">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="48">
+        <source xml:space="preserve">Reuse ICE Matches</source>
+        <target>Reutilizar coincidencias ICE</target>
+      </segment>
+    </unit>
+    <unit id="49">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="49">
+        <source xml:space="preserve">Modified Files Only</source>
+        <target>Solo archivos modificados</target>
+      </segment>
+    </unit>
+    <unit id="50">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GenerateXliffDialog.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="50">
+        <source xml:space="preserve">Use Translation Memories</source>
+        <target>Usar memorias de traducción</target>
+      </segment>
+    </unit>
+    <unit id="51">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GetRootElementDialog.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="51">
+        <source xml:space="preserve">Add Configuration File</source>
+        <target>Añadir Archivo de Configuración</target>
+      </segment>
+    </unit>
+    <unit id="52">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GetRootElementDialog.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="52">
+        <source xml:space="preserve">Root Element</source>
+        <target>Elemento Raíz</target>
+      </segment>
+    </unit>
+    <unit id="53">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GetRootElementDialog.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="53">
+        <source xml:space="preserve">Add Configuration File</source>
+        <target>Añadir Archivo de Configuración</target>
+      </segment>
+    </unit>
+    <unit id="54">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">GetRootElementDialog.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="54">
+        <source xml:space="preserve">Select root element</source>
+        <target>Seleccione elemento raíz</target>
+      </segment>
+    </unit>
+    <unit id="55">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">HTMLViewer.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="55">
+        <source xml:space="preserve">Error creating browser</source>
+        <target>Error al crear navegador</target>
+      </segment>
+    </unit>
+    <unit id="56">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">HTMLViewer.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="56">
+        <source xml:space="preserve">Error embedding browser</source>
+        <target>Error al incorporar navegador web</target>
+      </segment>
+    </unit>
+    <unit id="57">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AboutBox.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="57">
+        <source xml:space="preserve">Version {0} - Build {1}</source>
+        <target>Versión {0} - Distribución {1}</target>
+      </segment>
+    </unit>
+    <unit id="58">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AboutBox.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="58">
+        <source xml:space="preserve">Copyright © 2015 - 2023 Maxprograms</source>
+      </segment>
+    </unit>
+    <unit id="59">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AboutBox.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="59">
+        <source xml:space="preserve">Licenses</source>
+        <target>Licencias</target>
+      </segment>
+    </unit>
+    <unit id="60">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AboutBox.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="60">
+        <source xml:space="preserve">Error setting license link</source>
+        <target>Error al establecer enlace de licencia</target>
+      </segment>
+    </unit>
+    <unit id="61">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AboutBox.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="61">
+        <source xml:space="preserve">System Information</source>
+        <target>Información del Sistema</target>
+      </segment>
+    </unit>
+    <unit id="62">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AboutBox.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="62">
+        <source xml:space="preserve">Operating System: {0} ({1})</source>
+        <target>Sistema operativo: {0} ({1})</target>
+      </segment>
+    </unit>
+    <unit id="63">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AboutBox.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="63">
+        <source xml:space="preserve">Java Version: {0} {1}</source>
+        <target>Versión de Java: {0} {1}</target>
+      </segment>
+    </unit>
+    <unit id="64">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AboutBox.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="64">
+        <source xml:space="preserve">OpenXLIFF Filters: {0} {1}</source>
+      </segment>
+    </unit>
+    <unit id="65">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AboutBox.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="65">
+        <source xml:space="preserve">XMLJava: {0} {1}</source>
+      </segment>
+    </unit>
+    <unit id="66">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AboutBox.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="66">
+        <source xml:space="preserve">Swordfish: {0} {1}</source>
+      </segment>
+    </unit>
+    <unit id="67">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AboutBox.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="67">
+        <source xml:space="preserve">SWT: {0} {1}</source>
+      </segment>
+    </unit>
+    <unit id="68">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AboutBox.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="68">
+        <source xml:space="preserve">Maximum / Allocated / Free JVM Memory: {0} / {1} / {2}</source>
+        <target>Memoria JVM Máxima / Asignada / Libre: {0} / {1} / {2}</target>
+      </segment>
+    </unit>
+    <unit id="69">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddLanguageDialog.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="69">
+        <source xml:space="preserve">Add Language</source>
+        <target>Añadir Idioma</target>
+      </segment>
+    </unit>
+    <unit id="70">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddLanguageDialog.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="70">
+        <source xml:space="preserve">Language</source>
+        <target>Idioma</target>
+      </segment>
+    </unit>
+    <unit id="71">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddLanguageDialog.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="71">
+        <source xml:space="preserve">Error retrieving language list</source>
+        <target>Error al recuperar la lista de idiomas</target>
+      </segment>
+    </unit>
+    <unit id="72">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddLanguageDialog.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="72">
+        <source xml:space="preserve">Add Language</source>
+        <target>Añadir Idioma</target>
+      </segment>
+    </unit>
+    <unit id="73">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddLanguageDialog.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="73">
+        <source xml:space="preserve">Select language</source>
+        <target>Seleccione idioma</target>
+      </segment>
+    </unit>
+    <unit id="74">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddMemoryDialog.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="74">
+        <source xml:space="preserve">Create Memory</source>
+        <target>Crear Memoria</target>
+      </segment>
+    </unit>
+    <unit id="75">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddMemoryDialog.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="75">
+        <source xml:space="preserve">Memory Name</source>
+        <target>Nombre de la Memoria</target>
+      </segment>
+    </unit>
+    <unit id="76">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddMemoryDialog.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="76">
+        <source xml:space="preserve">Source Language</source>
+        <target>Idioma Origen</target>
+      </segment>
+    </unit>
+    <unit id="77">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddMemoryDialog.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="77">
+        <source xml:space="preserve">Error retrieving language list</source>
+        <target>Error al recuperar la lista de idiomas</target>
+      </segment>
+    </unit>
+    <unit id="78">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddMemoryDialog.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="78">
+        <source xml:space="preserve">Memory Description</source>
+        <target>Descripción de la memoria</target>
+      </segment>
+    </unit>
+    <unit id="79">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddMemoryDialog.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="79">
+        <source xml:space="preserve">Create Memory</source>
+        <target>Crear Memoria</target>
+      </segment>
+    </unit>
+    <unit id="80">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddMemoryDialog.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="80">
+        <source xml:space="preserve">Enter memory name</source>
+        <target>Introduzca el nombre de la memoria</target>
+      </segment>
+    </unit>
+    <unit id="81">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddMemoryDialog.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="81">
+        <source xml:space="preserve">Select source language</source>
+        <target>Seleccione idioma origen</target>
+      </segment>
+    </unit>
+    <unit id="82">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddMemoryDialog.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="82">
+        <source xml:space="preserve">Error getting source language</source>
+        <target>Error al obtener idioma origen</target>
+      </segment>
+    </unit>
+    <unit id="83">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">AddMemoryDialog.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="83">
+        <source xml:space="preserve">Error creating memory: {0}</source>
+        <target>Error al crear memoria: {0}</target>
+      </segment>
+    </unit>
+    <unit id="84">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">DTDConfigurationDialog.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="84">
+        <source xml:space="preserve">Grammar Configuration</source>
+        <target>Configuración de Gramática</target>
+      </segment>
+    </unit>
+    <unit id="85">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">DTDConfigurationDialog.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="85">
+        <source xml:space="preserve">Configuration file: {0}</source>
+        <target>Archivo de configuración: {0}</target>
+      </segment>
+    </unit>
+    <unit id="86">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">DTDConfigurationDialog.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="86">
+        <source xml:space="preserve">Configuration file: {0}</source>
+        <target>Archivo de configuración: {0}</target>
+      </segment>
+    </unit>
+    <unit id="87">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">DTDConfigurationDialog.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="87">
+        <source xml:space="preserve">Element</source>
+        <target>Elemento</target>
+      </segment>
+    </unit>
+    <unit id="88">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">DTDConfigurationDialog.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="88">
+        <source xml:space="preserve">Element Type</source>
+        <target>Tipo de Elemento</target>
+      </segment>
+    </unit>
+    <unit id="89">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">DTDConfigurationDialog.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="89">
+        <source xml:space="preserve">Inline Type</source>
+        <target>Tipo de Formato</target>
+      </segment>
+    </unit>
+    <unit id="90">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">DTDConfigurationDialog.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="90">
+        <source xml:space="preserve">Translatable Attributes</source>
+        <target>Atributos Traducibles</target>
+      </segment>
+    </unit>
+    <unit id="91">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">DTDConfigurationDialog.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="91">
+        <source xml:space="preserve">Keep White Space</source>
+        <target>Preservar Espacios</target>
+      </segment>
+    </unit>
+    <unit id="92">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">DTDConfigurationDialog.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="92">
+        <source xml:space="preserve">Add Element</source>
+        <target>Añadir Elemento</target>
+      </segment>
+    </unit>
+    <unit id="93">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">DTDConfigurationDialog.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="93">
+        <source xml:space="preserve">Edit Element</source>
+        <target>Modificar Elemento</target>
+      </segment>
+    </unit>
+    <unit id="94">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">DTDConfigurationDialog.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="94">
+        <source xml:space="preserve">Remove Element</source>
+        <target>Eliminar Elemento</target>
+      </segment>
+    </unit>
+    <unit id="95">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">EditMemoryDialog.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="95">
+        <source xml:space="preserve">Edit Memory</source>
+        <target>Modificar Memoria</target>
+      </segment>
+    </unit>
+    <unit id="96">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">EditMemoryDialog.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="96">
+        <source xml:space="preserve">Memory Name</source>
+        <target>Nombre de la Memoria</target>
+      </segment>
+    </unit>
+    <unit id="97">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">EditMemoryDialog.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="97">
+        <source xml:space="preserve">Source Language</source>
+        <target>Idioma Origen</target>
+      </segment>
+    </unit>
+    <unit id="98">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">EditMemoryDialog.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="98">
+        <source xml:space="preserve">Error retrieving language list</source>
+        <target>Error al recuperar la lista de idiomas</target>
+      </segment>
+    </unit>
+    <unit id="99">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">EditMemoryDialog.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="99">
+        <source xml:space="preserve">Memory Description</source>
+        <target>Descripción de la memoria</target>
+      </segment>
+    </unit>
+    <unit id="100">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">EditMemoryDialog.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="100">
+        <source xml:space="preserve">Update Memory</source>
+        <target>Actualizar Memoria</target>
+      </segment>
+    </unit>
+    <unit id="101">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">EditMemoryDialog.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="101">
+        <source xml:space="preserve">Enter memory name</source>
+        <target>Introduzca el nombre de la memoria</target>
+      </segment>
+    </unit>
+    <unit id="102">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">EditMemoryDialog.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="102">
+        <source xml:space="preserve">Select source language</source>
+        <target>Seleccione idioma origen</target>
+      </segment>
+    </unit>
+    <unit id="103">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">EditMemoryDialog.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="103">
+        <source xml:space="preserve">Error getting source language</source>
+        <target>Error al obtener idioma origen</target>
+      </segment>
+    </unit>
+    <unit id="104">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ElementConfigurationDialog.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="104">
+        <source xml:space="preserve">Element Configuration</source>
+        <target>Configuración de Elemento</target>
+      </segment>
+    </unit>
+    <unit id="105">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ElementConfigurationDialog.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="105">
+        <source xml:space="preserve">Element Name</source>
+        <target>Nombre del Elemento</target>
+      </segment>
+    </unit>
+    <unit id="106">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ElementConfigurationDialog.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="106">
+        <source xml:space="preserve">Element Type</source>
+        <target>Tipo de Elemento</target>
+      </segment>
+    </unit>
+    <unit id="107">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ElementConfigurationDialog.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="107">
+        <source xml:space="preserve">Inline Type</source>
+        <target>Tipo de Formato</target>
+      </segment>
+    </unit>
+    <unit id="108">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ElementConfigurationDialog.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="108">
+        <source xml:space="preserve">Translatable Attributes</source>
+        <target>Atributos Traducibles</target>
+      </segment>
+    </unit>
+    <unit id="109">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ElementConfigurationDialog.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="109">
+        <source xml:space="preserve">Keep White Space</source>
+        <target>Preservar Espacios</target>
+      </segment>
+    </unit>
+    <unit id="110">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ElementConfigurationDialog.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="110">
+        <source xml:space="preserve">Save Configuration</source>
+        <target>Guardar Configuración</target>
+      </segment>
+    </unit>
+    <unit id="111">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportTmxDialog.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="111">
+        <source xml:space="preserve">Import TMX File</source>
+        <target>Importar Archivo TMX</target>
+      </segment>
+    </unit>
+    <unit id="112">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportTmxDialog.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="112">
+        <source xml:space="preserve">TMX File</source>
+        <target>Archivo TMX</target>
+      </segment>
+    </unit>
+    <unit id="113">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportTmxDialog.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="113">
+        <source xml:space="preserve">Browse...</source>
+        <target>Examinar...</target>
+      </segment>
+    </unit>
+    <unit id="114">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportTmxDialog.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="114">
+        <source xml:space="preserve">Import TMX File</source>
+        <target>Importar Archivo TMX</target>
+      </segment>
+    </unit>
+    <unit id="115">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportTmxDialog.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="115">
+        <source xml:space="preserve">Select TMX file</source>
+        <target>Seleccione archivo TMX</target>
+      </segment>
+    </unit>
+    <unit id="116">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportTmxDialog.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="116">
+        <source xml:space="preserve">Imported {0} segments</source>
+        <target>Segmentos importados {0}</target>
+      </segment>
+    </unit>
+    <unit id="117">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportTmxDialog.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="117">
+        <source xml:space="preserve">TMX Files [*.tmx]</source>
+        <target>Archivos TMX [*.tmx]</target>
+      </segment>
+    </unit>
+    <unit id="118">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportTmxDialog.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="118">
+        <source xml:space="preserve">All Files [*.*]</source>
+        <target>Todos los archivos [*.*]</target>
+      </segment>
+    </unit>
+    <unit id="119">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="119">
+        <source xml:space="preserve">Import XLIFF</source>
+        <target>Importar XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="120">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="120">
+        <source xml:space="preserve">XLIFF File</source>
+        <target>Archivo XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="121">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="121">
+        <source xml:space="preserve">Import XLIFF</source>
+        <target>Importar XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="122">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="122">
+        <source xml:space="preserve">Select XLIFF file</source>
+        <target>Seleccione archivo XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="123">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="123">
+        <source xml:space="preserve">Select output folder</source>
+        <target>Seleccione carpeta destino</target>
+      </segment>
+    </unit>
+    <unit id="124">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="124">
+        <source xml:space="preserve">Selected XLIFF file does not exist</source>
+        <target>El archivo XLIFF seleccionado no existe</target>
+      </segment>
+    </unit>
+    <unit id="125">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="125">
+        <source xml:space="preserve">Selected output folder does not exist</source>
+        <target>La carpeta destino seleccionada no existe</target>
+      </segment>
+    </unit>
+    <unit id="126">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.15</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="126">
+        <source xml:space="preserve">Error creating error log</source>
+        <target>Error creando registro de errores</target>
+      </segment>
+    </unit>
+    <unit id="127">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="127">
+        <source xml:space="preserve">Browse...</source>
+        <target>Examinar...</target>
+      </segment>
+    </unit>
+    <unit id="128">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="128">
+        <source xml:space="preserve">XLIFF Files [*.xlf]</source>
+        <target>Archivos XLIFF [*.xlf]</target>
+      </segment>
+    </unit>
+    <unit id="129">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="129">
+        <source xml:space="preserve">All Files [*.*]</source>
+        <target>Todos los archivos [*.*]</target>
+      </segment>
+    </unit>
+    <unit id="130">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="130">
+        <source xml:space="preserve">Output Folder</source>
+        <target>Carpeta Destino</target>
+      </segment>
+    </unit>
+    <unit id="131">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="131">
+        <source xml:space="preserve">Update Memory</source>
+        <target>Actualizar memoria</target>
+      </segment>
+    </unit>
+    <unit id="132">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="132">
+        <source xml:space="preserve">Accept Unapproved Translations</source>
+        <target>Aceptar traducciones no aprobadas</target>
+      </segment>
+    </unit>
+    <unit id="133">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="133">
+        <source xml:space="preserve">Ignore Inline Tag Errors</source>
+        <target>Ignorar errores de etiquetas</target>
+      </segment>
+    </unit>
+    <unit id="134">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ImportXliffDialog.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="134">
+        <source xml:space="preserve">Cancel</source>
+        <target>Cancelar</target>
+      </segment>
+    </unit>
+    <unit id="135">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="135">
+        <source xml:space="preserve">Subscription Management</source>
+        <target>Manejo de Suscripciones</target>
+      </segment>
+    </unit>
+    <unit id="136">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="136">
+        <source xml:space="preserve">Enter your Subscription Key and click on "Register Subscription" button.
+
+</source>
+        <target>Introduzca su clave de suscripción y haga clic en el botón "Registrar Suscripción".
+
+</target>
+      </segment>
+    </unit>
+    <unit id="137">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="137">
+        <source xml:space="preserve">Expired Subscription</source>
+        <target>Suscripción Caducada</target>
+      </segment>
+    </unit>
+    <unit id="138">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="138">
+        <source xml:space="preserve">A computer user account is required</source>
+        <target>Se necesita una cuenta de usuario de ordenador</target>
+      </segment>
+    </unit>
+    <unit id="139">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="139">
+        <source xml:space="preserve">Error generating registration key</source>
+        <target>Error al generar clave de registro</target>
+      </segment>
+    </unit>
+    <unit id="140">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="140">
+        <source xml:space="preserve">Cannot register in this computer</source>
+        <target>No se puede registrar en este equipo</target>
+      </segment>
+    </unit>
+    <unit id="141">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="141">
+        <source xml:space="preserve">Unsupported version of macOS</source>
+        <target>Versión no compatible de macOS</target>
+      </segment>
+    </unit>
+    <unit id="142">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.15</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="142">
+        <source xml:space="preserve">Unsupported Linux distribution</source>
+        <target>Distribución de Linux no compatible</target>
+      </segment>
+    </unit>
+    <unit id="143">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.16</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="143">
+        <source xml:space="preserve">Unsupported Windows version</source>
+        <target>Versión de Windows no compatible</target>
+      </segment>
+    </unit>
+    <unit id="144">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.17</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="144">
+        <source xml:space="preserve">Unsupported computer type</source>
+        <target>Tipo de ordenador no compatible</target>
+      </segment>
+    </unit>
+    <unit id="145">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.18</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="145">
+        <source xml:space="preserve">Error reading response from server</source>
+        <target>Error al leer la respuesta del servidor</target>
+      </segment>
+    </unit>
+    <unit id="146">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.19</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="146">
+        <source xml:space="preserve">Error sending registration to server. Check your firewall or antivirus.</source>
+        <target>Error al enviar registro al servidor. Compruebe su cortafuegos o antivirus.</target>
+      </segment>
+    </unit>
+    <unit id="147">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="147">
+        <source xml:space="preserve">If you don't have a Subscription Key, click on "Request Evaluation Key".
+
+</source>
+        <target>Si no tiene una clave de suscripción, haga clic en "Solicitar Clave de Evaluación".
+
+</target>
+      </segment>
+    </unit>
+    <unit id="148">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.20</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="148">
+        <source xml:space="preserve">Error reading answer from subscription server. Check your firewall or antivirus.</source>
+        <target>Error al leer respuesta del servidor de suscripciones. Compruebe su cortafuegos o antivirus.</target>
+      </segment>
+    </unit>
+    <unit id="149">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.21</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="149">
+        <source xml:space="preserve">Subscription key is invalid</source>
+        <target>La clave de suscripción no es válida</target>
+      </segment>
+    </unit>
+    <unit id="150">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.22</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="150">
+        <source xml:space="preserve">Subscription key is in use</source>
+        <target>Clave de suscripción en uso</target>
+      </segment>
+    </unit>
+    <unit id="151">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.23</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="151">
+        <source xml:space="preserve">Error saving subscription information</source>
+        <target>Error al guardar información de suscripción</target>
+      </segment>
+    </unit>
+    <unit id="152">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.24</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="152">
+        <source xml:space="preserve">Subscription registered successfully</source>
+        <target>Suscripción registrada correctamente</target>
+      </segment>
+    </unit>
+    <unit id="153">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.25</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="153">
+        <source xml:space="preserve">Registration failed</source>
+        <target>Registro fallido</target>
+      </segment>
+    </unit>
+    <unit id="154">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="154">
+        <source xml:space="preserve">Click on "Proxy Settings" to configure your proxy server if required.
+</source>
+        <target>Haga clic en "Configuración de Proxy" para configurar su servidor proxy si es necesario.
+</target>
+      </segment>
+    </unit>
+    <unit id="155">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="155">
+        <source xml:space="preserve">Subscription Key</source>
+        <target>Clave de Suscripción</target>
+      </segment>
+    </unit>
+    <unit id="156">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="156">
+        <source xml:space="preserve">Proxy Settings</source>
+        <target>Configuración de Proxy</target>
+      </segment>
+    </unit>
+    <unit id="157">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="157">
+        <source xml:space="preserve">Request Evaluation Key</source>
+        <target>Solicitar Clave de Evaluación</target>
+      </segment>
+    </unit>
+    <unit id="158">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="158">
+        <source xml:space="preserve">Register Subscription</source>
+        <target>Registrar Suscripción</target>
+      </segment>
+    </unit>
+    <unit id="159">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="159">
+        <source xml:space="preserve">Purchase Subscription</source>
+        <target>Comprar Suscripción</target>
+      </segment>
+    </unit>
+    <unit id="160">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">LicenseManager.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="160">
+        <source xml:space="preserve">Enter subscription key</source>
+        <target>Introduzca clave de suscripción</target>
+      </segment>
+    </unit>
+    <unit id="161">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="161">
+        <source xml:space="preserve">Create Memory</source>
+        <target>Crear Memoria</target>
+      </segment>
+    </unit>
+    <unit id="162">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="162">
+        <source xml:space="preserve">Edit Memory</source>
+        <target>Modificar Memoria</target>
+      </segment>
+    </unit>
+    <unit id="163">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="163">
+        <source xml:space="preserve">Remove selected memory?</source>
+        <target>¿Eliminar la memoria seleccionada?</target>
+      </segment>
+    </unit>
+    <unit id="164">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="164">
+        <source xml:space="preserve">Error loading memories: {0}</source>
+        <target>Error al cargar memorias: {0}</target>
+      </segment>
+    </unit>
+    <unit id="165">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="165">
+        <source xml:space="preserve">TMX Files [*.tmx]</source>
+        <target>Archivos TMX [*.tmx]</target>
+      </segment>
+    </unit>
+    <unit id="166">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="166">
+        <source xml:space="preserve">All Files [*.*]</source>
+        <target>Todos los archivos [*.*]</target>
+      </segment>
+    </unit>
+    <unit id="167">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="167">
+        <source xml:space="preserve">Memory exported</source>
+        <target>Memoria exportada</target>
+      </segment>
+    </unit>
+    <unit id="168">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.15</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="168">
+        <source xml:space="preserve">Error exporting memory</source>
+        <target>Error al exportar memoria</target>
+      </segment>
+    </unit>
+    <unit id="169">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="169">
+        <source xml:space="preserve">Error editing memory</source>
+        <target>Error al modificar memoria</target>
+      </segment>
+    </unit>
+    <unit id="170">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="170">
+        <source xml:space="preserve">Import TMX File</source>
+        <target>Importar Archivo TMX</target>
+      </segment>
+    </unit>
+    <unit id="171">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="171">
+        <source xml:space="preserve">Export TMX File</source>
+        <target>Exportar Archivo TMX</target>
+      </segment>
+    </unit>
+    <unit id="172">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="172">
+        <source xml:space="preserve">Remove Memory</source>
+        <target>Eliminar Memoria</target>
+      </segment>
+    </unit>
+    <unit id="173">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="173">
+        <source xml:space="preserve">Memory</source>
+        <target>Memoria</target>
+      </segment>
+    </unit>
+    <unit id="174">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="174">
+        <source xml:space="preserve">Created</source>
+        <target>Creada</target>
+      </segment>
+    </unit>
+    <unit id="175">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="175">
+        <source xml:space="preserve">Updated</source>
+        <target>Actualizada</target>
+      </segment>
+    </unit>
+    <unit id="176">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemoriesView.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="176">
+        <source xml:space="preserve">Select memory</source>
+        <target>Seleccione memoria</target>
+      </segment>
+    </unit>
+    <unit id="177">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemorySelectionDialog.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="177">
+        <source xml:space="preserve">Additional Memories</source>
+        <target>Memorias Adicionales</target>
+      </segment>
+    </unit>
+    <unit id="178">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemorySelectionDialog.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="178">
+        <source xml:space="preserve">Description</source>
+        <target>Descripción</target>
+      </segment>
+    </unit>
+    <unit id="179">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemorySelectionDialog.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="179">
+        <source xml:space="preserve">Add Selected Memories</source>
+        <target>Añadir Memorias Seleccionadas</target>
+      </segment>
+    </unit>
+    <unit id="180">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemorySelectionDialog.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="180">
+        <source xml:space="preserve">Error selecting memory</source>
+        <target>Error al seleccionar memoria</target>
+      </segment>
+    </unit>
+    <unit id="181">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">MemorySelectionDialog.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="181">
+        <source xml:space="preserve">Error loading memories</source>
+        <target>Error al cargar memorias</target>
+      </segment>
+    </unit>
+    <unit id="182">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">PreferencesDialog.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="182">
+        <source xml:space="preserve">Preferences</source>
+        <target>Preferencias</target>
+      </segment>
+    </unit>
+    <unit id="183">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">PreferencesDialog.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="183">
+        <source xml:space="preserve">General</source>
+      </segment>
+    </unit>
+    <unit id="184">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">PreferencesDialog.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="184">
+        <source xml:space="preserve">XML Options</source>
+        <target>Opciones XML</target>
+      </segment>
+    </unit>
+    <unit id="185">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="185">
+        <source xml:space="preserve">Create Project</source>
+        <target>Crear Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="186">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="186">
+        <source xml:space="preserve">Update Project</source>
+        <target>Actualizar Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="187">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="187">
+        <source xml:space="preserve">Error retrieving language list</source>
+        <target>Error al recuperar la lista de idiomas</target>
+      </segment>
+    </unit>
+    <unit id="188">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="188">
+        <source xml:space="preserve">Error retrieving source language</source>
+        <target>Error al recuperar idioma origen</target>
+      </segment>
+    </unit>
+    <unit id="189">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="189">
+        <source xml:space="preserve">Error retrieving default source language</source>
+        <target>Error al recuperar idioma origen predeterminado</target>
+      </segment>
+    </unit>
+    <unit id="190">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="190">
+        <source xml:space="preserve">Target Languages</source>
+        <target>Idiomas Destino</target>
+      </segment>
+    </unit>
+    <unit id="191">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="191">
+        <source xml:space="preserve">Error getting target languages</source>
+        <target>Error al obtener idiomas destino</target>
+      </segment>
+    </unit>
+    <unit id="192">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.15</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="192">
+        <source xml:space="preserve">Error retrieving default target languages</source>
+        <target>Error al recuperar idiomas destino predeterminados</target>
+      </segment>
+    </unit>
+    <unit id="193">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.16</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="193">
+        <source xml:space="preserve">Add Target Language</source>
+        <target>Añadir Idioma Destino</target>
+      </segment>
+    </unit>
+    <unit id="194">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.17</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="194">
+        <source xml:space="preserve">Remove Selected Languages</source>
+        <target>Eliminar Idiomas Seleccionados</target>
+      </segment>
+    </unit>
+    <unit id="195">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.18</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="195">
+        <source xml:space="preserve">Error deleting language</source>
+        <target>Error al eliminar idioma</target>
+      </segment>
+    </unit>
+    <unit id="196">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.19</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="196">
+        <source xml:space="preserve">Memories</source>
+        <target>Memorias</target>
+      </segment>
+    </unit>
+    <unit id="197">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="197">
+        <source xml:space="preserve">DITA Map</source>
+        <target>Mapa DITA</target>
+      </segment>
+    </unit>
+    <unit id="198">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.20</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="198">
+        <source xml:space="preserve">Error retrieving memory</source>
+        <target>Error al recuperar memoria</target>
+      </segment>
+    </unit>
+    <unit id="199">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.21</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="199">
+        <source xml:space="preserve">Associate Other Memories</source>
+        <target>Asociar Otras Memorias</target>
+      </segment>
+    </unit>
+    <unit id="200">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.22</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="200">
+        <source xml:space="preserve">Error retrieving memory</source>
+        <target>Error al recuperar memoria</target>
+      </segment>
+    </unit>
+    <unit id="201">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.23</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="201">
+        <source xml:space="preserve">Remove Selected Memories</source>
+        <target>Eliminar Memorias Seleccionadas</target>
+      </segment>
+    </unit>
+    <unit id="202">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.24</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="202">
+        <source xml:space="preserve">Create Project</source>
+        <target>Crear Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="203">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.25</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="203">
+        <source xml:space="preserve">Update Project</source>
+        <target>Actualizar Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="204">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.26</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="204">
+        <source xml:space="preserve">Enter project name</source>
+        <target>Introduzca el nombre del proyecto</target>
+      </segment>
+    </unit>
+    <unit id="205">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.27</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="205">
+        <source xml:space="preserve">Select a DITA map</source>
+        <target>Seleccione un mapa DITA</target>
+      </segment>
+    </unit>
+    <unit id="206">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.28</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="206">
+        <source xml:space="preserve">Selected DITA map does not exist</source>
+        <target>El mapa DITA seleccionado no existe</target>
+      </segment>
+    </unit>
+    <unit id="207">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.29</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="207">
+        <source xml:space="preserve">Select source language</source>
+        <target>Seleccione idioma origen</target>
+      </segment>
+    </unit>
+    <unit id="208">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="208">
+        <source xml:space="preserve">Browse...</source>
+        <target>Examinar...</target>
+      </segment>
+    </unit>
+    <unit id="209">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.30</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="209">
+        <source xml:space="preserve">Error getting source language</source>
+        <target>Error al obtener idioma origen</target>
+      </segment>
+    </unit>
+    <unit id="210">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.31</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="210">
+        <source xml:space="preserve">Select target languages</source>
+        <target>Seleccione idiomas destino</target>
+      </segment>
+    </unit>
+    <unit id="211">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.32</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="211">
+        <source xml:space="preserve">Error creating project</source>
+        <target>Error al crear proyecto</target>
+      </segment>
+    </unit>
+    <unit id="212">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.33</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="212">
+        <source xml:space="preserve">Error updating project</source>
+        <target>Error al actualizar proyecto</target>
+      </segment>
+    </unit>
+    <unit id="213">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.34</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="213">
+        <source xml:space="preserve">Null language</source>
+        <target>Idioma nulo</target>
+      </segment>
+    </unit>
+    <unit id="214">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.35</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="214">
+        <source xml:space="preserve">Duplicated language</source>
+        <target>Idioma duplicado</target>
+      </segment>
+    </unit>
+    <unit id="215">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.36</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="215">
+        <source xml:space="preserve">Error adding language</source>
+        <target>Error al añadir idioma</target>
+      </segment>
+    </unit>
+    <unit id="216">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="216">
+        <source xml:space="preserve">DITA Map Files [*.ditamap]</source>
+        <target>Archivos Mapa DITA [*.ditamap]</target>
+      </segment>
+    </unit>
+    <unit id="217">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="217">
+        <source xml:space="preserve">XML Files [*.xml]</source>
+        <target>Archivos XML [*.xml]</target>
+      </segment>
+    </unit>
+    <unit id="218">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="218">
+        <source xml:space="preserve">ALL Files [*.*]</source>
+        <target>Todos los archivos [*.*]</target>
+      </segment>
+    </unit>
+    <unit id="219">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="219">
+        <source xml:space="preserve">Project Name</source>
+        <target>Nombre del Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="220">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="220">
+        <source xml:space="preserve">Project Description</source>
+        <target>Descripción del Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="221">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectDialog.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="221">
+        <source xml:space="preserve">Source Language</source>
+        <target>Idioma Origen</target>
+      </segment>
+    </unit>
+    <unit id="222">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="222">
+        <source xml:space="preserve">Status</source>
+        <target>Estado</target>
+      </segment>
+    </unit>
+    <unit id="223">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="223">
+        <source xml:space="preserve">Language</source>
+        <target>Idioma</target>
+      </segment>
+    </unit>
+    <unit id="224">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="224">
+        <source xml:space="preserve">Event</source>
+        <target>Evento</target>
+      </segment>
+    </unit>
+    <unit id="225">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="225">
+        <source xml:space="preserve">Error populating project history</source>
+        <target>Error al rellenar historial del proyecto</target>
+      </segment>
+    </unit>
+    <unit id="226">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="226">
+        <source xml:space="preserve">Project Information</source>
+        <target>Información del Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="227">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="227">
+        <source xml:space="preserve">Project: {0}</source>
+        <target>Proyecto: {0}</target>
+      </segment>
+    </unit>
+    <unit id="228">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="228">
+        <source xml:space="preserve">Status</source>
+        <target>Estado</target>
+      </segment>
+    </unit>
+    <unit id="229">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="229">
+        <source xml:space="preserve">Error populating status table</source>
+        <target>Error al rellenar tabla de estado</target>
+      </segment>
+    </unit>
+    <unit id="230">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="230">
+        <source xml:space="preserve">Mark Selection as Translated</source>
+        <target>Marcar Selección Como Traducida</target>
+      </segment>
+    </unit>
+    <unit id="231">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="231">
+        <source xml:space="preserve">Error populating status table</source>
+        <target>Error al rellenar tabla de estado</target>
+      </segment>
+    </unit>
+    <unit id="232">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="232">
+        <source xml:space="preserve">History</source>
+        <target>Historial</target>
+      </segment>
+    </unit>
+    <unit id="233">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="233">
+        <source xml:space="preserve">Date</source>
+        <target>Fecha</target>
+      </segment>
+    </unit>
+    <unit id="234">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="234">
+        <source xml:space="preserve">Version</source>
+        <target>Versión</target>
+      </segment>
+    </unit>
+    <unit id="235">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectInfoDialog.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="235">
+        <source xml:space="preserve">Language</source>
+        <target>Idioma</target>
+      </segment>
+    </unit>
+    <unit id="236">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="236">
+        <source xml:space="preserve">Create Project</source>
+        <target>Crear Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="237">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="237">
+        <source xml:space="preserve">Edit Project</source>
+        <target>Modificar Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="238">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="238">
+        <source xml:space="preserve">Updated</source>
+        <target>Actualizada</target>
+      </segment>
+    </unit>
+    <unit id="239">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="239">
+        <source xml:space="preserve">Error loading projects: {0}</source>
+        <target>Error al cargar proyectos: {0}</target>
+      </segment>
+    </unit>
+    <unit id="240">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="240">
+        <source xml:space="preserve">Select project</source>
+        <target>Seleccione un proyecto</target>
+      </segment>
+    </unit>
+    <unit id="241">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="241">
+        <source xml:space="preserve">DITA map not found</source>
+        <target>Mapa DITA no encontrado</target>
+      </segment>
+    </unit>
+    <unit id="242">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="242">
+        <source xml:space="preserve">Remove selected project?</source>
+        <target>¿Eliminar el proyecto seleccionado?</target>
+      </segment>
+    </unit>
+    <unit id="243">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.15</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="243">
+        <source xml:space="preserve">Error deleting project</source>
+        <target>Error al eliminar proyecto</target>
+      </segment>
+    </unit>
+    <unit id="244">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="244">
+        <source xml:space="preserve">Project Information</source>
+        <target>Información del Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="245">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="245">
+        <source xml:space="preserve">Generate XLIFF</source>
+        <target>Generar XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="246">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="246">
+        <source xml:space="preserve">Import XLIFF</source>
+        <target>Importar XLIFF</target>
+      </segment>
+    </unit>
+    <unit id="247">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="247">
+        <source xml:space="preserve">Remove Project</source>
+        <target>Eliminar Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="248">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="248">
+        <source xml:space="preserve">Project</source>
+        <target>Proyecto</target>
+      </segment>
+    </unit>
+    <unit id="249">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="249">
+        <source xml:space="preserve">Map File</source>
+        <target>Mapa DITA</target>
+      </segment>
+    </unit>
+    <unit id="250">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="250">
+        <source xml:space="preserve">Status</source>
+        <target>Estado</target>
+      </segment>
+    </unit>
+    <unit id="251">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProjectsView.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="251">
+        <source xml:space="preserve">Created</source>
+        <target>Creada</target>
+      </segment>
+    </unit>
+    <unit id="252">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProxySettings.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="252">
+        <source xml:space="preserve">Proxy Settings</source>
+        <target>Configuración de Proxy</target>
+      </segment>
+    </unit>
+    <unit id="253">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProxySettings.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="253">
+        <source xml:space="preserve">Server</source>
+        <target>Servidor</target>
+      </segment>
+    </unit>
+    <unit id="254">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProxySettings.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="254">
+        <source xml:space="preserve">Port</source>
+        <target>Puerto</target>
+      </segment>
+    </unit>
+    <unit id="255">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProxySettings.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="255">
+        <source xml:space="preserve">User ID</source>
+        <target>Usuario</target>
+      </segment>
+    </unit>
+    <unit id="256">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProxySettings.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="256">
+        <source xml:space="preserve">Password</source>
+        <target>Contraseña</target>
+      </segment>
+    </unit>
+    <unit id="257">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProxySettings.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="257">
+        <source xml:space="preserve">Save Proxy Settings</source>
+        <target>Guardar Configuración de Proxy</target>
+      </segment>
+    </unit>
+    <unit id="258">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProxySettings.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="258">
+        <source xml:space="preserve">Error saving proxy settings</source>
+        <target>Error al guardar configuración de proxy</target>
+      </segment>
+    </unit>
+    <unit id="259">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ProxySettings.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="259">
+        <source xml:space="preserve">Unknown error saving proxy settings</source>
+        <target>Error desconocido al guardar configuración de proxy</target>
+      </segment>
+    </unit>
+    <unit id="260">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="260">
+        <source xml:space="preserve">Request Evaluation Key</source>
+        <target>Solicitar Clave de Evaluación</target>
+      </segment>
+    </unit>
+    <unit id="261">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="261">
+        <source xml:space="preserve">First Name</source>
+        <target>Nombres</target>
+      </segment>
+    </unit>
+    <unit id="262">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="262">
+        <source xml:space="preserve">Repeat email</source>
+        <target>Repita email</target>
+      </segment>
+    </unit>
+    <unit id="263">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="263">
+        <source xml:space="preserve">Different emails</source>
+        <target>Emails diferentes</target>
+      </segment>
+    </unit>
+    <unit id="264">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="264">
+        <source xml:space="preserve">Enter valid email</source>
+        <target>Introduzca un email válido</target>
+      </segment>
+    </unit>
+    <unit id="265">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="265">
+        <source xml:space="preserve">A computer user account is required</source>
+        <target>Se necesita una cuenta de usuario de ordenador</target>
+      </segment>
+    </unit>
+    <unit id="266">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="266">
+        <source xml:space="preserve">Error generating subscription key</source>
+        <target>Error al generar clave de suscripción</target>
+      </segment>
+    </unit>
+    <unit id="267">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.15</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="267">
+        <source xml:space="preserve">Cannot register trial in this computer</source>
+        <target>No se puede registrar evaluación en este equipo</target>
+      </segment>
+    </unit>
+    <unit id="268">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.16</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="268">
+        <source xml:space="preserve">Unsupported version of macOS</source>
+        <target>Versión no compatible de macOS</target>
+      </segment>
+    </unit>
+    <unit id="269">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.17</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="269">
+        <source xml:space="preserve">Unsupported Linux distribution</source>
+        <target>Distribución de Linux no compatible</target>
+      </segment>
+    </unit>
+    <unit id="270">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.18</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="270">
+        <source xml:space="preserve">Unsupported Windows version</source>
+        <target>Versión de Windows no compatible</target>
+      </segment>
+    </unit>
+    <unit id="271">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.19</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="271">
+        <source xml:space="preserve">Unsupported computer type</source>
+        <target>Tipo de ordenador no compatible</target>
+      </segment>
+    </unit>
+    <unit id="272">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="272">
+        <source xml:space="preserve">Last Name</source>
+        <target>Apellidos</target>
+      </segment>
+    </unit>
+    <unit id="273">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.20</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="273">
+        <source xml:space="preserve">Error reading response from server</source>
+        <target>Error al leer la respuesta del servidor</target>
+      </segment>
+    </unit>
+    <unit id="274">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.21</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="274">
+        <source xml:space="preserve">Error sending registration to server. Check your firewall or antivirus.</source>
+        <target>Error al enviar registro al servidor. Compruebe su cortafuegos o antivirus.</target>
+      </segment>
+    </unit>
+    <unit id="275">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.22</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="275">
+        <source xml:space="preserve">Error reading answer from subscription server. Check your firewall or antivirus.</source>
+        <target>Error al leer respuesta del servidor de suscripciones. Compruebe su cortafuegos o antivirus.</target>
+      </segment>
+    </unit>
+    <unit id="276">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.23</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="276">
+        <source xml:space="preserve">Selected email account is not supported</source>
+        <target>La cuenta de correo electrónico seleccionada no es compatible</target>
+      </segment>
+    </unit>
+    <unit id="277">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.24</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="277">
+        <source xml:space="preserve">We received your request. An Evaluation Subscription Key was sent to the indicated email address.
+
+Check your spam filter if you don't receive the Evaluation Subscription Key in the next few minutes.</source>
+        <target>Hemos recibido su solicitud. Se ha enviado una clave de evaluación a la dirección de correo electrónico indicada.
+
+Compruebe su filtro de correo no deseado si no recibe la clave de suscripción de evaluación en los próximos minutos.</target>
+      </segment>
+    </unit>
+    <unit id="278">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.25</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="278">
+        <source xml:space="preserve">An evaluation key has been requested for this computer before.
+
+A subscription key is required to continue using this program.
+
+Contact tech@maxprograms.com for assistance.</source>
+        <target>Ya se ha solicitado una clave de evaluación para este equipo.
+
+Se necesita una clave de suscripción para seguir utilizando este programa.
+
+Contacte a tech@maxprograms.com por asistencia.</target>
+      </segment>
+    </unit>
+    <unit id="279">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.26</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="279">
+        <source xml:space="preserve">Evaluation request failed</source>
+        <target>Solicitud de evaluación fallida</target>
+      </segment>
+    </unit>
+    <unit id="280">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.27</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="280">
+        <source xml:space="preserve">Request Received</source>
+        <target>Solicitud Recibida</target>
+      </segment>
+    </unit>
+    <unit id="281">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="281">
+        <source xml:space="preserve">Company</source>
+        <target>Empresa</target>
+      </segment>
+    </unit>
+    <unit id="282">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="282">
+        <source xml:space="preserve">Email</source>
+      </segment>
+    </unit>
+    <unit id="283">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="283">
+        <source xml:space="preserve">Repeat Email</source>
+        <target>Repetir Email</target>
+      </segment>
+    </unit>
+    <unit id="284">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="284">
+        <source xml:space="preserve">Request Evaluation Key</source>
+        <target>Solicitar Clave de Evaluación</target>
+      </segment>
+    </unit>
+    <unit id="285">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="285">
+        <source xml:space="preserve">Enter first name</source>
+        <target>Introduzca nombres</target>
+      </segment>
+    </unit>
+    <unit id="286">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="286">
+        <source xml:space="preserve">Enter last name</source>
+        <target>Introduzca apellidos</target>
+      </segment>
+    </unit>
+    <unit id="287">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">RequestTrial.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="287">
+        <source xml:space="preserve">Enter email</source>
+        <target>Intoduzca email</target>
+      </segment>
+    </unit>
+    <unit id="288">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="288">
+        <source xml:space="preserve">XML Content</source>
+        <target>Contenido XML</target>
+      </segment>
+    </unit>
+    <unit id="289">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="289">
+        <source xml:space="preserve">Translate XML Comments</source>
+        <target>Traducir comentarios XML</target>
+      </segment>
+    </unit>
+    <unit id="290">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="290">
+        <source xml:space="preserve">Select a configuration file</source>
+        <target>Seleccione archivo de configuración</target>
+      </segment>
+    </unit>
+    <unit id="291">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="291">
+        <source xml:space="preserve">Remove {0}?</source>
+        <target>¿Eliminar {0}?</target>
+      </segment>
+    </unit>
+    <unit id="292">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="292">
+        <source xml:space="preserve">XML Catalog</source>
+        <target>Catálogo XML</target>
+      </segment>
+    </unit>
+    <unit id="293">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="293">
+        <source xml:space="preserve">Error loading catalog</source>
+        <target>Error al cargar catálogo</target>
+      </segment>
+    </unit>
+    <unit id="294">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="294">
+        <source xml:space="preserve">Add Catalog Entry</source>
+        <target>Añadir Entrada de Catálogo</target>
+      </segment>
+    </unit>
+    <unit id="295">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.15</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="295">
+        <source xml:space="preserve">Remove Catalog Entry</source>
+        <target>Eliminar Entrada de Catálogo</target>
+      </segment>
+    </unit>
+    <unit id="296">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.16</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="296">
+        <source xml:space="preserve">Select a catalog entry</source>
+        <target>Seleccione una entrada de catálogo</target>
+      </segment>
+    </unit>
+    <unit id="297">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.17</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="297">
+        <source xml:space="preserve">Remove selected entry?</source>
+        <target>¿Eliminar entrada seleccionada?</target>
+      </segment>
+    </unit>
+    <unit id="298">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.18</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="298">
+        <source xml:space="preserve">Error saving catalog</source>
+        <target>Error al guardar catálogo</target>
+      </segment>
+    </unit>
+    <unit id="299">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.19</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="299">
+        <source xml:space="preserve">Select a configuration file</source>
+        <target>Seleccione archivo de configuración</target>
+      </segment>
+    </unit>
+    <unit id="300">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="300">
+        <source xml:space="preserve">Error retrieving XML preferences</source>
+        <target>Error al recuperar preferencias XML</target>
+      </segment>
+    </unit>
+    <unit id="301">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.20</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="301">
+        <source xml:space="preserve">XML Files [*.xml]</source>
+        <target>Archivos XML [*.xml]</target>
+      </segment>
+    </unit>
+    <unit id="302">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.21</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="302">
+        <source xml:space="preserve">All Files [*.*]</source>
+        <target>Todos los archivos [*.*]</target>
+      </segment>
+    </unit>
+    <unit id="303">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="303">
+        <source xml:space="preserve">Error saving XML preferences</source>
+        <target>Error al guardar preferencias XML</target>
+      </segment>
+    </unit>
+    <unit id="304">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="304">
+        <source xml:space="preserve">Configuration Files</source>
+        <target>Archivos de configuración</target>
+      </segment>
+    </unit>
+    <unit id="305">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="305">
+        <source xml:space="preserve">Configuration File</source>
+        <target>Archivo de configuración</target>
+      </segment>
+    </unit>
+    <unit id="306">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="306">
+        <source xml:space="preserve">Add Configuration File</source>
+        <target>Añadir Archivo de Configuración</target>
+      </segment>
+    </unit>
+    <unit id="307">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="307">
+        <source xml:space="preserve">Overwrite {0}?</source>
+        <target>¿Sobrescribir {0}?</target>
+      </segment>
+    </unit>
+    <unit id="308">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="308">
+        <source xml:space="preserve">Edit Configuration File</source>
+        <target>Modificar Archivo de Configuración</target>
+      </segment>
+    </unit>
+    <unit id="309">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">XmlPreferences.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="309">
+        <source xml:space="preserve">Remove Configuration File</source>
+        <target>Eliminar Archivo de Configuración</target>
+      </segment>
+    </unit>
+  </file>
+<file original="com/maxprograms/widgets/widgets.properties" id="5">
+    <skeleton>Q3VzdG9tTGluay4wPSUlJTAlJSUK</skeleton>
+    <mda:metadata>
+      <mda:metaGroup category="format">
+        <mda:meta type="datatype">javapropertyresourcebundle</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="tool">
+        <mda:meta type="tool-id">OpenXLIFF</mda:meta>
+        <mda:meta type="tool-name">OpenXLIFF Filters</mda:meta>
+        <mda:meta type="tool-version">3.11.0 20230726_0946</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="PI">
+        <mda:meta type="encoding">UTF-8</mda:meta>
+      </mda:metaGroup>
+    </mda:metadata>
+    <unit id="0">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">CustomLink.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="initial" id="0">
+        <source xml:space="preserve">Error displaying link</source>
+        <target>Error al mostrar enlace</target>
+      </segment>
+    </unit>
+  </file></xliff>
