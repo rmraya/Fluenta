@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="task_dyk_t44_ts">
+    <title>Create Memory</title>
+    <taskbody>
+        <context>
+            <p>Follow these steps to create a new translation memory.</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>In main menu, select <menucascade>
+                        <uicontrol>Memories</uicontrol>
+                        <uicontrol>Create Memory</uicontrol>
+                    </menucascade> or click the <uicontrol><image href="../images/add.png"
+                            placement="inline" alt="Create Memory" height="14"/>Create
+                        Memory</uicontrol> button in <uicontrol>Memories</uicontrol> view
+                    toolbar.</cmd>
+                <stepresult>The following dialog appears: <image placement="break"
+                        href="../images/create_memory.png" id="image_rwb_ptc_5s" align="center"
+                        scale="70">
+                        <alt><uicontrol>Create Memory</uicontrol> dialog</alt>
+                    </image>
+                </stepresult>
+            </step>
+            <step>
+                <cmd>Type a name for the new memory in the <uicontrol>Memory Name</uicontrol> text
+                    box.</cmd>
+            </step>
+            <step>
+                <cmd>Select the source language for the new memory in the <uicontrol>Source
+                        Language</uicontrol> drop-down list.</cmd>
+            </step>
+            <step>
+                <cmd>Optionally, enter a description in the <uicontrol>Memory
+                        Description</uicontrol> text box.</cmd>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Create Memory</uicontrol> button.</cmd>
+            </step>
+        </steps>
+        <result>A new memory is created and the list of memories in the
+                <uicontrol>Memories</uicontrol> view is updated to reflect the changes.</result>
+    </taskbody>
+</task>

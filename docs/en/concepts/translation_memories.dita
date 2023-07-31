@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd" >
+<concept id="concept_mbw_2w2_ts" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" ditaarch:DITAArchVersion="1.2" domains="(topic concept)                            (topic hi-d)                             (topic ut-d)                             (topic indexing-d)                            (topic hazard-d)                            (topic abbrev-d)                            (topic pr-d)                             (topic sw-d)                            (topic ui-d)    " class="- topic/topic concept/concept " xml:lang="en-US">
+ <title class="- topic/title ">Translation Memories</title>
+ <conbody class="- topic/body  concept/conbody ">
+  <p class="- topic/p ">Translation Memory (TM) is a language technology that enables the
+   translation of segments (paragraphs, sentences or phrases) of documents by searching for similar
+   segments in a database and suggesting matches that are found in the databases as possible
+   translations.</p>
+  <p>When you create a project, a new translation memory is automatically created and associated
+   with your project. When you import a translated XLIFF file, the memory associated with the
+   project is populated with the translations included in the XLIFF file.</p>
+  <p>When you generate a new XLIFF file after adding new content to your project, Fluenta can reuse
+   the data stored in the associated memories to translate the newly added content, reducing
+   translation costs.</p>
+ </conbody>
+</concept>

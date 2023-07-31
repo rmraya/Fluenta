@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE glossentry PUBLIC "-//OASIS//DTD DITA Glossary//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/glossary.dtd">
+<glossentry xml:lang="es" id="LSP">
+  <glossterm>Proveedor de Servicios Lingüísticos (PSL)</glossterm>
+  <glossdef>Una empresa o individuo especializado en proporcionar servicios de traducción y localización.</glossdef>
+</glossentry>

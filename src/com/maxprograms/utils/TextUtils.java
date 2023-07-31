@@ -79,7 +79,7 @@ public class TextUtils {
 			return calendar.getTimeInMillis();
 		} catch (NumberFormatException | IndexOutOfBoundsException e) {
 			Logger logger = System.getLogger(TextUtils.class.getName());
-			logger.log(Level.WARNING, "Error getting GMT time", e);
+			logger.log(Level.WARNING, Messages.getString("TextUtils.0"), e);
 			return 0l;
 		}
 	}

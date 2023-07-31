@@ -70,7 +70,7 @@ public class CustomLink  {
 			link.setForeground(parent.getDisplay().getSystemColor(SWT.COLOR_MAGENTA));
 		} catch (SWTException | IOException e) {
 			Logger logger = System.getLogger(CustomLink.class.getName());
-			logger.log(Level.WARNING, "Error displaying link", e); 
+			logger.log(Level.WARNING, Messages.getString("CustomLink.0"), e); 
 			MessageBox box = new MessageBox(parent.getShell(), SWT.ICON_ERROR);
 			box.setMessage(e.getMessage());
 			box.open();

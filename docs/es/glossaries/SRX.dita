@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE glossentry PUBLIC "-//OASIS//DTD DITA Glossary//EN" "glossary.dtd">
+<glossentry xml:lang="es" id="SRX">
+  <glossterm>SRX</glossterm>
+  <glossdef>Segmentation Rules eXchange (SRX) es un estándar abierto basado en XML, publicado por LISA (Localization Industry Standards Association), para describir cómo las herramientas de traducción y de procesamiento de idiomas segmentan el texto para su procesamiento.</glossdef>
+</glossentry>

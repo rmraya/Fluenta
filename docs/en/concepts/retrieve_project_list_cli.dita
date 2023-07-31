@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_dvw_y5b_dt">
+   <title>Retrieve Project List</title>
+   <conbody>
+      <p>Use the following parameter to retrieve the list of projects from command line:</p>
+      <table>
+         <tgroup cols="4">
+            <colspec colwidth="20*" align="center"/>
+            <colspec colwidth="15*" align="center"/>
+            <colspec colwidth="50*" align="left"/>
+            <colspec colwidth="15*" align="center"/>
+            <thead>
+               <row>
+                  <entry>Parameter</entry>
+                  <entry>Value</entry>
+                  <entry>Description</entry>
+                  <entry>Required</entry>
+               </row>
+            </thead>
+            <tbody>
+               <row>
+                  <entry translate="no">-getProjects</entry>
+                  <entry/>
+                  <entry/>
+                  <entry>Yes</entry>
+               </row>
+            </tbody>
+         </tgroup>
+      </table>
+      <p>Example:</p>
+      <codeblock translate="no">
+./fluenta_cli.sh -getProjects 
+  </codeblock>
+      <p>Output example:</p>
+      <codeblock translate="no">
+{"projects": [
+   {
+      "owner": "admin",
+      "tgtLang": [
+         "es",
+         "fr"
+      ],
+      "lastUpdate": "2015-09-06 16:09",
+      "memories": [12345678],
+      "description": "project created using JSON and CLI",
+      "id": 12345678,
+      "title": "JSON test",
+      "creationDate": "2015-09-05 08:29",
+      "targetStatus": {
+         "fr": "In Progress",
+         "es": "Completed"
+      },
+      "map": "/Users/admin/sample content/en/User_Guide-use-only.ditamap",
+      "srcLang": "en-US",
+      "status": "In Progress"
+   },
+   {
+      "owner": "admin",
+      "tgtLang": ["fr"],
+      "lastUpdate": "2015-07-29 18:50",
+      "memories": [1438205821009],
+      "description": "Fluenta Demo",
+      "id": 1438205821009,
+      "title": "Thunderbird",
+      "creationDate": "2015-07-29 18:37",
+      "targetStatus": {"fr": "In Progress"},
+      "map": "/Users/admin/sample content/en/User_Guide.ditamap",
+      "srcLang": "en-US",
+      "status": "In Progress"
+   }
+]}    
+   </codeblock>
+
+   </conbody>
+</concept>

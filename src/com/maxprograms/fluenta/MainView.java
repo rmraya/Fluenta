@@ -17,10 +17,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -37,6 +38,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.xml.sax.SAXException;
 
 import com.maxprograms.fluenta.controllers.LocalController;
 import com.maxprograms.fluenta.views.AboutBox;
@@ -44,6 +46,7 @@ import com.maxprograms.fluenta.views.MemoriesView;
 import com.maxprograms.fluenta.views.PreferencesDialog;
 import com.maxprograms.fluenta.views.ProjectsView;
 import com.maxprograms.utils.Locator;
+import com.maxprograms.utils.Preferences;
 
 public class MainView {
 
@@ -124,12 +127,12 @@ public class MainView {
 		folder.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		CTabItem projectsTab = new CTabItem(folder, SWT.NONE);
-		projectsTab.setText("Projects");
+		projectsTab.setText(Messages.getString("MainView.0"));
 		projectsView = new ProjectsView(folder, SWT.NONE, this);
 		projectsTab.setControl(projectsView);
 
 		CTabItem memoriesTab = new CTabItem(folder, SWT.NONE);
-		memoriesTab.setText("Memories");
+		memoriesTab.setText(Messages.getString("MainView.1"));
 		memoriesView = new MemoriesView(folder, SWT.NONE, this);
 		memoriesTab.setControl(memoriesView);
 
@@ -171,7 +174,7 @@ public class MainView {
 
 		if (!isMac) {
 			MenuItem file = new MenuItem(bar, SWT.CASCADE);
-			file.setText("&File");
+			file.setText(Messages.getString("MainView.2"));
 			Menu fileMenu = new Menu(file);
 			file.setMenu(fileMenu);
 
@@ -179,10 +182,10 @@ public class MainView {
 
 			MenuItem close = new MenuItem(fileMenu, SWT.PUSH);
 			if (System.getProperty("file.separator").equals("\\")) {
-				close.setText("Exit\tAlt + F4");
+				close.setText(Messages.getString("MainView.3"));
 				close.setAccelerator(SWT.ALT | SWT.F4);
 			} else {
-				close.setText("Quit\tCtrl + Q");
+				close.setText(Messages.getString("MainView.4"));
 				close.setAccelerator(SWT.CTRL | 'Q');
 			}
 			close.addSelectionListener(new SelectionAdapter() {
@@ -195,12 +198,12 @@ public class MainView {
 		}
 
 		MenuItem projects = new MenuItem(bar, SWT.CASCADE);
-		projects.setText("&Projects");
+		projects.setText(Messages.getString("MainView.5"));
 		Menu projectsMenu = new Menu(projects);
 		projects.setMenu(projectsMenu);
 
 		MenuItem createProject = new MenuItem(projectsMenu, SWT.PUSH);
-		createProject.setText("Create Project");
+		createProject.setText(Messages.getString("MainView.6"));
 		createProject.setImage(Fluenta.getResourceManager().getAdd());
 		createProject.addSelectionListener(new SelectionAdapter() {
 
@@ -211,7 +214,7 @@ public class MainView {
 		});
 
 		MenuItem updateProject = new MenuItem(projectsMenu, SWT.PUSH);
-		updateProject.setText("Edit Project");
+		updateProject.setText(Messages.getString("MainView.7"));
 		updateProject.setImage(Fluenta.getResourceManager().getEdit());
 		updateProject.addSelectionListener(new SelectionAdapter() {
 
@@ -222,7 +225,7 @@ public class MainView {
 		});
 
 		MenuItem projectDetails = new MenuItem(projectsMenu, SWT.PUSH);
-		projectDetails.setText("Project Information");
+		projectDetails.setText(Messages.getString("MainView.8"));
 		projectDetails.setImage(Fluenta.getResourceManager().getInfo());
 		projectDetails.addSelectionListener(new SelectionAdapter() {
 
@@ -235,7 +238,7 @@ public class MainView {
 		new MenuItem(projectsMenu, SWT.SEPARATOR);
 
 		MenuItem generateXliff = new MenuItem(projectsMenu, SWT.PUSH);
-		generateXliff.setText("Generate XLIFF");
+		generateXliff.setText(Messages.getString("MainView.9"));
 		generateXliff.setImage(Fluenta.getResourceManager().getRight());
 		generateXliff.addSelectionListener(new SelectionAdapter() {
 
@@ -246,7 +249,7 @@ public class MainView {
 		});
 
 		MenuItem importXliff = new MenuItem(projectsMenu, SWT.PUSH);
-		importXliff.setText("Import XLIFF");
+		importXliff.setText(Messages.getString("MainView.10"));
 		importXliff.setImage(Fluenta.getResourceManager().getLeft());
 		importXliff.addSelectionListener(new SelectionAdapter() {
 
@@ -259,7 +262,7 @@ public class MainView {
 		new MenuItem(projectsMenu, SWT.SEPARATOR);
 
 		MenuItem removeProject = new MenuItem(projectsMenu, SWT.PUSH);
-		removeProject.setText("Remove Project");
+		removeProject.setText(Messages.getString("MainView.11"));
 		removeProject.setImage(Fluenta.getResourceManager().getRemove());
 		removeProject.addSelectionListener(new SelectionAdapter() {
 
@@ -270,12 +273,12 @@ public class MainView {
 		});
 
 		MenuItem memory = new MenuItem(bar, SWT.CASCADE);
-		memory.setText("&Memories");
+		memory.setText(Messages.getString("MainView.12"));
 		Menu memoryMenu = new Menu(memory);
 		memory.setMenu(memoryMenu);
 
 		MenuItem addMemory = new MenuItem(memoryMenu, SWT.PUSH);
-		addMemory.setText("Create Memory");
+		addMemory.setText(Messages.getString("MainView.13"));
 		addMemory.setImage(Fluenta.getResourceManager().getAdd());
 		addMemory.addSelectionListener(new SelectionAdapter() {
 
@@ -287,7 +290,7 @@ public class MainView {
 		});
 
 		MenuItem editMemory = new MenuItem(memoryMenu, SWT.PUSH);
-		editMemory.setText("Edit Memory");
+		editMemory.setText(Messages.getString("MainView.14"));
 		editMemory.setImage(Fluenta.getResourceManager().getEdit());
 		editMemory.addSelectionListener(new SelectionAdapter() {
 
@@ -295,17 +298,17 @@ public class MainView {
 			public void widgetSelected(SelectionEvent event) {
 				try {
 					memoriesView.editMemory();
-				} catch (IOException e) {
+				} catch (IOException | SAXException | ParserConfigurationException e) {
 					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Error editing memory");
+					box.setMessage(Messages.getString("MainView.15"));
 					box.open();
 				}
 			}
 		});
 
 		MenuItem importMemory = new MenuItem(memoryMenu, SWT.PUSH);
-		importMemory.setText("Import TMX File");
+		importMemory.setText(Messages.getString("MainView.16"));
 		importMemory.setImage(Fluenta.getResourceManager().getLeft());
 		importMemory.addSelectionListener(new SelectionAdapter() {
 
@@ -317,7 +320,7 @@ public class MainView {
 		});
 
 		MenuItem exportMemory = new MenuItem(memoryMenu, SWT.PUSH);
-		exportMemory.setText("Export TMX File");
+		exportMemory.setText(Messages.getString("MainView.17"));
 		exportMemory.setImage(Fluenta.getResourceManager().getRight());
 		exportMemory.addSelectionListener(new SelectionAdapter() {
 
@@ -329,7 +332,7 @@ public class MainView {
 		});
 
 		MenuItem removeMemory = new MenuItem(memoryMenu, SWT.PUSH);
-		removeMemory.setText("Remove Memory");
+		removeMemory.setText(Messages.getString("MainView.18"));
 		removeMemory.setImage(Fluenta.getResourceManager().getRemove());
 		removeMemory.addSelectionListener(new SelectionAdapter() {
 
@@ -342,12 +345,12 @@ public class MainView {
 
 		if (!isMac) {
 			MenuItem settings = new MenuItem(bar, SWT.CASCADE);
-			settings.setText("&Settings");
+			settings.setText(Messages.getString("MainView.19"));
 			Menu settingsMenu = new Menu(settings);
 			settings.setMenu(settingsMenu);
 
 			MenuItem preferences = new MenuItem(settingsMenu, SWT.PUSH);
-			preferences.setText("Preferences");
+			preferences.setText(Messages.getString("MainView.20"));
 			preferences.addSelectionListener(new SelectionAdapter() {
 
 				@Override
@@ -360,23 +363,25 @@ public class MainView {
 		}
 
 		MenuItem help = new MenuItem(bar, SWT.CASCADE);
-		help.setText("&Help");
+		help.setText(Messages.getString("MainView.21"));
 		Menu helpMenu = new Menu(help);
 		help.setMenu(helpMenu);
 
 		MenuItem helpItem = new MenuItem(helpMenu, SWT.PUSH);
-		helpItem.setText("Fluenta Help\tF1");
+		helpItem.setText(Messages.getString("MainView.22"));
 		helpItem.setAccelerator(SWT.F1);
 		helpItem.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				try {
-					Program.launch(new File("fluenta.pdf").toURI().toURL().toString());
-				} catch (MalformedURLException e) {
+					Preferences preferences = Preferences.getInstance();
+					String lang = preferences.getApplicationLanguage();
+					Program.launch(new File("fluenta_" + lang +".pdf").toURI().toURL().toString());
+				} catch (IOException e) {
 					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Error opening help file");
+					box.setMessage(Messages.getString("MainView.23"));
 					box.open();
 				}
 			}
@@ -385,7 +390,7 @@ public class MainView {
 		new MenuItem(helpMenu, SWT.SEPARATOR);
 
 		MenuItem updatesItem = new MenuItem(helpMenu, SWT.PUSH);
-		updatesItem.setText("Check for Updates");
+		updatesItem.setText(Messages.getString("MainView.24"));
 		updatesItem.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -395,7 +400,7 @@ public class MainView {
 		});
 
 		MenuItem releaseHistory = new MenuItem(helpMenu, SWT.PUSH);
-		releaseHistory.setText("Fluenta Release History");
+		releaseHistory.setText(Messages.getString("MainView.25"));
 		releaseHistory.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -408,7 +413,7 @@ public class MainView {
 			new MenuItem(helpMenu, SWT.SEPARATOR);
 
 			MenuItem aboutItem = new MenuItem(helpMenu, SWT.PUSH);
-			aboutItem.setText("About Fluenta...");
+			aboutItem.setText(Messages.getString("MainView.27"));
 			aboutItem.addSelectionListener(new SelectionAdapter() {
 
 				@Override
@@ -429,16 +434,16 @@ public class MainView {
 			int read = 0;
 			try (InputStream input = connection.getInputStream()) {
 				if ((read = input.read(array)) == 0) {
-					throw new IOException("Error reading server response");
+					throw new IOException(Messages.getString("MainView.29"));
 				}
 			}
 			String version = new String(array, 0, read).trim();
 			String installedVersion = Constants.VERSION + " (" + Constants.BUILD + ")";
 			if (!version.equals(installedVersion)) {
 				MessageBox box = new MessageBox(shell, SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-				box.setText("Update available");
+				box.setText(Messages.getString("MainView.30"));
 				MessageFormat mf = new MessageFormat(
-						"Installed version is: {0}\nAvailable version is: {1}\n\nVisit download site?");
+						Messages.getString("MainView.31"));
 				box.setMessage(mf.format(new String[] { installedVersion, version }));
 				if (box.open() == SWT.YES) {
 					Program.launch("https://www.maxprograms.com/downloads/");
@@ -446,14 +451,14 @@ public class MainView {
 			} else {
 				if (!silent) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
-					box.setMessage("No updates available");
+					box.setMessage(Messages.getString("MainView.32"));
 					box.open();
 				}
 			}
 		} catch (Exception e) {
 			if (!silent) {
 				MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-				box.setMessage("Unable to check for updates");
+				box.setMessage(Messages.getString("MainView.33"));
 				box.open();
 			}
 		}

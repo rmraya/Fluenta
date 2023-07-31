@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<task id="register_license">
+    <title>Register a Subscription Key</title>
+    <taskbody>
+        <steps>
+            <step>
+                <cmd>When you start the program after the trial period has ended, the following
+                    dialog appears:</cmd>
+                <stepresult>
+                    <image href="../images/register_license.png" placement="break" scale="70"
+                        align="center"><alt><uicontrol>Susbcription Management</uicontrol> dialog</alt></image>
+                </stepresult>
+            </step>
+            <step>
+                <cmd>Type your subscription key in the <uicontrol>Subscription Key</uicontrol> text
+                    box.</cmd>
+            </step>
+            <step>
+                <cmd>If your computer uses a proxy server to connect to the Internet, follow these
+                    steps to configure the proxy server settings:</cmd>
+                <substeps>
+                    <substep>
+                        <cmd>Click the <uicontrol>Proxy Settings</uicontrol> button.</cmd>
+                        <stepresult>The following dialog appears: <image
+                                href="../images/proxy_settings.png" placement="break" scale="70"
+                                align="center"><alt><uicontrol>Proxy Settings</uicontrol> dialog</alt></image>
+                        </stepresult>
+                    </substep>
+                    <substep>
+                        <cmd>Type the proxy server name or IP in the <uicontrol>Server</uicontrol>
+                            text box.</cmd>
+                    </substep>
+                    <substep>
+                        <cmd>Type the proxy port number in the <uicontrol>Port</uicontrol> text
+                            box.</cmd>
+                    </substep>
+                    <substep>
+                        <cmd>If your proxy server requires authentication, type the proxy user name
+                            in the <uicontrol>User ID</uicontrol> text box and the corresponding
+                            password in the <uicontrol>Password</uicontrol> text box.</cmd>
+                    </substep>
+                    <substep>
+                        <cmd>Click the <uicontrol>Save Proxy Settings</uicontrol> button.</cmd>
+                        <stepresult>Selected proxy settings are saved and the dialog
+                            closes.</stepresult>
+                    </substep>
+
+                </substeps>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Register Subscription</uicontrol> button.</cmd>
+            </step>
+        </steps>
+        <result>Your subscription key is sent to the Registration Server and your computer is
+            enabled to work with the registered application.</result>
+    </taskbody>
+</task>

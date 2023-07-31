@@ -69,7 +69,7 @@ public class MemoriesView extends Composite {
 		bar.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		CustomItem create = bar.addItem(SWT.PUSH);
-		create.setText("Create Memory");
+		create.setText(Messages.getString("MemoriesView.0"));
 		create.setImage(Fluenta.getResourceManager().getAdd());
 		create.addMouseListener(new MouseListener() {
 
@@ -92,7 +92,7 @@ public class MemoriesView extends Composite {
 		bar.addSeparator();
 
 		CustomItem editItem = bar.addItem(SWT.PUSH);
-		editItem.setText("Edit Memory");
+		editItem.setText(Messages.getString("MemoriesView.1"));
 		editItem.setImage(Fluenta.getResourceManager().getEdit());
 		editItem.addMouseListener(new MouseListener() {
 
@@ -105,10 +105,10 @@ public class MemoriesView extends Composite {
 			public void mouseDown(MouseEvent arg0) {
 				try {
 					editMemory();
-				} catch (IOException e) {
+				} catch (IOException | SAXException | ParserConfigurationException e) {
 					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-					box.setMessage("Error editing memory");
+					box.setMessage(Messages.getString("MemoriesView.2"));
 					box.open();
 				}
 			}
@@ -122,7 +122,7 @@ public class MemoriesView extends Composite {
 		bar.addSeparator();
 
 		CustomItem importItem = bar.addItem(SWT.PUSH);
-		importItem.setText("Import TMX File");
+		importItem.setText(Messages.getString("MemoriesView.3"));
 		importItem.setImage(Fluenta.getResourceManager().getLeft());
 
 		importItem.addMouseListener(new MouseListener() {
@@ -146,7 +146,7 @@ public class MemoriesView extends Composite {
 		bar.addSeparator();
 
 		CustomItem export = bar.addItem(SWT.PUSH);
-		export.setText("Export TMX File");
+		export.setText(Messages.getString("MemoriesView.4"));
 		export.setImage(Fluenta.getResourceManager().getRight());
 		export.addMouseListener(new MouseListener() {
 
@@ -169,7 +169,7 @@ public class MemoriesView extends Composite {
 		bar.addSeparator();
 
 		CustomItem remove = bar.addItem(SWT.PUSH);
-		remove.setText("Remove Memory");
+		remove.setText(Messages.getString("MemoriesView.5"));
 		remove.setImage(Fluenta.getResourceManager().getRemove());
 		remove.addMouseListener(new MouseListener() {
 
@@ -197,15 +197,15 @@ public class MemoriesView extends Composite {
 		table.setFocus();
 
 		TableColumn description = new TableColumn(table, SWT.NONE);
-		description.setText("Memory");
+		description.setText(Messages.getString("MemoriesView.6"));
 		description.setWidth(250);
 
 		TableColumn created = new TableColumn(table, SWT.NONE);
-		created.setText("Created");
+		created.setText(Messages.getString("MemoriesView.7"));
 		created.setWidth(200);
 
 		TableColumn updated = new TableColumn(table, SWT.NONE);
-		updated.setText("Updated");
+		updated.setText(Messages.getString("MemoriesView.8"));
 		updated.setWidth(150);
 
 		Listener sortListener = new Listener() {
@@ -239,10 +239,10 @@ public class MemoriesView extends Composite {
 
 	}
 
-	public void editMemory() throws IOException {
+	public void editMemory() throws IOException, SAXException, ParserConfigurationException {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("Select memory");
+			box.setMessage(Messages.getString("MemoriesView.9"));
 			box.open();
 			return;
 		}
@@ -254,12 +254,12 @@ public class MemoriesView extends Composite {
 	public void removeMemory() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("Select memory");
+			box.setMessage(Messages.getString("MemoriesView.9"));
 			box.open();
 			return;
 		}
 		MessageBox box = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-		box.setMessage("Remove selected memory?");
+		box.setMessage(Messages.getString("MemoriesView.10"));
 		int result = box.open();
 		if (result == SWT.YES) {
 			try {
@@ -279,7 +279,7 @@ public class MemoriesView extends Composite {
 	public void exportMemory() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("Select memory");
+			box.setMessage(Messages.getString("MemoriesView.9"));
 			box.open();
 			return;
 		}
@@ -289,7 +289,7 @@ public class MemoriesView extends Composite {
 	public void importMemory() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("Select memory");
+			box.setMessage(Messages.getString("MemoriesView.9"));
 			box.open();
 			return;
 		}
@@ -346,10 +346,10 @@ public class MemoriesView extends Composite {
 				item.setText(
 						new String[] { m.getName(), m.getCreationDateString(), m.getLastUpdateString() });
 			}
-		} catch (IOException | JSONException | ParseException e) {
+		} catch (IOException | JSONException | ParseException | SAXException | ParserConfigurationException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			MessageFormat mf = new MessageFormat("Error loading memories: {0}");
+			MessageFormat mf = new MessageFormat(Messages.getString("MemoriesView.11"));
 			box.setMessage(mf.format(new String[] { e.getMessage() }));
 			box.open();
 		}
@@ -359,7 +359,7 @@ public class MemoriesView extends Composite {
 		FileDialog fd = new FileDialog(getShell(), SWT.SINGLE | SWT.SAVE);
 		fd.setFileName(memory.getName() + ".tmx");
 		fd.setFilterNames(
-				new String[] { "TMX Files [*.tmx]", "All Files [*.*]" });
+				new String[] { Messages.getString("MemoriesView.12"), Messages.getString("MemoriesView.13") });
 		fd.setFilterExtensions(new String[] { "*.tmx", "*.*" });
 		fd.setOverwrite(true);
 		String file = fd.open();
@@ -369,14 +369,13 @@ public class MemoriesView extends Composite {
 				mainView.getController().exportTMX(memory, file);
 				getShell().setCursor(new Cursor(getDisplay(), SWT.CURSOR_ARROW));
 				MessageBox box = new MessageBox(getShell(), SWT.ICON_INFORMATION | SWT.OK);
-				box.setMessage("Memory exported");
+				box.setMessage(Messages.getString("MemoriesView.14"));
 				box.open();
-			} catch (IOException | ClassNotFoundException | SQLException | SAXException
-					| ParserConfigurationException e) {
+			} catch (IOException | SQLException e) {
 				logger.log(Level.ERROR, e);
 				getShell().setCursor(new Cursor(getDisplay(), SWT.CURSOR_ARROW));
 				MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-				box.setMessage("Error exporting memory");
+				box.setMessage(Messages.getString("MemoriesView.15"));
 				box.open();
 			}
 		}

@@ -62,7 +62,7 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 
 	Logger logger = System.getLogger(ImportXliffDialog.class.getName());
 
-	private MainView mainView;	
+	private MainView mainView;
 	protected Shell shell;
 	protected Shell parentShell;
 	private Display display;
@@ -92,7 +92,7 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
 		shell.setLayout(new GridLayout());
-		shell.setText("Import XLIFF");
+		shell.setText(Messages.getString("ImportXliffDialog.0"));
 		shell.addListener(SWT.Close, new Listener() {
 
 			@Override
@@ -113,7 +113,7 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 		top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label xliffLabel = new Label(top, SWT.NONE);
-		xliffLabel.setText("XLIFF File");
+		xliffLabel.setText(Messages.getString("ImportXliffDialog.1"));
 
 		xliffText = new Text(top, SWT.BORDER);
 		GridData fill = new GridData(GridData.FILL_HORIZONTAL);
@@ -121,14 +121,15 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 		xliffText.setLayoutData(fill);
 
 		Button browseXliff = new Button(top, SWT.PUSH);
-		browseXliff.setText("Browse...");
+		browseXliff.setText(Messages.getString("ImportXliffDialog.2"));
 		browseXliff.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				FileDialog fd = new FileDialog(shell, SWT.OPEN);
 				fd.setFilterExtensions(new String[] { "*.xlf", "*.*" });
-				fd.setFilterNames(new String[] { "XLIFF Files [*.xlf]", "All Files [*.*]" });
+				fd.setFilterNames(new String[] { Messages.getString("ImportXliffDialog.3"),
+						Messages.getString("ImportXliffDialog.4") });
 				String file = fd.open();
 				if (file != null) {
 					xliffText.setText(file);
@@ -137,13 +138,13 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 		});
 
 		Label folderLabel = new Label(top, SWT.NONE);
-		folderLabel.setText("Output Folder");
+		folderLabel.setText(Messages.getString("ImportXliffDialog.5"));
 
 		folderText = new Text(top, SWT.BORDER);
 		folderText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button browseFolder = new Button(top, SWT.PUSH);
-		browseFolder.setText("Browse...");
+		browseFolder.setText(Messages.getString("ImportXliffDialog.2"));
 		browseFolder.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent event) {
@@ -161,13 +162,13 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 
 		update = new Button(shell, SWT.CHECK);
 		update.setSelection(true);
-		update.setText("Update Memory");
+		update.setText(Messages.getString("ImportXliffDialog.6"));
 
 		unapproved = new Button(shell, SWT.CHECK);
-		unapproved.setText("Accept Unapproved Translations");
+		unapproved.setText(Messages.getString("ImportXliffDialog.7"));
 
 		ignoreTagErrors = new Button(shell, SWT.CHECK);
-		ignoreTagErrors.setText("Ignore Inline Tag Errors");
+		ignoreTagErrors.setText(Messages.getString("ImportXliffDialog.8"));
 
 		loggerPanel = System.getProperty("file.separator").equals("\\") ? new LogPanel(shell, SWT.BORDER)
 				: new LogTable(shell, SWT.NONE);
@@ -181,7 +182,7 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button cancel = new Button(bottom, SWT.PUSH | SWT.CANCEL);
-		cancel.setText("Cancel");
+		cancel.setText(Messages.getString("ImportXliffDialog.9"));
 		cancel.setEnabled(false);
 		cancel.addSelectionListener(new SelectionListener() {
 
@@ -197,27 +198,27 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 		});
 
 		Button importXliff = new Button(bottom, SWT.PUSH);
-		importXliff.setText("Import XLIFF");
+		importXliff.setText(Messages.getString("ImportXliffDialog.10"));
 		importXliff.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				if (xliffText.getText() == null || xliffText.getText().isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Select XLIFF file");
+					box.setMessage(Messages.getString("ImportXliffDialog.11"));
 					box.open();
 					return;
 				}
 				if (folderText.getText() == null || folderText.getText().isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Select output folder");
+					box.setMessage(Messages.getString("ImportXliffDialog.12"));
 					box.open();
 					return;
 				}
 				File xliff = new File(xliffText.getText());
 				if (!xliff.exists()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage("Selected XLIFF file does not exist");
+					box.setMessage(Messages.getString("ImportXliffDialog.13"));
 					box.open();
 					return;
 				}
@@ -227,7 +228,7 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 				}
 				if (!output.exists()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage("Selected output folder does not exist");
+					box.setMessage(Messages.getString("ImportXliffDialog.14"));
 					box.open();
 					return;
 				}
@@ -258,9 +259,8 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 						try {
 							mainView.getController().importXliff(project, xliffDocument, targetFolder, updateTM,
 									acceptUnapproved, ignoreTags, aLogger);
-						} catch (NumberFormatException | ClassNotFoundException | IOException | SAXException
-								| ParserConfigurationException | SQLException | URISyntaxException | JSONException
-								| ParseException e) {
+						} catch (NumberFormatException | IOException | SAXException | ParserConfigurationException
+								| SQLException | URISyntaxException | JSONException | ParseException e) {
 							logger.log(Level.ERROR, e);
 							aLogger.displayError(e.getMessage());
 						}
@@ -284,7 +284,7 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 			ignoreTagErrors
 					.setSelection(
 							preferences.get("ImportXliffDialog", "ignoreTagErrors", "no").equalsIgnoreCase("yes"));
-			
+
 		} catch (IOException e) {
 			logger.log(Level.ERROR, e);
 		}
@@ -296,7 +296,7 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 			preferences.save("ImportXliffDialog", "folderText." + projectId, folderText.getText());
 			preferences.save("ImportXliffDialog", "update", update.getSelection() ? "yes" : "no");
 			preferences.save("ImportXliffDialog", "unapproved", unapproved.getSelection() ? "yes" : "no");
-			preferences.save("ImportXliffDialog", "ignoreTagErrors", ignoreTagErrors.getSelection() ? "yes" : "no");			
+			preferences.save("ImportXliffDialog", "ignoreTagErrors", ignoreTagErrors.getSelection() ? "yes" : "no");
 		} catch (IOException e) {
 			logger.log(Level.ERROR, e);
 		}
@@ -371,7 +371,7 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 						if (!viewer.isLinux()) {
 							sb.append("<pre>\n");
 						}
-						
+
 						Iterator<String> it = errors.iterator();
 						while (it.hasNext()) {
 							sb.append(it.next() + "\n");
@@ -379,13 +379,13 @@ public class ImportXliffDialog extends Dialog implements ILogger {
 						if (!viewer.isLinux()) {
 							sb.append("</pre>\n");
 						}
-						
+
 						viewer.setContent(sb.toString());
 						viewer.show();
 					} catch (SWTException e) {
 						logger.log(Level.ERROR, e);
 						MessageBox box2 = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-						box2.setMessage("Error creating error log");
+						box2.setMessage(Messages.getString("ImportXliffDialog.15"));
 						box2.open();
 					}
 				}

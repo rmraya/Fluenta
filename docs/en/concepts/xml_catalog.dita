@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_lt2_lb4_ts">
+ <title>XML Catalog</title>
+ <conbody>
+  <p>The application includes a default XML catalog with DTDs and XML Schemas for the most relevant
+   formats and supported document types. Additional DTDs and XML Schemas can be added by
+   the user as needed.</p>
+  <p>Select the <uicontrol>XML Options</uicontrol> tab in the <uicontrol>Preferences</uicontrol>
+   dialog to add or remove entries from the catalog.</p>
+  
+  <section>
+   <title>Add Catalog Entry</title>
+   <p>Click the <uicontrol>Add Catalog Entry</uicontrol> button and a file selection dialog
+    will appear. Locate the catalog in the file system and select it.</p>
+  </section>
+  <section>
+   <title>Remove Catalog Entry</title>
+   <p>Select the catalog entry to remove in the catalogs table. Click the <uicontrol>Remove
+    Catalog Entry</uicontrol> button and the application's catalog will be updated
+    to reflect the change.</p>
+  </section>
+ </conbody>
+</concept>

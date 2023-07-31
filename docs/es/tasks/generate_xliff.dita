@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task xml:lang="es" id="task_ysz_q31_ts">
+  <title>Generar XLIFF</title>
+  <taskbody>
+    <context>
+      <p>Siga estos pasos para generar archivos <xref href="../glossaries/XLIFF.dita">XLIFF</xref> que podrá enviar a su <xref href="../glossaries/LSP.dita">Proveedor de Servicios Lingüísticos</xref> (PSL) para que traduzca sus proyectos.</p>
+    </context>
+    <steps>
+      <step>
+        <cmd>En la vista <uicontrol>Proyectos</uicontrol>, seleccione el proyecto a traducir.</cmd>
+      </step>
+      <step>
+        <cmd>En el menú principal, seleccione <menucascade>
+            <uicontrol>Proyectos</uicontrol>
+            <uicontrol>Crear Proyecto</uicontrol>
+          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/right.png" placement="inline" alt="Crear Proyecto"/>Crear Proyecto</uicontrol> de la barra de herramientas de la vista <uicontrol>Proyectos</uicontrol>.</cmd>
+        <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/generate_xliff.png" placement="break" scale="70" align="center" id="image_ugz_ys1_5s">
+            <alt>Cuadro de diálogo <uicontrol>Generar XLIFF</uicontrol></alt>
+          </image> </stepresult>
+      </step>
+      <step>
+        <cmd>Escriba el nombre de la carpeta donde deben generarse los archivos XLIFF en el cuadro de texto <uicontrol>Carpeta XLIFF</uicontrol> o utilice el botón <uicontrol>Examinar...</uicontrol> para seleccionar una carpeta en el sistema de archivos.</cmd>
+      </step>
+      <step>
+        <cmd>Si necesita excluir algunos tópicos, introduzca el nombre de un archivo DITAVAL que desee utilizar para el procesamiento condicional en el cuadro de texto <uicontrol>Archivo DITAVAL</uicontrol> o utilice el botón <uicontrol>Examinar...</uicontrol> situado junto a él para seleccionar un archivo del sistema de archivos.</cmd>
+      </step>
+      <step>
+        <cmd>Seleccione la casilla <uicontrol>Reutilizar coincidencias ICE</uicontrol> si desea comparar el contenido actual con el contenido disponible la última vez que se generó un archivo XLIFF y reutilizar todas las traducciones existentes.</cmd>
+      </step>
+      <step>
+        <cmd>Seleccione la casilla  <uicontrol>Sólo archivos modificados</uicontrol> para excluir de los archivos XLIFF generados aquellos temas que no hayan cambiado desde el último ciclo de traducción.</cmd>
+      </step>
+      <step>
+        <cmd>Seleccione la casilla <uicontrol>Usar memorias de traducción</uicontrol> si desea recuperar las traducciones de los segmentos no traducidos utilizando las memorias asociadas al proyecto.</cmd>
+      </step>
+      <step>
+        <cmd>Seleccione la casilla <uicontrol>Segmentar por párrafos</uicontrol> si necesita segmentar por párrafos en lugar de oraciones (opción predeterminada).</cmd>
+        <info>
+          <i>Una de las ventajas de la segmentación por párrafos frente a la segmentación por oraciones en traducción es que permite captar más contexto y coherencia dentro de una unidad textual.</i>
+        </info>
+      </step>
+      <step>
+        <cmd>Seleccione la casilla <uicontrol>Generar estadísticas</uicontrol> si desea que se genere un análisis estadístico para cada idioma de destino.</cmd>
+      </step>
+      <step>
+        <cmd>Seleccione la casilla <uicontrol>Generar XLIFF 2.0</uicontrol> si necesita generar XLIFF 2.0 en lugar de XLIFF 1.2 (opción predeterminada).</cmd>
+      </step>
+      <step>
+        <cmd>Seleccione la casilla <uicontrol>Ignorar revisiones</uicontrol> para ignorar las revisiones del Editor XML Oxygen, mejorando la segmentación del texto.</cmd>
+      </step>
+      <step>
+        <cmd>Seleccione la casilla <uicontrol>Incrustar esqueleto</uicontrol> si necesita archivos XLIFF que puedan convertirse de nuevo a DITA en cualquier ordenador utilizando <xref href="https://www.maxprograms.com/products/openxliff.html" scope="external" format="html">OpenXLIFF Filters</xref> o <xref href="https://www.maxprograms.com/products/xliffmanager.html" scope="external" format="html">XLIFF Manager</xref>.</cmd>
+      </step>
+      <step>
+        <cmd>Seleccione las casillas correspondientes a los idiomas destino que desea procesar.</cmd>
+      </step>
+      <step>
+        <cmd>Haga clic en el botón <uicontrol>Generar XLIFF</uicontrol>.</cmd>
+        <stepresult>El estado del proceso se muestra en el panel de progreso y se activa el botón <uicontrol>Cancelar</uicontrol>.</stepresult>
+      </step>
+    </steps>
+    <result>Un archivo XLIFF es generado para cada uno de los idiomas destino seleccionados. Los archivos XLIFF y las estadísticas opcionales se guardan en la Carpeta XLIFF seleccionada</result>
+  </taskbody>
+</task>

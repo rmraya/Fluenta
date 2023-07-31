@@ -37,7 +37,7 @@ public class Locator {
 				shell.setLocation(location);
 			}
 		} catch (IOException ioe) {
-			logger.log(Level.WARNING, "Error setting location", ioe);
+			logger.log(Level.WARNING, Messages.getString("Locator.0"), ioe);
 		}
 	}
 
@@ -55,7 +55,7 @@ public class Locator {
 				shell.setSize(size);
 			}
 		} catch (IOException ioe) {
-			logger.log(Level.WARNING, "Error setting position", ioe);
+			logger.log(Level.WARNING, Messages.getString("Locator.1"), ioe);
 		}
 	}
 
@@ -68,7 +68,7 @@ public class Locator {
 			values.put("Height", "" + shell.getSize().y);
 			Preferences.getInstance().save(type, values);
 		} catch (IOException ioe) {
-			logger.log(Level.WARNING, "Error saving location", ioe);
+			logger.log(Level.WARNING, Messages.getString("Locator.2"), ioe);
 		}
 	}
 

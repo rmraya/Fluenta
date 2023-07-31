@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap xml:lang="en-US">
+    <booktitle>
+        <mainbooktitle>
+            <ph>Fluenta</ph>
+            <image href="images/logo.png" placement="break"/>
+        </mainbooktitle>
+        <booktitlealt class="- topic/ph bookmap/booktitlealt ">
+            <ph>Copyright © 2015-2023 Maxprograms</ph>
+        </booktitlealt>
+    </booktitle>
+    <frontmatter class="- map/topicref bookmap/frontmatter ">
+        <booklists class="- map/topicref bookmap/booklists ">
+            <toc class="- map/topicref bookmap/toc "/>
+        </booklists>
+    </frontmatter>
+    <chapter href="concepts/Fluenta_Introduction.dita"/>
+    <chapter href="concepts/translating_projects.dita">
+        <topicmeta>
+            <navtitle>Translating DITA Projects</navtitle>
+        </topicmeta>
+        <topicref href="tasks/create_project.dita"/>
+        <topicref href="tasks/generate_xliff.dita"/>
+        <topicref href="tasks/import_xliff.dita"/>
+        <topicref href="tasks/project_status.dita"/>
+    </chapter>
+
+    <chapter href="concepts/translation_memories.dita">
+        <topicref href="tasks/create_memory.dita"/>
+        <topicref href="tasks/edit_memory.dita"/>
+        <topicref href="tasks/import_memory.dita"/>
+        <topicref href="tasks/export_memory.dita"/>
+    </chapter>
+
+    <chapter href="concepts/advanced_configuration.dita">
+        <topicref href="concepts/project_settings.dita"> </topicref>
+        <topicref href="concepts/xml_settings.dita">
+            <topicref href="concepts/configuration_files.dita">
+                <topicref href="tasks/add_configuration_file.dita"/>
+                <topicref href="tasks/edit_configuration_file.dita"/>
+                <topicref href="tasks/remove_configuration_file.dita"/>
+            </topicref>
+            <topicref href="concepts/xml_catalog.dita"/>
+        </topicref>
+    </chapter>
+
+    <chapter href="concepts/subscriptions.dita">
+        <topicref href="tasks/request_trial.dita"/>
+        <topicref href="tasks/register_license.dita"/>
+    </chapter>
+
+    <chapter href="concepts/command_line_interface.dita">
+        <topicref href="concepts/create_project_cli.dita"/>
+        <topicref href="concepts/remove_project_cli.dita"/>
+        <topicref href="concepts/retrieve_project_list_cli.dita"/>
+        <topicref href="concepts/generate_xliff_cli.dita"/>
+        <topicref href="concepts/import_xliff_cli.dita"/>
+        <topicref href="concepts/create_memory_cli.dita"/>
+        <topicref href="concepts/retrieve_memory_list_cli.dita"/>
+        <topicref href="concepts/import_memory_cli.dita"/>
+        <topicref href="concepts/export_memory_cli.dita"/>
+        <topicref href="concepts/license_management_cli.dita"/>
+        <topicref href="concepts/version_info_cli.dita"/>
+    </chapter>
+<!--
+    <chapter href="concepts/java_api.dita">
+        <topicref href="concepts/create_project_java.dita"/>
+        <topicref href="concepts/remove_project_java.dita"/>
+        <topicref href="concepts/retrieve_project_list_java.dita"/>
+        <topicref href="concepts/generate_xliff_java.dita"/>
+        <topicref href="concepts/import_xliff_java.dita"/>
+        <topicref href="concepts/create_memory_java.dita"/>
+        <topicref href="concepts/retrieve_memory_list_java.dita"/>
+        <topicref href="concepts/import_memory_java.dita"/>
+        <topicref href="concepts/export_memory_java.dita"/>
+        <topicref href="concepts/license_management_java.dita"/>
+    </chapter>
+-->
+    <chapter href="concepts/credits.dita"/>
+
+    <backmatter>
+        <booklists>
+            <glossarylist chunk="to-content">
+                <topicref href="glossaries/JSON.dita" type="glossentry"/>
+                <topicref href="glossaries/LSP.dita" type="glossentry"/>
+                <topicref href="glossaries/OASIS.dita" type="glossentry"/>
+                <topicref href="glossaries/SRX.dita" type="glossentry"/>
+                <topicref href="glossaries/TMX.dita" type="glossentry"/>
+                <topicref href="glossaries/translation_memory.dita" type="glossentry"/>
+                <topicref href="glossaries/XLIFF.dita" type="glossentry"/>
+            </glossarylist>
+        </booklists>
+    </backmatter>
+</bookmap>

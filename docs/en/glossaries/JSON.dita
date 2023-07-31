@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE glossentry PUBLIC "-//OASIS//DTD DITA Glossary//EN" "glossary.dtd">
+<glossentry id="glossentry_cf2_bh2_gt">
+    <glossterm>JSON</glossterm>
+    <glossdef>JavaScript Object Notation (JSON) is an open standard for the serialization of
+        structured data in  text format . It is derived from the object literals of JavaScript, as
+        defined in the ECMAScript Programming Language Standard, Third Edition. JSON specification
+        is available at  <xref href="https://tools.ietf.org/html/rfc7159" format="html" scope="external"
+            >https://tools.ietf.org/html/rfc7159</xref>.</glossdef>
+</glossentry>

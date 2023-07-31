@@ -46,7 +46,7 @@ public class ProxySettings extends Dialog {
 		super(parent, SWT.NONE);
 		
 		shell = new Shell(parent, SWT.DIALOG_TRIM);
-		shell.setText("Proxy Settings");  
+		shell.setText(Messages.getString("ProxySettings.0"));  
 		shell.setLayout(new GridLayout());
 		shell.setImage(Fluenta.getResourceManager().getIcon());
 		display = shell.getDisplay();
@@ -56,7 +56,7 @@ public class ProxySettings extends Dialog {
 		top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Label sLabel = new Label(top,SWT.NONE);
-		sLabel.setText("Server");  
+		sLabel.setText(Messages.getString("ProxySettings.1"));  
 		
 		server = new Text(top,SWT.BORDER);
 		GridData sdata = new GridData(GridData.FILL_HORIZONTAL);
@@ -64,19 +64,19 @@ public class ProxySettings extends Dialog {
 		server.setLayoutData(sdata);
 		
 		Label pLabel = new Label(top,SWT.NONE);
-		pLabel.setText("Port");  
+		pLabel.setText(Messages.getString("ProxySettings.2"));  
 		
 		port = new Text(top,SWT.BORDER);
 		port.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Label uLabel = new Label(top, SWT.NONE);
-		uLabel.setText("User ID");  
+		uLabel.setText(Messages.getString("ProxySettings.3"));  
 		
 		user = new Text(top,SWT.BORDER);
 		user.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Label psLabel = new Label(top, SWT.NONE);
-		psLabel.setText("Password");  
+		psLabel.setText(Messages.getString("ProxySettings.4"));  
 		
 		password = new Text(top,SWT.BORDER);
 		password.setEchoChar('*');
@@ -91,7 +91,7 @@ public class ProxySettings extends Dialog {
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Button ok = new Button(bottom,SWT.PUSH);
-		ok.setText("Save Proxy Settings");  
+		ok.setText(Messages.getString("ProxySettings.5"));  
 		ok.addSelectionListener(new SelectionListener(){
 
 			@Override
@@ -113,8 +113,8 @@ public class ProxySettings extends Dialog {
 						box.setMessage(ex.getMessage());
 					} else {
 						Logger logger = System.getLogger(ProxySettings.class.getName());
-						logger.log(Level.WARNING, "Error saving proxy settings", e); 
-						box.setMessage("Unknown error saving proxy settings");						  
+						logger.log(Level.WARNING, Messages.getString("ProxySettings.6"), e); 
+						box.setMessage(Messages.getString("ProxySettings.7"));						  
 					}
 					box.open();
 				}

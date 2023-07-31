@@ -56,7 +56,7 @@ public class ElementConfigurationDialog extends Dialog {
         shell = new Shell(parent, SWT.DIALOG_TRIM);
         shell.setImage(Fluenta.getResourceManager().getIcon());
         display = shell.getDisplay();
-        shell.setText("Element Configuration");
+        shell.setText(Messages.getString("ElementConfigurationDialog.0"));
         shell.setLayout(new GridLayout());
         shell.addListener(SWT.Close, new Listener() {
 
@@ -72,7 +72,7 @@ public class ElementConfigurationDialog extends Dialog {
                 | GridData.FILL_HORIZONTAL));
 
         Label eLabel = new Label(top, SWT.NONE);
-        eLabel.setText("Element Name");
+        eLabel.setText(Messages.getString("ElementConfigurationDialog.1"));
 
         eText = new Text(top, SWT.BORDER);
         eText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
@@ -86,7 +86,7 @@ public class ElementConfigurationDialog extends Dialog {
         });
 
         Label hLabel = new Label(top, SWT.NONE);
-        hLabel.setText("Element Type");
+        hLabel.setText(Messages.getString("ElementConfigurationDialog.2"));
 
         hCombo = new Combo(top, SWT.DROP_DOWN | SWT.READ_ONLY);
         String[] values = { "segment", "inline", "ignore" };
@@ -111,10 +111,10 @@ public class ElementConfigurationDialog extends Dialog {
         });
 
         Label cLabel = new Label(top, SWT.NONE);
-        cLabel.setText("Inline Type");
+        cLabel.setText(Messages.getString("ElementConfigurationDialog.3"));
 
         cCombo = new Combo(top, SWT.DROP_DOWN | SWT.READ_ONLY);
-        String[] cValues = { "", "image", "pb", "lb", "x-bold", "x-entry", "x-font", "x-italic", "x-link",
+        String[] cValues = { "", "image", "pb", "lb", "x-bold", "x-entry", "x-font", "x-italic", "x-link", //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
                 "x-underlined", "x-other" };
         cCombo.setItems(cValues);
         cCombo.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
@@ -128,7 +128,7 @@ public class ElementConfigurationDialog extends Dialog {
         });
 
         Label aLabel = new Label(top, SWT.NONE);
-        aLabel.setText("Translatable Attributes");
+        aLabel.setText(Messages.getString("ElementConfigurationDialog.4"));
 
         aText = new Text(top, SWT.BORDER);
         aText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -145,7 +145,7 @@ public class ElementConfigurationDialog extends Dialog {
         });
 
         Label kLabel = new Label(top, SWT.NONE);
-        kLabel.setText("Keep White Space");
+        kLabel.setText(Messages.getString("ElementConfigurationDialog.5"));
 
         kCombo = new Combo(top, SWT.DROP_DOWN | SWT.READ_ONLY);
         String[] val = { "", "yes", "no" };
@@ -169,7 +169,7 @@ public class ElementConfigurationDialog extends Dialog {
         filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Button save = new Button(bottom, SWT.PUSH);
-        save.setText("Save Configuration");
+        save.setText(Messages.getString("ElementConfigurationDialog.6"));
         save.addSelectionListener(new SelectionListener() {
 
             @Override

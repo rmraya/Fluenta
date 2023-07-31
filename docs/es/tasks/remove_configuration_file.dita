@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task xml:lang="es" id="task_uhd_sc4_ts">
+  <title>Eliminar Archivo de Configuración</title>
+  <taskbody>
+    <steps>
+      <step>
+        <cmd>En la pestaña <uicontrol>Opciones XML</uicontrol> del cuadro de diálogo <uicontrol>Preferencias</uicontrol>, seleccione el archivo de configuración a eliminar.</cmd>
+      </step>
+      <step>
+        <cmd>Haga clic en el botón <uicontrol>Eliminar Archivo de Configuración</uicontrol>.</cmd>
+      </step>
+    </steps>
+    <result>El archivo de configuración seleccionado es eliminado y la lista de archivos de configuración se actualiza para reflejar el cambio.</result>
+  </taskbody>
+</task>

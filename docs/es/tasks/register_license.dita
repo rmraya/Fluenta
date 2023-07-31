@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<task xml:lang="es" id="register_license">
+  <title>Registrar una Clave de Suscripción</title>
+  <taskbody>
+    <steps>
+      <step>
+        <cmd>Cuando se inicia el programa después que el período de evaluación finalizó, el siguiente cuadro de diálogo aparece:</cmd>
+        <stepresult>
+          <image href="../images/register_license.png" placement="break" scale="70" align="center">
+            <alt>Cuadro de diálogo <uicontrol>Manejo de Suscripciones</uicontrol></alt>
+          </image>
+        </stepresult>
+      </step>
+      <step>
+        <cmd>Ingrese su clave de suscripción en el cuadro de texto <uicontrol>Clave de Suscripción</uicontrol>.</cmd>
+      </step>
+      <step>
+        <cmd>Si su ordenador utiliza un servidor proxy para conectarse a Internet, siga estos pasos para configurar los ajustes del servidor proxy:</cmd>
+        <substeps>
+          <substep>
+            <cmd>Haga clic en el botón <uicontrol>Configuración de Proxy</uicontrol>.</cmd>
+            <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/proxy_settings.png" placement="break" scale="70" align="center">
+                <alt>Cuadro de diálogo <uicontrol>Configuración de Proxy</uicontrol></alt>
+              </image> </stepresult>
+          </substep>
+          <substep>
+            <cmd>Ingrese el nombre  o la IP del servidor proxy en el cuadro de texto <uicontrol>Servidor</uicontrol>.</cmd>
+          </substep>
+          <substep>
+            <cmd>Escriba el número de puerto proxy en el cuadro de texto <uicontrol>Puerto</uicontrol>.</cmd>
+          </substep>
+          <substep>
+            <cmd>Si su servidor proxy requiere autenticación, escriba el nombre de usuario proxy en el cuadro de texto <uicontrol>Usuario</uicontrol> y la contraseña correspondiente en el cuadro de texto <uicontrol>Contraseña</uicontrol>.</cmd>
+          </substep>
+          <substep>
+            <cmd>Haga clic en el botón <uicontrol>Guardar Configuración de Proxy</uicontrol>.</cmd>
+            <stepresult>Se guardan los ajustes de proxy seleccionados y se cierra el cuadro de diálogo.</stepresult>
+          </substep>
+        </substeps>
+      </step>
+      <step>
+        <cmd>Haga clic en el botón <uicontrol>Registrar Suscripción</uicontrol>.</cmd>
+      </step>
+    </steps>
+    <result>Su clave de suscripción se envía al Servidor de Registro y su ordenador es habilitado para trabajar con la aplicación registrada.</result>
+  </taskbody>
+</task>

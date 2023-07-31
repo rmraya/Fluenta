@@ -55,6 +55,7 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 
 	Logger logger = System.getLogger(GeneralPreferences.class.getName());
 
+	protected Combo applicationLangCombo;
 	protected List<Language> defaultTargets;
 	private Language defaultSource;
 	protected Combo sourceLangCombo;
@@ -70,12 +71,34 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		setLayout(new GridLayout());
 		setLayoutData(new GridData(GridData.FILL_BOTH));
 
+		Group appLanguageGroup = new Group(this, SWT.NONE);
+		appLanguageGroup.setLayout(new GridLayout(2, false));
+		appLanguageGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		Label languageLabel = new Label(appLanguageGroup, SWT.NONE);
+		languageLabel.setText(Messages.getString("GeneralPreferences.24"));
+
+		applicationLangCombo = new Combo(appLanguageGroup, SWT.DROP_DOWN | SWT.READ_ONLY);
+		applicationLangCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		try {
+			applicationLangCombo.setItems(LanguageUtils.getLanguage("en").getDescription(),
+					LanguageUtils.getLanguage("es").getDescription());
+			applicationLangCombo.select(TextUtils.geIndex(applicationLangCombo.getItems(),
+					LanguageUtils.getLanguage(Preferences.getInstance().getApplicationLanguage()).getDescription()));
+		} catch (IOException | SAXException | ParserConfigurationException e) {
+			logger.log(Level.ERROR, e);
+			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
+			box.setMessage(Messages.getString("GeneralPreferences.25"));
+			box.open();
+			getShell().close();
+		}
+
 		Group foldersGroup = new Group(this, SWT.NONE);
 		foldersGroup.setLayout(new GridLayout(3, false));
 		foldersGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label projectsLabel = new Label(foldersGroup, SWT.NONE);
-		projectsLabel.setText("Projects Folder");
+		projectsLabel.setText(Messages.getString("GeneralPreferences.0"));
 
 		projectsText = new Text(foldersGroup, SWT.BORDER);
 		projectsText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -85,13 +108,13 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		} catch (IOException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error retrieving projects folder");
+			box.setMessage(Messages.getString("GeneralPreferences.1"));
 			box.open();
 			getShell().close();
 		}
 
 		Button browseProjects = new Button(foldersGroup, SWT.PUSH);
-		browseProjects.setText("Browse...");
+		browseProjects.setText(Messages.getString("GeneralPreferences.2"));
 		browseProjects.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -112,7 +135,7 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		});
 
 		Label memoriesLabel = new Label(foldersGroup, SWT.NONE);
-		memoriesLabel.setText("Memories Folder");
+		memoriesLabel.setText(Messages.getString("GeneralPreferences.3"));
 
 		memoriesText = new Text(foldersGroup, SWT.BORDER);
 		memoriesText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -122,13 +145,13 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		} catch (IOException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error retrieving memories folder");
+			box.setMessage(Messages.getString("GeneralPreferences.4"));
 			box.open();
 			getShell().close();
 		}
 
 		Button browseMemories = new Button(foldersGroup, SWT.PUSH);
-		browseMemories.setText("Browse...");
+		browseMemories.setText(Messages.getString("GeneralPreferences.2"));
 		browseMemories.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -149,7 +172,7 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		});
 
 		Label srxLabel = new Label(foldersGroup, SWT.NONE);
-		srxLabel.setText("Default SRX File");
+		srxLabel.setText(Messages.getString("GeneralPreferences.5"));
 
 		srxText = new Text(foldersGroup, SWT.BORDER);
 		srxText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -159,20 +182,21 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		} catch (IOException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error retrieving default SRX file");
+			box.setMessage(Messages.getString("GeneralPreferences.6"));
 			box.open();
 			getShell().close();
 		}
 
 		Button browseSrx = new Button(foldersGroup, SWT.PUSH);
-		browseSrx.setText("Browse...");
+		browseSrx.setText(Messages.getString("GeneralPreferences.2"));
 		browseSrx.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				FileDialog fd = new FileDialog(getShell(), SWT.OPEN | SWT.SINGLE);
 				fd.setFilterExtensions(new String[] { "*.srx", "*.*" });
-				fd.setFilterNames(new String[] { "SRX Files [*.srx]", "ALL Files [*.*]" });
+				fd.setFilterNames(new String[] { Messages.getString("GeneralPreferences.7"),
+						Messages.getString("GeneralPreferences.8") });
 				if (!srxText.getText().isEmpty()) {
 					File f = new File(srxText.getText());
 					if (f.exists()) {
@@ -189,7 +213,7 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		});
 
 		Group languagesGroup = new Group(this, SWT.NONE);
-		languagesGroup.setText("Default Languages");
+		languagesGroup.setText(Messages.getString("GeneralPreferences.9"));
 		languagesGroup.setLayout(new GridLayout());
 		languagesGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
 
@@ -198,7 +222,7 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		sourceComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label sourceLabel = new Label(sourceComposite, SWT.NONE);
-		sourceLabel.setText("Default Source Language");
+		sourceLabel.setText(Messages.getString("GeneralPreferences.10"));
 
 		sourceLangCombo = new Combo(sourceComposite, SWT.DROP_DOWN | SWT.READ_ONLY);
 		sourceLangCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -207,7 +231,7 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		} catch (SAXException | IOException | ParserConfigurationException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error retrieving language list");
+			box.setMessage(Messages.getString("GeneralPreferences.11"));
 			box.open();
 			getShell().close();
 		}
@@ -218,16 +242,16 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 				sourceLangCombo.select(TextUtils.geIndex(sourceLangCombo.getItems(),
 						LanguageUtils.getLanguage(defaultSource.getCode()).getDescription()));
 			}
-		} catch (IOException e) {
+		} catch (IOException | SAXException | ParserConfigurationException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error retrieving default source language");
+			box.setMessage(Messages.getString("GeneralPreferences.12"));
 			box.open();
 			getShell().close();
 		}
 
 		Label targetLabel = new Label(sourceComposite, SWT.NONE);
-		targetLabel.setText("Default Target Languages");
+		targetLabel.setText(Messages.getString("GeneralPreferences.13"));
 
 		Composite targetLanguages = new Composite(languagesGroup, SWT.NONE);
 		targetLanguages.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -241,7 +265,7 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		langsTable.setLayoutData(langData);
 
 		TableColumn langDescColumn = new TableColumn(langsTable, SWT.FILL);
-		langDescColumn.setText("Description");
+		langDescColumn.setText(Messages.getString("GeneralPreferences.14"));
 
 		langsTable.addListener(SWT.Resize, new Listener() {
 
@@ -261,10 +285,10 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 				item.setText(l.getDescription());
 				item.setData("language", l);
 			}
-		} catch (IOException e) {
+		} catch (IOException | SAXException | ParserConfigurationException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error retrieving default target languages");
+			box.setMessage(Messages.getString("GeneralPreferences.15"));
 			box.open();
 			getShell().close();
 		}
@@ -278,12 +302,12 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button addLang = new Button(targetButtons, SWT.PUSH);
-		addLang.setText("Add Target Language");
+		addLang.setText(Messages.getString("GeneralPreferences.16"));
 		addLang.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				LanguageAddDialog dialog = new LanguageAddDialog(getShell(), SWT.DIALOG_TRIM, instance);
+				AddLanguageDialog dialog = new AddLanguageDialog(getShell(), SWT.DIALOG_TRIM, instance);
 				dialog.show();
 			}
 
@@ -294,7 +318,7 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		});
 
 		Button removeLang = new Button(targetButtons, SWT.PUSH);
-		removeLang.setText("Remove Selected Languages");
+		removeLang.setText(Messages.getString("GeneralPreferences.17"));
 		removeLang.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -330,14 +354,14 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		filler2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button save = new Button(bottom, SWT.PUSH);
-		save.setText("Save Preferences");
+		save.setText(Messages.getString("GeneralPreferences.18"));
 		save.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				if (srxText.getText().isEmpty()) {
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Select SRX file");
+					box.setMessage(Messages.getString("GeneralPreferences.19"));
 					box.open();
 					return;
 				}
@@ -345,11 +369,23 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 					File srx = new File(srxText.getText());
 					if (!srx.exists()) {
 						MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-						box.setMessage("Selected SRX file does not exist");
+						box.setMessage(Messages.getString("GeneralPreferences.20"));
 						box.open();
 						return;
 					}
 					Preferences preferences = Preferences.getInstance();
+
+					if (applicationLangCombo.getSelectionIndex() != -1) {
+						String name = applicationLangCombo.getItem(applicationLangCombo.getSelectionIndex());
+						Language l = LanguageUtils.languageFromName(name);
+						if (!l.getCode().equals(preferences.getApplicationLanguage())) {
+							MessageBox box = new MessageBox(getShell(), SWT.ICON_INFORMATION | SWT.OK);
+							box.setMessage(Messages.getString("GeneralPreferences.26"));
+							box.open();
+						}
+						preferences.setApplicationLanguage(l.getCode());
+					}
+
 					JSONObject workDir = preferences.get("workDir");
 					workDir.put("projects", projectsText.getText());
 					workDir.put("memories", memoriesText.getText());
@@ -374,7 +410,7 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 				} catch (IOException | SAXException | ParserConfigurationException e) {
 					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-					box.setMessage("Error saving project preferences");
+					box.setMessage(Messages.getString("GeneralPreferences.21"));
 					box.open();
 					getShell().close();
 				}
@@ -389,12 +425,12 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 		save.setFocus();
 	}
 
-	public static Language getDefaultSource() throws IOException {
+	public static Language getDefaultSource() throws IOException, SAXException, ParserConfigurationException {
 		Preferences preferences = Preferences.getInstance();
 		return LanguageUtils.getLanguage(preferences.get("DefaultSourceLanguages", "default", "en-US"));
 	}
 
-	public static List<Language> getDefaultTargets() throws IOException {
+	public static List<Language> getDefaultTargets() throws IOException, SAXException, ParserConfigurationException {
 		List<Language> result = new Vector<>();
 		Preferences preferences = Preferences.getInstance();
 		JSONObject json = preferences.get("DefaultTargetLanguages");
@@ -419,7 +455,7 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 			Language l = LanguageUtils.getLanguage(language);
 			if (defaultTargets.contains(l)) {
 				MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-				box.setMessage("Duplicated language");
+				box.setMessage(Messages.getString("GeneralPreferences.22"));
 				box.open();
 				return;
 			}
@@ -434,10 +470,10 @@ public class GeneralPreferences extends Composite implements AddLanguageListener
 				item.setText(lang.getDescription());
 				item.setData("language", lang);
 			}
-		} catch (IOException ex) {
+		} catch (IOException | SAXException | ParserConfigurationException ex) {
 			logger.log(Level.ERROR, ex);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error adding language");
+			box.setMessage(Messages.getString("GeneralPreferences.23"));
 			box.open();
 		}
 	}

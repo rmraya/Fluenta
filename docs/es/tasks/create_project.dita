@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task xml:lang="es" id="task_x2c_gbf_ts">
+  <title>Crear Proyecto</title>
+  <taskbody>
+    <context>
+      <p>Siga estos pasos para crear un proyecto de traducción a partir de su mapa DITA.</p>
+    </context>
+    <steps>
+      <step>
+        <cmd>En el menú principal, seleccione <menucascade>
+            <uicontrol>Proyectos</uicontrol>
+            <uicontrol>Crear Proyecto</uicontrol>
+          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/add.png" placement="inline" alt="Crear Proyecto"/>Crear Proyecto</uicontrol> de la barra de herramientas de la vista <uicontrol>Proyectos</uicontrol>.</cmd>
+        <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/create_project.png" placement="break" scale="70" align="center">
+            <alt>Cuadro de diálogo <uicontrol>Crear Proyecto</uicontrol></alt>
+          </image> </stepresult>
+      </step>
+      <step>
+        <cmd>Escriba el nombre del mapa DITA en el cuadro de texto <uicontrol>Mapa DITA</uicontrol> o utilice el botón <uicontrol>Examinar...</uicontrol> para seleccionar un mapa DITA del sistema de archivos.</cmd>
+      </step>
+      <step>
+        <cmd>Ingrese un nombre para el proyecto en el cuadro de texto <uicontrol>Nombre del Proyecto</uicontrol>.</cmd>
+      </step>
+      <step>
+        <cmd>Si lo desea, introduzca una descripción en el cuadro de texto <uicontrol>Descripción del Proyecto</uicontrol>.</cmd>
+      </step>
+      <step>
+        <cmd>Añada nuevos idiomas destino al conjunto predeterminado de ser necesario.</cmd>
+        <substeps id="substeps_wtk_vdc_5s">
+          <substep>
+            <cmd>Haga clic en el botón <uicontrol>Añadir Idioma Destino</uicontrol>.</cmd>
+            <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/add_language.png" placement="break" scale="70" align="center" id="image_nwd_r2c_5s">
+                <alt>Cuadro de diálogo <uicontrol>Añadir Idioma</uicontrol></alt>
+              </image> </stepresult>
+          </substep>
+          <substep>
+            <cmd>Seleccione un idioma de la lista desplegable <uicontrol>Idioma</uicontrol>.</cmd>
+          </substep>
+          <substep>
+            <cmd>Haga clic en el botón <uicontrol>Añadir Idioma</uicontrol>.</cmd>
+            <stepresult>El idioma seleccionado se añade al proyecto y se cierra el cuadro de diálogo.</stepresult>
+          </substep>
+        </substeps>
+      </step>
+      <step>
+        <cmd>Si es necesario, elimine del conjunto de idiomas predeterminado aquellos que no vaya a utilizar.</cmd>
+        <substeps id="substeps_zsw_gfc_5s">
+          <substep>
+            <cmd>Seleccione las casillas de verificación situadas junto a cada idioma que desee eliminar.</cmd>
+          </substep>
+          <substep>
+            <cmd>Haga clic en el botón <uicontrol>Eliminar Idiomas Seleccionados</uicontrol>.</cmd>
+          </substep>
+        </substeps>
+      </step>
+      <step>
+        <cmd>Si es necesario, asocie memorias adicionales al nuevo proyecto.</cmd>
+        <substeps id="substeps_bzj_4fc_5s">
+          <substep>
+            <cmd>Haga clic en la pestaña <uicontrol>Memorias</uicontrol>.</cmd>
+            <stepresult>La pestaña <uicontrol>Memorias</uicontrol> se abre y el cuadro de diálogo <uicontrol>Crear Proyecto</uicontrol> cambia a: <image href="../images/create_project_memories.png" placement="break" scale="70" align="center">
+                <alt>Cuadro de diálogo <uicontrol>Crear Proyecto</uicontrol>, vista de <uicontrol>Memorias</uicontrol></alt>
+              </image> </stepresult>
+          </substep>
+          <substep>
+            <cmd>Haga clic en el botón <uicontrol>Asociar Otras Memorias</uicontrol>.</cmd>
+            <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/additional_memories.png" placement="break" scale="70" align="center" id="image_oqq_ghc_5s">
+                <alt>Cuadro de diálogo <uicontrol>Memorias Adicionales</uicontrol></alt>
+              </image> </stepresult>
+          </substep>
+          <substep>
+            <cmd>Seleccione las casillas de verificación situadas junto a las memorias que desea asociar al nuevo proyecto.</cmd>
+          </substep>
+          <substep>
+            <cmd>Haga clic en el botón <uicontrol>Añadir Memorias Seleccionadas</uicontrol>.</cmd>
+            <stepresult>Las memorias seleccionadas se asocian al nuevo proyecto y el cuadro de diálogo se cierra.</stepresult>
+          </substep>
+        </substeps>
+      </step>
+      <step>
+        <cmd>Haga clic en el botón <uicontrol>Crear Proyecto</uicontrol>.</cmd>
+      </step>
+    </steps>
+    <result>Se crea un nuevo proyecto y la lista de proyectos de la vista <uicontrol>Proyectos</uicontrol> se actualiza para reflejar los cambios.</result>
+  </taskbody>
+</task>

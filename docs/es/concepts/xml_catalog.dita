@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept xml:lang="es" id="concept_lt2_lb4_ts">
+  <title>Catálogo XML</title>
+  <conbody>
+    <p>La aplicación incluye un catálogo XML predeterminado con DTD y esquemas XML para los formatos más relevantes y los tipos de documentos compatibles. El usuario puede añadir DTD y esquemas XML adicionales según sus necesidades.</p>
+    <p>Seleccione la pestaña <uicontrol>Opciones XML</uicontrol> en el cuadro de diálogo <uicontrol>Preferencias</uicontrol> para añadir o eliminar entradas del catálogo.</p>
+    <section>
+      <title>Añadir Entrada de Catálogo</title>
+      <p>Haga clic en el botón <uicontrol>Añadir Entrada de Catálogo</uicontrol> y aparecerá un cuadro de diálogo de selección de archivos. Localice el catálogo en el sistema de archivos y selecciónelo.</p>
+    </section>
+    <section>
+      <title>Eliminar Entrada de Catálogo</title>
+      <p>Seleccione la entrada de catálogo que desea eliminar en la tabla de catálogos. Pulse el botón <uicontrol>Eliminar Entrada de Catálogo</uicontrol> y el catálogo de la aplicación se actualizará para reflejar el cambio.</p>
+    </section>
+  </conbody>
+</concept>

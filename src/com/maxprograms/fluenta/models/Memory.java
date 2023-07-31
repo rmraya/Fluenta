@@ -14,17 +14,20 @@ package com.maxprograms.fluenta.models;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.SAXException;
 
 import com.maxprograms.languages.Language;
 import com.maxprograms.languages.LanguageUtils;
@@ -57,7 +60,8 @@ public class Memory implements Serializable {
 		this.tgtLanguages = tgtLanguages;
 	}
 
-	public Memory(JSONObject json) throws JSONException, ParseException, IOException {
+	public Memory(JSONObject json)
+			throws JSONException, ParseException, IOException, SAXException, ParserConfigurationException {
 		this.id = json.getLong("id");
 		this.name = json.getString("name");
 		this.description = json.getString("description");

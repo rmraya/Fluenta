@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept xml:lang="es" id="concept_bbr_1vb_dt">
+  <title>Crear Memoria</title>
+  <conbody>
+    <p>Utilice los siguientes parámetros para crear una memoria desde la línea de comandos:</p>
+    <table>
+      <tgroup cols="4">
+        <colspec align="center" colwidth="20*"/>
+        <colspec align="center" colwidth="15*"/>
+        <colspec align="left" colwidth="50*"/>
+        <colspec align="center" colwidth="15*"/>
+        <thead>
+          <row>
+            <entry>Parámetro</entry>
+            <entry>Valor</entry>
+            <entry>Descripción</entry>
+            <entry>Requerido</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry translate="no">-addMem</entry>
+            <entry>Archivo JSON</entry>
+            <entry>Un archivo JSON que contiene los datos necesarios para crear la memoria</entry>
+            <entry>Si</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <p>Ejemplo:</p>
+    <codeblock translate="no" xml:space="preserve">
+fluenta_cli.bat -addMem addMemory.json 
+  </codeblock>
+    <p>Donde el contenido de <cmdname>addMemory.json</cmdname> debe ser similar a:</p>
+    <codeblock translate="no" xml:space="preserve">
+{ id:12345678, 
+  title:"JSON test", 
+  description:"memory created using JSON and CLI", 
+  srcLang:"en-US", 
+  tgtLang:["es","fr"]
+}
+</codeblock>
+    <section>
+      <title>Pares de Valores JSON</title>
+      <table>
+        <tgroup cols="4">
+          <colspec align="center" colwidth="20*"/>
+          <colspec align="center" colwidth="15*"/>
+          <colspec align="left" colwidth="50*"/>
+          <colspec align="center" colwidth="15*"/>
+          <thead>
+            <row>
+              <entry>Clave</entry>
+              <entry>Tipo de Dato</entry>
+              <entry>Descripción</entry>
+              <entry>Requerido</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry translate="no">id</entry>
+              <entry>Número</entry>
+              <entry>Identificador de memoria</entry>
+              <entry>Si</entry>
+            </row>
+            <row>
+              <entry translate="no">title</entry>
+              <entry>Texto</entry>
+              <entry>Breve descripción de la memoria. Esta es la descripción que se muestra en la interfaz gráfica de Fluenta.</entry>
+              <entry>Si</entry>
+            </row>
+            <row>
+              <entry translate="no">description</entry>
+              <entry>Texto</entry>
+              <entry>Una descripción de texto más larga para la memoria.</entry>
+              <entry>Si</entry>
+            </row>
+            <row>
+              <entry translate="no">srcLang</entry>
+              <entry>Texto</entry>
+              <entry>Código del idioma origen.</entry>
+              <entry>Si</entry>
+            </row>
+            <row>
+              <entry translate="no">tgtLang</entry>
+              <entry>Arreglo de Texto</entry>
+              <entry>Un arreglo que contiene los códigos de idiomas destino para la memoria.</entry>
+              <entry>Si</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+  </conbody>
+</concept>

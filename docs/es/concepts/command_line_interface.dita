@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept xml:lang="es" id="concept_stf_1x2_ts">
+  <title>Interfaz de Línea de Comandos</title>
+  <conbody>
+    <p>Fluenta puede integrarse en los flujos de trabajo de publicación y edición mediante su Interfaz de Línea de Comandos (CLI).</p>
+    <p>Los métodos expuestos por la CLI de Fluenta son:</p>
+    <ul>
+      <li><xref href="create_project_cli.dita">Crear un proyecto</xref>;</li>
+      <li><xref href="remove_project_cli.dita">Eliminar Proyecto</xref>;</li>
+      <li><xref href="retrieve_project_list_cli.dita">Obtener la lista de proyectos</xref>;</li>
+      <li><xref href="generate_xliff_cli.dita">Generar archivos XLIFF y estadísticas opcionales</xref>;</li>
+      <li><xref href="import_xliff_cli.dita">Importar un archivo XLIFF</xref>;</li>
+      <li><xref href="create_memory_cli.dita">Crear una memoria</xref>;</li>
+      <li><xref href="retrieve_memory_list_cli.dita">Obtener la lista de memorias</xref>;</li>
+      <li><xref href="import_memory_cli.dita">Importar un archivo TMX en una memoria</xref>;</li>
+      <li><xref href="export_memory_cli.dita">Exportar una memoria a un archivo TMX</xref>;</li>
+      <li><xref href="license_management_cli.dita">Registrar una clave de suscripción</xref>;</li>
+      <li><xref href="version_info_cli.dita">Obtener información de versión</xref>.</li>
+    </ul>
+    <p>En macOS y Linux utilice <cmdname>fluenta_cli.sh</cmdname> para ejecutar Fluenta sin su interfaz gráfica. </p>
+    <ul>
+      <li>En macOS la ubicación predeterminada del script es <filepath>/Applications/Fluenta.app/Contents/Resources/fluenta_cli.sh</filepath></li>
+      <li>En Linux la ubicación predeterminada del script es <filepath>/opt/Maxprograms/Fluenta/fluenta_cli.sh</filepath></li>
+    </ul>
+    <p>En Windows utilice <cmdname>fluenta_cli.bat</cmdname> (disponible en la carpeta predeterminada de instalación) para procesar los parámetros de la línea de comandos.</p>
+  </conbody>
+</concept>

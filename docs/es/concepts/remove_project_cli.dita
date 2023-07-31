@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept xml:lang="es" id="remove_project_cli">
+  <title>Eliminar Proyecto</title>
+  <shortdesc/>
+  <conbody>
+    <p>Utilice los siguientes parámetros para eliminar un proyecto desde la línea de comandos:</p>
+    <table>
+      <tgroup cols="4">
+        <colspec align="center" colwidth="20*"/>
+        <colspec align="center" colwidth="15*"/>
+        <colspec align="left" colwidth="50*"/>
+        <colspec align="center" colwidth="15*"/>
+        <thead>
+          <row>
+            <entry>Parámetro</entry>
+            <entry>Valor</entry>
+            <entry>Descripción</entry>
+            <entry>Requerido</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry translate="no">-del</entry>
+            <entry>projectId</entry>
+            <entry>Identificador de proyecto</entry>
+            <entry>Si</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <p>Ejemplo:</p>
+    <codeblock translate="no" xml:space="preserve">
+            fluenta_cli.bat -del 12345678 
+        </codeblock>
+  </conbody>
+</concept>

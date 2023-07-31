@@ -15,9 +15,12 @@ package com.maxprograms.fluenta.views;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -39,6 +42,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.json.JSONException;
+import org.xml.sax.SAXException;
 
 import com.maxprograms.fluenta.Fluenta;
 import com.maxprograms.fluenta.MainView;
@@ -61,7 +65,7 @@ public class ProjectInfoDialog extends Dialog {
 
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
-		shell.setText(project.getTitle());
+		shell.setText(Messages.getString("ProjectInfoDialog.12"));
 		GridLayout layout = new GridLayout();
 		layout.marginWidth = 0;
 		layout.marginHeight = 0;
@@ -75,11 +79,15 @@ public class ProjectInfoDialog extends Dialog {
 		});
 		display = shell.getDisplay();
 
+		Label projectLabel = new Label(shell, SWT.NONE);	
+		MessageFormat mf = new MessageFormat(Messages.getString("ProjectInfoDialog.13"));
+		projectLabel.setText(mf.format(new String[] { project.getTitle() }));
+
 		CTabFolder folder = new CTabFolder(shell, SWT.NONE);
 		folder.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		CTabItem statusItem = new CTabItem(folder, SWT.NONE);
-		statusItem.setText("Status");
+		statusItem.setText(Messages.getString("ProjectInfoDialog.0"));
 
 		Composite statusComposite = new Composite(folder, SWT.NONE);
 		statusComposite.setLayout(new GridLayout());
@@ -94,19 +102,19 @@ public class ProjectInfoDialog extends Dialog {
 		statusTable.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		TableColumn language = new TableColumn(statusTable, SWT.NONE);
-		language.setText("Language");
+		language.setText(Messages.getString("ProjectInfoDialog.1"));
 		language.setWidth(200);
 
 		TableColumn statusColumn = new TableColumn(statusTable, SWT.CENTER);
-		statusColumn.setText("Status");
+		statusColumn.setText(Messages.getString("ProjectInfoDialog.2"));
 		statusColumn.setWidth(120);
 
 		try {
 			populateStatusTable(project);
-		} catch (IOException e) {
+		} catch (IOException | SAXException | ParserConfigurationException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error populating status table");
+			box.setMessage(Messages.getString("ProjectInfoDialog.3"));
 			box.open();
 			shell.close();
 		}
@@ -120,7 +128,7 @@ public class ProjectInfoDialog extends Dialog {
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button translated = new Button(bottom, SWT.PUSH);
-		translated.setText("Mark Selection as Translated");
+		translated.setText(Messages.getString("ProjectInfoDialog.4"));
 		translated.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -134,10 +142,10 @@ public class ProjectInfoDialog extends Dialog {
 				try {
 					mainView.getController().updateProject(project);
 					populateStatusTable(project);
-				} catch (IOException | JSONException | ParseException e) {
+				} catch (IOException | JSONException | ParseException | SAXException | ParserConfigurationException e) {
 					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage("Error populating status table");
+					box.setMessage(Messages.getString("ProjectInfoDialog.5"));
 					box.open();
 					shell.close();
 				}
@@ -146,7 +154,7 @@ public class ProjectInfoDialog extends Dialog {
 		});
 
 		CTabItem historyItem = new CTabItem(folder, SWT.NONE);
-		historyItem.setText("History");
+		historyItem.setText(Messages.getString("ProjectInfoDialog.6"));
 
 		Composite historyComposite = new Composite(folder, SWT.NONE);
 		historyComposite.setLayout(new GridLayout());
@@ -163,20 +171,20 @@ public class ProjectInfoDialog extends Dialog {
 		eventsTable.setLayoutData(tableData);
 
 		TableColumn date = new TableColumn(eventsTable, SWT.CENTER);
-		date.setText("Date");
+		date.setText(Messages.getString("ProjectInfoDialog.7"));
 		date.setWidth(150);
 		date.setResizable(false);
 
 		TableColumn eventBuild = new TableColumn(eventsTable, SWT.CENTER);
-		eventBuild.setText("Version");
+		eventBuild.setText(Messages.getString("ProjectInfoDialog.8"));
 		eventBuild.setWidth(50);
 
 		TableColumn eventLanguage = new TableColumn(eventsTable, SWT.NONE);
-		eventLanguage.setText("Language");
+		eventLanguage.setText(Messages.getString("ProjectInfoDialog.9"));
 		eventLanguage.setWidth(200);
 
 		TableColumn events = new TableColumn(eventsTable, SWT.CENTER);
-		events.setText("Event");
+		events.setText(Messages.getString("ProjectInfoDialog.10"));
 		events.setWidth(130);
 
 		try {
@@ -189,10 +197,10 @@ public class ProjectInfoDialog extends Dialog {
 						LanguageUtils.getLanguage(event.getLanguage()).getDescription(),
 						ProjectEvent.getDescription(event.getType()) });
 			}
-		} catch (IOException e) {
+		} catch (IOException | SAXException | ParserConfigurationException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error populating project history");
+			box.setMessage(Messages.getString("ProjectInfoDialog.11"));
 			box.open();
 			shell.close();
 		}
@@ -202,7 +210,7 @@ public class ProjectInfoDialog extends Dialog {
 		shell.pack();
 	}
 
-	protected void populateStatusTable(Project project) throws IOException {
+	protected void populateStatusTable(Project project) throws IOException, SAXException, ParserConfigurationException {
 		statusTable.removeAll();
 		List<String> tgtLangs = project.getLanguages();
 		Iterator<String> tl = tgtLangs.iterator();

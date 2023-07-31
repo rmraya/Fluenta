@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_bbr_1vb_dt">
+ <title>Create Memory</title>
+ <conbody>
+  <p>Use the following parameters to create a memory from command line:</p>
+  <table>
+   <tgroup cols="4">
+    <colspec colwidth="20*" align="center"/>
+    <colspec colwidth="15*" align="center"/>
+    <colspec colwidth="50*" align="left"/>
+    <colspec colwidth="15*" align="center"/>
+    <thead>
+     <row>
+      <entry>Parameter</entry>
+      <entry>Value</entry>
+      <entry>Description</entry>
+      <entry>Required</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry translate="no">-addMem</entry>
+      <entry>JSON file</entry>
+      <entry>A JSON file containing the data required for creating the memory</entry>
+      <entry>Yes</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>Example:</p>
+  <codeblock translate="no">
+fluenta_cli.bat -addMem addMemory.json 
+  </codeblock>
+  <p>Where the content of <cmdname>addMemory.json</cmdname> should be like:</p>
+
+  <codeblock translate="no">
+{ id:12345678, 
+  title:"JSON test", 
+  description:"memory created using JSON and CLI", 
+  srcLang:"en-US", 
+  tgtLang:["es","fr"]
+}
+</codeblock>
+  <section>
+   <title>JSON Value Pairs</title>
+   <table>
+    <tgroup cols="4">
+     <colspec colwidth="20*" align="center"/>
+     <colspec colwidth="15*" align="center"/>
+     <colspec colwidth="50*" align="left"/>
+     <colspec colwidth="15*" align="center"/>
+     <thead>
+      <row>
+       <entry>Member</entry>
+       <entry>Data Type</entry>
+       <entry>Description</entry>
+       <entry>Required</entry>
+      </row>
+     </thead>
+     <tbody>
+      <row>
+       <entry translate="no">id</entry>
+       <entry>Number</entry>
+       <entry>Memory identifier</entry>
+       <entry>Yes</entry>
+      </row>
+      <row>
+       <entry translate="no">title</entry>
+       <entry>String</entry>
+       <entry>Short text description for the memory. This is the description displayed in Fluenta's
+        GUI.</entry>
+       <entry>Yes</entry>
+      </row>
+      <row>
+       <entry translate="no">description</entry>
+       <entry>String</entry>
+       <entry>A longer text description for the memory.</entry>
+       <entry>Yes</entry>
+      </row>
+      <row>
+       <entry translate="no">srcLang</entry>
+       <entry>String</entry>
+       <entry>Source language code.</entry>
+       <entry>Yes</entry>
+      </row>
+      <row>
+       <entry translate="no">tgtLang</entry>
+       <entry>String Array</entry>
+       <entry>An array containing the target languages for the memory.</entry>
+       <entry>Yes</entry>
+      </row>
+     </tbody>
+    </tgroup>
+   </table>
+  </section>
+ </conbody>
+</concept>

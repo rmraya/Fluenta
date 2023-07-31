@@ -1,6 +1,8 @@
 .DS_Store
 jars/fluenta.jar
 jars/swt.jar
+docs/en/out
+docs/es/out
 out
 bin
 conf

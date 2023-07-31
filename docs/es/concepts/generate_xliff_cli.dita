@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept xml:lang="es" id="concept_w55_z5b_dt">
+  <title>Generar Archivos XLIFF</title>
+  <conbody>
+    <p>Utilice los siguientes parámetros para generar archivos XLIFF desde la línea de comandos:</p>
+    <table>
+      <tgroup cols="4">
+        <colspec align="center" colwidth="20*"/>
+        <colspec align="center" colwidth="15*"/>
+        <colspec align="left" colwidth="50*"/>
+        <colspec align="center" colwidth="15*"/>
+        <thead>
+          <row>
+            <entry>Parámetro</entry>
+            <entry>Valor</entry>
+            <entry>Descripción</entry>
+            <entry>Requerido</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry translate="no">-generateXLIFF</entry>
+            <entry>Archivo JSON</entry>
+            <entry>Ruta completa a un archivo <xref href="../glossaries/JSON.dita">JSON</xref> que contiene los datos necesarios para generar los archivos XLIFF.</entry>
+            <entry>Si</entry>
+          </row>
+          <row>
+            <entry translate="no">-verbose</entry>
+            <entry/>
+            <entry>Selecciona si la información de progreso se muestra o no en la consola.</entry>
+            <entry>No</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <p>Ejemplo:</p>
+    <codeblock translate="no" xml:space="preserve">
+fluenta_cli.bat -generateXLIFF genXLIFF.json -verbose
+  </codeblock>
+    <p>Donde el contenido de <cmdname>genXLIFF.json</cmdname> debe ser similar a:</p>
+    <codeblock translate="no" xml:space="preserve">
+{ id:12345678,
+  xliffFolder: "C:\\sample data\\XLIFF",
+  tgtLang: ["es", "fr"],
+  ditaval: "C:\\sample data\\filter.ditaval",
+  useICE: true,
+  modifiedFilesOnly: true,
+  useTM: true,
+  generateCount: false, 
+  useXLIFF20: false,
+  paragraph: false, 
+  ignoreTrackedChanges: false,
+  embedSkeleton: false
+}
+</codeblock>
+    <section>
+      <title>Pares de Valores JSON</title>
+      <table>
+        <tgroup cols="4">
+          <colspec align="center" colwidth="20*"/>
+          <colspec align="center" colwidth="15*"/>
+          <colspec align="left" colwidth="50*"/>
+          <colspec align="center" colwidth="15*"/>
+          <thead>
+            <row>
+              <entry>Clave</entry>
+              <entry>Tipo de Dato</entry>
+              <entry>Descripción</entry>
+              <entry>Requerido</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry translate="no">id</entry>
+              <entry>Número</entry>
+              <entry>Identificador de proyecto</entry>
+              <entry>Si</entry>
+            </row>
+            <row>
+              <entry translate="no">xliffFolder</entry>
+              <entry>Texto</entry>
+              <entry>Ruta a la carpeta donde deben guardarse los archivos XLIFF y estadísticas opcionales</entry>
+              <entry>Si</entry>
+            </row>
+            <row>
+              <entry translate="no">tgtLang</entry>
+              <entry>Arreglo de Texto</entry>
+              <entry>Un arreglo que contiene los códigos de idiomas destino para los archivos XLIFF</entry>
+              <entry>Si</entry>
+            </row>
+            <row>
+              <entry translate="no">ditaval</entry>
+              <entry>Texto</entry>
+              <entry>Ruta a un archivo .ditaval para filtrar el contenido a extraer</entry>
+              <entry>No</entry>
+            </row>
+            <row>
+              <entry translate="no">useICE</entry>
+              <entry>Booleano</entry>
+              <entry>Selecciona si las coincidencias ICE existentes deben reutilizarse. Valor predeterminado: <codeph>false</codeph>.</entry>
+              <entry>No</entry>
+            </row>
+            <row>
+              <entry translate="no">modifiedFilesOnly</entry>
+              <entry>Booleano</entry>
+              <entry>Selecciona si los archivos que no han cambiado desde el último ciclo de traducción deben incluirse en los documentos XLIFF generados. Valor predeterminado: <codeph>false</codeph></entry>
+              <entry>No</entry>
+            </row>
+            <row>
+              <entry translate="no">useTM</entry>
+              <entry>Booleano</entry>
+              <entry>Selecciona si debe usarse memorias de traducción. Valor predeterminado: <codeph>false</codeph></entry>
+              <entry>No</entry>
+            </row>
+            <row>
+              <entry translate="no">generateCount</entry>
+              <entry>Booleano</entry>
+              <entry>Selecciona si debe generarse estadísticas. Valor predeterminado: <codeph>false</codeph></entry>
+              <entry>No</entry>
+            </row>
+            <row>
+              <entry translate="no">useXLIFF20</entry>
+              <entry>Booleano</entry>
+              <entry>Selecciona si se generará XLIFF 2.0 en lugar de XLIFF 1.2. Valor predeterminado: <codeph>false</codeph></entry>
+              <entry>No</entry>
+            </row>
+            <row>
+              <entry translate="no">paragraph</entry>
+              <entry>Booleano</entry>
+              <entry>Selecciona si se debe utilizar segmentación por párrafos en lugar de segmentación por oraciones. Valor predeterminado: <codeph>false</codeph></entry>
+              <entry>No</entry>
+            </row>
+            <row>
+              <entry translate="no">ignoreTrackedChanges</entry>
+              <entry>Booleano</entry>
+              <entry>Selecciona si se deben ignorar las revisiones de Oxygen XML Editor. Valor predeterminado: <codeph>false</codeph></entry>
+              <entry>No</entry>
+            </row>
+            <row>
+              <entry translate="no">embedSkeleton</entry>
+              <entry>Booleano</entry>
+              <entry>Selecciona si los esqueletos deben incrustarse en los archivos XLIFF generados, permitiendo la conversión de nuevo a DITA en cualquier ordenador que utilice <xref href="https://www.maxprograms.com/products/openxliff.html" scope="external" format="html">OpenXLIFF Filters</xref> o <xref href="https://www.maxprograms.com/products/xliffmanager.html" scope="external" format="html">XLIFF Manager</xref>. Valor predeterminado: <codeph>false</codeph></entry>
+              <entry>No</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+  </conbody>
+</concept>

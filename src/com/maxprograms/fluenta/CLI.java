@@ -64,7 +64,7 @@ public class CLI {
 		String projectId = "";
 
 		if (args.length == 0) {
-			logger.log(Level.WARNING, "Parameters are missing");
+			logger.log(Level.WARNING, Messages.getString("CLI.0"));
 			System.exit(3);
 		}
 
@@ -72,7 +72,7 @@ public class CLI {
 			checkLock();
 			lock();
 		} catch (IOException e1) {
-			logger.log(Level.ERROR, "Error locking process", e1);
+			logger.log(Level.ERROR, Messages.getString("CLI.1"), e1);
 			System.exit(3);
 		}
 
@@ -128,9 +128,8 @@ public class CLI {
 		if (addProject) {
 			try {
 				API.addProject(addFile);
-			} catch (IOException | ClassNotFoundException | SQLException | SAXException
-					| ParserConfigurationException | JSONException | ParseException e) {
-				logger.log(Level.ERROR, "Error adding project", e);
+			} catch (IOException | SAXException | ParserConfigurationException | JSONException | ParseException e) {
+				logger.log(Level.ERROR, Messages.getString("CLI.2"), e);
 				System.exit(3);
 			}
 		}
@@ -139,26 +138,25 @@ public class CLI {
 				long number = Long.parseLong(projectId);
 				API.removeProject(number);
 			} catch (IOException | JSONException | ParseException e) {
-				logger.log(Level.ERROR, "Error removing project", e);
+				logger.log(Level.ERROR, Messages.getString("CLI.3"), e);
 				System.exit(3);
 			}
 		}
 		if (generateXLIFF) {
 			try {
 				API.generateXLIFF(genXliffFile, verbose);
-			} catch (IOException | ClassNotFoundException | SAXException | ParserConfigurationException
-					| URISyntaxException | SQLException | JSONException | ParseException ioe) {
-				logger.log(Level.ERROR, "Error generating XLIFF", ioe);
+			} catch (IOException | SAXException | ParserConfigurationException | URISyntaxException | SQLException
+					| JSONException | ParseException ioe) {
+				logger.log(Level.ERROR, Messages.getString("CLI.4"), ioe);
 				System.exit(3);
 			}
 		}
 		if (importXLIFF) {
 			try {
 				API.importXLIFF(xliffFile, verbose);
-			} catch (IOException | NumberFormatException | ClassNotFoundException | SAXException
-					| ParserConfigurationException | SQLException | URISyntaxException | JSONException
-					| ParseException ioe) {
-				logger.log(Level.ERROR, "Error importing XLIFF", ioe);
+			} catch (IOException | NumberFormatException | SAXException | ParserConfigurationException | SQLException
+					| URISyntaxException | JSONException | ParseException ioe) {
+				logger.log(Level.ERROR, Messages.getString("CLI.5"), ioe);
 				System.exit(3);
 			}
 		}
@@ -166,23 +164,23 @@ public class CLI {
 			try {
 				System.out.println(API.getProjects());
 			} catch (IOException | JSONException | ParseException e) {
-				logger.log(Level.ERROR, "Error getting projects", e);
+				logger.log(Level.ERROR, Messages.getString("CLI.6"), e);
 				System.exit(3);
 			}
 		}
 		if (addMemory) {
 			try {
 				API.addMemory(addMemFile);
-			} catch (IOException | JSONException | ParseException e) {
-				logger.log(Level.ERROR, "Error adding memory", e);
+			} catch (IOException | JSONException | ParseException | SAXException | ParserConfigurationException e) {
+				logger.log(Level.ERROR, Messages.getString("CLI.7"), e);
 				System.exit(3);
 			}
 		}
 		if (getMemories) {
 			try {
 				System.out.println(API.getMemories());
-			} catch (IOException | JSONException | ParseException e) {
-				logger.log(Level.ERROR, "Error getting memories", e);
+			} catch (IOException | JSONException | ParseException | SAXException | ParserConfigurationException e) {
+				logger.log(Level.ERROR, Messages.getString("CLI.8"), e);
 				System.exit(3);
 			}
 		}
@@ -191,22 +189,22 @@ public class CLI {
 			try {
 				id = Long.parseLong(memId);
 			} catch (NumberFormatException ex) {
-				logger.log(Level.ERROR, "Invalid memory id");
+				logger.log(Level.ERROR, Messages.getString("CLI.9"));
 				System.exit(3);
 			}
 			if (tmxFile == null) {
-				logger.log(Level.ERROR, "Missing TMX file");
+				logger.log(Level.ERROR, Messages.getString("CLI.10"));
 				System.exit(3);
 			}
 			File f = new File(tmxFile);
 			if (!f.exists()) {
-				logger.log(Level.ERROR, "TMX file does not exist");
+				logger.log(Level.ERROR, Messages.getString("CLI.11"));
 				System.exit(3);
 			}
 			try {
 				API.importMemory(id, tmxFile);
-			} catch (IOException | ClassNotFoundException | JSONException | SQLException | SAXException
-					| ParserConfigurationException | ParseException e) {
+			} catch (IOException | JSONException | SQLException | SAXException | ParserConfigurationException
+					| ParseException e) {
 				logger.log(Level.ERROR, e.getMessage());
 				System.exit(3);
 			}
@@ -216,11 +214,11 @@ public class CLI {
 			try {
 				id = Long.parseLong(memId);
 			} catch (NumberFormatException ex) {
-				logger.log(Level.ERROR, "Invalid memory id");
+				logger.log(Level.ERROR, Messages.getString("CLI.12"));
 				System.exit(3);
 			}
 			if (tmxFile == null) {
-				logger.log(Level.ERROR, "Missing TMX file");
+				logger.log(Level.ERROR, Messages.getString("CLI.13"));
 				System.exit(3);
 			}
 			try {
@@ -233,7 +231,7 @@ public class CLI {
 		try {
 			unlock();
 		} catch (IOException e) {
-			logger.log(Level.ERROR, "Error unlocking process", e);
+			logger.log(Level.ERROR, Messages.getString("CLI.14"), e);
 		}
 	}
 
@@ -244,7 +242,7 @@ public class CLI {
 				try (FileChannel oldchannel = file.getChannel()) {
 					FileLock newlock = oldchannel.tryLock();
 					if (newlock == null) {
-						logger.log(Level.ERROR, "Error locking process");
+						logger.log(Level.ERROR, Messages.getString("CLI.1"));
 						System.exit(1);
 					} else {
 						newlock.release();

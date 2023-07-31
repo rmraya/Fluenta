@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_dmf_1vb_dt">
+  <title>Import XLIFF File</title>
+  <shortdesc/>
+  <conbody>
+    <p>Use the following parameters to import a translated XLIFF file into a project from command
+      line:</p>
+    <table>
+      <tgroup cols="4">
+        <colspec colwidth="20*" align="center"/>
+        <colspec colwidth="15*" align="center"/>
+        <colspec colwidth="50*" align="left"/>
+        <colspec colwidth="15*" align="center"/>
+        <thead>
+          <row>
+            <entry>Parameter</entry>
+            <entry>Value</entry>
+            <entry>Description</entry>
+            <entry>Required</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry translate="no">-importXLIFF</entry>
+            <entry>JSON file</entry>
+            <entry>Full path to a <xref href="../glossaries/JSON.dita">JSON</xref> file containing
+              the data required for importing the XLIFF file</entry>
+            <entry>Yes</entry>
+          </row>
+          <row>
+            <entry translate="no">-verbose</entry>
+            <entry/>
+            <entry>Selects whether progress information is logged or not in
+              stdout.</entry>
+            <entry>No</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <p>Example:</p>
+    <codeblock translate="no">
+fluenta_cli.bat -importXLIFF impXLIFF.json -verbose
+  </codeblock>
+    <p>Where the content of <cmdname>impXLIFF.json</cmdname> should be like:</p>
+
+    <codeblock translate="no">
+{ id:12345678,
+  xliffFile: "C:\\sample data\\XLIFF\\spanish.xlf",
+  outputFolder: "C:\\sample data\es\\",
+  updateTM: true,
+  acceptUnapproved: true,
+  ignoreTagErrors: false
+}
+</codeblock>
+    <section>
+      <title>JSON Value Pairs</title>
+      <table>
+        <tgroup cols="4">
+          <colspec colwidth="20*" align="center"/>
+          <colspec colwidth="15*" align="center"/>
+          <colspec colwidth="50*" align="left"/>
+          <colspec colwidth="15*" align="center"/>
+          <thead>
+            <row>
+              <entry>Member</entry>
+              <entry>Data Type</entry>
+              <entry>Description</entry>
+              <entry>Required</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry translate="no">id</entry>
+              <entry>Number</entry>
+              <entry>Project identifier</entry>
+              <entry>Yes</entry>
+            </row>
+            <row>
+              <entry translate="no">xliffFile</entry>
+              <entry>String</entry>
+              <entry>Path to the XLIFF file to be imported</entry>
+              <entry>Yes</entry>
+            </row>
+            <row>
+              <entry translate="no">outputFolder</entry>
+              <entry>Boolean</entry>
+              <entry>Path to the folder where the translated DITA files should be stored</entry>
+              <entry>Yes</entry>
+            </row>
+            <row>
+              <entry translate="no">updateTM</entry>
+              <entry>Boolean</entry>
+              <entry>Selects whether the memory associated with the project should be updated with
+                the translations in the XLIFF file</entry>
+              <entry>Yes</entry>
+            </row>
+            <row>
+              <entry translate="no">acceptUnapproved</entry>
+              <entry>Boolean</entry>
+              <entry>Selects whether segments that are translated but not approved should be treated
+                as approved. Default value: <codeph>false</codeph></entry>
+              <entry>No</entry>
+            </row>
+            <row>
+              <entry translate="no">ignoreTagErrors</entry>
+              <entry>Boolean</entry>
+              <entry>Selects whether inline tag errors should be ignored. If set to
+                  <codeph>false</codeph> and errors are found, a detailed report in HTML format is
+                generated and stored in the folder that contains the XLIFF file. Default value:
+                  <codeph>false</codeph></entry>
+              <entry>No</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+  </conbody>
+</concept>

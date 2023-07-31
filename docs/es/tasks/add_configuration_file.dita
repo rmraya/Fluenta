@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task xml:lang="es" id="task_g5q_pc4_ts">
+  <title>Añadir Archivo de Configuración</title>
+  <taskbody>
+    <steps>
+      <step>
+        <cmd>En la pestaña <uicontrol>Opciones XML</uicontrol> del cuadro de diálogo <uicontrol>Preferencias</uicontrol>, haga cic en el botón <uicontrol>Añadir Archivo de Configuración</uicontrol>.</cmd>
+        <stepresult>El siguiente cuadro de diálogo aparece:<image href="../images/root_element.png" placement="break" scale="70" align="center" id="image_tqm_wld_5s">
+            <alt>Cuadro de diálogo <uicontrol>Añadir Archivo de Configuración</uicontrol></alt>
+          </image> </stepresult>
+      </step>
+      <step>
+        <cmd>Escriba el nombre del elemento raíz de sus archivos XML en el cuadro de texto <uicontrol>Elemento Raíz</uicontrol>. El nombre del elemento raíz se utiliza para nombrar el archivo de configuración.</cmd>
+      </step>
+      <step>
+        <cmd>Haga clic en el botón <uicontrol>Añadir Archivo de Configuración</uicontrol>.</cmd>
+        <stepresult>El siguiente cuadro de diálogo aparece:<image href="../images/grammar_configuration.png" placement="break" scale="70" align="center" id="image_yj4_pmd_5s">
+            <alt>Cuadro de diálogo <uicontrol>Configuración de Grámatica</uicontrol></alt>
+          </image> </stepresult>
+      </step>
+      <step>
+        <cmd>Haga clic en el botón <uicontrol>Añadir Elemento</uicontrol> para añadir la configuración de un elemento.</cmd>
+        <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/element_configuration.png" placement="break" scale="70" align="center">
+            <alt>Cuadro de diálogo <uicontrol>Configuración de Elemento</uicontrol></alt>
+          </image> </stepresult>
+      </step>
+      <step>
+        <cmd>Escriba el nombre del elemento a añadir en el cuadro de texto <uicontrol>Nombre del Elemento</uicontrol>.</cmd>
+      </step>
+      <step>
+        <cmd>Seleccione el tipo de elemento en la lista desplegable <uicontrol>Tipo de Elemento</uicontrol>. Los tipos disponibles son: </cmd>
+        <choices>
+          <choice><uicontrol>segment</uicontrol>: el elemento seleccionado inicia una nueva sección de texto traducible.</choice>
+          <choice><uicontrol>inline</uicontrol>: el elemento seleccionado representa un cambio en las opciones de formato y no inicia una nueva sección de texto traducible.</choice>
+          <choice><uicontrol>ignore</uicontrol>: el elemento seleccionado y sus descendientes deben ignorarse.</choice>
+        </choices>
+      </step>
+      <step>
+        <cmd>Si el tipo de elemento es "inline", seleccione el tipo de formato que ele elemento representa en la lista desplegable <uicontrol>Tipo de Formato</uicontrol>.</cmd>
+      </step>
+      <step>
+        <cmd>Si el elemento tiene atributos traducibles, introduzca sus nombres separados por un ";" en el cuadro de texto <uicontrol>Atributos Traducibles</uicontrol>.</cmd>
+      </step>
+      <step>
+        <cmd>Si es necesario conservar los espacios en blanco al extraer el texto, seleccione "Yes" en la lista desplegable <uicontrol>Preservar Espacios</uicontrol>.</cmd>
+      </step>
+      <step>
+        <cmd>Haga clic en el botón <uicontrol>Guardar Configuración</uicontrol>.</cmd>
+      </step>
+      <step>
+        <cmd>Repita los pasos anteriores hasta haber configurado todos los elementos necesarios.</cmd>
+      </step>
+    </steps>
+    <result>Un nuevo archivo de configuración para el filtro de XML es creado.</result>
+  </taskbody>
+</task>

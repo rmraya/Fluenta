@@ -15,8 +15,8 @@ package com.maxprograms.fluenta.models;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -223,17 +223,17 @@ public class Project implements Serializable {
 	private String getStatusString() {
 		switch (status) {
 			case NEW:
-				return NEW;
+				return Messages.getString("Project.0");
 			case NEEDS_UPDATE:
-				return NEEDS_UPDATE;
+				return Messages.getString("Project.1");
 			case IN_PROGRESS:
-				return IN_PROGRESS;
+				return Messages.getString("Project.2");
 			case COMPLETED:
-				return COMPLETED;
+				return Messages.getString("Project.3");
 			case UNTRANSLATED:
-				return UNTRANSLATED;
+				return Messages.getString("Project.4");
 			default:
-				return "Unknown";
+				return Messages.getString("Project.5");
 		}
 	}
 
@@ -340,17 +340,17 @@ public class Project implements Serializable {
 	public String getTargetStatus(String langCode) {
 		switch (languageStatus.get(langCode)) {
 			case NEW:
-				return NEW;
+				return Messages.getString("Project.0");
 			case NEEDS_UPDATE:
-				return NEEDS_UPDATE;
+				return Messages.getString("Project.1");
 			case IN_PROGRESS:
-				return IN_PROGRESS;
+				return Messages.getString("Project.2");
 			case COMPLETED:
-				return COMPLETED;
+				return Messages.getString("Project.3");
 			case UNTRANSLATED:
-				return UNTRANSLATED;
+				return Messages.getString("Project.4");
 			default:
-				return "Unknown";
+				return Messages.getString("Project.5");
 		}
 	}
 

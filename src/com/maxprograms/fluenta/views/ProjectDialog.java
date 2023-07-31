@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.Date;
@@ -84,9 +83,9 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
 		if (project == null) {
-			shell.setText("Create Project");
+			shell.setText(Messages.getString("ProjectDialog.0"));
 		} else {
-			shell.setText("Update Project");
+			shell.setText(Messages.getString("ProjectDialog.1"));
 		}
 		shell.setLayout(new GridLayout());
 		shell.addListener(SWT.Close, new Listener() {
@@ -103,7 +102,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		mapComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label mapLabel = new Label(mapComposite, SWT.NONE);
-		mapLabel.setText("DITA Map");
+		mapLabel.setText(Messages.getString("ProjectDialog.2"));
 
 		mapText = new Text(mapComposite, SWT.BORDER);
 		mapText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -112,7 +111,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		}
 
 		Button mapBrowse = new Button(mapComposite, SWT.PUSH);
-		mapBrowse.setText("Browse...");
+		mapBrowse.setText(Messages.getString("ProjectDialog.3"));
 		mapBrowse.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -120,7 +119,8 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 				FileDialog fd = new FileDialog(shell, SWT.OPEN | SWT.SINGLE);
 				fd.setFilterExtensions(new String[] { "*.ditamap", "*.xml", "*.*" });
 				fd.setFilterNames(
-						new String[] { "DITA Map Files [*.ditamap]", "XML Files [*.xml]", "ALL Files [*.*]" });
+						new String[] { Messages.getString("ProjectDialog.4"), Messages.getString("ProjectDialog.5"),
+								Messages.getString("ProjectDialog.6") });
 				if (mapText.getText() != null && !mapText.getText().isEmpty()) {
 					File f = new File(mapText.getText());
 					if (f.exists()) {
@@ -140,7 +140,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label descriptionLabel = new Label(top, SWT.NONE);
-		descriptionLabel.setText("Project Name");
+		descriptionLabel.setText(Messages.getString("ProjectDialog.7"));
 
 		titleText = new Text(top, SWT.BORDER);
 		titleText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -149,7 +149,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		}
 
 		Group descriptionGroup = new Group(shell, SWT.NONE);
-		descriptionGroup.setText("Project Description");
+		descriptionGroup.setText(Messages.getString("ProjectDialog.8"));
 		GridLayout groupLayout = new GridLayout();
 		groupLayout.marginWidth = 0;
 		groupLayout.marginHeight = 0;
@@ -165,7 +165,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		}
 
 		Label sourceLabel = new Label(top, SWT.NONE);
-		sourceLabel.setText("Source Language");
+		sourceLabel.setText(Messages.getString("ProjectDialog.9"));
 
 		sourceLanguages = new Combo(top, SWT.READ_ONLY | SWT.DROP_DOWN);
 		sourceLanguages.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -174,7 +174,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		} catch (SAXException | IOException | ParserConfigurationException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error retrieving language list");
+			box.setMessage(Messages.getString("ProjectDialog.10"));
 			box.open();
 			shell.close();
 		}
@@ -182,10 +182,10 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 			try {
 				sourceLanguages.select(TextUtils.geIndex(sourceLanguages.getItems(),
 						LanguageUtils.getLanguage(project.getSrcLanguage()).getDescription()));
-			} catch (IOException e) {
+			} catch (IOException | SAXException | ParserConfigurationException e) {
 				logger.log(Level.ERROR, e);
 				MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-				box.setMessage("Error retrieving source language");
+				box.setMessage(Messages.getString("ProjectDialog.11"));
 				box.open();
 				shell.close();
 			}
@@ -193,10 +193,10 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 			try {
 				sourceLanguages.select(TextUtils.geIndex(sourceLanguages.getItems(),
 						LanguageUtils.getLanguage(GeneralPreferences.getDefaultSource().getCode()).getDescription()));
-			} catch (IOException e) {
+			} catch (IOException | SAXException | ParserConfigurationException e) {
 				logger.log(Level.ERROR, e);
 				MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-				box.setMessage("Error retrieving default source language");
+				box.setMessage(Messages.getString("ProjectDialog.12"));
 				box.open();
 				shell.close();
 			}
@@ -206,7 +206,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		CTabItem languagesItem = new CTabItem(tabFolder, SWT.NONE);
-		languagesItem.setText("Target Languages");
+		languagesItem.setText(Messages.getString("ProjectDialog.13"));
 
 		Composite languagesComposite = new Composite(tabFolder, SWT.NONE);
 		languagesComposite.setLayout(new GridLayout());
@@ -237,10 +237,10 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 					item.setText(lang.getDescription());
 					item.setData("language", lang);
 				}
-			} catch (IOException e) {
+			} catch (IOException | SAXException | ParserConfigurationException e) {
 				logger.log(Level.ERROR, e);
 				MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-				box.setMessage("Error getting target languages");
+				box.setMessage(Messages.getString("ProjectDialog.14"));
 				box.open();
 				shell.close();
 			}
@@ -255,10 +255,10 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 					item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
 					item.setData("language", l);
 				}
-			} catch (IOException e) {
+			} catch (IOException | SAXException | ParserConfigurationException e) {
 				logger.log(Level.ERROR, e);
 				MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-				box.setMessage("Error retrieving default target languages");
+				box.setMessage(Messages.getString("ProjectDialog.15"));
 				box.open();
 				shell.close();
 			}
@@ -283,12 +283,12 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button addLang = new Button(langBottom, SWT.PUSH);
-		addLang.setText("Add Target Language");
+		addLang.setText(Messages.getString("ProjectDialog.16"));
 		addLang.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				LanguageAddDialog dialog = new LanguageAddDialog(shell, SWT.DIALOG_TRIM, instance);
+				AddLanguageDialog dialog = new AddLanguageDialog(shell, SWT.DIALOG_TRIM, instance);
 				dialog.show();
 			}
 
@@ -299,7 +299,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		});
 
 		Button deleteLang = new Button(langBottom, SWT.PUSH);
-		deleteLang.setText("Remove Selected Languages");
+		deleteLang.setText(Messages.getString("ProjectDialog.17"));
 		deleteLang.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -319,14 +319,13 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 						item.setText(LanguageUtils.getLanguage(l.getCode()).getDescription());
 						item.setData("language", l);
 					}
-				} catch (IOException e) {
+				} catch (IOException | SAXException | ParserConfigurationException e) {
 					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					box.setMessage("Error deleting language");
+					box.setMessage(Messages.getString("ProjectDialog.18"));
 					box.open();
 					shell.close();
 				}
-
 			}
 
 			@Override
@@ -336,7 +335,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		});
 
 		CTabItem memoriesItem = new CTabItem(tabFolder, SWT.NONE);
-		memoriesItem.setText("Memories");
+		memoriesItem.setText(Messages.getString("ProjectDialog.19"));
 
 		Composite memoriesComposite = new Composite(tabFolder, SWT.NONE);
 		memoriesComposite.setLayout(new GridLayout());
@@ -356,10 +355,10 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		for (int i = 0; i < mems.size(); i++) {
 			try {
 				memories.add(mainView.getController().getMemory(mems.get(i)));
-			} catch (JSONException | IOException | ParseException e) {
+			} catch (JSONException | IOException | ParseException | SAXException | ParserConfigurationException e) {
 				logger.log(Level.ERROR, e);
 				MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-				box.setMessage("Error retrieving memory");
+				box.setMessage(Messages.getString("ProjectDialog.20"));
 				box.open();
 				return;
 			}
@@ -381,7 +380,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		memFiller.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button associateMemories = new Button(memBottom, SWT.PUSH);
-		associateMemories.setText("Associate Other Memories");
+		associateMemories.setText(Messages.getString("ProjectDialog.21"));
 		associateMemories.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -392,10 +391,11 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 				for (int i = 0; i < mems.size(); i++) {
 					try {
 						memories.add(mainView.getController().getMemory(mems.get(i)));
-					} catch (JSONException | IOException | ParseException e) {
+					} catch (JSONException | IOException | ParseException | SAXException
+							| ParserConfigurationException e) {
 						logger.log(Level.ERROR, e);
 						MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-						box.setMessage("Error retrieving memory");
+						box.setMessage(Messages.getString("ProjectDialog.22"));
 						box.open();
 						return;
 					}
@@ -417,7 +417,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 		});
 
 		Button removeMemories = new Button(memBottom, SWT.PUSH);
-		removeMemories.setText("Remove Selected Memories");
+		removeMemories.setText(Messages.getString("ProjectDialog.23"));
 		removeMemories.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -458,9 +458,9 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 
 		Button create = new Button(bottom, SWT.PUSH);
 		if (project == null) {
-			create.setText("Create Project");
+			create.setText(Messages.getString("ProjectDialog.24"));
 		} else {
-			create.setText("Update Project");
+			create.setText(Messages.getString("ProjectDialog.25"));
 		}
 
 		create.addSelectionListener(new SelectionAdapter() {
@@ -469,26 +469,26 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 			public void widgetSelected(SelectionEvent event) {
 				if (titleText.getText() == null || titleText.getText().isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Enter project name");
+					box.setMessage(Messages.getString("ProjectDialog.26"));
 					box.open();
 					return;
 				}
 				if (mapText.getText() == null || mapText.getText().isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Select a DITA map");
+					box.setMessage(Messages.getString("ProjectDialog.27"));
 					box.open();
 					return;
 				}
 				File f = new File(mapText.getText());
 				if (!f.exists()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Selected DITA map does not exist");
+					box.setMessage(Messages.getString("ProjectDialog.28"));
 					box.open();
 					return;
 				}
 				if (sourceLanguages.getText() == null || sourceLanguages.getText().isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Select source language");
+					box.setMessage(Messages.getString("ProjectDialog.29"));
 					box.open();
 					return;
 				}
@@ -498,14 +498,14 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 				} catch (IOException | SAXException | ParserConfigurationException e) {
 					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Error getting source language");
+					box.setMessage(Messages.getString("ProjectDialog.30"));
 					box.open();
 					return;
 				}
 				TableItem[] items = langsTable.getItems();
 				if (items.length == 0) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Select target languages");
+					box.setMessage(Messages.getString("ProjectDialog.31"));
 					box.open();
 					return;
 				}
@@ -524,11 +524,11 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 					p.getMemories().add(id);
 					try {
 						mainView.getController().createProject(p);
-					} catch (IOException | ClassNotFoundException | SQLException | SAXException
-							| ParserConfigurationException | JSONException | ParseException e) {
+					} catch (IOException | SAXException | ParserConfigurationException | JSONException
+							| ParseException e) {
 						logger.log(Level.ERROR, e);
 						MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-						box.setMessage("Error creating project");
+						box.setMessage(Messages.getString("ProjectDialog.32"));
 						box.open();
 					}
 				} else {
@@ -541,7 +541,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 					} catch (IOException | JSONException | ParseException e) {
 						logger.log(Level.ERROR, e);
 						MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-						box.setMessage("Error updating project");
+						box.setMessage(Messages.getString("ProjectDialog.33"));
 						box.open();
 						return;
 					}
@@ -569,7 +569,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 	public void addLanguage(String language) {
 		if (language == null) {
 			MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("Null language");
+			box.setMessage(Messages.getString("ProjectDialog.34"));
 			box.open();
 			return;
 		}
@@ -583,7 +583,7 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 			}
 			if (langs.contains(l)) {
 				MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-				box.setMessage("Duplicated language");
+				box.setMessage(Messages.getString("ProjectDialog.35"));
 				box.open();
 				return;
 			}
@@ -598,10 +598,10 @@ public class ProjectDialog extends Dialog implements AddLanguageListener {
 				item.setText(lang.getDescription());
 				item.setData("language", lang);
 			}
-		} catch (IOException ex) {
+		} catch (IOException | SAXException | ParserConfigurationException ex) {
 			logger.log(Level.ERROR, ex);
 			MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("Error adding language");
+			box.setMessage(Messages.getString("ProjectDialog.36"));
 			box.open();
 		}
 	}

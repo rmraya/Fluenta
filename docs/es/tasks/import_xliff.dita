@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task xml:lang="es" id="task_m4g_s31_ts">
+  <title>Importar XLIFF</title>
+  <taskbody>
+    <context>
+      <p>Una vez que reciba un <xref href="../glossaries/XLIFF.dita">XLIFF</xref> traducido de su <xref href="../glossaries/LSP.dita">Proveedor de Servicios Lingüísticos</xref>, deberá importarlo a Fluenta para generar una versión traducida de su proyecto.</p>
+    </context>
+    <steps>
+      <step>
+        <cmd>En la vista <uicontrol>Proyectos</uicontrol>, seleccione el proyecto que recibirá los datos a importar.</cmd>
+      </step>
+      <step>
+        <cmd>En el menú principal, seleccione <menucascade>
+            <uicontrol>Proyectos</uicontrol>
+            <uicontrol>Crear Proyecto</uicontrol>
+          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/left.png" placement="inline" alt="Crear Proyecto"/>Crear Proyecto</uicontrol> de la barra de herramientas de la vista <uicontrol>Proyectos</uicontrol>.</cmd>
+        <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/import_xliff.png" placement="break" scale="70" align="center">
+            <alt>Cuadro de diálogo <uicontrol>Importar XLIFF</uicontrol></alt>
+          </image> </stepresult>
+      </step>
+      <step>
+        <cmd>Escriba el nombre del archivo XLIFF a importar en el cuadro de texto <uicontrol>Archivo XLIFF</uicontrol> o utilice el botón <uicontrol>Examinar...</uicontrol> para seleccionar un archivo XLIFF del sistema de archivos.</cmd>
+      </step>
+      <step>
+        <cmd>Escriba el nombre de la carpeta donde deben almacenarse las traducciones en el cuadro de texto <uicontrol>Carpeta Destino</uicontrol> o utilice el botón <uicontrol>Examinar...</uicontrol> para seleccionar una carpeta en el sistema de archivos.</cmd>
+      </step>
+      <step>
+        <cmd>Seleccione la casilla <uicontrol>Actualizar memoria</uicontrol> si desea almacenar las traducciones importadas en la memoria del proyecto.</cmd>
+      </step>
+      <step>
+        <cmd>Seleccione la casilla <uicontrol>Aceptar traducciones no aprobadas</uicontrol> si el archivo XLIFF que se está importando no tiene todas las traducciones marcadas como aprobadas y desea aceptar los borradores existentes.</cmd>
+      </step>
+      <step>
+        <cmd>Seleccione la casilla de verificación <uicontrol>Ignorar errores de etiquetas</uicontrol> si desea intentar importar un archivo XLIFF a pesar de sus errores con las etiquetas (el contenido DITA puede dañarse e imposibilitar la publicación en el idioma de destino). Si la casilla de verificación se deja en blanco y se encuentran errores, se genera automáticamente un informe detallado de los errores en formato HTML y se muestra en el navegador predeterminado.</cmd>
+      </step>
+      <step>
+        <cmd>Haga clic en el botón <uicontrol>Importar XLIFF</uicontrol>.</cmd>
+        <stepresult>El estado del proceso se muestra en el panel de progreso y se activa el botón <uicontrol>Cancelar</uicontrol>.</stepresult>
+      </step>
+    </steps>
+    <result>El archivo XLIFF se importa en el proyecto seleccionado. Se crea una versión traducida del contenido del proyecto en la carpeta de salida indicada.</result>
+  </taskbody>
+</task>

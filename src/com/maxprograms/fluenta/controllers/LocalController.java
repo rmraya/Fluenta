@@ -86,8 +86,7 @@ public class LocalController {
 		return projectsManager.getProjects();
 	}
 
-	public void createProject(Project project)
-			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException,
+	public void createProject(Project project) throws IOException, SAXException, ParserConfigurationException,
 			JSONException, ParseException {
 		if (projectsManager == null) {
 			Preferences preferences = Preferences.getInstance();
@@ -117,7 +116,8 @@ public class LocalController {
 		memoriesManager.add(memory);
 	}
 
-	public List<Memory> getMemories() throws IOException, JSONException, ParseException {
+	public List<Memory> getMemories()
+			throws IOException, JSONException, ParseException, SAXException, ParserConfigurationException {
 		if (memoriesManager == null) {
 			Preferences preferences = Preferences.getInstance();
 			memoriesManager = new MemoriesManager(preferences.getMemoriesFolder());
@@ -134,8 +134,7 @@ public class LocalController {
 		projectsManager.update(project);
 	}
 
-	public InternalDatabase getTMEngine(long memoryId)
-			throws IOException, ClassNotFoundException, SQLException, SAXException, ParserConfigurationException {
+	public InternalDatabase getTMEngine(long memoryId) throws IOException, SQLException {
 		Preferences preferences = Preferences.getInstance();
 		return new InternalDatabase("" + memoryId, preferences.getMemoriesFolder().getAbsolutePath());
 	}
@@ -143,9 +142,8 @@ public class LocalController {
 	public void generateXliff(Project project, String xliffFolder, List<Language> tgtLangs, boolean useICE,
 			boolean useTM, boolean generateCount, String ditavalFile, boolean useXliff20, boolean embedSkeleton,
 			boolean modifiedFilesOnly, boolean ignoreTrackedChanges, boolean paragraphSegmentation, ILogger logger)
-			throws IOException, SAXException, ParserConfigurationException, URISyntaxException, ClassNotFoundException,
-			SQLException, JSONException, ParseException {
-
+			throws IOException, SAXException, ParserConfigurationException, URISyntaxException, SQLException,
+			JSONException, ParseException {
 		Map<String, String> params = new Hashtable<>();
 		params.put("source", project.getMap());
 		File map = new File(project.getMap());
@@ -182,15 +180,15 @@ public class LocalController {
 		params.put("paragraph", paragraphSegmentation ? "yes" : "no");
 		params.put("embed", embedSkeleton ? "yes" : "no");
 
-		logger.setStage("Generating Master XLIFF");
+		logger.setStage(Messages.getString("LocalController.0"));
 
 		DitaMap2Xliff.setDataLogger(logger);
 		List<String> result = Convert.run(params);
 		if (!result.get(0).equals(Constants.SUCCESS)) {
 			throw new IOException(result.get(1));
 		}
-		logger.setStage("Writing Target XLIFF Files");
-		MessageFormat mf = new MessageFormat("Target Language: {0}");
+		logger.setStage(Messages.getString("LocalController.1"));
+		MessageFormat mf = new MessageFormat(Messages.getString("LocalController.2"));
 		for (int i = 0; i < tgtLangs.size(); i++) {
 			logger.log(
 					mf.format(new String[] {
@@ -208,11 +206,11 @@ public class LocalController {
 		}
 		Files.deleteIfExists(xliffFile.toPath());
 		if (useICE) {
-			MessageFormat icem = new MessageFormat("Applying ICE Matches - {0}");
+			MessageFormat icem = new MessageFormat(Messages.getString("LocalController.3"));
 			for (int i = 0; i < tgtLangs.size(); i++) {
 				logger.setStage(icem.format(
 						new String[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
-				logger.log("Reading Previous XLIFF file...");
+				logger.log(Messages.getString("LocalController.4"));
 				String newName = getName(map.getName(), tgtLangs.get(i).getCode());
 				File xliff = new File(folder, newName);
 				File previousBuild = getPreviousBuild(project, tgtLangs.get(i).getCode());
@@ -225,11 +223,11 @@ public class LocalController {
 			}
 		}
 		if (useTM) {
-			MessageFormat mftm = new MessageFormat("Applying TM - {0}");
+			MessageFormat mftm = new MessageFormat(Messages.getString("LocalController.5"));
 			for (int i = 0; i < tgtLangs.size(); i++) {
 				logger.setStage(mftm.format(
 						new String[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
-				logger.log("Reading XLIFF file...");
+				logger.log(Messages.getString("LocalController.6"));
 				String targetName = getName(map.getName(), tgtLangs.get(i).getCode());
 				File targetXliff = new File(folder, targetName);
 				SAXBuilder builder = new SAXBuilder();
@@ -238,7 +236,7 @@ public class LocalController {
 				Element root1 = doc1.getRootElement();
 				Element firstFile = root1.getChild("file");
 				if (firstFile == null) {
-					logger.displayError("Empty XLIFF, check your DITA customizations");
+					logger.displayError(Messages.getString("LocalController.7"));
 					return;
 				}
 				String sourceLang = firstFile.getAttributeValue("source-language");
@@ -250,7 +248,7 @@ public class LocalController {
 				for (int i2 = 0; i2 < mems.size(); i2++) {
 					dbs.add(getTMEngine(mems.get(i2)));
 				}
-				MessageFormat mf2 = new MessageFormat("{0} of {1} segments processed");
+				MessageFormat mf2 = new MessageFormat(Messages.getString("LocalController.8"));
 				Iterator<Element> it = segments.iterator();
 				int count = 0;
 				while (it.hasNext()) {
@@ -300,7 +298,7 @@ public class LocalController {
 			}
 		}
 		if (generateCount) {
-			MessageFormat mf3 = new MessageFormat("Generating Word Counts - {0}");
+			MessageFormat mf3 = new MessageFormat(Messages.getString("LocalController.9"));
 			for (int i = 0; i < tgtLangs.size(); i++) {
 				logger.setStage(mf3.format(
 						new String[] { LanguageUtils.getLanguage(tgtLangs.get(i).getCode()).getDescription() }));
@@ -311,7 +309,7 @@ public class LocalController {
 			}
 		}
 		if (useXliff20) {
-			logger.setStage("Generating XLIFF 2.0");
+			logger.setStage(Messages.getString("LocalController.10"));
 			for (int i = 0; i < tgtLangs.size(); i++) {
 				String targetName = getName(map.getName(), tgtLangs.get(i).getCode());
 				File targetXliff = new File(folder, targetName);
@@ -322,7 +320,7 @@ public class LocalController {
 				}
 			}
 		}
-		logger.displaySuccess("XLIFF files generated");
+		logger.displaySuccess(Messages.getString("LocalController.11"));
 		List<String> issues = DitaMap2Xliff.getIssues();
 		Iterator<String> it = issues.iterator();
 		while (it.hasNext()) {
@@ -383,7 +381,7 @@ public class LocalController {
 			if (logger != null) {
 				logger.log(currentFile.getAttributeValue("original"));
 				if (logger.isCancelled()) {
-					throw new IOException("User cancelled");
+					throw new IOException(Messages.getString("LocalController.12"));
 				}
 			}
 			Element oldFile = null;
@@ -571,9 +569,9 @@ public class LocalController {
 	public void importXliff(Project project, String xliffDocument, String targetFolder, boolean updateTM,
 			boolean acceptUnapproved, boolean ignoreTagErrors, ILogger logger)
 			throws NumberFormatException, IOException, SAXException, ParserConfigurationException,
-			ClassNotFoundException, SQLException, URISyntaxException, JSONException, ParseException {
+			SQLException, URISyntaxException, JSONException, ParseException {
 
-		logger.setStage("Loading XLIFF");
+		logger.setStage(Messages.getString("LocalController.13"));
 
 		String workDocument = checkXliffVersion(xliffDocument);
 
@@ -590,7 +588,7 @@ public class LocalController {
 		if (!ignoreTagErrors) {
 			String tagErrors = checkTags(root);
 			if (!tagErrors.isEmpty()) {
-				tagErrors = "There are segments with tag errors\n\n";
+				tagErrors = Messages.getString("LocalController.14") + "\n\n";
 				String report = TagErrorsReport.run(workDocument);
 				if (logger instanceof AsyncLogger aLogger) {
 					aLogger.displayReport(tagErrors, report);
@@ -629,18 +627,18 @@ public class LocalController {
 			}
 		}
 		if (!found) {
-			logger.displayError("Wrong target language");
+			logger.displayError(Messages.getString("LocalController.15"));
 			return;
 		}
 		String projectID = toolData[1];
 		String build = toolData[2];
 		if (!projectID.equals("" + project.getId())) {
-			logger.displayError("XLIFF file does not correspond to selected project");
+			logger.displayError(Messages.getString("LocalController.16"));
 			return;
 		}
 
 		Xliff2DitaMap.setDataLogger(logger);
-		logger.setStage("Merging XLIFF");
+		logger.setStage(Messages.getString("LocalController.17"));
 		List<String> res = Merge.merge(xliffDocument, targetFolder, Preferences.getInstance().getCatalogFile(),
 				acceptUnapproved);
 		if (!Constants.SUCCESS.equals(res.get(0))) {
@@ -650,26 +648,26 @@ public class LocalController {
 
 		if (updateTM) {
 			if (logger.isCancelled()) {
-				logger.displayError("User cancelled");
+				logger.displayError(Messages.getString("LocalController.12"));
 				return;
 			}
-			logger.setStage("Generating TMX");
+			logger.setStage(Messages.getString("LocalController.18"));
 			logger.log("");
 			logger.log(xliffDocument.substring(0, xliffDocument.lastIndexOf('.')) + ".tmx");
 			String tmxFile = xliffDocument.substring(0, xliffDocument.lastIndexOf('.')) + ".tmx";
 			TmxExporter.export(workDocument, tmxFile, Preferences.getInstance().getCatalogFile());
-			logger.setStage("Importing TMX");
+			logger.setStage(Messages.getString("LocalController.19"));
 			Memory m = getMemory(project.getId());
 			if (m != null) {
 				InternalDatabase database = getTMEngine(m.getId());
 				int result = database.storeTMX(tmxFile, project.getTitle(), "", "");
 				database.close();
-				MessageFormat mf = new MessageFormat("Imported: {0} segments");
+				MessageFormat mf = new MessageFormat(Messages.getString("LocalController.20"));
 				logger.log(mf.format(new String[] { "" + result }));
 				m.setLastUpdate(new Date());
 				updateMemory(m);
 			} else {
-				logger.displayError("Project memory does not exist");
+				logger.displayError(Messages.getString("LocalController.21"));
 				return;
 			}
 		}
@@ -681,11 +679,11 @@ public class LocalController {
 			languageFolder.mkdirs();
 		}
 		if (logger.isCancelled()) {
-			logger.displayError("User cancelled");
+			logger.displayError(Messages.getString("LocalController.12"));
 			return;
 		}
-		logger.setStage("Saving XLIFF as future reference");
-		logger.log("Finishing...");
+		logger.setStage(Messages.getString("LocalController.22"));
+		logger.log(Messages.getString("LocalController.23"));
 		try (FileOutputStream output = new FileOutputStream(new File(languageFolder, "build_" + build + ".xlf"))) {
 			XMLOutputter outputter = new XMLOutputter();
 			outputter.preserveSpace(true);
@@ -699,7 +697,7 @@ public class LocalController {
 				targetLanguage, Integer.parseInt(build)));
 		project.setLanguageStatus(targetLanguage, Project.COMPLETED);
 		updateProject(project);
-		logger.displaySuccess("XLIFF file imported");
+		logger.displaySuccess(Messages.getString("LocalController.24"));
 	}
 
 	private static String checkXliffVersion(String xliffDocument)
@@ -709,7 +707,7 @@ public class LocalController {
 		Document doc = builder.build(xliffDocument);
 		Element root = doc.getRootElement();
 		if (!root.getName().equals("xliff")) {
-			throw new IOException("Selected file is not an XLIFF document");
+			throw new IOException(Messages.getString("LocalController.25"));
 		}
 		if (root.getAttributeValue("version").equals("1.2")) {
 			return xliffDocument;
@@ -770,10 +768,14 @@ public class LocalController {
 				int j;
 				if (tLength > srclist.size()) {
 					result.append(i + 1);
-					result.append(": Extra Tag\n");
+					result.append(": ");
+					result.append(Messages.getString("LocalController.26"));
+					result.append('\n');
 				} else if (tLength < srclist.size()) {
 					result.append(i + 1);
-					result.append(": Missing Tag\n");
+					result.append(": ");
+					result.append(Messages.getString("LocalController.27"));
+					result.append('\n');
 				} else {
 					for (j = 0; j < srclist.size(); j++) {
 						String es = srclist.get(j);
@@ -788,7 +790,9 @@ public class LocalController {
 						}
 						if (!paired) {
 							result.append(i + 1);
-							result.append(": Different Tag\n");
+							result.append(": ");
+							result.append(Messages.getString("LocalController.28"));
+							result.append('\n');
 						}
 					}
 					trglist = buildTagList(target);
@@ -797,7 +801,9 @@ public class LocalController {
 						String et = trglist.get(j);
 						if (!es.equals(et)) {
 							result.append(i + 1);
-							result.append(": Tags in wrong order\n");
+							result.append(": ");
+							result.append(Messages.getString("LocalController.29"));
+							result.append('\n');
 						}
 					}
 				}
@@ -805,7 +811,9 @@ public class LocalController {
 				// empty target
 				if (!srclist.isEmpty()) {
 					result.append(i + 1);
-					result.append(": Empty Target\n");
+					result.append(": ");
+					result.append(Messages.getString("LocalController.30"));
+					result.append('\n');
 				}
 			}
 		}
@@ -912,14 +920,14 @@ public class LocalController {
 		Document doc = builder.build(fileName);
 		Element root = doc.getRootElement();
 		if (!root.getName().equals("xliff")) {
-			throw new IOException("Selected file is not an XLIFF document");
+			throw new IOException(Messages.getString("LocalController.31"));
 		}
 		Element tool = root.getChild("file").getChild("header").getChild("tool");
 		if (tool == null) {
-			throw new IOException("Selected file was not created with Fluenta");
+			throw new IOException(Messages.getString("LocalController.32"));
 		}
 		if (!tool.getAttributeValue("tool-id").equals("OpenXLIFF")) {
-			throw new IOException("Selected file was not created with this version of Fluenta");
+			throw new IOException(Messages.getString("LocalController.33"));
 		}
 		checkXliffMarkup(doc.getRootElement());
 		return doc;
@@ -968,8 +976,8 @@ public class LocalController {
 	}
 
 	public int importTMX(Memory memory, String tmxFile)
-			throws SQLException, ClassNotFoundException, IOException, SAXException, ParserConfigurationException,
-			JSONException, ParseException {
+			throws SQLException, IOException, SAXException, ParserConfigurationException, JSONException,
+			ParseException {
 		InternalDatabase database = getTMEngine(memory.getId());
 		int result = database.storeTMX(tmxFile, "", "", "");
 		database.close();
@@ -986,7 +994,8 @@ public class LocalController {
 		memoriesManager.update(memory);
 	}
 
-	public Memory getMemory(long id) throws IOException, JSONException, ParseException {
+	public Memory getMemory(long id)
+			throws IOException, JSONException, ParseException, SAXException, ParserConfigurationException {
 		if (memoriesManager == null) {
 			Preferences preferences = Preferences.getInstance();
 			memoriesManager = new MemoriesManager(preferences.getMemoriesFolder());
@@ -1307,7 +1316,7 @@ public class LocalController {
 			List<Long> memories = projects.get(i).getMemories();
 			for (int j = 0; j < memories.size(); j++) {
 				if (memories.get(j) == id) {
-					throw new IOException("Memory is in use");
+					throw new IOException(Messages.getString("LocalController.34"));
 				}
 			}
 		}
@@ -1333,8 +1342,7 @@ public class LocalController {
 		Files.deleteIfExists(file.toPath());
 	}
 
-	public void exportTMX(Memory memory, String file)
-			throws ClassNotFoundException, IOException, SQLException, SAXException, ParserConfigurationException {
+	public void exportTMX(Memory memory, String file) throws IOException, SQLException {
 		InternalDatabase database = getTMEngine(memory.getId());
 		Set<String> languages = database.getAllLanguages();
 		database.exportMemory(file, languages, memory.getSrcLanguage().getCode());

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task xml:lang="es" id="task_ocw_mw2_ts">
+  <title>Importar Archivo TMX</title>
+  <taskbody>
+    <context>
+      <p>Puede poblar las memorias de traducción con datos de archivos <xref href="../glossaries/TMX.dita">TMX</xref>. Utilice esta función si tiene datos TMX heredados que desea reutilizar en Fluenta.</p>
+    </context>
+    <steps>
+      <step>
+        <cmd>En la vista de <uicontrol>Memorias</uicontrol>, seleccione la memoria de traducción que recibirá los datos a importar.</cmd>
+      </step>
+      <step>
+        <cmd>En el menú principal, seleccione <menucascade>
+            <uicontrol>Memorias</uicontrol>
+            <uicontrol>Importar Archivo TMX</uicontrol>
+          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/right.png" placement="inline" alt="Importar Archivo TMX"/>Importar Archivo TMX</uicontrol> de la barra de herramientas de la vista <uicontrol>Memorias</uicontrol>.</cmd>
+        <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/import_memory.png" placement="break" scale="70" align="center">
+            <alt>Cuadro de diálogo <uicontrol>Importar Archivo TMX</uicontrol></alt>
+          </image> </stepresult>
+      </step>
+      <step>
+        <cmd>Escriba el nombre del archivo TMX a importar en el cuadro de texto <uicontrol>Archivo TMX</uicontrol> o utilice el botón <uicontrol>Examinar...</uicontrol> para seleccionar un archivo TMX del sistema de archivos.</cmd>
+      </step>
+      <step>
+        <cmd>Haga clic en el botón <uicontrol>Importar Archivo TMX</uicontrol>.</cmd>
+      </step>
+    </steps>
+    <result>El archivo TMX es importado en la memoria de traducción seleccionada.</result>
+  </taskbody>
+</task>

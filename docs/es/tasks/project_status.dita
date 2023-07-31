@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept xml:lang="es" id="concept_yv5_w44_ts">
+  <title>Estado del Proyecto</title>
+  <conbody>
+    <p>Siga estos pasos para comprobar el estado de traducción de sus proyectos.</p>
+    <ol id="ol_yb3_pmc_5s">
+      <li>En la vista <uicontrol>Proyectos</uicontrol>, seleccione el proyecto a examinar.</li>
+      <li>En el menú principal, seleccione <menucascade>
+          <uicontrol>Proyectos</uicontrol>
+          <uicontrol>Información del Proyecto</uicontrol>
+        </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/info.png" placement="inline" alt="Información del Proyecto"/>Información del Proyecto</uicontrol> de la barra de herramientas de la vista <uicontrol>Proyectos</uicontrol>.</li>
+    </ol>
+    <p>El siguiente diálogo aparece: <image href="../images/project_status.png" placement="break" scale="70" align="center">
+        <alt>Cuadro de diálogo <uicontrol>Información del Proyecto</uicontrol>, vista <uicontrol>Estado</uicontrol></alt>
+      </image> </p>
+    <p>Puede marcar uno o más idiomas como traducidos seleccionando las casillas de verificación correspondientes y haciendo clic en el botón <uicontrol>Marcar Selección Como Traducida</uicontrol>.</p>
+    <p>Haga clic en la pestaña <uicontrol>Historial</uicontrol> para ver una lista de eventos asociados al proyecto.</p>
+    <image href="../images/project_history.png" placement="break" scale="70" align="center">
+      <alt>Cuadro de diálogo <uicontrol>Información del Proyecto</uicontrol>, vista <uicontrol>Historial</uicontrol></alt>
+    </image>
+  </conbody>
+</concept>

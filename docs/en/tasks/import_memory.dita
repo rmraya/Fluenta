@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd" >
+<task id="task_ocw_mw2_ts" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/"
+    ditaarch:DITAArchVersion="1.2"
+    domains="(topic task)                            (topic hi-d)                             (topic ut-d)                             (topic indexing-d)                            (topic hazard-d)                            (topic abbrev-d)                            (topic pr-d)                             (topic sw-d)                            (topic ui-d)                            (topic task strictTaskbody-c)    "
+    class="- topic/topic task/task " xml:lang="en-US">
+    <title class="- topic/title ">Import TMX File</title>
+    <taskbody class="- topic/body task/taskbody ">
+        <context class="- topic/section task/context ">
+            <p class="- topic/p ">You can populate translation memories with data from <xref
+                    href="../glossaries/TMX.dita">TMX</xref> files. Use this feature if you have
+                legacy TM data that you want to reuse in Fluenta.</p>
+        </context>
+        <steps class="- topic/ol task/steps ">
+            <step>
+                <cmd>In <uicontrol>Memories</uicontrol> view, select the translation memory that
+                    will receive the imported data.</cmd>
+            </step>
+            <step class="- topic/li task/step ">
+                <cmd class="- topic/ph task/cmd ">In main menu, select <menucascade>
+                        <uicontrol>Memories</uicontrol>
+                        <uicontrol>Import TMX File</uicontrol>
+                    </menucascade> or click the <uicontrol><image href="../images/right.png"
+                            placement="inline" height="14" alt="Import TMX File"/>Import TMX
+                        File</uicontrol> button in the <uicontrol>Memories</uicontrol> view
+                    toolbar.</cmd>
+                <stepresult>The following dialog appears: <image href="../images/import_memory.png"
+                        placement="break" align="center" scale="70">
+                        <alt><uicontrol>Import TMX File</uicontrol> dialog</alt>
+                    </image>
+                </stepresult>
+            </step>
+            <step>
+                <cmd>Type the name of the TMX file to import in the <uicontrol>TMX File</uicontrol>
+                    text box or use the <uicontrol>Browse...</uicontrol> button next to it to select
+                    a TMX file from the file system.</cmd>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Import TMX File</uicontrol> button.</cmd>
+            </step>
+        </steps>
+        <result>The TMX file is imported into the selected translation memory.</result>
+    </taskbody>
+</task>

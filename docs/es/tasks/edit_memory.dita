@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task xml:lang="es" id="Untitled1">
+  <title>Modificar Memoria</title>
+  <taskbody>
+    <context>
+      <p>Siga estos pasos para editar el nombre, el idioma origen o la descripción de una memoria de traducción.</p>
+    </context>
+    <steps>
+      <step>
+        <cmd>En el menú principal, seleccione <menucascade>
+            <uicontrol>Memorias</uicontrol>
+            <uicontrol>Modificar Memoria</uicontrol>
+          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/edit.png" placement="inline" alt="Modificar Memoria"/>Modificar Memoria</uicontrol> de la barra de herramientas de la vista <uicontrol>Memorias</uicontrol>.</cmd>
+        <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/edit_memory.png" placement="break" scale="70" align="center" id="image_rwb_ptc_5s">
+            <alt>Cuadro de diálogo <uicontrol>Modificar Memoria</uicontrol></alt>
+          </image> </stepresult>
+      </step>
+      <step>
+        <cmd>Modifique todos los campos según sea necesario.</cmd>
+      </step>
+      <step>
+        <cmd>Haga clic en el botón <uicontrol>Actualizar Memoria</uicontrol>.</cmd>
+      </step>
+    </steps>
+    <result>La memoria seleccionada se actualiza y la lista de memorias de la vista <uicontrol>Memorias</uicontrol> se actualiza para reflejar los cambios.</result>
+  </taskbody>
+</task>

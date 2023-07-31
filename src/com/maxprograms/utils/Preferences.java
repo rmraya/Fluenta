@@ -153,4 +153,11 @@ public class Preferences {
 		return filtersFolder.getAbsolutePath();
 	}
 
+	public String getApplicationLanguage() {
+		return get("application", "language", "en");
+	}	
+
+	public void setApplicationLanguage(String language) throws IOException {
+		save("application", "language", language);
+	}
 }

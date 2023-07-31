@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept xml:lang="es" id="concept_iws_jjd_3s">
+  <title>Manejo de Subscripciones</title>
+  <conbody>
+    <p>Utilice los siguientes parámetros para registrar una clave de suscripción desde la línea de comandos:</p>
+    <table>
+      <tgroup cols="4">
+        <colspec align="center" colwidth="20*"/>
+        <colspec align="center" colwidth="15*"/>
+        <colspec align="left" colwidth="50*"/>
+        <colspec align="center" colwidth="15*"/>
+        <thead>
+          <row>
+            <entry>Parámetro</entry>
+            <entry>Valor</entry>
+            <entry>Descripción</entry>
+            <entry>Requerido</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry translate="no">-reg</entry>
+            <entry>clave</entry>
+            <entry>La clave de suscripción a registrar</entry>
+            <entry>Si</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <p>Ejemplo:</p>
+    <codeblock translate="no" xml:space="preserve">
+fluenta_cli.bat -reg HAL9000 
+  </codeblock>
+    <note importance="high"> El registro de una clave de suscripción requiere una conexión a Internet. </note>
+  </conbody>
+</concept>

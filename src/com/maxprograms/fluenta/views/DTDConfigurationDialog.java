@@ -72,7 +72,7 @@ public class DTDConfigurationDialog extends Dialog {
         shell = new Shell(parent, SWT.DIALOG_TRIM | SWT.RESIZE);
         shell.setImage(Fluenta.getResourceManager().getIcon());
         display = shell.getDisplay();
-        shell.setText("Grammar Configuration");
+        shell.setText(Messages.getString("DTDConfigurationDialog.0"));
         shell.setLayout(new GridLayout());
         shell.addListener(SWT.Close, new Listener() {
 
@@ -83,7 +83,7 @@ public class DTDConfigurationDialog extends Dialog {
         });
 
         Label fileName = new Label(shell, SWT.NONE);
-        MessageFormat mf = new MessageFormat("Configuration file: {0}");
+        MessageFormat mf = new MessageFormat(Messages.getString("DTDConfigurationDialog.1"));
         Object[] args = { configFile };
         fileName.setText(mf.format(args));
 
@@ -97,23 +97,23 @@ public class DTDConfigurationDialog extends Dialog {
         table.setHeaderVisible(true);
 
         TableColumn column1 = new TableColumn(table, SWT.NONE);
-        column1.setText("Element");
+        column1.setText(Messages.getString("DTDConfigurationDialog.2"));
         column1.setWidth(100);
 
         TableColumn column2 = new TableColumn(table, SWT.NONE);
-        column2.setText("Element Type");
-        column2.setWidth(100);
+        column2.setText(Messages.getString("DTDConfigurationDialog.3"));
+        column2.setWidth(140);
 
         TableColumn column3 = new TableColumn(table, SWT.NONE);
-        column3.setText("Inline Type");
-        column3.setWidth(100);
+        column3.setText(Messages.getString("DTDConfigurationDialog.4"));
+        column3.setWidth(140);
 
         TableColumn column4 = new TableColumn(table, SWT.NONE);
-        column4.setText("Translatable Attributes");
+        column4.setText(Messages.getString("DTDConfigurationDialog.5"));
         column4.setWidth(200);
         TableColumn column5 = new TableColumn(table, SWT.NONE);
-        column5.setText("Keep Space");
-        column5.setWidth(100);
+        column5.setText(Messages.getString("DTDConfigurationDialog.6"));
+        column5.setWidth(140);
 
         fillTable();
 
@@ -148,7 +148,7 @@ public class DTDConfigurationDialog extends Dialog {
         filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Button add = new Button(bottom, SWT.PUSH);
-        add.setText("Add Element");
+        add.setText(Messages.getString("DTDConfigurationDialog.7"));
         add.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -173,7 +173,7 @@ public class DTDConfigurationDialog extends Dialog {
         });
 
         Button edit = new Button(bottom, SWT.PUSH);
-        edit.setText("Edit Element");
+        edit.setText(Messages.getString("DTDConfigurationDialog.8"));
         edit.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -183,7 +183,7 @@ public class DTDConfigurationDialog extends Dialog {
         });
 
         Button remove = new Button(bottom, SWT.PUSH);
-        remove.setText("Remove Element");
+        remove.setText(Messages.getString("DTDConfigurationDialog.9"));
         remove.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -194,7 +194,7 @@ public class DTDConfigurationDialog extends Dialog {
                 }
                 int index = table.getSelectionIndex();
                 MessageBox box = new MessageBox(shell, SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-                MessageFormat mf1 = new MessageFormat("Configuration file: {0}");
+                MessageFormat mf1 = new MessageFormat(Messages.getString("DTDConfigurationDialog.10"));
                 Object[] args1 = { selection[0].getText(0) };
                 box.setMessage(mf1.format(args1));
                 if (box.open() == SWT.YES) {

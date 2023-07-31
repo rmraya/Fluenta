@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="task_x1c_rc4_ts">
+    <title>Edit Configuration File</title>
+    <taskbody>
+        <steps>
+            <step>
+                <cmd>In <uicontrol>XML Options</uicontrol> tab of the
+                    <uicontrol>Preferences</uicontrol> dialog, select the configuration file to edit.</cmd>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Edit Configuration File</uicontrol> button.</cmd>
+                <stepresult>The following dialog appears: <image
+                        href="../images/grammar_configuration.png" placement="break" scale="70"
+                        align="center"/>
+                    
+                </stepresult>
+            </step>
+            <step>
+                <cmd>Use the buttons in the <uicontrol>Grammar Configuration</uicontrol> dialog to update the configuration file.</cmd>
+                <choices>
+                    <choice>Use the <uicontrol>Add Element</uicontrol> button to add a new element
+                        to the configuration file.</choice>
+                    <choice>Use the <uicontrol>Edit Element</uicontrol> button to modify the
+                        properties of an existing element.</choice>
+                    <choice>Use the <uicontrol>Remove Element</uicontrol> button to delete an
+                        element from the configuration file.</choice>
+                </choices>                
+            </step>
+            <step>
+                <cmd>Repeat the previous step until all elements are properly configured.</cmd>
+            </step> 
+        </steps>
+    </taskbody>
+</task>

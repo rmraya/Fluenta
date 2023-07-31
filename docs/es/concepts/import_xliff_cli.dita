@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept xml:lang="es" id="concept_dmf_1vb_dt">
+  <title>Importar Archivo XLIFF</title>
+  <shortdesc/>
+  <conbody>
+    <p>Utilice los siguientes parámetros para importar desde la línea de comandos archivos XLIFF traducidos en un proyecto :</p>
+    <table>
+      <tgroup cols="4">
+        <colspec align="center" colwidth="20*"/>
+        <colspec align="center" colwidth="15*"/>
+        <colspec align="left" colwidth="50*"/>
+        <colspec align="center" colwidth="15*"/>
+        <thead>
+          <row>
+            <entry>Parámetro</entry>
+            <entry>Valor</entry>
+            <entry>Descripción</entry>
+            <entry>Requerido</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry translate="no">-importXLIFF</entry>
+            <entry>Archivo JSON</entry>
+            <entry>Ruta completa a un archivo <xref href="../glossaries/JSON.dita">JSON</xref> que contiene los datos necesarios para importar el archivo XLIFF</entry>
+            <entry>Si</entry>
+          </row>
+          <row>
+            <entry translate="no">-verbose</entry>
+            <entry/>
+            <entry>Selecciona si la información de progreso se muestra o no en la consola.</entry>
+            <entry>No</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <p>Ejemplo:</p>
+    <codeblock translate="no" xml:space="preserve">
+fluenta_cli.bat -importXLIFF impXLIFF.json -verbose
+  </codeblock>
+    <p>Donde el contenido de <cmdname>impXLIFF.json</cmdname> debe ser similar a:</p>
+    <codeblock translate="no" xml:space="preserve">
+{ id:12345678,
+  xliffFile: "C:\\sample data\\XLIFF\\spanish.xlf",
+  outputFolder: "C:\\sample data\es\\",
+  updateTM: true,
+  acceptUnapproved: true,
+  ignoreTagErrors: false
+}
+</codeblock>
+    <section>
+      <title>Pares de Valores JSON</title>
+      <table>
+        <tgroup cols="4">
+          <colspec align="center" colwidth="20*"/>
+          <colspec align="center" colwidth="15*"/>
+          <colspec align="left" colwidth="50*"/>
+          <colspec align="center" colwidth="15*"/>
+          <thead>
+            <row>
+              <entry>Clave</entry>
+              <entry>Tipo de Dato</entry>
+              <entry>Descripción</entry>
+              <entry>Requerido</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry translate="no">id</entry>
+              <entry>Número</entry>
+              <entry>Identificador de proyecto</entry>
+              <entry>Si</entry>
+            </row>
+            <row>
+              <entry translate="no">xliffFile</entry>
+              <entry>Texto</entry>
+              <entry>Ruta al archivo XLIFF a importar</entry>
+              <entry>Si</entry>
+            </row>
+            <row>
+              <entry translate="no">outputFolder</entry>
+              <entry>Booleano</entry>
+              <entry>Ruta a la carpeta donde deben guardarse los archivos DITA traducidos</entry>
+              <entry>Si</entry>
+            </row>
+            <row>
+              <entry translate="no">updateTM</entry>
+              <entry>Booleano</entry>
+              <entry>Selecciona si la memoria asociada al proyecto debe actualizarse con las traducciones del archivo XLIFF</entry>
+              <entry>Si</entry>
+            </row>
+            <row>
+              <entry translate="no">acceptUnapproved</entry>
+              <entry>Booleano</entry>
+              <entry>Selecciona si los segmentos traducidos pero no aprobados deben tratarse como aprobados. Valor predeterminado: <codeph>false</codeph></entry>
+              <entry>No</entry>
+            </row>
+            <row>
+              <entry translate="no">ignoreTagErrors</entry>
+              <entry>Booleano</entry>
+              <entry>Selecciona si los errores de etiquetas deben ignorarse. Si se establece en <codeph>false</codeph> y se encuentran errores, se genera un informe detallado en formato HTML que se almacena en la carpeta que contiene el archivo XLIFF. Valor predeterminado: <codeph>false</codeph></entry>
+              <entry>No</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+  </conbody>
+</concept>

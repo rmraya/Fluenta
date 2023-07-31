@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="untitled1">
+    <title>Retrieve Version Information</title>
+    <conbody>
+        <p>Use the following parameter to retrieve Fluenta version and build information from
+            command line:</p>
+        <table>
+            <tgroup cols="4">
+                <colspec colwidth="20*" align="center"/>
+                <colspec colwidth="15*" align="center"/>
+                <colspec colwidth="60*" align="center"/>
+                <colspec colwidth="15*" align="center"/>
+                <thead>
+                    <row>
+                        <entry>Parameter</entry>
+                        <entry>Value</entry>
+                        <entry>Description</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry translate="no">-version</entry>
+                        <entry></entry>
+                        <entry></entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <p>Example:</p>
+        <codeblock translate="no">
+./fluenta_cli.sh -version
+        </codeblock>
+        <p>Output example:</p>
+        <codeblock translate="no">
+{
+    "version": "3.7.0",
+    "build": "20230509_0812"
+} 
+        </codeblock>
+        
+    </conbody>
+</concept>

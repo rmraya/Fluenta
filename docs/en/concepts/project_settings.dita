@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_ryn_x2n_ts">
+  <title>General Options</title>
+  <conbody>
+    <p>The following picture shows the <uicontrol>General</uicontrol> tab of the
+        <uicontrol>Preferences</uicontrol> dialog:</p>
+    <image href="../images/project_options.png" placement="break" align="center" scale="65">
+      <alt>Project related options</alt>
+    </image>
+    <ul>
+      <li>Use the <uicontrol>Application Language</uicontrol> drop-down to select the language to
+        use in the Graphical User Interface ((GUI).</li>
+      <li>If you want to change storage locations for your projects or memories, enter the desired
+        paths on the <uicontrol>Projects Folder</uicontrol> and <uicontrol>Memories
+          Folder</uicontrol> text boxes or click the associated <uicontrol>Browse...</uicontrol>
+        buttons to select folders from the file system.<note importance="high">Avoid using folders
+          that could be modified by other programs while you work.</note>
+      </li>
+      <li>To change the default <xref href="../glossaries/SRX.dita">SRX</xref> (Segmentation Rules
+        eXchange) file that Fluenta uses for segmenting XLIFF files: <ol>
+          <li>Type the name of the SRX file in the <uicontrol>Default SRX File</uicontrol> text box
+            or use the <uicontrol>Browse...</uicontrol> button to select an SRX file from the file
+            system.</li>
+        </ol>
+      </li>
+      <li>To add new target languages to the default set: <ol>
+          <li>click the <uicontrol>Add Target Language</uicontrol> button and the following dialog
+            will appear: <image placement="break" href="../images/add_language.png" scale="70"
+              align="center">
+              <alt><uicontrol>Add Language</uicontrol> dialog</alt>
+            </image>
+          </li>
+          <li>Select a language from the <uicontrol>Language</uicontrol> drop-down list.</li>
+          <li>Click the <uicontrol>Add Language</uicontrol> button.</li>
+        </ol>
+      </li>
+      <li>To remove unnecessary languages from the default set: <ol>
+          <li>Select the check boxes next to each language you want to remove.</li>
+          <li>Click the <uicontrol>Remove Selected Languages</uicontrol> button.</li>
+        </ol>
+      </li>
+
+    </ul>
+    <p>Click the <uicontrol>Save Preferences</uicontrol> button after making any change to the
+      default settings.</p>
+  </conbody>
+</concept>

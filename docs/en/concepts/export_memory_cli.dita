@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_fcy_bvb_dt">
+ <title>Export TMX File</title>
+ <conbody>
+  <p>Use the following parameters to export a memory as a <xref href="../glossaries/TMX.dita"
+    >TMX</xref> file from command line:</p>
+  <table>
+   <tgroup cols="4">
+    <colspec colwidth="20*" align="center"/>
+    <colspec colwidth="15*" align="center"/>
+    <colspec colwidth="50*" align="left"/>
+    <colspec colwidth="15*" align="center"/>
+    <thead>
+     <row>
+      <entry>Parameter</entry>
+      <entry>Value</entry>
+      <entry>Description</entry>
+      <entry>Required</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry translate="no">-exportTmx</entry>
+      <entry>memId</entry>
+      <entry>The id of the memory to be exported</entry>
+      <entry>Yes</entry>
+     </row>
+     <row>
+      <entry translate="no">-tmx</entry>
+      <entry>tmxFile</entry>
+      <entry>Path to the TMX file to be generated</entry>
+      <entry>Yes</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>Example:</p>
+  <codeblock translate="no">
+fluenta_cli.bat -exportTmx 12345678 -tmx "c:\sample data\exported.tmx" 
+  </codeblock>
+
+ </conbody>
+</concept>

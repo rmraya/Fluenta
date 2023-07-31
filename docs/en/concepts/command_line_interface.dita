@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd" >
+<concept id="concept_stf_1x2_ts" xml:lang="en-US">
+ <title class="- topic/title ">Command Line Interface</title>
+ <conbody class="- topic/body  concept/conbody ">
+  <p>Fluenta can be integrated into publishing and editing workflows using its Command Line
+   Interface (CLI).</p>
+  <p>The methods exposed by Fluenta's CLI are:</p>
+  <ul>
+   <li><xref href="create_project_cli.dita">Create a project</xref>;</li>
+   <li><xref href="remove_project_cli.dita">Remove project</xref>;</li>
+   <li><xref href="retrieve_project_list_cli.dita">Retrieve the list of projects</xref>;</li>
+   <li><xref href="generate_xliff_cli.dita">Generate XLIFF files and optional word
+        counts</xref>;</li>
+   <li><xref href="import_xliff_cli.dita">Import an XLIFF file</xref>;</li>
+   <li><xref href="create_memory_cli.dita">Create a memory</xref>;</li>
+   <li><xref href="retrieve_memory_list_cli.dita">Retrieve the list of memories</xref>;</li>
+   <li><xref href="import_memory_cli.dita">Import a TMX file into a memory</xref>;</li>
+   <li><xref href="export_memory_cli.dita">Export a memory as TMX file</xref>;</li>
+   <li><xref href="license_management_cli.dita">Register a Subscription Key</xref>;</li>
+      <li><xref href="version_info_cli.dita">Retrieve version information</xref>.</li>
+  </ul>
+  <p>On macOS and Linux use <cmdname>fluenta_cli.sh</cmdname> for executing Fluenta without the
+   graphical user interface. </p>
+  <ul>
+   <li>On macOS the default location for the script is
+     <filepath>/Applications/Fluenta.app/Contents/Resources/fluenta_cli.sh</filepath></li>
+   <li>On Linux the default location for the shell script is
+    <filepath>/opt/Maxprograms/Fluenta/fluenta_cli.sh</filepath></li>
+  </ul>
+  <p>On Windows use <cmdname>fluenta_cli.bat</cmdname> (available in the default installation
+   directory) to process command line parameters.</p> 
+ </conbody>
+</concept>

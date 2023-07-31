@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="Untitled1">
+    <title>Edit Memory</title>
+    <taskbody>
+        <context>
+            <p>Follow these steps to edit the name, source language or description of a translation
+                memory.</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>In main menu, select <menucascade>
+                        <uicontrol>Memories</uicontrol>
+                        <uicontrol>Edit Memory</uicontrol>
+                    </menucascade> or click the <uicontrol><image href="../images/edit.png"
+                            placement="inline" height="14" alt="Edit Memory"/>Edit
+                        Memory</uicontrol> button in <uicontrol>Memories</uicontrol> view
+                    toolbar.</cmd>
+                <stepresult>The following dialog appears: <image placement="break"
+                        href="../images/edit_memory.png" id="image_rwb_ptc_5s" align="center"
+                        scale="70">
+                        <alt><uicontrol>Edit Memory</uicontrol> dialog</alt>
+                    </image>
+                </stepresult>
+            </step>
+            <step>
+                <cmd>Edit all fields as required.</cmd>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Update Memory</uicontrol> button.</cmd>
+            </step>
+        </steps>
+        <result>Selected memory data is updated and the list of memories in the
+                <uicontrol>Memories</uicontrol> view is updated to reflect the changes.</result>
+    </taskbody>
+</task>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="task_by2_htr_xt">
+    <title>Request an Evaluation Subscription</title>
+    <shortdesc/>
+    <taskbody>
+        <context>
+            <p>You can evaluate the program for free during 30 days before purchasing a Subscription
+                Key. All features are enabled during the evaluation period.</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>When you start the program for the first time, the following dialog
+                    appears:</cmd>
+                <stepresult>
+                    <image href="../images/register_subscription.png" placement="break" scale="70"
+                        align="center">
+                        <alt><uicontrol>Subscription Management</uicontrol> dialog</alt>
+                    </image>
+                </stepresult>
+            </step>
+            <step>
+                <cmd>If your computer uses a proxy server to connect to the Internet, follow these
+                    steps to configure the proxy server settings:</cmd>
+                <substeps>
+                    <substep>
+                        <cmd>Click the <uicontrol>Proxy Settings</uicontrol> button.</cmd>
+                        <stepresult>The following dialog appears: <image
+                                href="../images/proxy_settings.png" placement="break" scale="70"
+                                align="center"><alt><uicontrol>Proxy Settings</uicontrol> dialog</alt></image>
+                        </stepresult>
+                    </substep>
+                    <substep>
+                        <cmd>Type the proxy server name or IP in the <uicontrol>Server</uicontrol>
+                            text box.</cmd>
+                    </substep>
+                    <substep>
+                        <cmd>Type the proxy port number in the <uicontrol>Port</uicontrol> text
+                            box.</cmd>
+                    </substep>
+                    <substep>
+                        <cmd>If your proxy server requires authentication, type the proxy user name
+                            in the <uicontrol>User ID</uicontrol> text box and the corresponding
+                            password in the <uicontrol>Password</uicontrol> text box.</cmd>
+                    </substep>
+                    <substep>
+                        <cmd>Click the <uicontrol>Save Proxy Settings</uicontrol> button.</cmd>
+                        <stepresult>Selected proxy settings are saved and the dialog
+                            closes.</stepresult>
+                    </substep>
+
+                </substeps>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Request Evaluation Key</uicontrol> button.</cmd>
+                <stepresult>The following dialog appears: <image
+                        href="../images/request_evaluation.png" placement="break" scale="70"
+                        align="center"><alt><uicontrol>Request Evaluation Key</uicontrol> dialog</alt></image>
+                </stepresult>
+            </step>
+            <step>
+                <cmd>Type your first name in the <uicontrol>First Name</uicontrol> text box.</cmd>
+            </step>
+            <step>
+                <cmd>Type your last name in the <uicontrol>Last Name</uicontrol> text box.</cmd>
+            </step>
+            <step>
+                <cmd>Enter your company name in the <uicontrol>Company</uicontrol> text box. <i>This
+                        step is optional.</i></cmd>
+            </step>
+            <step>
+                <cmd>Type your email address in the <uicontrol>Email</uicontrol> text box.</cmd>
+            </step>
+            <step>
+                <cmd>Enter again your email address in the <uicontrol>Repeat Email</uicontrol> text
+                    box.</cmd>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Request Evaluation Key</uicontrol> button.</cmd>
+                <stepresult>Your evaluation subscription request is sent to the Registration Server.
+                    An email with an evaluation subscription key will be immediately sent to the
+                    indicated email address. <image href="../images/request_received.png" scale="70"
+                        align="center" placement="break">
+                        <alt><uicontrol>Request Received</uicontrol> dialog</alt>
+                    </image>
+                </stepresult>
+            </step>
+            <step>
+                <cmd>Check your email and note the new evaluation subscription key. Check your spam
+                    filter if you don't receive an email with the evaluation subscription key within
+                    a few minutes.</cmd>
+            </step>
+            <step>
+                <cmd>Enter the evaluation subscription in the <uicontrol>Subscription
+                        Key</uicontrol> text box of the <uicontrol>Subscription
+                        Management</uicontrol> dialog.</cmd>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Register Subscription</uicontrol> button.</cmd>
+            </step>
+        </steps>
+        <result>Your computer is enabled to work with the application for 30 days.</result>
+
+    </taskbody>
+</task>

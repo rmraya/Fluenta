@@ -49,7 +49,7 @@ public class GetRootElementDialog extends Dialog {
         shell = new Shell(parent, SWT.DIALOG_TRIM);
         shell.setImage(Fluenta.getResourceManager().getIcon());
         display = shell.getDisplay();
-        shell.setText("Add Configuration File");
+        shell.setText(Messages.getString("GetRootElementDialog.0"));
         shell.setLayout(new GridLayout());
         shell.addListener(SWT.Close, new Listener() {
 
@@ -64,7 +64,7 @@ public class GetRootElementDialog extends Dialog {
         top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Label rootLabel = new Label(top, SWT.NONE);
-        rootLabel.setText("Root Element");
+        rootLabel.setText(Messages.getString("GetRootElementDialog.1"));
 
         rootText = new Text(top, SWT.BORDER);
         GridData data = new GridData(GridData.FILL_HORIZONTAL);
@@ -80,14 +80,14 @@ public class GetRootElementDialog extends Dialog {
         filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Button accept = new Button(bottom, SWT.PUSH);
-        accept.setText("Add Configuration File");
+        accept.setText(Messages.getString("GetRootElementDialog.2"));
         accept.addSelectionListener(new SelectionListener() {
 
             @Override
             public void widgetSelected(SelectionEvent arg0) {
                 if (rootText.getText().isEmpty()) {
                     MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-                    box.setMessage("Select root element");
+                    box.setMessage(Messages.getString("GetRootElementDialog.3"));
                     box.open();
                     return;
                 }

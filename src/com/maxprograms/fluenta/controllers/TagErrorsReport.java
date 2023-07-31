@@ -12,9 +12,12 @@
 
 package com.maxprograms.fluenta.controllers;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
@@ -73,63 +76,11 @@ public class TagErrorsReport {
 		writeStr("<html>\n");
 		writeStr("  <head>\n");
 		writeStr("    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n");
-		writeStr("    <title>" + "Tags Analysis" + "</title>\n");
+		writeStr("    <title>" + com.maxprograms.fluenta.controllers.Messages.getString("TagErrorsReport.0") + "</title>\n");
 		writeStr("    <style type=\"text/css\">\n");
-		writeStr("     table{\n" +
-				"         width:100%;\n" +
-				"         border-left:1px solid grey;\n" +
-				"     }\n" +
-				"     th{\n" +
-				"         border-left:1px solid grey;\n" +
-				"         border-right:1px solid grey;\n" +
-				"         background:#003854;\n" +
-				"         color:white;\n" +
-				"         text-align:center;\n" +
-				"         padding:3px\n" +
-				"     }\n" +
-				"     td.left{\n" +
-				"         border-right:1px solid grey;\n" +
-				"         border-bottom:1px solid grey;\n" +
-				"         text-align:left;\n" +
-				"         padding:2px;\n" +
-				"         max-width:400px;\n" +
-				"     }\n" +
-				"     td.center{\n" +
-				"         border-right:1px solid grey;\n" +
-				"         border-bottom:1px solid grey;\n" +
-				"         text-align:center;\n" +
-				"         padding:2px;\n" +
-				"     }\n" +
-				"     td.right{\n" +
-				"         border-right:1px solid grey;\n" +
-				"         border-bottom:1px solid grey;\n" +
-				"         text-align:right;\n" +
-				"         padding:2px;\n" +
-				"     }\n" +
-				"     span {\n" +
-				"         background:#3db6b9;\n" +
-				"         color:white;\n" +
-				"         padding-left:2px;\n" +
-				"         padding-right:2px;\n" +
-				"         margin-left:2px;\n" +
-				"         margin-right:2px;\n" +
-				"     }\n" +
-				"     span.mrk {\n" +
-				"         background:#1565c0;\n" +
-				"         padding-left:2px;\n" +
-				"         padding-right:2px;\n" +
-				"         color:white;\n" +
-				"         margin-left:0px;\n" +
-				"         margin-right:0px;\n" +
-				"     }\n" +
-				"     span.protected {\n" +
-				"         background:#e3f2fd;\n" +
-				"         padding-left:3px;\n" +
-				"         padding-right:3px;\n" +
-				"         color:black;\n" +
-				"         margin-left:0px;\n" +
-				"         margin-right:0px;\n" +
-				"     }\n");
+
+		writeStr(readCss());
+
 		writeStr("    </style>\n");
 		writeStr("  </head>\n");
 		writeStr("  <body>\n");
@@ -137,9 +88,9 @@ public class TagErrorsReport {
 		writeStr("    <table class='analysis'>\n");
 		writeStr("      <tr>\n");
 		writeStr("        <th>#</th>\n");
-		writeStr("        <th>Source</th>\n");
-		writeStr("        <th>Translation</th>\n");
-		writeStr("        <th>Description</th>\n");
+		writeStr("        <th>" + com.maxprograms.fluenta.controllers.Messages.getString("TagErrorsReport.1") + "</th>\n");
+		writeStr("        <th>" + com.maxprograms.fluenta.controllers.Messages.getString("TagErrorsReport.2") + "</th>\n");
+		writeStr("        <th>" + com.maxprograms.fluenta.controllers.Messages.getString("TagErrorsReport.3") + "</th>\n");
 		writeStr("      </tr>\n");
 
 		int size = segments.size();
@@ -159,9 +110,9 @@ public class TagErrorsReport {
 				int tLength = trglist.size();
 				int j;
 				if (tLength > srclist.size()) {
-					writeSegment(i + 1, source, target, "Extra Tag");
+					writeSegment(i + 1, source, target, com.maxprograms.fluenta.controllers.Messages.getString("TagErrorsReport.4"));
 				} else if (tLength < srclist.size()) {
-					writeSegment(i + 1, source, target, "Missing Tag");
+					writeSegment(i + 1, source, target, com.maxprograms.fluenta.controllers.Messages.getString("TagErrorsReport.5"));
 				} else {
 					for (j = 0; j < srclist.size(); j++) {
 						String es = srclist.get(j);
@@ -175,7 +126,7 @@ public class TagErrorsReport {
 							}
 						}
 						if (!paired) {
-							writeSegment(i + 1, source, target, "Different Tag");
+							writeSegment(i + 1, source, target, com.maxprograms.fluenta.controllers.Messages.getString("TagErrorsReport.6"));
 						}
 					}
 					trglist = buildTagList(target);
@@ -183,14 +134,14 @@ public class TagErrorsReport {
 						String es = srclist.get(j);
 						String et = trglist.get(j);
 						if (!es.equals(et)) {
-							writeSegment(i + 1, source, target, "Tags in wrong order");
+							writeSegment(i + 1, source, target, com.maxprograms.fluenta.controllers.Messages.getString("TagErrorsReport.7"));
 						}
 					}
 				}
 			} else {
 				// all tags are missing
 				if (!srclist.isEmpty()) {
-					writeSegment(i + 1, source, target, "Missing Tag");
+					writeSegment(i + 1, source, target, com.maxprograms.fluenta.controllers.Messages.getString("TagErrorsReport.5"));
 				}
 			}
 		}
@@ -201,8 +152,25 @@ public class TagErrorsReport {
 		return output.getAbsolutePath();
 	}
 
-	private static void writeSegment(int id, Element source, Element target, String description)
-			throws IOException {
+	private static String readCss() throws IOException {
+		StringBuilder sb = new StringBuilder();
+		try (InputStream is = TagErrorsReport.class.getResourceAsStream("tagErrors.css")) {
+			try (InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
+				try (BufferedReader buffered = new BufferedReader(reader)) {
+					String line = "";
+					while ((line = buffered.readLine()) != null) {
+						if (!sb.isEmpty()) {
+							sb.append('\n');
+						}
+						sb.append(line);
+					}
+				}
+			}
+		}
+		return sb.toString();
+	}
+
+	private static void writeSegment(int id, Element source, Element target, String description) throws IOException {
 		writeStr("      <tr>\n");
 		writeStr("        <td class='center'>" + id + "</td>\n");
 		writeStr("        <td class='left'>" + tag(source) + "</td>\n");
@@ -336,19 +304,19 @@ public class TagErrorsReport {
 		Document doc = builder.build(fileName);
 		Element root = doc.getRootElement();
 		if (!root.getName().equals("xliff")) {
-			throw new IOException("Selected file is not an XLIFF document");
+			throw new IOException(com.maxprograms.fluenta.controllers.Messages.getString("TagErrorsReport.8"));
 		}
 		try {
 			Element tool = root.getChild("file").getChild("header").getChild("tool");
 			if (tool == null) {
-				throw new IOException("Unsupported XLIFF file");
+				throw new IOException(com.maxprograms.fluenta.controllers.Messages.getString("TagErrorsReport.9"));
 			}
 			String toolId = tool.getAttributeValue("tool-id");
 			if (!toolId.equals("OpenXLIFF")) {
-				throw new IOException("Unsupported XLIFF file");
+				throw new IOException(com.maxprograms.fluenta.controllers.Messages.getString("TagErrorsReport.9"));
 			}
 		} catch (IOException e) {
-			throw new IOException("Unsupported XLIFF file");
+			throw new IOException(com.maxprograms.fluenta.controllers.Messages.getString("TagErrorsReport.9"));
 		}
 		checkXliffMarkup(doc.getRootElement());
 		return doc;
@@ -431,9 +399,7 @@ public class TagErrorsReport {
 			XMLNode o = i.next();
 			if (o.getNodeType() == XMLNode.ELEMENT_NODE) {
 				Element el = (Element) o;
-				if (el.getName().equals("ph")
-						|| el.getName().equals("bpt")
-						|| el.getName().equals("ept")
+				if (el.getName().equals("ph") || el.getName().equals("bpt") || el.getName().equals("ept")
 						|| el.getName().equals("it")) {
 					if (!el.getChildren().isEmpty()) {
 						String open = "<" + el.getName() + " ";
@@ -454,9 +420,7 @@ public class TagErrorsReport {
 					} else {
 						result.add(el.toString());
 					}
-				} else if (el.getName().equals("mrk")
-						|| el.getName().equals("g")
-						|| el.getName().equals("sub")) {
+				} else if (el.getName().equals("mrk") || el.getName().equals("g") || el.getName().equals("sub")) {
 					String open = "<" + el.getName() + " ";
 					List<Attribute> att = el.getAttributes();
 					for (int j = 0; j < att.size(); j++) {

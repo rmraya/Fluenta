@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_w55_z5b_dt">
+ <title>Generate XLIFF Files</title>
+ <conbody>
+  <p>Use the following parameters to generate XLIFF files for a project from command line:</p>
+  <table>
+   <tgroup cols="4">
+    <colspec colwidth="20*" align="center"/>
+    <colspec colwidth="15*" align="center"/>
+    <colspec colwidth="50*" align="left"/>
+    <colspec colwidth="15*" align="center"/>
+    <thead>
+     <row>
+      <entry>Parameter</entry>
+      <entry>Value</entry>
+      <entry>Description</entry>
+      <entry>Required</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry translate="no">-generateXLIFF</entry>
+      <entry>JSON file</entry>
+      <entry>Full path to a <xref href="../glossaries/JSON.dita">JSON</xref> file containing the
+       data required for generating XLIFF files.</entry>
+      <entry>Yes</entry>
+     </row>
+     <row>
+      <entry translate="no">-verbose</entry>
+      <entry/>
+      <entry>Selects whether progress information is logged or not in stdout.</entry>
+      <entry>No</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  <p>Example:</p>
+  <codeblock translate="no">
+fluenta_cli.bat -generateXLIFF genXLIFF.json -verbose
+  </codeblock>
+  <p>Where the content of <cmdname>genXLIFF.json</cmdname> should be like:</p>
+
+  <codeblock translate="no">
+{ id:12345678,
+  xliffFolder: "C:\\sample data\\XLIFF",
+  tgtLang: ["es", "fr"],
+  ditaval: "C:\\sample data\\filter.ditaval",
+  useICE: true,
+  modifiedFilesOnly: true,
+  useTM: true,
+  generateCount: false, 
+  useXLIFF20: false,
+  paragraph: false, 
+  ignoreTrackedChanges: false,
+  embedSkeleton: false
+}
+</codeblock>
+  <section>
+   <title>JSON Value Pairs</title>
+   <table>
+    <tgroup cols="4">
+     <colspec colwidth="20*" align="center"/>
+     <colspec colwidth="15*" align="center"/>
+     <colspec colwidth="50*" align="left"/>
+     <colspec colwidth="15*" align="center"/>
+     <thead>
+      <row>
+       <entry>Member</entry>
+       <entry>Data Type</entry>
+       <entry>Description</entry>
+       <entry>Required</entry>
+      </row>
+     </thead>
+     <tbody>
+      <row>
+       <entry translate="no">id</entry>
+       <entry>Number</entry>
+       <entry>Project identifier</entry>
+       <entry>Yes</entry>
+      </row>
+      <row>
+       <entry translate="no">xliffFolder</entry>
+       <entry>String</entry>
+       <entry>Path to the folder where XLIFF files and optional word counts should be stored</entry>
+       <entry>Yes</entry>
+      </row>
+      <row>
+       <entry translate="no">tgtLang</entry>
+       <entry>String Array</entry>
+       <entry>An array containing the target languages for the XLIFF files</entry>
+       <entry>Yes</entry>
+      </row>
+      <row>
+       <entry translate="no">ditaval</entry>
+       <entry>String</entry>
+       <entry>Path to a .ditaval file for filtering content to be extracted</entry>
+       <entry>No</entry>
+      </row>
+      <row>
+       <entry translate="no">useICE</entry>
+       <entry>Boolean</entry>
+       <entry>Selects wheteher existing ICE matches should be reused. Default
+        <codeph>false</codeph></entry>
+       <entry>No</entry>
+      </row>
+      <row>
+       <entry translate="no">modifiedFilesOnly</entry>
+       <entry>Boolean</entry>
+       <entry>Selects wether topics that have not changed since the last translation cycle should be
+        included in the generated XLIFF files. Default value: <codeph>false</codeph></entry>
+       <entry>No</entry>
+      </row>
+      <row>
+       <entry translate="no">useTM</entry>
+       <entry>Boolean</entry>
+       <entry>Selects whether translation memories should be used. Default value:
+         <codeph>false</codeph></entry>
+       <entry>No</entry>
+      </row>
+      <row>
+       <entry translate="no">generateCount</entry>
+       <entry>Boolean</entry>
+       <entry>Selects whether word counts should be generated. Default value:
+        <codeph>false</codeph></entry>
+       <entry>No</entry>
+      </row>
+      <row>
+       <entry translate="no">useXLIFF20</entry>
+       <entry>Boolean</entry>
+       <entry>Selects whether XLIFF 2.0 will be generated instead of XLIFF 1.2. Default value:
+         <codeph>false</codeph></entry>
+       <entry>No</entry>
+      </row>
+      <row>
+       <entry translate="no">paragraph</entry>
+       <entry>Boolean</entry>
+       <entry>Selects wether paragraph segmentation should be used instead of sentence segmentation.
+        Default value: <codeph>false</codeph></entry>
+       <entry>No</entry>
+      </row>
+      <row>
+       <entry translate="no">ignoreTrackedChanges</entry>
+       <entry>Boolean</entry>
+       <entry>Selects wether tracked changes from Oxygen XML Editor should be ignored. Default
+        value: <codeph>false</codeph></entry>
+       <entry>No</entry>
+      </row>
+      <row>
+       <entry translate="no">embedSkeleton</entry>
+       <entry>Boolean</entry>
+       <entry>Selects whether skeletons should be embedded in the generated XLIFF files, allowing
+        conversion back to DITA in any computer using <xref
+         href="https://www.maxprograms.com/products/openxliff.html" format="html" scope="external"
+         >OpenXLIFF Filters</xref> or <xref
+         href="https://www.maxprograms.com/products/xliffmanager.html" format="html"
+         scope="external">XLIFF Manager</xref>. Default value: <codeph>false</codeph></entry>
+       <entry>No</entry>
+      </row>
+      
+     </tbody>
+    </tgroup>
+   </table>
+  </section>
+ </conbody>
+</concept>

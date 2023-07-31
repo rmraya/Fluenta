@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task xml:lang="es" id="task_dqk_gx2_ts">
+  <title>Exportar Memoria a un Archivo TMX</title>
+  <taskbody>
+    <context>El contenido de las memorias de Fluenta puede exportarse en formato <xref href="../glossaries/TMX.dita">TMX</xref> para intercambiarlo con otras herramientas o para realizar copias de seguridad.</context>
+    <steps>
+      <step>
+        <cmd>En la vista de <uicontrol>Memorias</uicontrol>, seleccione la memoria de traducción que desea exportar.</cmd>
+      </step>
+      <step>
+        <cmd>En el menú principal, seleccione <menucascade>
+            <uicontrol>Memorias</uicontrol>
+            <uicontrol>Exportar Archivo TMX</uicontrol>
+          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/right.png" placement="inline" alt="Exportar Archivo TMX"/>Exportar Archivo TMX</uicontrol> de la barra de herramientas en la vista <uicontrol>Memorias</uicontrol>.</cmd>
+      </step>
+      <step>
+        <cmd>En el cuadro de diálogo de selección de archivos que aparece, seleccione un nombre y una ubicación para el archivo TMX que contendrá los datos de la memoria.</cmd>
+      </step>
+    </steps>
+    <result>Los datos de la memoria son exportados en formato TMX en el archivo seleccionado.</result>
+  </taskbody>
+</task>

@@ -64,7 +64,7 @@ public class AddMemoryDialog extends Dialog {
 		super(parent, style);
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
-		shell.setText("Create Memory");
+		shell.setText(Messages.getString("AddMemoryDialog.0"));
 		shell.setLayout(new GridLayout());
 		shell.addListener(SWT.Close, new Listener() {
 
@@ -80,7 +80,7 @@ public class AddMemoryDialog extends Dialog {
 		top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label descLabel = new Label(top, SWT.NONE);
-		descLabel.setText("Memory Name");
+		descLabel.setText(Messages.getString("AddMemoryDialog.1"));
 
 		descText = new Text(top, SWT.BORDER);
 		GridData textData = new GridData(GridData.FILL_HORIZONTAL);
@@ -88,7 +88,7 @@ public class AddMemoryDialog extends Dialog {
 		descText.setLayoutData(textData);
 
 		Label sourceLabel = new Label(top, SWT.NONE);
-		sourceLabel.setText("Source Language");
+		sourceLabel.setText(Messages.getString("AddMemoryDialog.2"));
 
 		sourceLanguages = new Combo(top, SWT.READ_ONLY | SWT.DROP_DOWN);
 		sourceLanguages.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -99,13 +99,13 @@ public class AddMemoryDialog extends Dialog {
 		} catch (SAXException | IOException | ParserConfigurationException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error retrieving language list");
+			box.setMessage(Messages.getString("AddMemoryDialog.3"));
 			box.open();
 			shell.close();
 		}
 
 		Group descriptionGroup = new Group(shell, SWT.NONE);
-		descriptionGroup.setText("Memory Description");
+		descriptionGroup.setText(Messages.getString("AddMemoryDialog.4"));
 		GridLayout groupLayout = new GridLayout();
 		groupLayout.marginWidth = 0;
 		groupLayout.marginHeight = 0;
@@ -126,20 +126,20 @@ public class AddMemoryDialog extends Dialog {
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button create = new Button(bottom, SWT.PUSH);
-		create.setText("Create Memory");
+		create.setText(Messages.getString("AddMemoryDialog.5"));
 		create.addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				if (descText.getText() == null || descText.getText().isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Enter memory name");
+					box.setMessage(Messages.getString("AddMemoryDialog.6"));
 					box.open();
 					return;
 				}
 				if (sourceLanguages.getText() == null || sourceLanguages.getText().isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Select source language");
+					box.setMessage(Messages.getString("AddMemoryDialog.7"));
 					box.open();
 					return;
 				}
@@ -149,7 +149,7 @@ public class AddMemoryDialog extends Dialog {
 				} catch (IOException | SAXException | ParserConfigurationException e) {
 					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Error getting source language");
+					box.setMessage(Messages.getString("AddMemoryDialog.8"));
 					box.open();
 					return;
 				}
@@ -161,7 +161,7 @@ public class AddMemoryDialog extends Dialog {
 				} catch (IOException | JSONException | ParseException e) {
 					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-					MessageFormat mf = new MessageFormat("Error creating memory: {0}");
+					MessageFormat mf = new MessageFormat(Messages.getString("AddMemoryDialog.9"));
 					box.setMessage(mf.format(new String[] { e.getMessage() }));
 					box.open();
 				}

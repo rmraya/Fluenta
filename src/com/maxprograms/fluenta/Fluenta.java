@@ -24,6 +24,7 @@ import java.nio.channels.FileLock;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Date;
+import java.util.Locale;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.program.Program;
@@ -47,6 +48,8 @@ public class Fluenta {
 
 	public static void main(String[] args) {
 		try {
+			Preferences preferences = Preferences.getInstance();
+			Locale.setDefault(Locale.forLanguageTag(preferences.getApplicationLanguage()));
 			if (args.length > 0) {
 				CLI.main(args);
 				return;
@@ -72,7 +75,7 @@ public class Fluenta {
 				}
 				Program.launch(log.getAbsolutePath());
 			} catch (IOException e2) {
-				logger.log(Level.ERROR, "Error writing to log file", e2);
+				logger.log(Level.ERROR, Messages.getString("Fluenta.0"), e2);
 			}
 		} catch (Exception e) {
 			try {
@@ -83,7 +86,7 @@ public class Fluenta {
 				}
 				Program.launch(log.getAbsolutePath());
 			} catch (Exception e2) {
-				logger.log(Level.ERROR, "Error writing to log file", e2);
+				logger.log(Level.ERROR, Messages.getString("Fluenta.0"), e2);
 			}
 		}
 	}
@@ -115,7 +118,7 @@ public class Fluenta {
 						shell.setImage(resourceManager.getIcon());
 						MessageBox box = new MessageBox(shell, SWT.ICON_WARNING);
 						box.setText("Fluenta");
-						box.setMessage("An instance of this application is already running");
+						box.setMessage(Messages.getString("Fluenta.1"));
 						box.open();
 						display.dispose();
 						System.exit(1);

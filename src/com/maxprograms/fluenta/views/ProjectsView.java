@@ -66,7 +66,7 @@ public class ProjectsView extends Composite {
 		bar.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		CustomItem create = bar.addItem(SWT.PUSH);
-		create.setText("Create Project");
+		create.setText(Messages.getString("ProjectsView.0"));
 		create.setImage(Fluenta.getResourceManager().getAdd());
 		create.addMouseListener(new MouseListener() {
 
@@ -89,7 +89,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem update = bar.addItem(SWT.PUSH);
-		update.setText("Edit Project");
+		update.setText(Messages.getString("ProjectsView.1"));
 		update.setImage(Fluenta.getResourceManager().getEdit());
 		update.addMouseListener(new MouseListener() {
 
@@ -112,7 +112,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem details = bar.addItem(SWT.PUSH);
-		details.setText("Project Information");
+		details.setText(Messages.getString("ProjectsView.2"));
 		details.setImage(Fluenta.getResourceManager().getInfo());
 		details.addMouseListener(new MouseListener() {
 
@@ -135,7 +135,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem generateXliff = bar.addItem(SWT.PUSH);
-		generateXliff.setText("Generate XLIFF");
+		generateXliff.setText(Messages.getString("ProjectsView.3"));
 		generateXliff.setImage(Fluenta.getResourceManager().getRight());
 		generateXliff.addMouseListener(new MouseListener() {
 
@@ -158,7 +158,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem importXliff = bar.addItem(SWT.PUSH);
-		importXliff.setText("Import XLIFF");
+		importXliff.setText(Messages.getString("ProjectsView.4"));
 		importXliff.setImage(Fluenta.getResourceManager().getLeft());
 		importXliff.addMouseListener(new MouseListener() {
 
@@ -181,7 +181,7 @@ public class ProjectsView extends Composite {
 		bar.addSeparator();
 
 		CustomItem remove = bar.addItem(SWT.PUSH);
-		remove.setText("Remove Project");
+		remove.setText(Messages.getString("ProjectsView.5"));
 		remove.setImage(Fluenta.getResourceManager().getRemove());
 		remove.addMouseListener(new MouseListener() {
 
@@ -208,23 +208,23 @@ public class ProjectsView extends Composite {
 		table.setFocus();
 
 		TableColumn description = new TableColumn(table, SWT.NONE);
-		description.setText("Project");
+		description.setText(Messages.getString("ProjectsView.6"));
 		description.setWidth(250);
 
 		TableColumn map = new TableColumn(table, SWT.NONE);
-		map.setText("Map File");
+		map.setText(Messages.getString("ProjectsView.7"));
 		map.setWidth(350);
 
 		TableColumn status = new TableColumn(table, SWT.NONE);
-		status.setText("Status");
+		status.setText(Messages.getString("ProjectsView.8"));
 		status.setWidth(150);
 
 		TableColumn created = new TableColumn(table, SWT.NONE);
-		created.setText("Created");
+		created.setText(Messages.getString("ProjectsView.9"));
 		created.setWidth(200);
 
 		TableColumn updated = new TableColumn(table, SWT.NONE);
-		updated.setText("Updated");
+		updated.setText(Messages.getString("ProjectsView.10"));
 		updated.setWidth(200);
 
 		table.addListener(SWT.Resize, new Listener() {
@@ -338,7 +338,7 @@ public class ProjectsView extends Composite {
 		} catch (IOException | JSONException | ParseException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			MessageFormat mf = new MessageFormat("Error loading projects: {0}");
+			MessageFormat mf = new MessageFormat(Messages.getString("ProjectsView.11"));
 			box.setMessage(mf.format(new String[] { e.getMessage() }));
 			box.open();
 		}
@@ -352,7 +352,7 @@ public class ProjectsView extends Composite {
 	public void updateProject() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("Select project");
+			box.setMessage(Messages.getString("ProjectsView.12"));
 			box.open();
 			return;
 		}
@@ -364,7 +364,7 @@ public class ProjectsView extends Composite {
 	public void projectDetails() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("Select project");
+			box.setMessage(Messages.getString("ProjectsView.12"));
 			box.open();
 			return;
 		}
@@ -376,7 +376,7 @@ public class ProjectsView extends Composite {
 	public void generateXliff() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("Select project");
+			box.setMessage(Messages.getString("ProjectsView.12"));
 			box.open();
 			return;
 		}
@@ -384,7 +384,7 @@ public class ProjectsView extends Composite {
 		File map = new File(project.getMap());
 		if (!map.exists()) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("DITA map not found");
+			box.setMessage(Messages.getString("ProjectsView.13"));
 			box.open();
 			return;
 		}
@@ -396,7 +396,7 @@ public class ProjectsView extends Composite {
 	public void importXliff() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("Select project");
+			box.setMessage(Messages.getString("ProjectsView.12"));
 			box.open();
 			return;
 		}
@@ -408,12 +408,12 @@ public class ProjectsView extends Composite {
 	public void removeProject() {
 		if (table.getSelectionCount() == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("Select project");
+			box.setMessage(Messages.getString("ProjectsView.12"));
 			box.open();
 			return;
 		}
 		MessageBox box = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-		box.setMessage("Remove selected project?");
+		box.setMessage(Messages.getString("ProjectsView.14"));
 		int result = box.open();
 		if (result == SWT.YES) {
 			try {
@@ -421,7 +421,7 @@ public class ProjectsView extends Composite {
 			} catch (IOException | JSONException | ParseException e) {
 				logger.log(Level.ERROR, e);
 				MessageBox box2 = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-				box2.setMessage("Error deleting project");
+				box2.setMessage(Messages.getString("ProjectsView.15"));
 				box2.open();
 			}
 			loadProjects();

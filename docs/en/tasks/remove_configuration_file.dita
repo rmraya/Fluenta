@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="task_uhd_sc4_ts">
+    <title>Remove Configuration File</title>
+    <taskbody>
+        <steps>
+            <step>
+                <cmd>In <uicontrol>XML Options</uicontrol> tab of the
+                    <uicontrol>Preferences</uicontrol> dialog, select the configuration file to remove.</cmd>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Remove Configuration File</uicontrol> button.</cmd>
+            </step>
+        </steps>
+        <result>Selected configuration file is removed and the list of configuration files is
+            updated to reflect the change.</result>
+    </taskbody>
+</task>

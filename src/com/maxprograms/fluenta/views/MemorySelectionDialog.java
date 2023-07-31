@@ -20,6 +20,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -40,6 +42,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.json.JSONException;
+import org.xml.sax.SAXException;
 
 import com.maxprograms.fluenta.Fluenta;
 import com.maxprograms.fluenta.MainView;
@@ -57,7 +60,7 @@ public class MemorySelectionDialog extends Dialog {
 	public MemorySelectionDialog(Shell parent, int style, List<Memory> existing, MainView mainView) {
 		super(parent, style);
 		shell = new Shell(parent, style);
-		shell.setText("Additional Memories");
+		shell.setText(Messages.getString("MemorySelectionDialog.0"));
 		shell.setImage(Fluenta.getResourceManager().getIcon());
 		shell.setLayout(new GridLayout());
 		shell.addListener(SWT.Close, new Listener() {
@@ -78,7 +81,7 @@ public class MemorySelectionDialog extends Dialog {
 		table.setLayoutData(tableData);
 
 		TableColumn description = new TableColumn(table, SWT.NONE);
-		description.setText("Description");
+		description.setText(Messages.getString("MemorySelectionDialog.1"));
 
 		table.addPaintListener(new PaintListener() {
 
@@ -97,7 +100,7 @@ public class MemorySelectionDialog extends Dialog {
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button add = new Button(bottom, SWT.PUSH);
-		add.setText("Add Selected Memories");
+		add.setText(Messages.getString("MemorySelectionDialog.2"));
 		add.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -132,11 +135,11 @@ public class MemorySelectionDialog extends Dialog {
 					item.setData("memory", mem);
 				}
 			}
-		} catch (IOException | JSONException | ParseException e) {
+		} catch (IOException | JSONException | ParseException | SAXException | ParserConfigurationException e) {
 			Logger logger = System.getLogger(MemorySelectionDialog.class.getName());
-			logger.log(Level.WARNING, "Error selecting memory", e);
+			logger.log(Level.WARNING, Messages.getString("MemorySelectionDialog.3"), e);
 			MessageBox box = new MessageBox(shell, SWT.OK | SWT.ICON_ERROR);
-			box.setMessage("Error loading memories");
+			box.setMessage(Messages.getString("MemorySelectionDialog.4"));
 			box.open();
 			return;
 		}

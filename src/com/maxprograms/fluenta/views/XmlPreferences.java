@@ -76,18 +76,18 @@ public class XmlPreferences extends Composite {
 		// XML Comments
 
 		Group xmlContent = new Group(this, SWT.NONE);
-		xmlContent.setText("XML Content");
+		xmlContent.setText(Messages.getString("XmlPreferences.0"));
 		xmlContent.setLayout(new GridLayout());
 		xmlContent.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button commentsButton = new Button(xmlContent, SWT.CHECK);
-		commentsButton.setText("Translate XML Comments");
+		commentsButton.setText(Messages.getString("XmlPreferences.1"));
 		try {
 			commentsButton.setSelection(getTranslateComments());
 		} catch (IOException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error retrieving XML preferences");
+			box.setMessage(Messages.getString("XmlPreferences.2"));
 			box.open();
 			getShell().close();
 		}
@@ -100,7 +100,7 @@ public class XmlPreferences extends Composite {
 				} catch (IOException e) {
 					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-					box.setMessage("Error saving XML preferences");
+					box.setMessage(Messages.getString("XmlPreferences.3"));
 					box.open();
 					getShell().close();
 				}
@@ -111,7 +111,7 @@ public class XmlPreferences extends Composite {
 		// Configuration files
 
 		Group configurationFiles = new Group(this, SWT.NONE);
-		configurationFiles.setText("Configuration Files");
+		configurationFiles.setText(Messages.getString("XmlPreferences.4"));
 		configurationFiles.setLayout(new GridLayout());
 		configurationFiles.setLayoutData(new GridData(GridData.FILL_BOTH));
 
@@ -124,7 +124,7 @@ public class XmlPreferences extends Composite {
 		filesTable.setHeaderVisible(false);
 
 		TableColumn filesColumn = new TableColumn(filesTable, SWT.NONE);
-		filesColumn.setText("Configuration File");
+		filesColumn.setText(Messages.getString("XmlPreferences.5"));
 		filesColumn.setWidth(250);
 		try {
 			fillFilesTable();
@@ -172,7 +172,7 @@ public class XmlPreferences extends Composite {
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button add = new Button(bottom, SWT.PUSH);
-		add.setText("Add Configuration File");
+		add.setText(Messages.getString("XmlPreferences.6"));
 		add.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -194,7 +194,7 @@ public class XmlPreferences extends Composite {
 						File tmp = new File(newFile);
 						if (tmp.exists()) {
 							MessageBox box = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-							MessageFormat mf = new MessageFormat("Overwrite {0}?");
+							MessageFormat mf = new MessageFormat(Messages.getString("XmlPreferences.7"));
 							Object[] args = { newFile };
 							box.setMessage(mf.format(args));
 							if (box.open() == SWT.NO) {
@@ -222,7 +222,7 @@ public class XmlPreferences extends Composite {
 		});
 
 		Button edit = new Button(bottom, SWT.PUSH);
-		edit.setText("Edit Configuration File");
+		edit.setText(Messages.getString("XmlPreferences.8"));
 		edit.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -239,7 +239,7 @@ public class XmlPreferences extends Composite {
 		});
 
 		Button remove = new Button(bottom, SWT.PUSH);
-		remove.setText("Remove Configuration File");
+		remove.setText(Messages.getString("XmlPreferences.9"));
 		remove.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -247,7 +247,7 @@ public class XmlPreferences extends Composite {
 				TableItem[] selection = filesTable.getSelection();
 				if (selection.length == 0) {
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Select a configuration file");
+					box.setMessage(Messages.getString("XmlPreferences.10"));
 					box.open();
 					return;
 				}
@@ -255,7 +255,7 @@ public class XmlPreferences extends Composite {
 					String name = new File(Preferences.getInstance().getFiltersFolder(), selection[0].getText())
 							.getAbsolutePath();
 					MessageBox box = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-					MessageFormat mf = new MessageFormat("Remove {0}?");
+					MessageFormat mf = new MessageFormat(Messages.getString("XmlPreferences.11"));
 					Object[] args = { name };
 					box.setMessage(mf.format(args));
 					if (box.open() == SWT.YES) {
@@ -281,7 +281,7 @@ public class XmlPreferences extends Composite {
 		// XML Catalog
 
 		Group catalogGroup = new Group(this, SWT.NONE);
-		catalogGroup.setText("XML Catalog");
+		catalogGroup.setText(Messages.getString("XmlPreferences.12"));
 		catalogGroup.setLayout(new GridLayout());
 		catalogGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
 
@@ -290,7 +290,7 @@ public class XmlPreferences extends Composite {
 		} catch (SAXException | IOException | ParserConfigurationException e1) {
 			logger.log(Level.ERROR, e1);
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error loading catalog");
+			box.setMessage(Messages.getString("XmlPreferences.13"));
 			box.open();
 			getShell().close();
 		}
@@ -322,7 +322,7 @@ public class XmlPreferences extends Composite {
 		catalogFiller.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button addButton = new Button(catalogBottom, SWT.PUSH);
-		addButton.setText("Add Catalog Entry");
+		addButton.setText(Messages.getString("XmlPreferences.14"));
 		addButton.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -337,7 +337,7 @@ public class XmlPreferences extends Composite {
 		});
 
 		Button removeButton = new Button(catalogBottom, SWT.PUSH);
-		removeButton.setText("Remove Catalog Entry");
+		removeButton.setText(Messages.getString("XmlPreferences.15"));
 		removeButton.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -405,12 +405,12 @@ public class XmlPreferences extends Composite {
 	protected void deleteCatalogEntry() {
 		if (catalogTable.getSelectionIndices().length == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("Select a catalog entry");
+			box.setMessage(Messages.getString("XmlPreferences.16"));
 			box.open();
 			return;
 		}
 		MessageBox box = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-		box.setMessage("Remove selected entry?");
+		box.setMessage(Messages.getString("XmlPreferences.17"));
 		if (box.open() == SWT.NO) {
 			return;
 		}
@@ -423,7 +423,7 @@ public class XmlPreferences extends Composite {
 		} catch (IOException e1) {
 			logger.log(Level.ERROR, e);
 			MessageBox ebox = new MessageBox(getShell(), SWT.ICON_ERROR | SWT.OK);
-			ebox.setMessage("Error saving catalog");
+			ebox.setMessage(Messages.getString("XmlPreferences.18"));
 			ebox.open();
 		}
 
@@ -446,7 +446,7 @@ public class XmlPreferences extends Composite {
 		TableItem[] selection = filesTable.getSelection();
 		if (selection == null || selection.length == 0) {
 			MessageBox box = new MessageBox(getShell(), SWT.ICON_WARNING | SWT.OK);
-			box.setMessage("Select a configuration file");
+			box.setMessage(Messages.getString("XmlPreferences.19"));
 			box.open();
 			return;
 		}
@@ -457,7 +457,7 @@ public class XmlPreferences extends Composite {
 
 	protected void addCatalog() {
 		FileDialog fd = new FileDialog(getShell(), SWT.OPEN);
-		String[] names = { "XML Files [*.xml]", "All Files [*.*]" };
+		String[] names = { Messages.getString("XmlPreferences.20"), Messages.getString("XmlPreferences.21") };
 		String[] extensions = { "*.xml", "*.*" };
 		fd.setFilterNames(names);
 		fd.setFilterExtensions(extensions);

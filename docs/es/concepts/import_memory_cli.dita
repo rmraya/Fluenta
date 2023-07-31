@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept xml:lang="es" id="concept_gdn_bvb_dt">
+  <title>Importar archivo TMX</title>
+  <conbody>
+    <p>Utilice los siguientes parámetros para importar un archivo <xref href="../glossaries/TMX.dita">TMX</xref> a una memoria desde la línea de comandos:</p>
+    <table>
+      <tgroup cols="4">
+        <colspec align="center" colwidth="20*"/>
+        <colspec align="center" colwidth="15*"/>
+        <colspec align="left" colwidth="60*"/>
+        <colspec align="center" colwidth="15*"/>
+        <thead>
+          <row>
+            <entry>Parámetro</entry>
+            <entry>Valor</entry>
+            <entry>Descripción</entry>
+            <entry>Requerido</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry translate="no">-importTmx</entry>
+            <entry>idMemoria</entry>
+            <entry>Identificador de la memoria</entry>
+            <entry>Si</entry>
+          </row>
+          <row>
+            <entry translate="no">-tmx</entry>
+            <entry>archivoTmx</entry>
+            <entry>Ruta al archivo TMX a importar</entry>
+            <entry>Si</entry>
+          </row>
+          <row>
+            <entry translate="no">-verbose</entry>
+            <entry/>
+            <entry>Selecciona si la información de progreso se muestra o no en la consola</entry>
+            <entry>No</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <p>Ejemplo:</p>
+    <codeblock translate="no" xml:space="preserve">
+fluenta_cli.bat -importTmx 12345678 -tmx "c:\sample data\updated.tmx" -verbose
+  </codeblock>
+  </conbody>
+</concept>

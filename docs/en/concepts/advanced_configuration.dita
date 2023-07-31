@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd" >
+<concept id="advanced_configuration" xml:lang="en-US">
+ <title>Advanced Configuration</title>
+ <conbody class="- topic/body  concept/conbody ">
+  <p>Fluenta default settings can be changed in the <uicontrol>Preferences</uicontrol> dialog.</p>
+  <ul>
+   <li>To open the <uicontrol>Preferences</uicontrol> dialog on Windows or Linux, in main menu
+    select <menucascade>
+     <uicontrol>Settings</uicontrol>
+     <uicontrol>Preferences</uicontrol>
+    </menucascade>.</li>
+   <li>To open the <uicontrol>Preferences</uicontrol> dialog on macOS, select <menucascade>
+     <uicontrol>Apple</uicontrol>
+     <uicontrol>Preferences</uicontrol>
+    </menucascade> in the menu.</li>
+  </ul>
+ </conbody>
+</concept>

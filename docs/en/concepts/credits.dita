@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="credits">
+        <title>Licenses</title>
+        <conbody>
+                <p>Fluenta uses components from these open source projects:</p>
+                <ul>
+                        <li><p translate="no"><b>DTDParser</b></p>
+                                <ul>
+                                        <li>Formerly available from <xref
+                                                  href="http://wutka.com/dtdparser.html"
+                                                  format="html" scope="external"
+                                                  >http://wutka.com/dtdparser.html</xref></li>
+                                        <li>Published under two licenses: <xref
+                                                  href="https://raw.githubusercontent.com/rmraya/OpenXLIFF/master/licenses/dtd/ASL_LICENSE"
+                                                  format="html" scope="external">Apache Style
+                                                  License</xref> and <xref
+                                                  href="https://raw.githubusercontent.com/rmraya/OpenXLIFF/master/licenses/dtd/LICENSE"
+                                                  format="html" scope="external">LGPL
+                                                2.1</xref></li>
+                                </ul>
+                        </li>
+                        <li><p translate="no"><b>JSON-java</b></p>
+                                <ul>
+                                        <li>Available from <xref
+                                                  href="https://github.com/stleary/JSON-java"
+                                                  format="html" scope="external"
+                                                  >https://github.com/stleary/JSON-java</xref></li>
+                                        <li>Published under a <xref
+                                                  href="https://raw.githubusercontent.com/rmraya/OpenXLIFF/master/licenses/json/LICENSE"
+                                                  format="html" scope="external">custom
+                                                  license</xref></li>
+                                </ul>
+                        </li>
+                        <li><p translate="no"><b>jsoup</b></p>
+                                <ul>
+                                        <li>Available from <xref href="https://jsoup.org/"
+                                                  format="html" scope="external"
+                                                  >https://jsoup.org</xref></li>
+                                        <li>Published under <xref
+                                                  href="https://raw.githubusercontent.com/rmraya/OpenXLIFF/master/licenses/jsoup/LICENSE"
+                                                  format="html" scope="external">MIT
+                                                License</xref></li>
+                                </ul>
+                        </li>
+                        <li><p translate="no"><b>H2 Database Engine</b></p>
+                                <ul>
+                                        <li>Available from <xref href="https://h2database.com/"
+                                                  scope="external" format="html"
+                                                  >https://h2database.com/</xref></li>
+                                        <li>Published under two licenses: <xref
+                                                  href="https://h2database.com/html/license.html#mpl2"
+                                                  format="html" scope="external">Mozilla Public
+                                                  License 2.0</xref> and <xref
+                                                  href="https://h2database.com/html/license.html#eclipse_license"
+                                                  format="html" scope="external">Eclipse Public
+                                                  License 1.0</xref></li>
+                                </ul>
+                        </li>
+                        <li><p translate="no"><b>MapDB</b></p>
+                                <ul>
+                                        <li>Available from <xref href="https://mapdb.org/"
+                                                  format="html" scope="external"
+                                                  >https://mapdb.org</xref></li>
+                                        <li>Published under <xref
+                                                  href="https://raw.githubusercontent.com/rmraya/OpenXLIFF/master/licenses/mapdb/LICENSE"
+                                                  format="html" scope="external">Apache
+                                                  License</xref></li>
+                                </ul>
+                        </li>
+                        <li><p translate="no"><b>OpenXLIFF Filters</b></p>
+                                <ul>
+                                        <li>Available from <xref
+                                                  href="https://www.maxprograms.com/products/openxliff.html"
+                                                  scope="external" format="html"
+                                                  >https://www.maxprograms.com/products/openxliff.html</xref></li>
+                                        <li>Published under <xref
+                                                  href="https://www.eclipse.org/org/documents/epl-v10.html"
+                                                  format="html" scope="external">Eclipse Public
+                                                  License 1.0</xref></li>
+                                </ul>
+                        </li>
+                        <li><p translate="no"><b>Swordfish</b></p>
+                                <ul>
+                                        <li>Available from <xref
+                                                  href="https://www.maxprograms.com/products/swordfish.html"
+                                                  scope="external" format="html"
+                                                  >https://www.maxprograms.com/products/swordfish.html</xref></li>
+                                        <li>Published under <xref
+                                                  href="https://www.eclipse.org/org/documents/epl-v10.html"
+                                                  format="html" scope="external">Eclipse Public
+                                                  License 1.0</xref></li>
+                                </ul>
+                        </li>
+                        <li><p translate="no"><b>SWT</b></p>
+                                <ul>
+                                        <li>Available from <xref href="https://www.eclipse.org/swt/"
+                                                  scope="external" format="html"
+                                                  >https://www.eclipse.org/swt/</xref></li>
+                                        <li>Published under <xref
+                                                  href="https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html"
+                                                  format="html" scope="external">Eclipse Public
+                                                  License 2.0</xref></li>
+                                </ul>
+                        </li>
+                        <li><p translate="no"><b>XMLJava</b></p>
+                                <ul>
+                                        <li>Available from <xref
+                                                  href="https://github.com/rmraya/XMLJava"
+                                                  format="html" scope="external"
+                                                  >https://github.com/rmraya/XMLJava</xref></li>
+                                        <li>Published under <xref
+                                                  href="https://www.eclipse.org/org/documents/epl-v10.html"
+                                                  format="html" scope="external">Eclipse Public
+                                                  License 1.0</xref></li>
+                                </ul>
+                        </li>
+                </ul>
+        </conbody>
+</concept>

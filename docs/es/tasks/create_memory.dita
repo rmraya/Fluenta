@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task xml:lang="es" id="task_dyk_t44_ts">
+  <title>Crear Memoria</title>
+  <taskbody>
+    <context>
+      <p>Siga estos pasos para crear una nueva memoria de traducción.</p>
+    </context>
+    <steps>
+      <step>
+        <cmd>En el menú principal, seleccione <menucascade>
+            <uicontrol>Memorias</uicontrol>
+            <uicontrol>Crear Memoria</uicontrol>
+          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/add.png" placement="inline" alt="Crear Memoria"/>Crear Memoria</uicontrol> de la barra de herramientas de la vista <uicontrol>Memorias</uicontrol>.</cmd>
+        <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/create_memory.png" placement="break" scale="70" align="center" id="image_rwb_ptc_5s">
+            <alt>Cuadro de diálogo <uicontrol>Crear Memoria</uicontrol></alt>
+          </image> </stepresult>
+      </step>
+      <step>
+        <cmd>Ingrese un nombre para la nueva memoria en el cuadro de texto <uicontrol>Nombre de la Memoria</uicontrol>.</cmd>
+      </step>
+      <step>
+        <cmd>Seleccione el idioma origen para la nueva memoria de la lista desplegable <uicontrol>Idioma Origen</uicontrol>.</cmd>
+      </step>
+      <step>
+        <cmd>Si lo desea, introduzca una descripción en el cuadro de texto <uicontrol>Descripción de la memoria</uicontrol>.</cmd>
+      </step>
+      <step>
+        <cmd>Haga clic en el botón <uicontrol>Crear Memoria</uicontrol>.</cmd>
+      </step>
+    </steps>
+    <result>Se crea una nueva memoria y la lista de memorias de la vista <uicontrol>Memorias</uicontrol> se actualiza para reflejar los cambios.</result>
+  </taskbody>
+</task>

@@ -66,8 +66,8 @@ public class HTMLViewer extends Dialog {
 				browser = new Browser(shell, SWT.NONE);
 			} catch (SWTError e) {
 				Logger logger = System.getLogger(HTMLViewer.class.getName());
-				logger.log(Level.WARNING, "Error creating browser", e);
-				String message = "Error embedding browser";
+				logger.log(Level.WARNING, Messages.getString("HTMLViewer.0"), e);
+				String message = Messages.getString("HTMLViewer.1");
 				throw new SWTException(message);
 			}
 			browser.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL | GridData.FILL_BOTH));

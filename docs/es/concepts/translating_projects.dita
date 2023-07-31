@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept xml:lang="es" id="translating_projects">
+  <title>Traducir Proyectos DITA</title>
+  <shortdesc/>
+  <conbody>
+    <p>Traducir proyectos DITA es un proceso que comprende estos pasos:</p>
+    <ol>
+      <li>
+        <xref href="../tasks/create_project.dita">Crear un proyecto</xref>
+      </li>
+      <li>
+        <xref href="../tasks/generate_xliff.dita">Generar archivos XLIFF</xref>
+      </li>
+      <li>Traducir archivos XLIFF</li>
+      <li>
+        <xref href="../tasks/import_xliff.dita">Importar archivos XLIFF traducidos</xref>
+      </li>
+    </ol>
+  </conbody>
+</concept>

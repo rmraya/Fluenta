@@ -60,7 +60,7 @@ public class ImportTmxDialog extends Dialog {
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
 		shell.setLayout(new GridLayout());
-		shell.setText("Import Memory");
+		shell.setText(Messages.getString("ImportTmxDialog.0"));
 		shell.addListener(SWT.Close, new Listener() {
 
 			@Override
@@ -75,7 +75,7 @@ public class ImportTmxDialog extends Dialog {
 		top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label tmxLabel = new Label(top, SWT.NONE);
-		tmxLabel.setText("TMX File");
+		tmxLabel.setText(Messages.getString("ImportTmxDialog.1"));
 
 		tmxText = new Text(top, SWT.BORDER);
 		GridData tmxData = new GridData(GridData.FILL_HORIZONTAL);
@@ -83,12 +83,15 @@ public class ImportTmxDialog extends Dialog {
 		tmxText.setLayoutData(tmxData);
 
 		Button tmxBrowse = new Button(top, SWT.PUSH);
-		tmxBrowse.setText("Browse...");
+		tmxBrowse.setText(Messages.getString("ImportTmxDialog.2"));
 		tmxBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 
 				FileDialog fd = new FileDialog(shell, SWT.OPEN | SWT.SINGLE);
+				fd.setFilterExtensions(new String[] { "*.tmx", "*.*" });
+				fd.setFilterNames(new String[] { Messages.getString("ImportTmxDialog.6"),
+						Messages.getString("ImportTmxDialog.7") });
 				if (tmxText.getText() != null && !tmxText.getText().isEmpty()) {
 					File f = new File(tmxText.getText());
 					fd.setFileName(f.getName());
@@ -110,13 +113,13 @@ public class ImportTmxDialog extends Dialog {
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button importMemory = new Button(bottom, SWT.PUSH);
-		importMemory.setText("Import Memory");
+		importMemory.setText(Messages.getString("ImportTmxDialog.3"));
 		importMemory.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				if (tmxText.getText() == null || tmxText.getText().trim().isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Select TMX file");
+					box.setMessage(Messages.getString("ImportTmxDialog.4"));
 					box.open();
 					return;
 				}
@@ -126,11 +129,11 @@ public class ImportTmxDialog extends Dialog {
 					int result = mainView.getController().importTMX(memory, tmxFile);
 					shell.setCursor(new Cursor(display, SWT.CURSOR_ARROW));
 					MessageBox box = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
-					MessageFormat mf = new MessageFormat("Imported {0} segments");
+					MessageFormat mf = new MessageFormat(Messages.getString("ImportTmxDialog.5"));
 					box.setMessage(mf.format(new String[] { "" + result }));
 					box.open();
-				} catch (ClassNotFoundException | SQLException | IOException | SAXException
-						| ParserConfigurationException | JSONException | ParseException e) {
+				} catch (SQLException | IOException | SAXException | ParserConfigurationException | JSONException
+						| ParseException e) {
 					logger.log(Level.ERROR, e);
 					shell.setCursor(new Cursor(display, SWT.CURSOR_ARROW));
 					MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);

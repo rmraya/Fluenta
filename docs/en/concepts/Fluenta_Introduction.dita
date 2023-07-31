@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd" >
+<concept id="concept_jqh_y21_ts" xml:lang="en-US">
+  <title class="- topic/title ">Introduction</title>
+  <conbody class="- topic/body  concept/conbody ">
+    <p>Fluenta is a tool designed to simplify the translation of DITA projects. It can parse a DITA
+      map, resolving the references to all topics and subtopics, preparing a unified <xref
+        href="../glossaries/XLIFF.dita" format="dita">XLIFF</xref> file that you can send to your
+        <xref format="dita" href="../glossaries/LSP.dita">Language Service Provider</xref>
+      (LSP).</p>
+
+    <p>Fluenta implements the procedure for translating DITA projects recommended by the <xref
+        scope="external"
+        href="https://www.oasis-open.org/committees/download.php/48340/DITA12XLIFFArticle.pdf"
+        format="pdf">OASIS DITA Adoption TC</xref>.</p>
+    <section>
+      <title>How it works</title>
+      <ol>
+        <li>Start by <xref format="dita" href="../tasks/create_project.dita">creating a
+            project</xref>. All you have to do is provide the location of your DITA map and select
+          the languages that you want to translate into.</li>
+
+        <li>When you are ready to translate your project, <xref href="../tasks/generate_xliff.dita"
+            format="dita">generate an XLIFF file</xref> from it.</li>
+
+        <li>Send the XLIFF file to your <xref href="../glossaries/LSP.dita">Language Service
+            Provider</xref> (LSP) and wait for a translated XLIFF.</li>
+
+        <li><xref format="dita" href="../tasks/import_xliff.dita">Import the translated XLIFF</xref>
+          and select a folder where to store the translated version of your map and topics.</li>
+      </ol>
+      <p>The four steps described above are all you need to get a translated version of your DITA
+        project. The following diagram shows the processes involved:</p>
+      <image align="center" href="../images/FluentaWorkflow.svg" placement="break" scale="80">
+        <alt>Translation Cycle</alt>
+      </image>
+      <p>After updating your DITA content, you may want to update the translations of your project.
+        All you have to do at this moment is:</p>
+      <ol>
+        <li>Generate a new XLIFF file.</li>
+        <li>Send the new XLIFF file to your Language Service Provider and wait for a translated
+          XLIFF.</li>
+
+        <li>Import the translated XLIFF and select the folder where to store the updated translated
+          version of your map and topics.</li>
+      </ol>
+      <p>Fluenta automatically recovers In-Context Exact (ICE) matches from the translation that was
+        stored in the previous cycle. This means that you don't need to pay again for the
+        translation of content that didn't change.</p>
+      <p>Thanks to the <xref href="../glossaries/translation_memory.dita">Translation Memory</xref> technology included in Fluenta, you can also recover
+        translations of parts that were slightly changed.</p>
+    </section>
+
+  </conbody>
+</concept>

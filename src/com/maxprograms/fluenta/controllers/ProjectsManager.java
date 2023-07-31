@@ -107,7 +107,7 @@ public class ProjectsManager {
                 return project;
             }
         }
-        throw new IOException("Project does not exist");
+        throw new IOException(Messages.getString("ProjectsManager.0"));
     }
 
     public void update(Project project) throws IOException, JSONException {
@@ -124,7 +124,7 @@ public class ProjectsManager {
                 return;
             }
         }
-        throw new IOException("Project does not exist");
+        throw new IOException(Messages.getString("ProjectsManager.0"));
     }
 
     public void add(Project project) throws IOException {

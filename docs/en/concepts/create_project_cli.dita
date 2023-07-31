@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_cfk_z5b_dt">
+  <title>Create Project</title>
+  <conbody>
+    <p>Use the following parameters to create a project from command line:</p>
+    <table>
+      <tgroup cols="4">
+        <colspec colwidth="20*" align="center"/>
+        <colspec colwidth="15*" align="center"/>
+        <colspec colwidth="50*" align="left"/>
+        <colspec colwidth="15*" align="center"/>
+        <thead>
+          <row>
+            <entry>Parameter</entry>
+            <entry>Value</entry>
+            <entry>Description</entry>
+            <entry>Required</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry translate="no">-add</entry>
+            <entry>JSON file</entry>
+            <entry>Full path to a <xref href="../glossaries/JSON.dita">JSON</xref> file containing
+              the data required for creating the project.</entry>
+            <entry>Yes</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <p>Example:</p>
+    <codeblock translate="no">
+fluenta_cli.bat -add addProject.json 
+  </codeblock>
+    <p>Where the content of <cmdname>addProject.json</cmdname> should be like:</p>
+
+    <codeblock translate="no">
+{ id:12345678, 
+  title:"JSON test", 
+  description:"project created using JSON and CLI", 
+  map:"D:\\sample content\\en\\User_Guide-use-only.ditamap", 
+  srcLang:"en-US", 
+  tgtLang:["es","fr"]
+}
+</codeblock>
+    <section>
+      <title>JSON Value Pairs</title>
+      <table>
+        <tgroup cols="4">
+          <colspec colwidth="20*" align="center"/>
+          <colspec colwidth="15*" align="center"/>
+          <colspec colwidth="50*" align="left"/>
+          <colspec colwidth="15*" align="center"/>
+          <thead>
+            <row>
+              <entry>Member</entry>
+              <entry>Data Type</entry>
+              <entry>Description</entry>
+              <entry>Required</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry translate="no">id</entry>
+              <entry>Number</entry>
+              <entry>Project identifier</entry>
+              <entry>Yes</entry>
+            </row>
+            <row>
+              <entry translate="no">title</entry>
+              <entry>String</entry>
+              <entry>Short text description for the project. This is the description displayed in
+                Fluenta's GUI</entry>
+              <entry>Yes</entry>
+            </row>
+            <row>
+              <entry translate="no">description</entry>
+              <entry>String</entry>
+              <entry>A longer text description for the project</entry>
+              <entry>Yes</entry>
+            </row>
+            <row>
+              <entry translate="no">map</entry>
+              <entry>String</entry>
+              <entry>Path to the project DITA map</entry>
+              <entry>Yes</entry>
+            </row>
+            <row>
+              <entry translate="no">srcLang</entry>
+              <entry>String</entry>
+              <entry>Language code for the original DITA content</entry>
+              <entry>Yes</entry>
+            </row>
+            <row>
+              <entry translate="no">tgtLang</entry>
+              <entry>String Array</entry>
+              <entry>An array containing the target languages for the project</entry>
+              <entry>Yes</entry>
+            </row>
+            <row>
+              <entry translate="no">memories</entry>
+              <entry>Number Array</entry>
+              <entry>An array containing the ids of existing memories to be associated with the
+                project</entry>
+              <entry>No</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+  </conbody>
+</concept>

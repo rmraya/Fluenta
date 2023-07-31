@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_ich_gc4_ts">
+ <title>Configuration Files</title>
+ <shortdesc></shortdesc>
+ <conbody>
+  <p>Fluenta includes a configuration file for the 600+ elements defined defined in <xref
+        href="https://docs.oasis-open.org/dita/dita/v1.3/errata01/os/complete/part3-all-inclusive/non-normative/elementsMerged.html#elements"
+        format="html" scope="external">Appendix B.6 of DITA 1.3 All-Inclusive Edition</xref>.</p>
+  <p>A configuration file for <xref href="https://www.w3.org/TR/SVG/" format="html" scope="external"
+    >Scalable Vector Graphics (SVG)</xref> is also shipped in fluenta installers.</p>
+  <p> Additional configurations can be added by the user as required.</p>
+ </conbody>
+</concept>

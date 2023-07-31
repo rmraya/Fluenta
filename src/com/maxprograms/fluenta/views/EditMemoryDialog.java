@@ -64,7 +64,7 @@ public class EditMemoryDialog extends Dialog {
 		super(parent, style);
 		shell = new Shell(parent, style);
 		shell.setImage(Fluenta.getResourceManager().getIcon());
-		shell.setText("Edit Memory");
+		shell.setText(Messages.getString("EditMemoryDialog.0"));
 		shell.setLayout(new GridLayout());
 		shell.addListener(SWT.Close, new Listener() {
 
@@ -80,7 +80,7 @@ public class EditMemoryDialog extends Dialog {
 		top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label descLabel = new Label(top, SWT.NONE);
-		descLabel.setText("Memory Name");
+		descLabel.setText(Messages.getString("EditMemoryDialog.1"));
 
 		descText = new Text(top, SWT.BORDER);
 		GridData textData = new GridData(GridData.FILL_HORIZONTAL);
@@ -88,7 +88,7 @@ public class EditMemoryDialog extends Dialog {
 		descText.setLayoutData(textData);
 
 		Label sourceLabel = new Label(top, SWT.NONE);
-		sourceLabel.setText("Source Language");
+		sourceLabel.setText(Messages.getString("EditMemoryDialog.2"));
 
 		sourceLanguages = new Combo(top, SWT.READ_ONLY | SWT.DROP_DOWN);
 		sourceLanguages.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -99,13 +99,13 @@ public class EditMemoryDialog extends Dialog {
 		} catch (SAXException | IOException | ParserConfigurationException e) {
 			logger.log(Level.ERROR, e);
 			MessageBox box = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-			box.setMessage("Error retrieving language list");
+			box.setMessage(Messages.getString("EditMemoryDialog.3"));
 			box.open();
 			shell.close();
 		}
 
 		Group descriptionGroup = new Group(shell, SWT.NONE);
-		descriptionGroup.setText("Memory Description");
+		descriptionGroup.setText(Messages.getString("EditMemoryDialog.4"));
 		GridLayout groupLayout = new GridLayout();
 		groupLayout.marginWidth = 0;
 		groupLayout.marginHeight = 0;
@@ -126,20 +126,20 @@ public class EditMemoryDialog extends Dialog {
 		filler.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Button save = new Button(bottom, SWT.PUSH);
-		save.setText("Update Memory");
+		save.setText(Messages.getString("EditMemoryDialog.5"));
 		save.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				if (descText.getText() == null || descText.getText().isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Enter memory name");
+					box.setMessage(Messages.getString("EditMemoryDialog.6"));
 					box.open();
 					return;
 				}
 				if (sourceLanguages.getText() == null || sourceLanguages.getText().isEmpty()) {
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Select source language");
+					box.setMessage(Messages.getString("EditMemoryDialog.7"));
 					box.open();
 					return;
 				}
@@ -154,7 +154,7 @@ public class EditMemoryDialog extends Dialog {
 				} catch (IOException | SAXException | ParserConfigurationException | JSONException | ParseException e) {
 					logger.log(Level.ERROR, e);
 					MessageBox box = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-					box.setMessage("Error getting source language");
+					box.setMessage(Messages.getString("EditMemoryDialog.8"));
 					box.open();
 					return;
 				}
@@ -171,7 +171,7 @@ public class EditMemoryDialog extends Dialog {
 		shell.pack();
 	}
 
-	public void setMemory(Memory memory) throws IOException {
+	public void setMemory(Memory memory) throws IOException, SAXException, ParserConfigurationException {
 		descText.setText(memory.getName());
 		descriptionText.setText(memory.getDescription());
 		sourceLanguages.select(TextUtils.geIndex(sourceLanguages.getItems(),

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_yv5_w44_ts">
+  <title>Project Status</title>
+  <conbody>
+    <p>Follow these steps to check the translation status of your projects.</p>
+    <ol id="ol_yb3_pmc_5s">
+      <li>In <uicontrol>Projects</uicontrol> view, select the project that you want to examine.</li>
+      <li>In main menu, select <menucascade>
+          <uicontrol>Projects</uicontrol>
+          <uicontrol>Project Information</uicontrol>
+        </menucascade> or click the <uicontrol><image href="../images/info.png" placement="inline"
+            height="14" alt="Project Information"/>Project Information</uicontrol> button in the
+          <uicontrol>Projects</uicontrol> view toolbar.</li>
+    </ol>
+    <p>The following dialog appears: <image href="../images/project_status.png" align="center"
+        placement="break" scale="70">
+        <alt><uicontrol>Project Information</uicontrol> dialog <uicontrol>Status</uicontrol>
+          view</alt>
+      </image>
+    </p>
+    <p>You can mark one or more languages as translated by selecting the corresponding check boxes
+      and clicking the <uicontrol>Mark Selection as Translated</uicontrol> button.</p>
+    <p>Click the <uicontrol>History</uicontrol> tab to display a list of events associated with the
+      project.</p>
+    <image placement="break" align="center" href="../images/project_history.png" scale="70">
+      <alt><uicontrol>Project Information</uicontrol> dialog, <uicontrol>History</uicontrol>
+        view</alt>
+    </image>
+
+  </conbody>
+</concept>

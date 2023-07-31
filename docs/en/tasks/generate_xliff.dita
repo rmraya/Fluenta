@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd" >
+<task id="task_ysz_q31_ts" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/"
+    ditaarch:DITAArchVersion="1.2"
+    domains="(topic task)                            (topic hi-d)                             (topic ut-d)                             (topic indexing-d)                            (topic hazard-d)                            (topic abbrev-d)                            (topic pr-d)                             (topic sw-d)                            (topic ui-d)                            (topic task strictTaskbody-c)    "
+    class="- topic/topic task/task " xml:lang="en-US">
+    <title class="- topic/title ">Generate XLIFF</title>
+    <taskbody class="- topic/body task/taskbody ">
+        <context>
+            <p>Follow these steps to generate <xref href="../glossaries/XLIFF.dita">XLIFF</xref>
+                files that you can send to your <xref href="../glossaries/LSP.dita">Language Service
+                    Provider</xref> (LSP) for translating your projects.</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>In <uicontrol>Projects</uicontrol> view, select the project that will be
+                    translated.</cmd>
+            </step>
+            <step>
+                <cmd>In main menu, select <menucascade>
+                        <uicontrol>Projects</uicontrol>
+                        <uicontrol>Generate XLIFF</uicontrol>
+                    </menucascade> or click the <uicontrol><image height="14"
+                            href="../images/right.png" placement="inline" alt="Generate XLIFF"
+                        />Generate XLIFF</uicontrol> button in the <uicontrol>Projects</uicontrol>
+                    view toolbar.</cmd>
+                <stepresult>The following dialog appears: <image placement="break"
+                        href="../images/generate_xliff.png" id="image_ugz_ys1_5s" align="center"
+                        scale="70">
+                        <alt><uicontrol>Generate XLIFF</uicontrol> dialog</alt>
+                    </image>
+                </stepresult>
+            </step>
+            <step>
+                <cmd>Type the name of the folder where the XLIFF files should be placed in the
+                        <uicontrol>XLIFF Folder</uicontrol> text box or use the
+                        <uicontrol>Browse...</uicontrol> button to select a folder in the file
+                    system.</cmd>
+            </step>
+            <step>
+                <cmd>If you need to exclude some topics, enter the name of a DITAVAL file that you
+                    want to use for conditional processing in the <uicontrol>DITAVAL
+                        File</uicontrol> text box or use the <uicontrol>Browse...</uicontrol> button
+                    next to it to select a file from the file system.</cmd>
+            </step>
+            <step>
+                <cmd>Select the <uicontrol>Reuse ICE Matches</uicontrol> check box if you want to
+                    compare current content with the content available last time an XLIFF file was
+                    generated and reuse all existing translations.</cmd>
+            </step>
+            <step>
+                <cmd>Select the <uicontrol>Modified Files Only</uicontrol> check box to exclude from
+                    the generated XLIFF files those topics that have not changed since the last
+                    translation cycle.</cmd>
+            </step>
+            <step>
+                <cmd>Select the <uicontrol>Use Translation Memories</uicontrol> check box if you
+                    want to recover translations for untranslated segments using the memories
+                    associated with the project.</cmd>
+            </step>
+            <step>
+                <cmd>Select the <uicontrol>Paragraph Segmentation</uicontrol> check box if you need
+                    paragraph instead of sentence segmentation (default).</cmd>
+                <info><i>One advantage of paragraph segmentation over sentence segmentation in
+                        translation is that it can capture more context and coherence within a text
+                        unit</i></info>
+            </step>
+            <step>
+                <cmd>Select the <uicontrol>Generate Word Count</uicontrol> check box if you want a
+                    statistic analysis to be generated for each target language.</cmd>
+            </step>
+            <step>
+                <cmd>Select the <uicontrol>Generate XLIFF 2.0</uicontrol> check box if you need to
+                    generate XLIFF 2.0 instead of XLIFF 1.2 (default).</cmd>
+            </step>
+            <step>
+                <cmd>Select the <uicontrol>Ignore Tracked Changes</uicontrol> check box to ignore
+                    tracked changes from Oxygen XML Editor, improving text segmentation.</cmd>
+            </step>
+            <step>
+                <cmd>Select the <uicontrol>Embed Skeleton</uicontrol> checkbox if you need XLIFF
+                    files that can be converted back to DITA in any computer using <xref
+                        href="https://www.maxprograms.com/products/openxliff.html" format="html"
+                        scope="external">OpenXLIFF Filters</xref> or <xref
+                        href="https://www.maxprograms.com/products/xliffmanager.html" format="html"
+                        scope="external">XLIFF Manager</xref>.</cmd>
+            </step>
+            <step>
+                <cmd>Select the check boxes corresponding to the target languages that you want to
+                    process.</cmd>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Generate XLIFF</uicontrol> button.</cmd>
+                <stepresult>Generation status is displayed in the progress panel and the
+                        <uicontrol>Cancel</uicontrol> button is enabled.</stepresult>
+            </step>
+        </steps>
+        <result>An XLIFF file is generated for each selected target language. XLIFF files and
+            optional word counts are placed in the selected XLIFF Folder.</result>
+    </taskbody>
+</task>

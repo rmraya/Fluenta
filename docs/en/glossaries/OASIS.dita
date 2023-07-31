@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE glossentry PUBLIC "-//OASIS//DTD DITA Glossary//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/glossary.dtd" >
+<glossentry id="OASIS" xml:lang="en-US">
+    <glossterm>OASIS</glossterm>
+    <glossdef>OASIS (<xref href="https://www.oasis-open.org/" format="html" scope="external"
+            >Organization for the Advancement of Structured Information Standards</xref>) is a
+        not-for-profit consortium that drives the development, convergence and adoption of open
+        standards for the global information society.</glossdef>
+</glossentry>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_gtb_y2n_ts">
+ <title>XML Options</title>
+ <conbody>
+  <p>Fluenta needs to know two things for working with XML files:</p>
+  <ul>
+   <li>How to locate the grammar rules and entities declared in an XML file, if any.</li>
+   <li>What elements and attributes contain translatable text.</li>
+  </ul>
+  <p>XML catalogs that follow the specification published at <xref
+    href="https://www.oasis-open.org/committees/entity/spec-2001-08-06.html" scope="external"
+    format="html">https://www.oasis-open.org/committees/entity/spec-2001-08-06.html</xref> by OASIS
+   are used to resolve the location of XML DTDs and Schemas.</p>
+  <p>Special XML files are used to configure the elements and attributes that contain translatable
+   text. These files are used by the internal XML filter to extract text for processing. The
+   configuration files are created and maintained using the application's graphical user
+   interface.</p>
+  <p>The following picture shows the <uicontrol>XML Options</uicontrol> tab of the
+    <uicontrol>Preferences</uicontrol> dialog:</p>
+  <image href="../images/xml_options.png" align="center" placement="break" scale="70">
+   <alt>XML Options</alt>
+  </image>
+ </conbody>
+</concept>

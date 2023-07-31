@@ -23,9 +23,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.SAXException;
 
 import com.maxprograms.fluenta.models.Memory;
 import com.maxprograms.utils.FileUtils;
@@ -73,7 +76,8 @@ public class MemoriesManager {
         }
     }
 
-    List<Memory> getMemories() throws JSONException, ParseException, IOException {
+    List<Memory> getMemories()
+            throws JSONException, ParseException, IOException, SAXException, ParserConfigurationException {
         List<Memory> result = new Vector<>();
         JSONArray array = memories.getJSONArray("memories");
         for (int i = 0; i < array.length(); i++) {
@@ -82,7 +86,8 @@ public class MemoriesManager {
         return result;
     }
 
-    public Memory getMemory(long id) throws JSONException, ParseException, IOException {
+    public Memory getMemory(long id)
+            throws JSONException, ParseException, IOException, SAXException, ParserConfigurationException {
         JSONArray array = memories.getJSONArray("memories");
         for (int i = 0; i < array.length(); i++) {
             JSONObject json = array.getJSONObject(i);
@@ -90,10 +95,10 @@ public class MemoriesManager {
                 return new Memory(json);
             }
         }
-        throw new IOException("Memory does not exist");
+        throw new IOException(Messages.getString("MemoriesManager.0"));
     }
 
-    public void update(Memory memory) throws IOException, JSONException, ParseException {
+    public void update(Memory memory) throws IOException, JSONException {
         remove(memory.getId());
         add(memory);
     }
@@ -108,7 +113,7 @@ public class MemoriesManager {
                 return;
             }
         }
-        throw new IOException("Memory does not exist");
+        throw new IOException(Messages.getString("MemoriesManager.0"));
     }
 
     public void add(Memory memory) throws IOException {

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept xml:lang="es" id="concept_jqh_y21_ts">
+  <title>Introducción</title>
+  <conbody>
+    <p>Fluenta es una herramienta diseñada para simplificar la traducción de proyectos DITA. Puede analizar un mapa DITA, resolviendo las referencias a todos los temas y subtemas, preparando un archivo <xref href="../glossaries/XLIFF.dita" format="dita">XLIFF</xref> unificado que puede enviar a su <xref href="../glossaries/LSP.dita" format="dita">Proveedor de Servicios Lingüísticos</xref> (PSL).</p>
+    <p>Fluenta aplica el procedimiento de traducción de proyectos DITA recomendado por el <xref href="https://www.oasis-open.org/committees/download.php/48340/DITA12XLIFFArticle.pdf" scope="external" format="pdf">OASIS DITA Adoption TC</xref>.</p>
+    <section>
+      <title>Cómo Funciona</title>
+      <ol>
+        <li>Empiece por <xref href="../tasks/create_project.dita" format="dita">crear un proyecto</xref>. Todo lo que tiene que hacer es proporcionar la ubicación de su mapa DITA y seleccionar los idiomas a los que desea traducir.</li>
+        <li>Cuando esté listo para traducir su proyecto, <xref href="../tasks/generate_xliff.dita" format="dita">genere un archivo XLIFF</xref> a partir de él.</li>
+        <li>Envíe el archivo XLIFF a su <xref href="../glossaries/LSP.dita">Proveedor de Servicios Lingüísticos</xref> (PSL) y espere un XLIFF traducido.</li>
+        <li><xref href="../tasks/import_xliff.dita" format="dita">Importe el archivo XLIFF</xref> traducido y seleccione una carpeta donde almacenar la versión traducida de su mapa y contenidos.</li>
+      </ol>
+      <p>Los cuatro pasos descriptos anteriormente son todo lo que necesita para obtener una versión traducida de su proyecto DITA. El siguiente diagrama muestra los procesos implicados:</p>
+      <image href="../images/FluentaWorkflow.svg" placement="break" scale="80" align="center">
+        <alt>Ciclo de Traducción</alt>
+      </image>
+      <p>Después de actualizar su contenido DITA, es posible que desee actualizar las traducciones de su proyecto. Todo lo que tienes que hacer en este momento es:</p>
+      <ol>
+        <li>Generar un nuevo archivo XLIFF</li>
+        <li>Envíe el nuevo archivo XLIFF a su Proveedor de Servicios Lingüísticos y espere un XLIFF traducido.</li>
+        <li>Importe el archivo XLIFF traducido y seleccione una carpeta donde almacenar la versión traducida actualizada de su mapa y contenidos.</li>
+      </ol>
+      <p>Fluenta recupera automáticamente las coincidencias "In-Context Exact" (ICE) de la traducción que se almacenó en el ciclo anterior. Esto significa que no tendrá que volver a pagar por la traducción de contenidos que no hayan cambiado.</p>
+      <p>Gracias a la tecnología de <xref href="../glossaries/translation_memory.dita">Memoria de Traducción</xref> incluida en Fluenta, también puede recuperar traducciones de partes ligeramente modificadas.</p>
+    </section>
+  </conbody>
+</concept>
