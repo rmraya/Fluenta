@@ -63,20 +63,7 @@
         <topicref href="concepts/license_management_cli.dita"/>
         <topicref href="concepts/version_info_cli.dita"/>
     </chapter>
-<!--
-    <chapter href="concepts/java_api.dita">
-        <topicref href="concepts/create_project_java.dita"/>
-        <topicref href="concepts/remove_project_java.dita"/>
-        <topicref href="concepts/retrieve_project_list_java.dita"/>
-        <topicref href="concepts/generate_xliff_java.dita"/>
-        <topicref href="concepts/import_xliff_java.dita"/>
-        <topicref href="concepts/create_memory_java.dita"/>
-        <topicref href="concepts/retrieve_memory_list_java.dita"/>
-        <topicref href="concepts/import_memory_java.dita"/>
-        <topicref href="concepts/export_memory_java.dita"/>
-        <topicref href="concepts/license_management_java.dita"/>
-    </chapter>
--->
+    
     <chapter href="concepts/credits.dita"/>
 
     <backmatter>
