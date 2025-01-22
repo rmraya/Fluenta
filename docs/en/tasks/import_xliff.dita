@@ -21,12 +21,13 @@
                 <cmd>In main menu, select <menucascade>
                         <uicontrol>Projects</uicontrol>
                         <uicontrol>Import XLIFF</uicontrol>
-                    </menucascade> or click the <uicontrol><image href="../images/left.png"
-                            placement="inline" height="14" alt="Import XLIFF"/>Import
+                    </menucascade> or click the <uicontrol><image href="../images/import.svg"
+                            placement="inline" height="14"><alt>Import XLIFF</alt></image>Import
                         XLIFF</uicontrol> button in the <uicontrol>Projects</uicontrol> view
                     toolbar.</cmd>
-                <stepresult>The following dialog appears: <image href="../images/import_xliff.png"
-                        scale="70" align="center" placement="break">
+                <stepresult>The <uicontrol>Import XLIFF</uicontrol> dialog appears: <image
+                        href="../images/import_xliff.png" scale="70" align="center"
+                        placement="break">
                         <alt><uicontrol>Import XLIFF</uicontrol> dialog</alt>
                     </image>
                 </stepresult>
@@ -61,8 +62,11 @@
             </step>
             <step>
                 <cmd>Click the <uicontrol>Import XLIFF</uicontrol> button.</cmd>
-                <stepresult>Import status is displayed in the progress panel and the
-                        <uicontrol>Cancel</uicontrol> button is enabled.</stepresult>
+                <stepresult>The <uicontrol>Process Log</uicontrol> dialog appears: <image
+                        placement="break" href="../images/process_log.png" align="center" scale="70">
+                        <alt><uicontrol>Process Log</uicontrol> dialog</alt>
+                </image> Click the <uicontrol>Cancel</uicontrol> button to interrupt XLIFF
+                    import if needed.</stepresult>
             </step>
         </steps>
         <result>The XLIFF file is imported into the selected project. A translated version of the

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title id="version">Settings</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body onload="new SettingsDialog();">
+    <div class="tabHolder">
+        <a id="generalButton" class="tab selectedTab"><span>General Options</span></a>
+        <a id="xmlButton" class="tab"><span>XML Options</span></a>
+        <a id="fillerTab" class="tab fill_width"><span>&nbsp;</span></a>
+    </div>
+
+    <div id="generalOptions" class="dialogBody">
+        <table class="fill_width">
+            <tr>
+                <td class="middle noWrap"><label for="sourceSelect">Application Language</label></td>
+                <td class="middle fill_width">
+                    <select id="appLangSelect" class="table_select">
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="middle noWrap"><label for="themeColor">Theme</label></td>
+                <td class="middle fill_width">
+                    <select id="themeColor" class="table_select">
+                        <option value="system">System Default</option>
+                        <option value="dark">Dark</option>
+                        <option value="light">Light</option>
+                        <option value="highcontrast">High Contrast</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <table class="fill_width">
+            <tr>
+                <td class="middle"><label for="projectsFolder">Projects Folder</label></td>
+                <td class="fill_width middle"><input id="projectsFolder" class="fill_width"></td>
+                <td class="middle marginRight"><button id="browseSrxButton">Browse...</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="middle"><label for="memoriesFolder">Memories Folder</label></td>
+                <td class="fill_width middle"><input id="memoriesFolder" class="fill_width"></td>
+                <td class="middle marginRight"><button id="browseSrxButton">Browse...</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="middle"><label for="srxFile">Default SRX File</label></td>
+                <td class="fill_width middle"><input id="srxFile" class="fill_width"></td>
+                <td class="middle marginRight"><button id="browseSrxButton">Browse...</button>
+                </td>
+            </tr>
+        </table>
+        <table class="fill_width">
+            <tr>
+                <td class="middle"><label for="srcLangSelect">Default Source Language</label></td>
+                <td class="fill_width middle"><select id="srcLangSelect" class="table_select"></select></td>
+            </tr>
+        </table>
+        <div class="separator">&nbsp;</div>
+        <div class="divContainer bordered" style="height:220px; width:calc(100% - 20px); margin-left: 8px;">
+            <table class="dialogTable">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="middle">Default Target Languages</th>
+                    </tr>
+                </thead>
+                <tbody id="targetLanguages">
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="dialogRow">
+            <div class="filler">&nbsp;</div>
+            <button id="addTarget">Add Target Language</button>
+            <button id="removeTarget">Remove Target Language</button>
+        </div>
+
+    </div>
+    <div id="xmlOptions" class="hidden dialogBody">
+        <table>
+            <tr>
+                <td class="middle">
+                    <input id="xmlComments" type="checkbox">
+                </td>
+                <td class="middle">
+                    <label for="xmlComments">Translate XML Comments</label>
+                </td>
+            </tr>
+        </table>
+        <div class="separator">&nbsp;</div>
+        <div class="divContainer bordered" style="height:180px; width:calc(100% - 20px); margin-left: 8px;">
+            <table class="dialogTable">
+                <head>
+                    <tr>
+                        <th colspan="2">Configuration Files</th>
+                    </tr>
+                </head>
+                <tbody id="configBody">
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+            </table>
+        </div>
+        <div class="dialogRow">
+            <button id="addConfiguration">Add Configuration File</button>
+            <button id="editConfiguration">Edit Configuration File</button>
+            <button id="removeConfiguration">Remove Configuration File</button>
+        </div>
+        <div class="separator">&nbsp;</div>
+        <div class="divContainer bordered" style="height:180px; width:calc(100% - 20px); margin-left: 8px;">
+            <table class="dialogTable">
+                <head>
+                    <tr>
+                        <th colspan="2">XML Catalog</th>
+                    </tr>
+                </head>
+                <tbody id="catalogBody">
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="dialogRow">
+            <button id="addCatalog">Add Catalog Entry</button>
+            <button id="removeCatalog">Remove Catalog Entry</button>
+        </div>
+    </div>
+
+    <div class="buttonArea">
+        <button id="saveButton">Save Settings</button>
+    </div>
+
+    <script src="../../js/settingsDialog.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="remove_project">
+    <title>Remove Project</title>
+    <shortdesc>Follow these steps to permanently remove a Project from Fluenta.</shortdesc>
+    <taskbody>
+        <steps>
+            <step>
+                <cmd>In <uicontrol>Projects</uicontrol> view, select all projects that you want to
+                    remove by clicking on them.</cmd>
+            </step>
+            <step>
+                <cmd>Select <menucascade>
+                        <uicontrol>Project</uicontrol>
+                        <uicontrol>Remove Projects</uicontrol>
+                </menucascade> from the main menu or click the <uicontrol><image
+                    href="../images/remove.svg" placement="inline" height="14">
+                    <alt>Remove Projects</alt>
+                </image> Remove Projects</uicontrol> button in <uicontrol>Projects</uicontrol> view
+                    toolbar.</cmd>
+            </step>
+            <step>
+                <cmd>Confirm projects removal in the dialog that is displayed.</cmd>
+            </step>
+        </steps>
+    </taskbody>
+</task>

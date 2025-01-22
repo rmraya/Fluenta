@@ -6,7 +6,7 @@
         <steps>
             <step>
                 <cmd>In <uicontrol>XML Options</uicontrol> tab of the
-                        <uicontrol>Preferences</uicontrol> dialog, click the <uicontrol>Add
+                        <uicontrol>Settings</uicontrol> dialog, click the <uicontrol>Add
                         Configuration File</uicontrol> button.</cmd>
                 <stepresult>The following dialog appears:<image placement="break"
                         href="../images/root_element.png" id="image_tqm_wld_5s" align="center"
@@ -25,14 +25,14 @@
                 <stepresult>The following dialog appears:<image placement="break"
                         href="../images/grammar_configuration.png" id="image_yj4_pmd_5s"
                         align="center" scale="70">
-                        <alt><uicontrol>Grammar Configuration</uicontrol> dialog</alt>
+                        <alt>Grammar Configuration dialog</alt>
                     </image>
                 </stepresult>
             </step>
             <step>
                 <cmd>Click the <uicontrol>Add Element</uicontrol> button to add the configuration of
                     an element.</cmd>
-                <stepresult>The following dialog appears: <image
+                <stepresult>The <uicontrol>Element Configuration</uicontrol> dialog appears: <image
                         href="../images/element_configuration.png" placement="break" scale="70"
                         align="center">
                         <alt><uicontrol>Element Configuration</uicontrol> dialog</alt>
@@ -57,19 +57,21 @@
                 </choices>
             </step>
             <step>
-                <cmd>If the element type is "inline", select the kind of formatting represented by
-                    the element in the <uicontrol>Inline Type</uicontrol> drop-down list.</cmd>
+                <cmd>If the element type is "<b>inline</b>", select the kind of formatting
+                    represented by the element in the <uicontrol>Inline Type</uicontrol> drop-down
+                    list.</cmd>
             </step>
             <step>
                 <cmd>If the element has translatable attributes, enter their names separated by a
-                    ";" in the <uicontrol>Translatable Attributes</uicontrol> text box.</cmd>
+                        "<b>;</b>" in the <uicontrol>Translatable Attributes</uicontrol> text
+                    box.</cmd>
             </step>
             <step>
-                <cmd>If white space needs to be preserved when extracting text, select "Yes" in the
-                        <uicontrol>Keep White Space</uicontrol> drop-down list.</cmd>
+                <cmd>If white space needs to be preserved when extracting text, select the
+                        <uicontrol>Keep White Space</uicontrol> check box.</cmd>
             </step>
             <step>
-                <cmd>Click the <uicontrol>Save Configuration</uicontrol> button.</cmd>
+                <cmd>Click the <uicontrol>Save Element Configuration</uicontrol> button.</cmd>
             </step>
             <step>
                 <cmd>Repeat the previous steps until all required elements have been

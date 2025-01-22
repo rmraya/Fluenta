@@ -6,7 +6,8 @@
         <steps>
             <step>
                 <cmd>In <uicontrol>XML Options</uicontrol> tab of the
-                    <uicontrol>Preferences</uicontrol> dialog, select the configuration file to remove.</cmd>
+                        <uicontrol>Settings</uicontrol> dialog, select the configuration file to
+                    remove.</cmd>
             </step>
             <step>
                 <cmd>Click the <uicontrol>Remove Configuration File</uicontrol> button.</cmd>

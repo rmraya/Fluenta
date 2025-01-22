@@ -3,16 +3,19 @@
 <concept xml:lang="es" id="advanced_configuration">
   <title>Configuración Avanzada</title>
   <conbody>
-    <p>La configuración predeterminada de Fluenta puede modificarse en el cuadro de diálogo <uicontrol>Preferencias</uicontrol>.</p>
+    <p>La configuración predeterminada de Fluenta puede modificarse en el cuadro de diálogo <uicontrol>Configuración</uicontrol>.</p>
     <ul>
-      <li>Para abrir el cuadro de diálogo <uicontrol>Preferencias</uicontrol> en Windows o Linux, en el menú principal seleccione <menucascade>
+      <li>Para abrir el cuadro de diálogo <uicontrol>Configuración</uicontrol> en Windows o Linux, en el menú principal seleccione <menucascade>
           <uicontrol>Configuración</uicontrol>
           <uicontrol> Preferencias</uicontrol>
         </menucascade>.</li>
-      <li>Para abrir el cuadro de diálogo <uicontrol>Preferencias</uicontrol> en maOS,  seleccione <menucascade>
+      <li>Para abrir el cuadro de diálogo <uicontrol>Configuración</uicontrol> en maOS,  seleccione <menucascade>
           <uicontrol>Apple</uicontrol>
           <uicontrol> Preferencias</uicontrol>
         </menucascade> en el menú.</li>
     </ul>
+    <p>También puede abrir el cuadro de diálogo <uicontrol>Configuración</uicontrol> haciendo clic en <uicontrol><image height="14" href="../images/settings.svg" placement="inline">
+          <alt>Configuración</alt>
+        </image> Configuración...</uicontrol> en el panel izquierdo.</p>
   </conbody>
 </concept>

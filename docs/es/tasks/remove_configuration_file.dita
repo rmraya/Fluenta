@@ -5,7 +5,7 @@
   <taskbody>
     <steps>
       <step>
-        <cmd>En la pestaña <uicontrol>Opciones XML</uicontrol> del cuadro de diálogo <uicontrol>Preferencias</uicontrol>, seleccione el archivo de configuración a eliminar.</cmd>
+        <cmd>En la pestaña <uicontrol>Opciones XML</uicontrol> del cuadro de diálogo <uicontrol>Configuración</uicontrol>, seleccione el archivo de configuración a eliminar.</cmd>
       </step>
       <step>
         <cmd>Haga clic en el botón <uicontrol>Eliminar Archivo de Configuración</uicontrol>.</cmd>

@@ -21,12 +21,12 @@
         <section>
             <title>Subscriptions</title>
             <p>The version of Fluenta included in the official installers from <xref
-                href="https://www.maxprograms.com/downloads/" format="html" scope="external">Maxprograms
-                Download Page</xref> can be used at no cost for 30 days requesting a free Evaluation
-                Key.</p>
-            <p>Subscription Keys are available at <xref
+                    href="https://www.maxprograms.com/products/fluentadownload.html" format="html"
+                    scope="external">Fluenta Download Page</xref> can be used at no cost for 30 days
+                requesting a free evaluation key.</p>
+            <p>Subscription keys are available at <xref
                     href="https://www.maxprograms.com/store/buy.html" format="html" scope="external"
-                    >Maxprograms Online Store</xref>. Subscription Keys cannot be shared or
+                    >Maxprograms Online Store</xref>. Subscription keys cannot be shared or
                 transferred to different machines.</p>
             <p>Subscription version includes unlimited direct email support at <xref scope="external"
                 format="html" href="mailto:tech@maxprograms.com">tech@maxprograms.com</xref></p>
@@ -35,9 +35,9 @@
             <title>Differences Summary</title>
             <table frame="all" rowsep="1" colsep="1" id="table_vyn_pwz_vkb">
                 <tgroup cols="3">
-                    <colspec colname="c1" colnum="1" colwidth="1*"/>
-                    <colspec colname="c2" colnum="2" colwidth="1.51*"/>
-                    <colspec colname="c3" colnum="3" colwidth="1.91*"/>
+                    <colspec colname="c1" colnum="1" colwidth="2*"/>
+                    <colspec colname="c2" colnum="2" colwidth="1.5*"/>
+                    <colspec colname="c3" colnum="3" colwidth="2*"/>
                     <thead>
                         <row>
                             <entry/>
@@ -62,9 +62,10 @@
                             <entry align="center">Yes</entry>
                         </row>
                         <row>
-                            <entry>Restricted Features</entry>
-                            <entry align="center">None</entry>
-                            <entry align="center">None</entry>
+                            <entry>Headless mode batch scripts for running from CLI (Command Line
+                                Interface)</entry>
+                            <entry align="center">No</entry>
+                            <entry align="center">Yes</entry>
                         </row>
                         <row>
                             <entry>Technical Support</entry>

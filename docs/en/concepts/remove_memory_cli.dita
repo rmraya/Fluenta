@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="remove_memory_cli">
+    <title>Remove Memory</title>
+    <conbody>
+        <p>Use the following parameters to remove a memory from the command line:</p>
+        <table>
+            <tgroup cols="4">
+                <colspec colwidth="20*" align="center"/>
+                <colspec colwidth="15*" align="center"/>
+                <colspec colwidth="50*" align="left"/>
+                <colspec colwidth="15*" align="center"/>
+                <thead>
+                    <row>
+                        <entry>Parameter</entry>
+                        <entry>Value</entry>
+                        <entry>Description</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry translate="no">-delMem</entry>
+                        <entry translate="no">memoriId</entry>
+                        <entry>Memory identifier</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <p>Example:</p>
+        <codeblock translate="no">fluenta_cli.cmd -delMem 12345678</codeblock>
+    </conbody>
+</concept>

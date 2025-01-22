@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
 <task id="task_dyk_t44_ts">
-    <title>Create Memory</title>
+    <title>Add Memory</title>
     <taskbody>
         <context>
             <p>Follow these steps to create a new translation memory.</p>
@@ -10,15 +10,16 @@
             <step>
                 <cmd>In main menu, select <menucascade>
                         <uicontrol>Memories</uicontrol>
-                        <uicontrol>Create Memory</uicontrol>
-                    </menucascade> or click the <uicontrol><image href="../images/add.png"
-                            placement="inline" alt="Create Memory" height="14"/>Create
-                        Memory</uicontrol> button in <uicontrol>Memories</uicontrol> view
-                    toolbar.</cmd>
-                <stepresult>The following dialog appears: <image placement="break"
-                        href="../images/create_memory.png" id="image_rwb_ptc_5s" align="center"
-                        scale="70">
-                        <alt><uicontrol>Create Memory</uicontrol> dialog</alt>
+                        <uicontrol>Add Memory</uicontrol>
+                    </menucascade> or click the <uicontrol><image href="../images/add.svg"
+                            placement="inline" height="14">
+                            <alt>Add Memory</alt>
+                        </image>Add Memory</uicontrol> button in <uicontrol>Memories</uicontrol>
+                    view toolbar.</cmd>
+                <stepresult>The <uicontrol>Add Memory</uicontrol> dialog appears: <image
+                        placement="break" href="../images/add_memory.png" id="image_rwb_ptc_5s"
+                        align="center" scale="70">
+                        <alt><uicontrol>Add Memory</uicontrol> dialog</alt>
                     </image>
                 </stepresult>
             </step>
@@ -35,7 +36,7 @@
                         Description</uicontrol> text box.</cmd>
             </step>
             <step>
-                <cmd>Click the <uicontrol>Create Memory</uicontrol> button.</cmd>
+                <cmd>Click the <uicontrol>Add Memory</uicontrol> button.</cmd>
             </step>
         </steps>
         <result>A new memory is created and the list of memories in the

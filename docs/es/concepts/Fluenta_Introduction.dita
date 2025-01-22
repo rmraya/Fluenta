@@ -19,7 +19,7 @@
       </image>
       <p>Después de actualizar su contenido DITA, es posible que desee actualizar las traducciones de su proyecto. Todo lo que tienes que hacer en este momento es:</p>
       <ol>
-        <li>Generar un nuevo archivo XLIFF</li>
+        <li>Genere un nuevo archivo XLIFF</li>
         <li>Envíe el nuevo archivo XLIFF a su Proveedor de Servicios Lingüísticos y espere un XLIFF traducido.</li>
         <li>Importe el archivo XLIFF traducido y seleccione una carpeta donde almacenar la versión traducida actualizada de su mapa y contenidos.</li>
       </ol>

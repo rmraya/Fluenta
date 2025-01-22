@@ -4,7 +4,7 @@
  <title>Export TMX File</title>
  <conbody>
   <p>Use the following parameters to export a memory as a <xref href="../glossaries/TMX.dita"
-    >TMX</xref> file from command line:</p>
+    >TMX</xref> file from the command line:</p>
   <table>
    <tgroup cols="4">
     <colspec colwidth="20*" align="center"/>
@@ -36,9 +36,7 @@
    </tgroup>
   </table>
   <p>Example:</p>
-  <codeblock translate="no">
-fluenta_cli.bat -exportTmx 12345678 -tmx "c:\sample data\exported.tmx" 
-  </codeblock>
+  <codeblock translate="no">fluenta_cli.cmd -exportTmx 12345678 -tmx "c:\sample data\exported.tmx"   </codeblock>
 
  </conbody>
 </concept>

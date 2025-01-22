@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task xml:lang="es" id="edit_project">
+  <title>Modificar Proyecto</title>
+  <taskbody>
+    <context>
+      <p>Siga estos pasos para editar un proyecto de traducción.</p>
+    </context>
+    <steps>
+      <step>
+        <cmd>En la vista <uicontrol>Proyectos</uicontrol>, seleccione el proyecto que desee editar haciendo clic sobre el.</cmd>
+      </step>
+      <step>
+        <cmd>En el menú principal, seleccione <menucascade>
+            <uicontrol>Proyectos</uicontrol>
+            <uicontrol>Editar Proyecto</uicontrol>
+          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/edit.svg" placement="inline">
+              <alt>Editar Proyecto</alt>
+            </image>Editar Proyecto</uicontrol> de la barra de herramientas de la vista <uicontrol>Proyectos</uicontrol>.</cmd>
+        <stepresult>El Cuadro de diálogo <uicontrol>Editar Proyecto</uicontrol> aparece: <image href="../images/edit_project.png" placement="break" scale="70" align="center">
+            <alt>Cuadro de diálogo <uicontrol>Editar Proyecto</uicontrol></alt>
+          </image> </stepresult>
+      </step>
+      <step>
+        <cmd>Modifique todos los campos según sea necesario.</cmd>
+      </step>
+      <step>
+        <cmd>Haga clic en el botón <uicontrol>Actualizar Proyecto</uicontrol>.</cmd>
+      </step>
+    </steps>
+    <result>El proyecto seleccionado se actualiza y la lista de proyectos de la vista <uicontrol>Proyectos</uicontrol> se actualiza para reflejar los cambios.</result>
+  </taskbody>
+</task>

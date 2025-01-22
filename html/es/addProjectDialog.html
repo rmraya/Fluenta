@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>A&ntilde;adir Proyecto</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body class="dialogBody" onload="new AddProjectDialog();">
+    <table>
+        <tr>
+            <td class="middle">
+                <label for="ditaMap">Mapa DITA</label>
+            </td>
+            <td class="middle fill_width">
+                <input id="ditaMap" class="fill_width">
+            </td>
+            <td class="middle marginRight">
+                <button id="browseButton" >Examinar...</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle"><label for="nameInput">Nombre del Proyecto</label></td>
+            <td class="fill_width middle" colspan="2"><input id="nameInput" class="table_input"></td>
+        </tr>
+        <tr>
+            <td class="middle"><label for="srcLangSelect">Idioma Origen</label></td>
+            <td class="fill_width middle" colspan="2"><select id="srcLangSelect" class="table_select"></select></td>
+        </tr>
+        <tr>
+            <td><label for="descriptionInput">Descripci&oacute;n del Proyecto</label></td>
+            <td colspan="2"> <textarea id="descriptionInput" class="table_input" rows="3"></textarea></td>
+        </tr>
+    </table>
+    <div class="separator">&nbsp;</div>
+    <div class="divContainer bordered" style="height:220px; width:calc(100% - 20px); margin-left: 8px;">
+        <table class="dialogTable">
+            <thead>
+                <tr>
+                    <th colspan="2" class="middle">Idiomas Destino</th>
+                </tr>
+            </thead>
+            <tbody id="targetLanguages" style="height: 180px;">
+            </tbody>
+        </table>
+    </div>
+    <div class="dialogRow">
+        <button id="addTarget">A&ntilde;adir Idioma Destino</button> <button id="removeTarget">Eliminar Idioma Destino</button>
+    </div>
+
+    <div class="buttonArea">
+        <div class="filler">&nbsp;</div>
+        <button id="selectMemories">Memorias del Proyecto</button> <button id="addButton">A&ntilde;adir Proyecto</button>
+    </div>
+
+    <script src="../../js/addProjectDialog.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept xml:lang="es" id="fluenta_projects">
+  <title>Proyectos DITA</title>
+  <shortdesc/>
+  <conbody>
+    <p>Fluenta organiza la traducción de sus mapas DITA en proyectos. La vista <uicontrol>Projectos</uicontrol> en Fluenta contiene una lista de sus proyectos existentes, y los botones de su barra de herramientas le permiten gestionar todas las tareas relacionadas con los proyectos.</p>
+    <image href="../images/projects_view.png" placement="break" scalefit="yes">
+      <alt>Vista Proyectos</alt>
+    </image>
+  </conbody>
+</concept>

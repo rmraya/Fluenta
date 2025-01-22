@@ -35,23 +35,25 @@
       </tgroup>
     </table>
     <p>Ejemplo:</p>
-    <codeblock translate="no" xml:space="preserve">
-fluenta_cli.bat -generateXLIFF genXLIFF.json -verbose
-  </codeblock>
-    <p>Donde el contenido de <cmdname>genXLIFF.json</cmdname> debe ser similar a:</p>
-    <codeblock translate="no" xml:space="preserve">
-{ id:12345678,
-  xliffFolder: "C:\\sample data\\XLIFF",
-  tgtLang: ["es", "fr"],
-  ditaval: "C:\\sample data\\filter.ditaval",
-  useICE: true,
-  modifiedFilesOnly: true,
-  useTM: true,
-  generateCount: false, 
-  useXLIFF20: false,
-  paragraph: false, 
-  ignoreTrackedChanges: false,
-  embedSkeleton: false
+    <codeblock translate="no" xml:space="preserve">fluenta_cli.cmd -generateXLIFF genXLIFF.json -verbose </codeblock>
+    <p>Donde el contenido de <filepath>genXLIFF.json</filepath> debe ser similar a:</p>
+    <codeblock outputclass="language-json" translate="no" xml:space="preserve">{
+    "id": 12345678,
+    "xliffFolder": "C:\\sample data\\XLIFF",
+    "tgtLang": [
+        "es",
+        "fr"
+    ],
+    "ditaval": "C:\\sample data\\filter.ditaval",
+    "useICE": true,
+    "modifiedFilesOnly": true,
+    "useTM": true,
+    "generateCount": false,
+    "version": 2.0,
+    "paragraph": false,
+    "ignoreTrackedChanges": false,
+    "ignoreSVG": true,
+    "embedSkeleton": false
 }
 </codeblock>
     <section>
@@ -120,9 +122,9 @@ fluenta_cli.bat -generateXLIFF genXLIFF.json -verbose
               <entry>No</entry>
             </row>
             <row>
-              <entry translate="no">useXLIFF20</entry>
-              <entry>Booleano</entry>
-              <entry>Selecciona si se generará XLIFF 2.0 en lugar de XLIFF 1.2. Valor predeterminado: <codeph>false</codeph></entry>
+              <entry translate="no">version</entry>
+              <entry>Texto</entry>
+              <entry>Seleccione la versión de XLIFF a generar. Valores: <codeph>1.2</codeph>, <codeph>2.0</codeph> o <codeph>2.1</codeph>. Valor predeterminado: <codeph>2.0</codeph></entry>
               <entry>No</entry>
             </row>
             <row>
@@ -135,6 +137,12 @@ fluenta_cli.bat -generateXLIFF genXLIFF.json -verbose
               <entry translate="no">ignoreTrackedChanges</entry>
               <entry>Booleano</entry>
               <entry>Selecciona si se deben ignorar las revisiones de Oxygen XML Editor. Valor predeterminado: <codeph>false</codeph></entry>
+              <entry>No</entry>
+            </row>
+            <row>
+              <entry translate="no">ignoreSVG</entry>
+              <entry>Booleano</entry>
+              <entry>Selecciona si los archivos SVG traducibles deben ignorarse al generar XLIFF. Valor predeterminado: <codeph>false</codeph></entry>
               <entry>No</entry>
             </row>
             <row>

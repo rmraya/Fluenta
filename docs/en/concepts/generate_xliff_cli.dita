@@ -3,7 +3,7 @@
 <concept id="concept_w55_z5b_dt">
  <title>Generate XLIFF Files</title>
  <conbody>
-  <p>Use the following parameters to generate XLIFF files for a project from command line:</p>
+  <p>Use the following parameters to generate XLIFF files for a project from the command line:</p>
   <table>
    <tgroup cols="4">
     <colspec colwidth="20*" align="center"/>
@@ -36,24 +36,26 @@
    </tgroup>
   </table>
   <p>Example:</p>
-  <codeblock translate="no">
-fluenta_cli.bat -generateXLIFF genXLIFF.json -verbose
-  </codeblock>
-  <p>Where the content of <cmdname>genXLIFF.json</cmdname> should be like:</p>
+  <codeblock translate="no">fluenta_cli.cmd -generateXLIFF genXLIFF.json -verbose </codeblock>
+  <p>Where the content of <filepath>genXLIFF.json</filepath> should be like:</p>
 
-  <codeblock translate="no">
-{ id:12345678,
-  xliffFolder: "C:\\sample data\\XLIFF",
-  tgtLang: ["es", "fr"],
-  ditaval: "C:\\sample data\\filter.ditaval",
-  useICE: true,
-  modifiedFilesOnly: true,
-  useTM: true,
-  generateCount: false, 
-  useXLIFF20: false,
-  paragraph: false, 
-  ignoreTrackedChanges: false,
-  embedSkeleton: false
+  <codeblock translate="no" outputclass="language-json">{
+    "id": 12345678,
+    "xliffFolder": "C:\\sample data\\XLIFF",
+    "tgtLang": [
+        "es",
+        "fr"
+    ],
+    "ditaval": "C:\\sample data\\filter.ditaval",
+    "useICE": true,
+    "modifiedFilesOnly": true,
+    "useTM": true,
+    "generateCount": false,
+    "version": 2.0,
+    "paragraph": false,
+    "ignoreTrackedChanges": false,
+    "ignoreSVG": true,
+    "embedSkeleton": false
 }
 </codeblock>
   <section>
@@ -94,7 +96,7 @@ fluenta_cli.bat -generateXLIFF genXLIFF.json -verbose
       <row>
        <entry translate="no">ditaval</entry>
        <entry>String</entry>
-       <entry>Path to a .ditaval file for filtering content to be extracted</entry>
+       <entry>Path to a .ditaval file for filtering the content to be extracted</entry>
        <entry>No</entry>
       </row>
       <row>
@@ -126,10 +128,10 @@ fluenta_cli.bat -generateXLIFF genXLIFF.json -verbose
        <entry>No</entry>
       </row>
       <row>
-       <entry translate="no">useXLIFF20</entry>
-       <entry>Boolean</entry>
-       <entry>Selects whether XLIFF 2.0 will be generated instead of XLIFF 1.2. Default value:
-         <codeph>false</codeph></entry>
+       <entry translate="no">version</entry>
+       <entry>String</entry>
+       <entry>Selects the version of XLIFF to generate. Values: <codeph>1.2</codeph>,
+         <codeph>2.0</codeph> or <codeph>2.1</codeph>. Default value: <codeph>2.0</codeph></entry>
        <entry>No</entry>
       </row>
       <row>
@@ -147,6 +149,13 @@ fluenta_cli.bat -generateXLIFF genXLIFF.json -verbose
        <entry>No</entry>
       </row>
       <row>
+       <entry translate="no">ignoreSVG</entry>
+       <entry>Boolean</entry>
+       <entry>Selects wether translatable SVG files should be ignored when generating XLIFF. Default
+        value: <codeph>false</codeph></entry>
+       <entry>No</entry>
+      </row>
+      <row>
        <entry translate="no">embedSkeleton</entry>
        <entry>Boolean</entry>
        <entry>Selects whether skeletons should be embedded in the generated XLIFF files, allowing
@@ -157,7 +166,7 @@ fluenta_cli.bat -generateXLIFF genXLIFF.json -verbose
          scope="external">XLIFF Manager</xref>. Default value: <codeph>false</codeph></entry>
        <entry>No</entry>
       </row>
-      
+
      </tbody>
     </tgroup>
    </table>

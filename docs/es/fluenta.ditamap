@@ -7,7 +7,7 @@
       <image href="images/logo.png" placement="break"/>
     </mainbooktitle>
     <booktitlealt>
-      <ph>Copyright © 2015-2023 Maxprograms</ph>
+      <ph>Copyright © 2015-2025 Maxprograms</ph>
     </booktitlealt>
   </booktitle>
   <frontmatter>
@@ -16,11 +16,10 @@
     </booklists>
   </frontmatter>
   <chapter href="concepts/Fluenta_Introduction.dita"/>
-  <chapter href="concepts/translating_projects.dita">
-    <topicmeta>
-      <navtitle>Traducir Proyectos DITA</navtitle>
-    </topicmeta>
+  <chapter href="concepts/fluenta_projects.dita">
     <topicref href="tasks/create_project.dita"/>
+    <topicref href="tasks/edit_project.dita"/>
+    <topicref href="tasks/remove_project.dita"/>
     <topicref href="tasks/generate_xliff.dita"/>
     <topicref href="tasks/import_xliff.dita"/>
     <topicref href="tasks/project_status.dita"/>
@@ -44,7 +43,7 @@
   </chapter>
   <chapter href="concepts/subscriptions.dita">
     <topicref href="tasks/request_trial.dita"/>
-    <topicref href="tasks/register_license.dita"/>
+    <topicref href="concepts/register_license.dita"/>
   </chapter>
   <chapter href="concepts/command_line_interface.dita">
     <topicref href="concepts/create_project_cli.dita"/>
@@ -53,26 +52,13 @@
     <topicref href="concepts/generate_xliff_cli.dita"/>
     <topicref href="concepts/import_xliff_cli.dita"/>
     <topicref href="concepts/create_memory_cli.dita"/>
+    <topicref href="concepts/remove_memory_cli.dita"/>
     <topicref href="concepts/retrieve_memory_list_cli.dita"/>
     <topicref href="concepts/import_memory_cli.dita"/>
     <topicref href="concepts/export_memory_cli.dita"/>
     <topicref href="concepts/license_management_cli.dita"/>
     <topicref href="concepts/version_info_cli.dita"/>
   </chapter>
-  <!--   
-    <chapter href="concepts/java_api.dita">
-        <topicref href="concepts/create_project_java.dita"/>
-        <topicref href="concepts/remove_project_java.dita"/>
-        <topicref href="concepts/retrieve_project_list_java.dita"/>
-        <topicref href="concepts/generate_xliff_java.dita"/>
-        <topicref href="concepts/import_xliff_java.dita"/>
-        <topicref href="concepts/create_memory_java.dita"/>
-        <topicref href="concepts/retrieve_memory_list_java.dita"/>
-        <topicref href="concepts/import_memory_java.dita"/>
-        <topicref href="concepts/export_memory_java.dita"/>
-        <topicref href="concepts/license_management_java.dita"/>
-    </chapter>
-   -->
   <chapter href="concepts/credits.dita"/>
   <backmatter>
     <booklists>

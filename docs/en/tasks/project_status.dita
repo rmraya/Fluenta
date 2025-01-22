@@ -8,25 +8,34 @@
       <li>In <uicontrol>Projects</uicontrol> view, select the project that you want to examine.</li>
       <li>In main menu, select <menucascade>
           <uicontrol>Projects</uicontrol>
-          <uicontrol>Project Information</uicontrol>
-        </menucascade> or click the <uicontrol><image href="../images/info.png" placement="inline"
-            height="14" alt="Project Information"/>Project Information</uicontrol> button in the
+          <uicontrol>Project Status</uicontrol>
+        </menucascade> or click the <uicontrol><image href="../images/status.svg" placement="inline"
+            height="14" alt="Project Information"/>Project Status</uicontrol> button in the
           <uicontrol>Projects</uicontrol> view toolbar.</li>
     </ol>
-    <p>The following dialog appears: <image href="../images/project_status.png" align="center"
-        placement="break" scale="70">
-        <alt><uicontrol>Project Information</uicontrol> dialog <uicontrol>Status</uicontrol>
-          view</alt>
+    <p>The <uicontrol>Project Status</uicontrol> dialog appears: <image
+        href="../images/project_status.png" align="center" placement="break" scale="70">
+        <alt><uicontrol>Project Status</uicontrol> dialog <uicontrol>Status</uicontrol> view</alt>
       </image>
     </p>
-    <p>You can mark one or more languages as translated by selecting the corresponding check boxes
+    <p>The <uicontrol>Status</uicontrol> column shows the current translation state for all target
+      languages. Possible values are:</p>
+    <ul>
+      <li><b>Untranslated</b>: no XLIFF file has been generated yet for the target language.</li>
+      <li><b>In Progress</b>: an XLIFF file has been generated for the language and the translated
+        version has not been imported yet.</li>
+      <li><b>Completed</b>: the last XLIFF file generated for the target language has been
+        imported.</li>
+    </ul>
+    <p>You can mark one or more languages as completed by selecting the corresponding check boxes
       and clicking the <uicontrol>Mark Selection as Translated</uicontrol> button.</p>
-    <p>Click the <uicontrol>History</uicontrol> tab to display a list of events associated with the
-      project.</p>
+    <p>Click the <uicontrol>Project History</uicontrol> tab to display a list of events associated
+      with the project.</p>
     <image placement="break" align="center" href="../images/project_history.png" scale="70">
-      <alt><uicontrol>Project Information</uicontrol> dialog, <uicontrol>History</uicontrol>
-        view</alt>
+      <alt><uicontrol>Project Status</uicontrol> dialog, <uicontrol>History</uicontrol> view</alt>
     </image>
-
+    <p>Select the check box of an <uicontrol>XLIFF Created</uicontrol> event to discard one or more
+      XLIFF files that have not been imported yet and click the <uicontrol>Cancel Selected XLIFF
+        Files</uicontrol> buton to adjust project status accordingly.</p>
   </conbody>
 </concept>

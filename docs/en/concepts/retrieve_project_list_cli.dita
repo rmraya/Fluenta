@@ -3,7 +3,7 @@
 <concept id="concept_dvw_y5b_dt">
    <title>Retrieve Project List</title>
    <conbody>
-      <p>Use the following parameter to retrieve the list of projects from command line:</p>
+      <p>Use the following parameter to retrieve the list of projects from the command line:</p>
       <table>
          <tgroup cols="4">
             <colspec colwidth="20*" align="center"/>
@@ -29,48 +29,67 @@
          </tgroup>
       </table>
       <p>Example:</p>
-      <codeblock translate="no">
-./fluenta_cli.sh -getProjects 
-  </codeblock>
+      <codeblock translate="no">./fluenta_cli.sh -getProjects   </codeblock>
       <p>Output example:</p>
-      <codeblock translate="no">
-{"projects": [
+      <codeblock translate="no" outputclass="language-json">{"projects": [
    {
-      "owner": "admin",
-      "tgtLang": [
-         "es",
-         "fr"
+      "languageStatus": {"es": "2"},
+      "tgtLanguages": ["es"],
+      "lastUpdate": "2025-01-18 09:03",
+      "srcLanguage": "en-US",
+      "memories": [1734259114482],
+      "description": "Downloaded from https://github.com/oxygenxml/userguide",
+      "id": 1734259114482,
+      "history": [
+         {
+            "date": "2024-12-15 08:09",
+            "build": 0,
+            "language": "es",
+            "type": "0"
+         },
+         {
+            "date": "2024-12-21 10:29",
+            "build": 0,
+            "language": "es",
+            "type": "1"
+         }
       ],
-      "lastUpdate": "2015-09-06 16:09",
-      "memories": [12345678],
-      "description": "project created using JSON and CLI",
-      "id": 12345678,
-      "title": "JSON test",
-      "creationDate": "2015-09-05 08:29",
-      "targetStatus": {
-         "fr": "In Progress",
-         "es": "Completed"
-      },
-      "map": "/Users/admin/sample content/en/User_Guide-use-only.ditamap",
-      "srcLang": "en-US",
-      "status": "In Progress"
+      "title": "Oxygen User Guide",
+      "creationDate": "2024-12-15 07:38",
+      "map": "userguide-master/DITA/UserManual.ditamap",
+      "status": "4"
    },
    {
-      "owner": "admin",
-      "tgtLang": ["fr"],
-      "lastUpdate": "2015-07-29 18:50",
-      "memories": [1438205821009],
-      "description": "Fluenta Demo",
-      "id": 1438205821009,
-      "title": "Thunderbird",
-      "creationDate": "2015-07-29 18:37",
-      "targetStatus": {"fr": "In Progress"},
-      "map": "/Users/admin/sample content/en/User_Guide.ditamap",
-      "srcLang": "en-US",
-      "status": "In Progress"
+      "languageStatus": {"es": "3"},
+      "tgtLanguages": ["es"],
+      "lastUpdate": "2025-01-14 10:16",
+      "srcLanguage": "en-US",
+      "memories": [1736860617048],
+      "description": "",
+      "id": 1736860617048,
+      "history": [],
+      "title": "Fluenta User Guide",
+      "creationDate": "2025-01-14 10:16",
+      "map": "Documents/GitHub/FluentaPRO/docs/en/fluenta.ditamap",
+      "status": "0"
    }
-]}    
-   </codeblock>
-
+]}
+ </codeblock>
+      
+      <p>The possible values for the <codeph>status</codeph> field are:</p>
+      <ul>
+         <li><b>0</b>: New project</li>
+         <li><b>1</b>: In progress</li>
+         <li><b>2</b>: Completed</li>
+         <li><b>3</b>: Untranslated</li>
+         <li><b>4</b>: Translated</li>
+      </ul>
+      <p>The possible values for the <codeph>type</codeph> field in <codeph>history</codeph> array
+         are:</p>
+      <ul>
+         <li><b>0</b>: XLIFF Created</li>
+         <li><b>1</b>: XLIFF Imported</li>
+         <li><b>2</b>: XLIFF Canceled</li>
+      </ul>
    </conbody>
 </concept>

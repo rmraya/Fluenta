@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title id="version">Project Status</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body onload="new StatusDialog();">
+    <table>
+        <tr>
+            <td style="padding: 4px 8px;">Project:</td>
+            <td  style="padding: 4px 8px;" id="projectDescription"></td>
+        </tr>
+    </table>
+
+    <div class="tabHolder">
+        <a id="statusButton" class="tab selectedTab"><span>Language Status</span></a>
+        <a id="historyButton" class="tab"><span>Project History</span></a>
+    </div>
+
+    <div id="statusTab" class="dialogBody">
+        <div class="divContainer bordered" style="height:320px; width:calc(100% - 20px); margin-left: 8px;">
+            <table class="dialogTable">
+                <thead>
+                    <tr>
+                        <th class="left"><input type="checkbox" id="selectAll"></th>
+                        <th class="left">Language</th>
+                        <th class="left">Status</th>
+                    </tr>
+                <tbody id="statusTableBody">
+                    <tr>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="buttonArea">
+            <button id="markTranslated">Mark Selection as Translated</button>
+        </div>
+    </div>
+
+    <div id="historyTab" class="hidden dialogBody">
+        <div class="divContainer bordered" style="height:320px; width:calc(100% - 20px); margin-left: 8px;">
+            <table class="dialogTable">
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th class="left">Date</th>
+                        <th class="left">Version</th>
+                        <th class="left">Language</th>
+                        <th class="left">Event</th>
+                    </tr>
+                <tbody id="historyTableBody">
+                    <tr>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="buttonArea">
+            <button id="markTranslated">Cancel Selected XLIFF Files</button>
+        </div>
+    </div>
+
+    <script src="../../js/statusDialog.js"></script>
+</body>
+
+</html>

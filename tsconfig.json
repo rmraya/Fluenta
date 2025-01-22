@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "moduleResolution": "node",
+        "module": "CommonJS",
+        "noImplicitAny": true,
+        "sourceMap": false,
+        "outDir": "js",
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "node_modules/*"
+            ]
+        }
+    },
+    "include": [
+        "ts/**/*"
+    ]
+}

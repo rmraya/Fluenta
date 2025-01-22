@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2023 Maxprograms.
+ * Copyright (c) 2015-2025 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -24,6 +24,7 @@ import java.nio.channels.FileLock;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -45,23 +46,15 @@ public class CLI {
 	protected static Logger logger = System.getLogger(CLI.class.getName());
 
 	public static void main(String[] args) {
-		boolean addProject = false;
-		String addFile = null;
 		boolean generateXLIFF = false;
 		String genXliffFile = null;
 		boolean importXLIFF = false;
 		String xliffFile = null;
-		boolean addMemory = false;
-		String addMemFile = null;
 		boolean importTmx = false;
 		boolean exportTmx = false;
 		String memId = null;
 		String tmxFile = null;
-		boolean getProjects = false;
-		boolean getMemories = false;
 		boolean verbose = false;
-		boolean removeProject = false;
-		String projectId = "";
 
 		if (args.length == 0) {
 			logger.log(Level.WARNING, Messages.getString("CLI.0"));
@@ -84,16 +77,21 @@ public class CLI {
 				System.out.println(json.toString(2));
 				System.exit(0);
 			}
-			if (args[i].equals("-add") && (i + 1) < args.length) {
-				addProject = true;
-				addFile = args[i + 1];
-			}
-			if (args[i].equals("-del") && (i + 1) < args.length) {
-				removeProject = true;
-				projectId = args[i + 1];
-			}
-			if (args[i].equals("-getProjects")) {
-				getProjects = true;
+			if (args[i].equals("-about")) {
+				JSONObject json = new JSONObject();
+				json.put("version", Constants.VERSION);
+				json.put("build", Constants.BUILD);
+				json.put("java", System.getProperty("java.version"));
+				json.put("vendor", System.getProperty("java.vendor"));
+				json.put("swordfish", com.maxprograms.swordfish.Constants.VERSION + "-"
+						+ com.maxprograms.swordfish.Constants.BUILD);
+				json.put("openxliff", com.maxprograms.converters.Constants.VERSION + "-"
+						+ com.maxprograms.converters.Constants.BUILD);
+				json.put("bcp47j", com.maxprograms.languages.Constants.VERSION + "-"
+						+ com.maxprograms.languages.Constants.BUILD);
+				json.put("xmljava", com.maxprograms.xml.Constants.VERSION + "-" + com.maxprograms.xml.Constants.BUILD);
+				System.out.println(json.toString(2));
+				System.exit(0);
 			}
 			if (args[i].equals("-generateXLIFF") && (i + 1) < args.length) {
 				generateXLIFF = true;
@@ -102,10 +100,6 @@ public class CLI {
 			if (args[i].equals("-importXLIFF") && (i + 1) < args.length) {
 				importXLIFF = true;
 				xliffFile = args[i + 1];
-			}
-			if (args[i].equals("-addMem") && (i + 1) < args.length) {
-				addMemory = true;
-				addMemFile = args[i + 1];
 			}
 			if (args[i].equals("-importTmx") && (i + 1) < args.length) {
 				importTmx = true;
@@ -118,28 +112,8 @@ public class CLI {
 			if (args[i].equals("-tmx") && (i + 1) < args.length) {
 				tmxFile = args[i + 1];
 			}
-			if (args[i].equals("-getMemories")) {
-				getMemories = true;
-			}
 			if (args[i].equals("-verbose")) {
 				verbose = true;
-			}
-		}
-		if (addProject) {
-			try {
-				API.addProject(addFile);
-			} catch (IOException | SAXException | ParserConfigurationException | JSONException | ParseException e) {
-				logger.log(Level.ERROR, Messages.getString("CLI.2"), e);
-				System.exit(3);
-			}
-		}
-		if (removeProject) {
-			try {
-				long number = Long.parseLong(projectId);
-				API.removeProject(number);
-			} catch (IOException | JSONException | ParseException e) {
-				logger.log(Level.ERROR, Messages.getString("CLI.3"), e);
-				System.exit(3);
 			}
 		}
 		if (generateXLIFF) {
@@ -157,30 +131,6 @@ public class CLI {
 			} catch (IOException | NumberFormatException | SAXException | ParserConfigurationException | SQLException
 					| URISyntaxException | JSONException | ParseException ioe) {
 				logger.log(Level.ERROR, Messages.getString("CLI.5"), ioe);
-				System.exit(3);
-			}
-		}
-		if (getProjects) {
-			try {
-				System.out.println(API.getProjects());
-			} catch (IOException | JSONException | ParseException e) {
-				logger.log(Level.ERROR, Messages.getString("CLI.6"), e);
-				System.exit(3);
-			}
-		}
-		if (addMemory) {
-			try {
-				API.addMemory(addMemFile);
-			} catch (IOException | JSONException | ParseException | SAXException | ParserConfigurationException e) {
-				logger.log(Level.ERROR, Messages.getString("CLI.7"), e);
-				System.exit(3);
-			}
-		}
-		if (getMemories) {
-			try {
-				System.out.println(API.getMemories());
-			} catch (IOException | JSONException | ParseException | SAXException | ParserConfigurationException e) {
-				logger.log(Level.ERROR, Messages.getString("CLI.8"), e);
 				System.exit(3);
 			}
 		}
@@ -202,9 +152,11 @@ public class CLI {
 				System.exit(3);
 			}
 			try {
-				API.importMemory(id, tmxFile);
+				int imported = API.importMemory(id, tmxFile);
+				MessageFormat mf = new MessageFormat(Messages.getString("CLI.15"));
+				System.out.println(mf.format(new String[] { "" + imported }));
 			} catch (IOException | JSONException | SQLException | SAXException | ParserConfigurationException
-					| ParseException e) {
+					| ParseException | URISyntaxException e) {
 				logger.log(Level.ERROR, e.getMessage());
 				System.exit(3);
 			}

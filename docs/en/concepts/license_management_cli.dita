@@ -3,7 +3,7 @@
 <concept id="concept_iws_jjd_3s">
  <title>Subscription Management</title>
  <conbody>
-  <p>Use the following parameters to register a Subscription Key from command line:</p>
+  <p>Use the following parameters to register a subscription key from the command line:</p>
   <table>
    <tgroup cols="4">
     <colspec colwidth="20*" align="center"/>
@@ -22,18 +22,16 @@
      <row>
       <entry translate="no">-reg</entry>
       <entry>key</entry>
-      <entry>The Subscription Key to be registered</entry>
+      <entry>The subscription key to be registered</entry>
       <entry>Yes</entry>
      </row>
     </tbody>
    </tgroup>
   </table>
   <p>Example:</p>
-  <codeblock translate="no">
-fluenta_cli.bat -reg HAL9000 
-  </codeblock>
+  <codeblock translate="no">fluenta_cli.cmd -reg HAL9000   </codeblock>
 
-  <note importance="high"> Registering a Subscription Key requires an Internet connection. </note>
+  <note importance="high"> Registering a subscription key requires an Internet connection. </note>
 
  </conbody>
 </concept>

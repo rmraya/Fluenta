@@ -1,0 +1,669 @@
+@import "./theme.css";
+@import "./neutrals.css";
+
+* {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+	background: var(--gray130);
+	color: var(--gray10);
+	fill: var(--gray10);
+	stroke: var(--gray10);
+	margin: 0;
+	padding: 0;
+}
+
+.wait {
+	cursor: wait !important;
+}
+
+.dialogBody {
+	padding: 8px;
+	overflow: hidden;
+}
+
+.status {
+	position: absolute;
+	top: 200px;
+	left: calc(40% - 100px);
+	/* width: 200px; */
+	margin: auto;
+	background-color: var(--themePrimary);
+	color: var(--white);
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0px 4px 8px var(--gray160);
+}
+
+.marginRight {
+	padding: 0px 8px 0px 8px;
+}
+
+.wait {
+	cursor: wait !important;
+}
+
+a {
+	color: var(--themePrimary);
+	cursor: pointer;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.status {
+	position: absolute;
+	top: 10%;
+	left: calc(40% - 100px);
+	width: 200px;
+	margin: auto;
+	background-color: var(--themePrimary);
+	color: var(--white);
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0px 4px 8px var(--gray160);
+}
+
+/* tables */
+
+.textTable td {
+	padding: 4px 8px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+td {
+	padding: 8px 4px;
+	vertical-align: top;
+	font-size: medium;
+}
+
+td.list {
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+.hidden {
+	display: none;
+}
+
+.center {
+	text-align: center;
+}
+
+.middle {
+	vertical-align: middle;
+}
+
+/* inputs */
+
+input {
+	background-color: var(--gray160);
+	color: var(--gray30);
+	border: 1px solid var(--gray30);
+	height: 1.4rem;
+	font-size: 1rem;
+	border-radius: 2px;
+}
+
+input[type=radio] {
+	margin-top: -2px;
+	margin-left: 8px;
+	margin-right: 0px;
+}
+
+input:focus {
+	outline: none !important;
+	border: 1px solid var(--themePrimary);
+}
+
+input:focus+label {
+	color: var(--themePrimary);
+}
+
+input:disabled {
+	background-color: var(--gray90);
+}
+
+textarea {
+	background-color: var(--gray160);
+	color: var(--gray30);
+	border: 1px solid var(--gray30);
+	font-size: 1rem;
+	border-radius: 2px;
+	resize: none;
+}
+
+textarea:focus {
+	outline: none !important;
+	border: 1px solid var(--themePrimary);
+}
+
+.table_input {
+	width: calc(100% - 16px);
+}
+
+.table_select {
+	width: calc(100% - 10px);
+}
+
+select {
+	background-color: var(--gray150);
+	color: var(--gray30);
+	border: 1px solid var(--gray30);
+	font-size: 1em;
+	height: 1.6em;
+	border-radius: 2px;
+}
+
+select:focus {
+	outline: none !important;
+	border: 1px solid var(--themePrimary);
+}
+
+option {
+	font-size: 1em;
+	background-color: var(--gray160);
+	color: var(--gray30);
+}
+
+.topBar {
+	background: var(--gray110);
+	padding-left: 8px;
+	height: 36px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+}
+
+.topBar a {
+	background: var(--gray110);
+	color: var(--white);
+	border: none;
+	margin-left: 8px;
+	margin-right: 8px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	white-space: nowrap;
+}
+
+.topBar a:hover {
+	color: var(--themePrimary);
+	fill: var(--themePrimary);
+	stroke: var(--themePrimary);
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.topBar a:hover svg {
+	color: var(--themePrimary);
+	fill: var(--themePrimary);
+	stroke: var(--themePrimary);
+}
+
+.topBar a svg {
+	color: var(--gray20);
+	fill: var(--gray20);
+	stroke: var(--gray20);
+}
+
+.mainTable {
+	height: 100vh;
+}
+
+.mainTable td {
+	padding: 0px;
+}
+
+.dialogTable {
+	width: 100%;
+}
+
+.dialogTable tr {
+	height: 24px !important;
+}
+
+.dialogTable td {
+	padding: 2px 4px;
+	vertical-align: middle;
+}
+
+.dialogTable tbody {
+	overflow-y: scroll;
+	overflow-x: scroll;
+}
+
+button {
+	color: var(--white);
+	background: var(--themePrimary);
+	border: 1px solid var(--themePrimary);
+	border-radius: 4px;
+	font-size: 1em;
+	text-align: center;
+	margin: 4px;
+	padding: 4px 8px;
+	white-space: nowrap;
+}
+
+button:focus {
+	outline: none !important;
+	border: 1px solid var(--themeDark);
+}
+
+button:hover {
+	background: var(--themeDark);
+	border: 1px solid var(--themeDark);
+	transition-property: all;
+	transition-duration: 0.5s;
+	transition-timing-function: cubic-bezier(0.14, 0.71, 0.38, 1);
+	transition-delay: 0s;
+}
+
+button:disabled {
+	background: var(--gray110);
+	border: 1px solid var(--gray110);
+}
+
+.dialogRow {
+	display: flex;
+	flex-direction: row;
+	width: calc(100% - 8px);
+	padding: 0;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	padding: 0;
+}
+
+.dialogRow {
+	display: flex;
+	flex-direction: row;
+	width: calc(100% - 24px);
+	margin-left: 8px;
+	padding: 0;
+}
+
+.leftSide {
+	background-color: var(--gray150);
+	margin: 0 !important;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.rightSide {
+	width: 100%;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.toprow {
+	display: flex;
+	flex-direction: column;
+	padding: 8px;
+	margin: 0;
+	flex: 0 1 auto;
+}
+
+.filler {
+	flex-grow: 1 1 auto;
+}
+
+.bottomRow {
+	display: flex;
+	flex-direction: column;
+	padding: 8px;
+	margin: 0;
+	flex: 0 1 auto;
+}
+
+label {
+	padding-left: 4px;
+	padding-right: 4px;
+	white-space: nowrap;
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+}
+
+.fill_width {
+	width: 100%;
+}
+
+.fill_height {
+	height: 100%;
+}
+
+.noWrap {
+	white-space: nowrap;
+}
+
+.buttonArea {
+	display: flex;
+	flex-direction: row;
+	padding: 10px;
+	padding-left: 16px;
+	padding-right: 16px;
+	justify-content: flex-end;
+}
+
+.toprow a {
+	color: inherit;
+	fill: inherit;
+	stroke: inherit;
+	height: 24px;
+	padding: 8px;
+	white-space: nowrap;
+}
+
+.selectedButton {
+	color: var(--white) !important;
+	stroke: var(--white) !important;
+	background: var(--gray130);
+	border-radius: 4px;
+}
+
+.toprow a svg {
+	color: var(--gray20);
+	fill: var(--gray20);
+	stroke: var(--gray20);
+	vertical-align: middle;
+}
+
+.toprow a span {
+	height: 32px;
+	vertical-align: middle;
+	padding-left: 8px;
+}
+
+.toprow a:hover {
+	color: var(--themePrimary);
+	fill: var(--themePrimary);
+	stroke: var(--themePrimary);
+	text-decoration: none !important;
+}
+
+.toprow a:hover svg {
+	color: var(--themePrimary);
+	fill: var(--themePrimary);
+	stroke: var(--themePrimary);
+}
+
+.bottomRow a {
+	color: inherit;
+	fill: inherit;
+	stroke: inherit;
+	height: 32px;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 4px;
+	white-space: nowrap;
+}
+
+.bottomRow a svg {
+	color: var(--gray20);
+	fill: var(--gray20);
+	stroke: var(--gray20);
+	vertical-align: middle;
+}
+
+.bottomRow a span {
+	height: 32px;
+	vertical-align: middle;
+	padding-left: 8px;
+}
+
+.bottomRow a:hover {
+	color: var(--themePrimary);
+	fill: var(--themePrimary);
+	stroke: var(--themePrimary);
+	text-decoration: none !important;
+}
+
+.bottomRow a:hover svg {
+	color: var(--themePrimary);
+	fill: var(--themePrimary);
+	stroke: var(--themePrimary);
+}
+
+svg {
+	fill: var(--white);
+	stroke: var(--white);
+	stroke-width: 0.3;
+}
+
+.selectedTab {
+	background: var(--gray130);
+	border-radius: 4px;
+
+}
+
+.selectedTab a span {
+	color: var(--themePrimary);
+	fill: var(--themePrimary);
+	stroke: var(--themePrimary);
+}
+
+.selectedTab a svg {
+	color: var(--themePrimary);
+	fill: var(--themePrimary);
+	stroke: var(--themePrimary);
+}
+
+.selectedTab:hover {
+	color: var(--gray10);
+	fill: var(--gray10);
+	stroke: var(--gray10);
+}
+
+.tabContent {
+	display: block;
+}
+
+.hiddenTab {
+	display: none;
+}
+
+.appStatus {
+	position: fixed;
+	bottom: 0;
+	background: linear-gradient(to right, transparent, var(--themePrimary) 20%, var(--themePrimary) 80%, transparent 100%);
+	padding: 4px;
+	text-align: center;
+}
+
+.appStatus a {
+	width: 100%;
+	text-align: center;
+	color: var(--white) !important;
+}
+
+.left {
+	text-align: left;
+}
+
+.paddedArea {
+	padding: 8px;
+}
+
+.paddedTop {
+	padding-top: 4px;
+}
+
+thead {
+	height: 26px;
+	background: var(--themeDark);
+	color: var(--gray10);
+}
+
+thead tr {
+	position: sticky;
+	z-index: 5;
+	background: inherit !important;
+	color: inherit !important;
+	border: none !important;
+}
+
+th {
+	position: sticky;
+	z-index: 5;
+	padding: 0px 4px;
+	top: 0;
+	font-weight: 300;
+	background: var(--themeDark);
+	color: var(--gray10);
+	fill: var(--gray10);
+	stroke: var(--gray10);
+	border-bottom: 3px solid var(--themeDark);
+}
+
+.stripes tr {
+	border-top: 2px solid var(--gray50);
+	border-bottom: 2px solid var(--gray50);
+}
+
+.stripes td {
+	vertical-align: middle;
+	padding: 0px 4px;
+	white-space: nowrap;
+}
+
+::-webkit-scrollbar {
+	mix-blend-mode: darken;
+	width: 12px;
+	height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+	min-height: 30px !important;
+	background-color: var(--gray110);
+	border-radius: 6px;
+}
+
+::-webkit-scrollbar-corner {
+	background-color: inherit;
+	border-radius: inherit;
+}
+
+::-webkit-scrollbar-button {
+	border-radius: inherit;
+}
+
+::-webkit-scrollbar-button {
+	border-radius: inherit;
+}
+
+.arrow-down:after {
+	content: "\2193";
+	display: inline-block;
+	vertical-align: text-bottom;
+	margin-left: 4px;
+}
+
+.arrow-up:after {
+	content: "\2191";
+	display: inline-block;
+	vertical-align: text-bottom;
+	margin-left: 4px;
+}
+
+.tabHolder {
+	display: flex;
+	flex-flow: row;
+	color: var(--gray30);
+	margin: 0;
+	padding: 8px 0px 0px 8px;
+	background-color: var(--gray190);
+	border-bottom: 1px solid var(--gray150);
+}
+
+.tab {
+	color: var(--gray30);
+	fill: var(--gray30);
+	stroke: var(--gray30);
+	padding: 4px 12px;
+	margin: 0;
+	vertical-align: middle;
+	box-shadow: none !important;
+	text-decoration: none !important;
+	white-space: nowrap;
+}
+
+.selectedTab {
+	background: var(--gray150);
+	color: var(--gray10);
+	border-left: 1px solid var(--gray150) !important;
+	border-right: 1px solid var(--gray150) !important;
+	border-radius: 4px 4px 0px 0px;
+}
+
+.tab:hover {
+	color: var(--themePrimary);
+	fill: var(--themePrimary);
+	stroke: var(--themePrimary);
+}
+
+.selectedTab:hover {
+	color: var(--themePrimary);
+	fill: var(--themePrimary);
+	stroke: var(--themePrimary);
+}
+
+.tab a {
+	color: inherit;
+	fill: inherit;
+	stroke: inherit;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.tab a:hover {
+	color: inherit;
+	fill: inherit;
+	stroke: inherit;
+}
+
+.bordered {
+	border: 1px solid var(--gray20);
+}
+
+.topBorder {
+	border-top: 1px solid var(--gray20);
+}
+
+.divContainer {
+	/* Any container that needs to scroll content */
+	width: 100%;
+	height: 100%;
+	overflow-x: auto;
+	overflow-y: auto;
+}
+
+.statusLine {
+	width: 100%;
+	background-color: var(--gray160);
+	border-top: 1px solid var(--gray20);
+	color: var(--gray10);
+	height: 24px;
+}
+
+.separator {
+	height: 18px;
+}
+
+pre {
+	white-space: pre-wrap;
+	font-family: monospace;
+}

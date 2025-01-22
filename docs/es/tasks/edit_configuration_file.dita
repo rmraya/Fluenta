@@ -5,22 +5,26 @@
   <taskbody>
     <steps>
       <step>
-        <cmd>En la pestaña <uicontrol>Opciones XML</uicontrol> del cuadro de diálogo <uicontrol>Preferencias</uicontrol>, seleccione el archivo de configuración a modificar.</cmd>
+        <cmd>En la pestaña <uicontrol>Opciones XML</uicontrol> del cuadro de diálogo <uicontrol>Configuración</uicontrol>, seleccione el archivo de configuración a modificar.</cmd>
       </step>
       <step>
         <cmd>Haga clic en el botón <uicontrol>Modificar Archivo de Configuración</uicontrol>.</cmd>
-        <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/grammar_configuration.png" placement="break" scale="70" align="center"/> </stepresult>
+        <stepresult>El siguiente diálogo aparece: <image href="../images/dita_config.png" placement="break" scale="70" align="center"/> </stepresult>
       </step>
       <step>
-        <cmd>Utilice los botones del cuadro de diálogo <uicontrol>Configuración de Gramática</uicontrol> para actualizar el archivo de configuración.</cmd>
+        <cmd>Utilice los botones del cuadro de diálogo para actualizar el archivo de configuración.</cmd>
         <choices>
           <choice>Utilice el botón <uicontrol>Añadir Elemento</uicontrol> para añadir un nuevo elemento al archivo de configuración.</choice>
           <choice>Utilice el botón <uicontrol>Modificar Elemento</uicontrol> para cambiar las propiedades de un elemento existente.</choice>
           <choice>Utilice el botón <uicontrol>Eliminar Elemento</uicontrol> para eliminar un elemento del archivo de configuración.</choice>
         </choices>
+        <info>El archivo de configuración se actualiza automáticamente a medida que se añaden, editan o eliminan elementos.</info>
       </step>
       <step>
         <cmd>Repita el paso anterior hasta que todos los elementos estén correctamente configurados.</cmd>
+      </step>
+      <step>
+        <cmd>Cierre el cuadro de diálogo de configuración.</cmd>
       </step>
     </steps>
   </taskbody>

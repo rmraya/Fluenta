@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept xml:lang="es" id="register_license">
+  <title>Registrar una Clave de Suscripción</title>
+  <shortdesc/>
+  <conbody>
+    <p>Cuando inicie el programa después de que haya finalizado el periodo de prueba o haya caducado una clave de suscripción, aparecerá el cuadro de diálogo <uicontrol>Registrar Suscripción</uicontrol>:</p>
+    <image href="../images/register_subscription.png" placement="break" scale="70" align="center">
+      <alt>Cuadro de diálogo <uicontrol>Registrar Suscripción</uicontrol></alt>
+    </image>
+    <p>Si no dispone de una clave de suscripción, haga clic en el botón <uicontrol>Comprar Suscripción</uicontrol> para abrir la <xref href="https://www.maxprograms.com/store/buy.html" scope="external" format="html">Tienda en línea de Maxprograms</xref> en su navegador predeterminado y adquirir una clave.</p>
+    <p>Introduzca su clave de suscripción en el cuadro de texto <uicontrol>Clave de Suscripción</uicontrol> y haga clic en el botón <uicontrol>Registrar Suscripción</uicontrol>. Si el registro se realiza correctamente, se cerrará el cuadro de diálogo <uicontrol>Registrar Suscripción</uicontrol> y podrá seguir utilizando Fluenta.</p>
+  </conbody>
+</concept>

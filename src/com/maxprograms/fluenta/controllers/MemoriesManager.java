@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2023 Maxprograms.
+ * Copyright (c) 2015-2025 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -16,10 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -38,7 +35,7 @@ public class MemoriesManager {
     private File memoriesFile;
     private JSONObject memories;
 
-    public MemoriesManager(File home) throws IOException, JSONException, ParseException {
+    public MemoriesManager(File home) throws IOException, JSONException {
         if (!home.exists()) {
             Files.createDirectories(home.toPath());
         }
@@ -50,24 +47,6 @@ public class MemoriesManager {
             saveMemories();
         }
         memories = FileUtils.readJSON(memoriesFile);
-        if (!memories.has("version") || memories.getInt("version") != Memory.VERSION) {
-            upgradeMemories();
-            saveMemories();
-        }
-    }
-
-    private void upgradeMemories() throws JSONException, ParseException {
-        DateFormat df = DateFormat.getDateTimeInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        JSONArray array = memories.getJSONArray("memories");
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject memory = array.getJSONObject(i);
-            Date creationDate = df.parse(memory.getString("creationDate"));
-            memory.put("creationDate", sdf.format(creationDate));
-            Date lastUpdate = df.parse(memory.getString("lastUpdate"));
-            memory.put("lastUpdate", sdf.format(lastUpdate));
-        }
-        memories.put("version", Memory.VERSION);
     }
 
     private synchronized void saveMemories() throws IOException {

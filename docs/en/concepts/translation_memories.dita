@@ -9,9 +9,15 @@
    translations.</p>
   <p>When you create a project, a new translation memory is automatically created and associated
    with your project. When you import a translated XLIFF file, the memory associated with the
-   project is populated with the translations included in the XLIFF file.</p>
+   project can be populated with the translations included in the XLIFF file.</p>
   <p>When you generate a new XLIFF file after adding new content to your project, Fluenta can reuse
    the data stored in the associated memories to translate the newly added content, reducing
    translation costs.</p>
+  <p>The <uicontrol>Memories View</uicontrol> in Fluenta contains a list of your existing
+   translation memories, and the buttons in its toolbar allow you to manage all memory-related
+   tasks.</p>
+  <image href="../images/memories_view.png" placement="break" scalefit="yes">
+   <alt>Memories View</alt>
+  </image>
  </conbody>
 </concept>

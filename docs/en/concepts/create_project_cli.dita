@@ -3,7 +3,7 @@
 <concept id="concept_cfk_z5b_dt">
   <title>Create Project</title>
   <conbody>
-    <p>Use the following parameters to create a project from command line:</p>
+    <p>Use the following parameters to create a project from the command line:</p>
     <table>
       <tgroup cols="4">
         <colspec colwidth="20*" align="center"/>
@@ -30,20 +30,20 @@
       </tgroup>
     </table>
     <p>Example:</p>
-    <codeblock translate="no">
-fluenta_cli.bat -add addProject.json 
-  </codeblock>
-    <p>Where the content of <cmdname>addProject.json</cmdname> should be like:</p>
+    <codeblock translate="no">fluenta_cli.cmd -add addProject.json  </codeblock>
+    <p>Where the content of <filepath>addProject.json</filepath> should be like:</p>
 
-    <codeblock translate="no">
-{ id:12345678, 
-  title:"JSON test", 
-  description:"project created using JSON and CLI", 
-  map:"D:\\sample content\\en\\User_Guide-use-only.ditamap", 
-  srcLang:"en-US", 
-  tgtLang:["es","fr"]
-}
-</codeblock>
+    <codeblock translate="no" outputclass="language-json">{
+    "id": 12345678,
+    "title": "JSON test",
+    "description": "project created using JSON and CLI",
+    "map": "D:\\sample content\\en\\User_Guide-use-only.ditamap",
+    "srcLang": "en-US",
+    "tgtLang": [
+        "es",
+        "fr"
+    ]
+}</codeblock>
     <section>
       <title>JSON Value Pairs</title>
       <table>

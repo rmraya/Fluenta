@@ -10,7 +10,7 @@
     </ul>
     <p>Se utilizan catálogos XML según la especificación publicada por OASIS en <xref href="https://www.oasis-open.org/committees/entity/spec-2001-08-06.html" scope="external" format="html">https://www.oasis-open.org/committees/entity/spec-2001-08-06.html</xref> para resolver la ubicación de archivos DTD y XML Schema.</p>
     <p>Se utilizan archivos XML especiales para configurar los elementos y atributos que contienen texto traducible. Estos archivos son utilizados por el filtro XML interno para extraer texto para su procesamiento. Los archivos de configuración se crean y mantienen mediante la interfaz gráfica de usuario de la aplicación.</p>
-    <p>La siguiente imagen muestra la pestaña <uicontrol>Opciones XML</uicontrol> del cuadro de diálogo <uicontrol>Preferencias</uicontrol>:</p>
+    <p>La siguiente imagen muestra la pestaña <uicontrol>Opciones XML</uicontrol> del cuadro de diálogo <uicontrol>Configuración</uicontrol>:</p>
     <image href="../images/xml_options.png" placement="break" scale="70" align="center">
       <alt>Opciones de XML</alt>
     </image>

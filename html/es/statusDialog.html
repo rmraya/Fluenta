@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title id="version">Estado del Proyecto</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body onload="new StatusDialog();">
+    <table>
+        <tr>
+            <td style="padding: 4px 8px;">Proyecto:</td>
+            <td  style="padding: 4px 8px;" id="projectDescription"></td>
+        </tr>
+    </table>
+
+    <div class="tabHolder">
+        <a id="statusButton" class="tab selectedTab"><span>Estado</span></a> <a id="historyButton" class="tab"><span>Historia del Proyecto</span></a>
+    </div>
+
+    <div id="statusTab" class="dialogBody">
+        <div class="divContainer bordered" style="height:320px; width:calc(100% - 20px); margin-left: 8px;">
+            <table class="dialogTable">
+                <thead>
+                    <tr>
+                        <th class="left"><input type="checkbox" id="selectAll"></th>
+                        <th class="left">Idioma</th> <th class="left">Estado</th>
+                    </tr>
+                <tbody id="statusTableBody">
+                    <tr>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="buttonArea">
+            <button id="markTranslated">Marcar Selecci&oacute;n Como Traducida</button>
+        </div>
+    </div>
+
+    <div id="historyTab" class="hidden dialogBody">
+        <div class="divContainer bordered" style="height:320px; width:calc(100% - 20px); margin-left: 8px;">
+            <table class="dialogTable">
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th class="left">Fecha</th> <th class="left">Versi&oacute;n</th> <th class="left">Idioma</th> <th class="left">Evento</th>
+                    </tr>
+                <tbody id="historyTableBody">
+                    <tr>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="buttonArea">
+            <button id="markTranslated">Cancelar Archivos XLIFF Seleccionados</button>
+        </div>
+    </div>
+
+    <script src="../../js/statusDialog.js"></script>
+</body>
+
+</html>

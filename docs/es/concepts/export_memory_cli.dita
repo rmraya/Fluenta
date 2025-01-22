@@ -35,8 +35,6 @@
       </tgroup>
     </table>
     <p>Ejemplo:</p>
-    <codeblock translate="no" xml:space="preserve">
-fluenta_cli.bat -exportTmx 12345678 -tmx "c:\sample data\exported.tmx" 
-  </codeblock>
+    <codeblock translate="no" xml:space="preserve">fluenta_cli.cmd -exportTmx 12345678 -tmx "c:\sample data\exported.tmx"   </codeblock>
   </conbody>
 </concept>

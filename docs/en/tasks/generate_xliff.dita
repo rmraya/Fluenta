@@ -9,7 +9,7 @@
         <context>
             <p>Follow these steps to generate <xref href="../glossaries/XLIFF.dita">XLIFF</xref>
                 files that you can send to your <xref href="../glossaries/LSP.dita">Language Service
-                    Provider</xref> (LSP) for translating your projects.</p>
+                    Provider</xref> (LSP) for translating your DITA projects.</p>
         </context>
         <steps>
             <step>
@@ -21,12 +21,11 @@
                         <uicontrol>Projects</uicontrol>
                         <uicontrol>Generate XLIFF</uicontrol>
                     </menucascade> or click the <uicontrol><image height="14"
-                            href="../images/right.png" placement="inline" alt="Generate XLIFF"
-                        />Generate XLIFF</uicontrol> button in the <uicontrol>Projects</uicontrol>
-                    view toolbar.</cmd>
-                <stepresult>The following dialog appears: <image placement="break"
-                        href="../images/generate_xliff.png" id="image_ugz_ys1_5s" align="center"
-                        scale="70">
+                            href="../images/generateXliff.svg" placement="inline"><alt>Generate XLIFF</alt></image>Generate XLIFF</uicontrol> button in the
+                        <uicontrol>Projects</uicontrol> view toolbar.</cmd>
+                <stepresult>The <uicontrol>Generate XLIFF</uicontrol> dialog appears: <image
+                        placement="break" href="../images/generate_xliff.png" id="image_ugz_ys1_5s"
+                        align="center" scale="70">
                         <alt><uicontrol>Generate XLIFF</uicontrol> dialog</alt>
                     </image>
                 </stepresult>
@@ -42,6 +41,11 @@
                     want to use for conditional processing in the <uicontrol>DITAVAL
                         File</uicontrol> text box or use the <uicontrol>Browse...</uicontrol> button
                     next to it to select a file from the file system.</cmd>
+            </step>
+            <step>
+                <cmd>Use the <uicontrol>XLIFF Version</uicontrol> radio buttons to select the
+                    version of XLIFF to generate, current supported options are
+                    <codeph>1.2</codeph>, <codeph>2.0</codeph> and <codeph>2.1</codeph>.</cmd>
             </step>
             <step>
                 <cmd>Select the <uicontrol>Reuse ICE Matches</uicontrol> check box if you want to
@@ -63,22 +67,22 @@
                     paragraph instead of sentence segmentation (default).</cmd>
                 <info><i>One advantage of paragraph segmentation over sentence segmentation in
                         translation is that it can capture more context and coherence within a text
-                        unit</i></info>
+                        unit.</i></info>
             </step>
             <step>
                 <cmd>Select the <uicontrol>Generate Word Count</uicontrol> check box if you want a
                     statistic analysis to be generated for each target language.</cmd>
             </step>
             <step>
-                <cmd>Select the <uicontrol>Generate XLIFF 2.0</uicontrol> check box if you need to
-                    generate XLIFF 2.0 instead of XLIFF 1.2 (default).</cmd>
-            </step>
-            <step>
                 <cmd>Select the <uicontrol>Ignore Tracked Changes</uicontrol> check box to ignore
                     tracked changes from Oxygen XML Editor, improving text segmentation.</cmd>
             </step>
             <step>
-                <cmd>Select the <uicontrol>Embed Skeleton</uicontrol> checkbox if you need XLIFF
+                <cmd>Select the <uicontrol>Ignore SVG Files</uicontrol> check box to exclude SVG
+                    files that contain translatable text.</cmd>
+            </step>
+            <step>
+                <cmd>Select the <uicontrol>Embed Skeleton</uicontrol> check box if you need XLIFF
                     files that can be converted back to DITA in any computer using <xref
                         href="https://www.maxprograms.com/products/openxliff.html" format="html"
                         scope="external">OpenXLIFF Filters</xref> or <xref
@@ -91,8 +95,11 @@
             </step>
             <step>
                 <cmd>Click the <uicontrol>Generate XLIFF</uicontrol> button.</cmd>
-                <stepresult>Generation status is displayed in the progress panel and the
-                        <uicontrol>Cancel</uicontrol> button is enabled.</stepresult>
+                <stepresult>The <uicontrol>Process Log</uicontrol> dialog appears: <image
+                        placement="break" href="../images/process_log.png" align="center" scale="70">
+                        <alt><uicontrol>Process Log</uicontrol> dialog</alt>
+                    </image> Click the <uicontrol>Cancel</uicontrol> button to interrupt XLIFF
+                    generation if needed.</stepresult>
             </step>
         </steps>
         <result>An XLIFF file is generated for each selected target language. XLIFF files and
