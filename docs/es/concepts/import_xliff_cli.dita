@@ -36,19 +36,16 @@
       </tgroup>
     </table>
     <p>Ejemplo:</p>
-    <codeblock translate="no" xml:space="preserve">
-fluenta_cli.bat -importXLIFF impXLIFF.json -verbose
-  </codeblock>
-    <p>Donde el contenido de <cmdname>impXLIFF.json</cmdname> debe ser similar a:</p>
-    <codeblock translate="no" xml:space="preserve">
-{ id:12345678,
-  xliffFile: "C:\\sample data\\XLIFF\\spanish.xlf",
-  outputFolder: "C:\\sample data\es\\",
-  updateTM: true,
-  acceptUnapproved: true,
-  ignoreTagErrors: false
-}
-</codeblock>
+    <codeblock translate="no" xml:space="preserve">fluenta_cli.cmd -importXLIFF impXLIFF.json -verbose  </codeblock>
+    <p>Donde el contenido de <filepath>impXLIFF.json</filepath> debe ser similar a:</p>
+    <codeblock outputclass="language-json" translate="no" xml:space="preserve">{
+    "id": 12345678,
+    "xliffFile": "C:\\sample data\\XLIFF\\spanish.xlf",
+    "outputFolder": "C:\\sample data\\es\\",
+    "updateTM": true,
+    "acceptUnapproved": true,
+    "ignoreTagErrors": false
+}</codeblock>
     <section>
       <title>Pares de Valores JSON</title>
       <table>

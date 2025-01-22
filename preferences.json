@@ -1,0 +1,16 @@
+{
+  "defaultSrcLang": "en-US",
+  "srxFile": "/Users/rmraya/Documents/GitHub/Fluenta/srx/default.srx",
+  "defaultTheme": "system",
+  "memoriesFolder": "/Users/rmraya/Documents/GitHub/Fluenta/memories",
+  "projectsFolder": "/Users/rmraya/Documents/GitHub/Fluenta/projects",
+  "lang": "en",
+  "translateComments": false,
+  "defaultTgtLang": [
+    "fr",
+    "de",
+    "it",
+    "ja-JP",
+    "es"
+  ]
+}

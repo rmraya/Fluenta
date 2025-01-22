@@ -15,17 +15,17 @@
     </section>
     <section>
       <title>Suscripciones</title>
-      <p>La versión de Fluenta incluida en los instaladores oficiales de la <xref href="https://www.maxprograms.com/downloads/" scope="external" format="html">página de descargas de Maxprograms</xref> puede utilizarse sin costo durante 30 días solicitando un código de evaluación gratuito.</p>
-      <p>Las Claves de Suscripción están disponibles en la <xref href="https://www.maxprograms.com/store/buy.html" scope="external" format="html">tienda en línea de Maxprograms</xref>. Las Claves de Suscripción no se pueden compartir ni transferir a diferentes ordenadores.</p>
+      <p>La versión de Fluenta incluida en los instaladores oficiales de la <xref href="https://www.maxprograms.com/products/fluentadownload.html" scope="external" format="html">página de descargas de Fluenta</xref> puede utilizarse sin costo durante 30 días solicitando un código de evaluación gratuito.</p>
+      <p>Las claves de suscripción están disponibles en la <xref href="https://www.maxprograms.com/store/buy.html" scope="external" format="html">tienda en línea de Maxprograms</xref>. Las claves de suscripción no se pueden compartir ni transferir a diferentes ordenadores.</p>
       <p>La versión de suscripción incluye asistencia directa ilimitada por correo electrónico en <xref href="mailto:tech@maxprograms.com" scope="external" format="html">tech@maxprograms.com</xref></p>
     </section>
     <section>
       <title>Resumen de Diferencias</title>
       <table rowsep="1" colsep="1" frame="all" id="table_vyn_pwz_vkb">
         <tgroup cols="3">
-          <colspec colnum="1" colname="c1" colwidth="1*"/>
-          <colspec colnum="2" colname="c2" colwidth="1.51*"/>
-          <colspec colnum="3" colname="c3" colwidth="1.91*"/>
+          <colspec colnum="1" colname="c1" colwidth="2*"/>
+          <colspec colnum="2" colname="c2" colwidth="1.5*"/>
+          <colspec colnum="3" colname="c3" colwidth="2*"/>
           <thead>
             <row>
               <entry/>
@@ -50,9 +50,9 @@
               <entry align="center">Si</entry>
             </row>
             <row>
-              <entry>Características Restringidas</entry>
-              <entry align="center">Ninguna</entry>
-              <entry align="center">Ninguna</entry>
+              <entry>Scripts por lotes en modo Headless para ejecutar desde CLI (interfaz de línea de comandos)</entry>
+              <entry align="center">No</entry>
+              <entry align="center">Si</entry>
             </row>
             <row>
               <entry>Soporte Técnico</entry>

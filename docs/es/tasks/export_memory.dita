@@ -12,7 +12,7 @@
         <cmd>En el menú principal, seleccione <menucascade>
             <uicontrol>Memorias</uicontrol>
             <uicontrol>Exportar Archivo TMX</uicontrol>
-          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/right.png" placement="inline" alt="Exportar Archivo TMX"/>Exportar Archivo TMX</uicontrol> de la barra de herramientas en la vista <uicontrol>Memorias</uicontrol>.</cmd>
+          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/export.svg" placement="inline" alt="Exportar Archivo TMX"/>Exportar Archivo TMX</uicontrol> de la barra de herramientas en la vista <uicontrol>Memorias</uicontrol>.</cmd>
       </step>
       <step>
         <cmd>En el cuadro de diálogo de selección de archivos que aparece, seleccione un nombre y una ubicación para el archivo TMX que contendrá los datos de la memoria.</cmd>

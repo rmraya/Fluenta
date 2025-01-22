@@ -3,17 +3,20 @@
 <concept id="advanced_configuration" xml:lang="en-US">
  <title>Advanced Configuration</title>
  <conbody class="- topic/body  concept/conbody ">
-  <p>Fluenta default settings can be changed in the <uicontrol>Preferences</uicontrol> dialog.</p>
+  <p>Fluenta default settings can be changed in the <uicontrol>Settings</uicontrol> dialog.</p>
   <ul>
-   <li>To open the <uicontrol>Preferences</uicontrol> dialog on Windows or Linux, in main menu
-    select <menucascade>
+   <li>To open the <uicontrol>Settings</uicontrol> dialog on Windows or Linux, in main menu select <menucascade>
      <uicontrol>Settings</uicontrol>
      <uicontrol>Preferences</uicontrol>
     </menucascade>.</li>
-   <li>To open the <uicontrol>Preferences</uicontrol> dialog on macOS, select <menucascade>
+   <li>To open the <uicontrol>Settings</uicontrol> dialog on macOS, select <menucascade>
      <uicontrol>Apple</uicontrol>
      <uicontrol>Preferences</uicontrol>
     </menucascade> in the menu.</li>
   </ul>
+   <p>You can also open the <uicontrol>Settings</uicontrol> dialog clicking the <uicontrol><image
+          href="../images/settings.svg" placement="inline" height="14">
+          <alt>Settings</alt>
+        </image> Settings...</uicontrol> button on the left panel.</p>
  </conbody>
 </concept>

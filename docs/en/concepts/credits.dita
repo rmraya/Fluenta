@@ -4,7 +4,20 @@
         <title>Licenses</title>
         <conbody>
                 <p>Fluenta uses components from these open source projects:</p>
+
                 <ul>
+                        <li><p><b>BCP47J</b></p>
+                                <ul>
+                                        <li>Available from <xref
+                                                  href="https://github.com/rmraya/BCP47J"
+                                                  format="html" scope="external"
+                                                  >https://github.com/rmraya/BCP47J</xref></li>
+                                        <li>Published under <xref
+                                                  href="https://www.eclipse.org/org/documents/epl-v10.html"
+                                                  format="html" scope="external">Eclipse Public
+                                                  License 1.0</xref></li>
+                                </ul>
+                        </li>
                         <li><p translate="no"><b>DTDParser</b></p>
                                 <ul>
                                         <li>Formerly available from <xref
@@ -20,16 +33,27 @@
                                                 2.1</xref></li>
                                 </ul>
                         </li>
+                        <li><p translate="no"><b>Electron</b></p>
+                                <ul>
+                                        <li>Available from <xref
+                                                        href="https://www.electronjs.org/"
+                                                        format="html" scope="external"
+                                                        >https://www.electronjs.org/</xref></li>
+                                        <li>Published under <xref
+                                                        href="https://raw.githubusercontent.com/electron/electron/main/LICENSE"
+                                                        format="html" scope="external">MIT License</xref></li>
+                                </ul>
+                        </li>
                         <li><p translate="no"><b>JSON-java</b></p>
                                 <ul>
                                         <li>Available from <xref
                                                   href="https://github.com/stleary/JSON-java"
                                                   format="html" scope="external"
                                                   >https://github.com/stleary/JSON-java</xref></li>
-                                        <li>Published under a <xref
-                                                  href="https://raw.githubusercontent.com/rmraya/OpenXLIFF/master/licenses/json/LICENSE"
-                                                  format="html" scope="external">custom
-                                                  license</xref></li>
+                                        <li>Released to <xref
+                                                  href="https://raw.githubusercontent.com/stleary/JSON-java/master/LICENSE"
+                                                  format="html" scope="external">Public
+                                                  Domain</xref></li>
                                 </ul>
                         </li>
                         <li><p translate="no"><b>jsoup</b></p>
@@ -38,23 +62,9 @@
                                                   format="html" scope="external"
                                                   >https://jsoup.org</xref></li>
                                         <li>Published under <xref
-                                                  href="https://raw.githubusercontent.com/rmraya/OpenXLIFF/master/licenses/jsoup/LICENSE"
+                                                  href="https://raw.githubusercontent.com/jhy/jsoup/master/LICENSE"
                                                   format="html" scope="external">MIT
                                                 License</xref></li>
-                                </ul>
-                        </li>
-                        <li><p translate="no"><b>H2 Database Engine</b></p>
-                                <ul>
-                                        <li>Available from <xref href="https://h2database.com/"
-                                                  scope="external" format="html"
-                                                  >https://h2database.com/</xref></li>
-                                        <li>Published under two licenses: <xref
-                                                  href="https://h2database.com/html/license.html#mpl2"
-                                                  format="html" scope="external">Mozilla Public
-                                                  License 2.0</xref> and <xref
-                                                  href="https://h2database.com/html/license.html#eclipse_license"
-                                                  format="html" scope="external">Eclipse Public
-                                                  License 1.0</xref></li>
                                 </ul>
                         </li>
                         <li><p translate="no"><b>MapDB</b></p>
@@ -63,7 +73,7 @@
                                                   format="html" scope="external"
                                                   >https://mapdb.org</xref></li>
                                         <li>Published under <xref
-                                                  href="https://raw.githubusercontent.com/rmraya/OpenXLIFF/master/licenses/mapdb/LICENSE"
+                                                  href="https://raw.githubusercontent.com/jankotek/mapdb/master/LICENSE.txt"
                                                   format="html" scope="external">Apache
                                                   License</xref></li>
                                 </ul>
@@ -80,6 +90,27 @@
                                                   License 1.0</xref></li>
                                 </ul>
                         </li>
+                        <li><p><b>SQLite</b></p>
+                                <ul>
+                                        <li>Available from <xref href="https://sqlite.org/"
+                                                  format="html" scope="external"
+                                                  >https://sqlite.org/</xref></li>
+                                        <li>Released to <xref
+                                                  href="https://sqlite.org/copyright.html"
+                                                  scope="external" format="html">Public
+                                                  Domain</xref></li>
+                                </ul></li>
+                        <li><p><b>SQLite JDBC</b></p>
+                                <ul>
+                                        <li>Available from <xref
+                                                  href="https://github.com/xerial/sqlite-jdbc"
+                                                  format="html" scope="external"
+                                                  >https://github.com/xerial/sqlite-jdbc</xref></li>
+                                        <li>Published under <xref
+                                                  href="https://raw.githubusercontent.com/xerial/sqlite-jdbc/master/LICENSE"
+                                                  format="html" scope="external">Apache
+                                                  License</xref></li>
+                                </ul></li>
                         <li><p translate="no"><b>Swordfish</b></p>
                                 <ul>
                                         <li>Available from <xref
@@ -92,15 +123,28 @@
                                                   License 1.0</xref></li>
                                 </ul>
                         </li>
-                        <li><p translate="no"><b>SWT</b></p>
+                        <li><p translate="no"><b>TypesBCP47</b></p>
                                 <ul>
-                                        <li>Available from <xref href="https://www.eclipse.org/swt/"
-                                                  scope="external" format="html"
-                                                  >https://www.eclipse.org/swt/</xref></li>
+                                        <li>Available from <xref
+                                                  href="https://github.com/rmraya/TypesBCP47"
+                                                  format="html" scope="external"
+                                                  >https://github.com/rmraya/TypesBCP47</xref></li>
                                         <li>Published under <xref
-                                                  href="https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html"
+                                                  href="https://www.eclipse.org/org/documents/epl-v10.html"
                                                   format="html" scope="external">Eclipse Public
-                                                  License 2.0</xref></li>
+                                                  License 1.0</xref></li>
+                                </ul>
+                        </li>
+                        <li><p translate="no"><b>TypesXML</b></p>
+                                <ul>
+                                        <li>Available from <xref
+                                                  href="https://github.com/rmraya/TypesXML"
+                                                  format="html" scope="external"
+                                                  >https://github.com/rmraya/TypesXML</xref></li>
+                                        <li>Published under <xref
+                                                  href="https://www.eclipse.org/org/documents/epl-v10.html"
+                                                  format="html" scope="external">Eclipse Public
+                                                  License 1.0</xref></li>
                                 </ul>
                         </li>
                         <li><p translate="no"><b>XMLJava</b></p>

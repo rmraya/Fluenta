@@ -1,0 +1,141 @@
+{
+  "fluenta": {
+    "noUpdates": "No hay actualizaciones disponibles",
+    "no": "No",
+    "serverStatus": "Estado del servidor: {0}",
+    "ditaMapFiles": "Archivos Mapa DITA [*.ditamap]",
+    "xliffImported": "Archivo XLIFF importado",
+    "xliffNotGenerated": "Hubo un error al generar el archivo XLIFF. Consulte el registro para obtener más información.",
+    "exportingTMX": "Exportando archivo TMX...",
+    "xmlFiles": "Archivos XML [*.xml]",
+    "removeCatalogsQuestion": "¿Eliminar los catálogos seleccionados?",
+    "importingTMX": "Importando archivo TMX...",
+    "xliff_created": "XLIFF creado",
+    "xliffGenerated": "Archivos XLIFF generados",
+    "downloading": "Descargando...",
+    "tmxExported": "Memoria exportada",
+    "unknownLicense": "Licencia desconocida",
+    "updateDownloaded": "Actualización descargada",
+    "status_in_progress": "En progreso",
+    "status_completed": "Completado",
+    "xliffNotImported": "Hubo un error al importar el archivo XLIFF. Consulte el registro para obtener más información.",
+    "allFiles": "Todos los Archivos [*.*]",
+    "removeCatalogs": "Eliminar Catálogo",
+    "tmxNotImported": "Hubo un error al importar el archivo TMX: {0}",
+    "status_new": "Nuevo",
+    "processCancelled": "Proceso cancelado",
+    "tmxImported": "Unidades importadas {0}",
+    "yes": "Si",
+    "releasHistory": "No se puede abrir el historial de versiones",
+    "removeProject": "¿Eliminar el proyecto seleccionado?",
+    "format": "{0}",
+    "httpError": "Error HTTP {0}",
+    "status_untranslated": "Sin traducir",
+    "removeMemory": "¿Eliminar la memoria seleccionada?",
+    "version": "Versión {0} - Compilación {1}",
+    "downloaded": "Descargado: {0}%",
+    "supportGroup": "No se puede abrir la página del grupo de apoyo",
+    "removeProjects": "¿Eliminar los proyectos seleccionados?",
+    "catalogNotFound": "No se encontró un catálogo en {0}",
+    "status_translated": "Traducido",
+    "tmxFiles": "Archivos TMX [*.tmx]",
+    "xliff_imported": "XLIFF importado",
+    "removeMemories": "¿Eliminar las memorias seleccionadas?",
+    "xliff_cancelled": "XLIFF cancelado",
+    "languageChanged": "La configuración de idioma se aplicará en el próximo inicio",
+    "restart": "Reiniciar Ahora",
+    "dismiss": "Ignorar",
+        "javaProcessRunning": "Se está ejecutando un proceso. Cancélelo antes de cerrar Fluenta."
+  },
+  "addConfigurationDialog": {
+    "enterRootName": "Introduzca el nombre del elemento raiz",
+    "configExists": "El archivo de configuración ya existe"
+  },
+  "elementConfigurationDialog": {
+    "enterName": "Introduzca el nombre del elemento",
+    "selectInlineType": "Seleccione el tipo en línea"
+  },
+  "projectDialog": {
+    "selectTargetLanguage": "Seleccione idioma destino",
+    "selectDitamap": "Seleccione mapa DITA",
+    "enterName": "Introduzca el nombre del proyecto",
+    "addTargetLanguage": "Añadir idioma destino"
+  },
+  "filterConfigurationDialog": {
+    "selectOneElement": "Seleccione un elemento",
+    "selectElement": "Seleccione elemento"
+  },
+  "menu": {
+    "projects": "Proyectos",
+    "quitMac": "Salir de Fluenta",
+    "about": "Acerca de...",
+    "memoriesMenu": "&Memorias",
+    "importXLIFF": "Importar Archivo XLIFF",
+    "checkUpdates": "Buscar Actualizaciones...",
+    "releaseHistory": "Historial de Versiones",
+    "projectInfo": "Estado del Proyecto",
+    "memories": "Memorias",
+    "userGuide": "Manual del Usuario de Fluenta",
+    "fileMenu": "&Archivo",
+    "editMemory": "Modificar Memoria",
+    "settings": "Configuración...",
+    "editProject": "Editar Proyecto",
+    "viewLicenses": "Ver Licencias",
+    "exportTMX": "Exportar Memoria a un Archivo TMX",
+    "removeProject": "Eliminar Proyectos",
+    "viewMenu": "&Ver",
+    "helpMenu": "A&yuda",
+    "removeMemory": "Eliminar Memoria",
+    "importTMX": "Importar Archivo TMX",
+    "services": "Servicios",
+    "exitWindows": "Salir",
+    "supportGroup": "Grupo de Soporte",
+    "toggleFullScreen": "Pantalla Completa",
+    "editMenu": "&Editar",
+    "projectsMenu": "&Proyectos",
+    "settingsMenu": "&Configuración",
+    "preferencesSubMenu": "Preferencias",
+    "addProject": "Añadir Proyecto",
+    "registerSubscription": "Registrar Suscripción",
+    "noServices": "No hay servicios disponibles",
+    "addMemory": "Añadir Memoria",
+    "quitLinux": "Salir",
+    "openDevTools": "Abrir Herramientas Para Desarrolladores",
+    "generateXLIFF": "Generar XLIFF"
+  },
+  "requestEvaluation": {
+    "enterEmail": "Introduzca email",
+    "success": "Hemos recibido su solicitud. Se ha enviado una clave de evaluación a la dirección de correo electrónico indicada.\n\nCompruebe su filtro de correo no deseado si no recibe la clave de suscripción de evaluación en los próximos minutos.",
+    "repeatEmail": "Repetir email",
+    "emailsDontMatch": "Los emails son diferentes",
+    "enterFirstName": "Introduzca nombre",
+    "enterLastName": "Introduzca apellido",
+    "invalidEmail": "Introduzca un email válido"
+  },
+  "memoryDialog": {"selectName": "Introduzca el nombre de la memoria"},
+  "projectsView": {
+    "selectOneProject": "Seleccione un proyecto",
+    "selectProject": "Seleccione proyecto"
+  },
+  "registerSubscription": {
+    "invalidKey": "La clave de suscripción no es válida",
+    "enterKey": "Introduzca la clave de suscripción"
+  },
+  "settingsDialog": {
+    "selectCatalog": "Seleccione entrada de catálogo",
+    "selectOneFilter": "Seleccione un archivo de configuración",
+    "selectFilter": "Seleccione archivo de configuración"
+  },
+  "importXliffDialog": {
+    "selectXliffFile": "Seleccione archivo XLIFF",
+    "selectOutputFolder": "Seleccione carpeta destino"
+  },
+  "memoriesView": {
+    "selectOneMemory": "Seleccione una memoria",
+    "selectMemory": "Seleccione memoria"
+  },
+  "generateXliffDialog": {
+    "selectXliffFolder": "Seleccione carpeta XLIFF",
+    "selectLanguages": "Seleccione idiomas destino"
+  }
+}

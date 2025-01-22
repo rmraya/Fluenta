@@ -4,7 +4,7 @@
   <title>Generar XLIFF</title>
   <taskbody>
     <context>
-      <p>Siga estos pasos para generar archivos <xref href="../glossaries/XLIFF.dita">XLIFF</xref> que podrá enviar a su <xref href="../glossaries/LSP.dita">Proveedor de Servicios Lingüísticos</xref> (PSL) para que traduzca sus proyectos.</p>
+      <p>Siga estos pasos para generar archivos <xref href="../glossaries/XLIFF.dita">XLIFF</xref> que puede enviar a su <xref href="../glossaries/LSP.dita">Proveedor de Servicios Lingüísticos</xref> (PSL) para traducir sus proyectos DITA.</p>
     </context>
     <steps>
       <step>
@@ -13,9 +13,11 @@
       <step>
         <cmd>En el menú principal, seleccione <menucascade>
             <uicontrol>Proyectos</uicontrol>
-            <uicontrol>Crear Proyecto</uicontrol>
-          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/right.png" placement="inline" alt="Crear Proyecto"/>Crear Proyecto</uicontrol> de la barra de herramientas de la vista <uicontrol>Proyectos</uicontrol>.</cmd>
-        <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/generate_xliff.png" placement="break" scale="70" align="center" id="image_ugz_ys1_5s">
+            <uicontrol>Generar XLIFF</uicontrol>
+          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/generateXliff.svg" placement="inline">
+              <alt>Generar XLIFF</alt>
+            </image>Generar XLIFF</uicontrol> de la barra de herramientas de la vista <uicontrol>Proyectos</uicontrol>.</cmd>
+        <stepresult>El Cuadro de diálogo <uicontrol>Generar XLIFF</uicontrol> aparece: <image href="../images/generate_xliff.png" placement="break" scale="70" align="center" id="image_ugz_ys1_5s">
             <alt>Cuadro de diálogo <uicontrol>Generar XLIFF</uicontrol></alt>
           </image> </stepresult>
       </step>
@@ -24,6 +26,9 @@
       </step>
       <step>
         <cmd>Si necesita excluir algunos tópicos, introduzca el nombre de un archivo DITAVAL que desee utilizar para el procesamiento condicional en el cuadro de texto <uicontrol>Archivo DITAVAL</uicontrol> o utilice el botón <uicontrol>Examinar...</uicontrol> situado junto a él para seleccionar un archivo del sistema de archivos.</cmd>
+      </step>
+      <step>
+        <cmd>Utilice los botones de opción <uicontrol>Versión de XLIFF</uicontrol> para seleccionar la versión de XLIFF que desea generar; las opciones admitidas actualmente son <codeph>1.2</codeph>, <codeph>2.0</codeph> y <codeph>2.1</codeph>.</cmd>
       </step>
       <step>
         <cmd>Seleccione la casilla <uicontrol>Reutilizar coincidencias ICE</uicontrol> si desea comparar el contenido actual con el contenido disponible la última vez que se generó un archivo XLIFF y reutilizar todas las traducciones existentes.</cmd>
@@ -44,10 +49,10 @@
         <cmd>Seleccione la casilla <uicontrol>Generar estadísticas</uicontrol> si desea que se genere un análisis estadístico para cada idioma de destino.</cmd>
       </step>
       <step>
-        <cmd>Seleccione la casilla <uicontrol>Generar XLIFF 2.0</uicontrol> si necesita generar XLIFF 2.0 en lugar de XLIFF 1.2 (opción predeterminada).</cmd>
+        <cmd>Seleccione la casilla <uicontrol>Ignorar revisiones</uicontrol> para ignorar las revisiones del Editor XML Oxygen, mejorando la segmentación del texto.</cmd>
       </step>
       <step>
-        <cmd>Seleccione la casilla <uicontrol>Ignorar revisiones</uicontrol> para ignorar las revisiones del Editor XML Oxygen, mejorando la segmentación del texto.</cmd>
+        <cmd>Seleccione la casilla <uicontrol>Ignorar archivos SVG</uicontrol> para excluir los archivos SVG que contengan texto traducible.</cmd>
       </step>
       <step>
         <cmd>Seleccione la casilla <uicontrol>Incrustar esqueleto</uicontrol> si necesita archivos XLIFF que puedan convertirse de nuevo a DITA en cualquier ordenador utilizando <xref href="https://www.maxprograms.com/products/openxliff.html" scope="external" format="html">OpenXLIFF Filters</xref> o <xref href="https://www.maxprograms.com/products/xliffmanager.html" scope="external" format="html">XLIFF Manager</xref>.</cmd>
@@ -57,7 +62,9 @@
       </step>
       <step>
         <cmd>Haga clic en el botón <uicontrol>Generar XLIFF</uicontrol>.</cmd>
-        <stepresult>El estado del proceso se muestra en el panel de progreso y se activa el botón <uicontrol>Cancelar</uicontrol>.</stepresult>
+        <stepresult>El Cuadro de diálogo <uicontrol>Historial</uicontrol> aparece: <image href="../images/process_log.png" placement="break" scale="70" align="center">
+            <alt>Cuadro de diálogo <uicontrol>Historial</uicontrol></alt>
+          </image> Haga clic en el botón <uicontrol>Cancelar</uicontrol> para interrumpir la generación de XLIFF si es necesario.</stepresult>
       </step>
     </steps>
     <result>Un archivo XLIFF es generado para cada uno de los idiomas destino seleccionados. Los archivos XLIFF y las estadísticas opcionales se guardan en la Carpeta XLIFF seleccionada</result>

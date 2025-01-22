@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2023 Maxprograms.
+ * Copyright (c) 2015-2025 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -12,6 +12,7 @@
 
 package com.maxprograms.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.maxprograms.converters.ILogger;
@@ -54,7 +55,7 @@ public class SimpleLogger implements ILogger{
 
 	@Override
 	public List<String> getErrors() {
-		return null;
+		return new ArrayList<>();
 	}
 
 	@Override

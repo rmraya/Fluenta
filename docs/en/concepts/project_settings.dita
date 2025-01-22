@@ -3,14 +3,25 @@
 <concept id="concept_ryn_x2n_ts">
   <title>General Options</title>
   <conbody>
-    <p>The following picture shows the <uicontrol>General</uicontrol> tab of the
-        <uicontrol>Preferences</uicontrol> dialog:</p>
+    <p>The following picture shows the <uicontrol>General Options</uicontrol> tab of the
+        <uicontrol>Settings</uicontrol> dialog:</p>
     <image href="../images/project_options.png" placement="break" align="center" scale="65">
       <alt>Project related options</alt>
     </image>
     <ul>
       <li>Use the <uicontrol>Application Language</uicontrol> drop-down to select the language to
-        use in the Graphical User Interface ((GUI).</li>
+        use in the Graphical User Interface (GUI).</li>
+      <li>Use the <uicontrol>Theme</uicontrol> drop-down to control the application's default
+        appearance. <ul>
+          <li>Select <uicontrol>System Default</uicontrol> to let your Operating System control the
+            default text/background color combination (this option is not supported in some Linux
+            distributions).</li>
+          <li>Select <uicontrol>Dark</uicontrol> to work with light text on dark background.</li>
+          <li>Select <uicontrol>Light</uicontrol> to work with dark text on light grey
+            background.</li>
+          <li>Select <uicontrol>High Contrast</uicontrol> for a dark theme with enhanced
+            contrast.</li>
+        </ul></li>
       <li>If you want to change storage locations for your projects or memories, enter the desired
         paths on the <uicontrol>Projects Folder</uicontrol> and <uicontrol>Memories
           Folder</uicontrol> text boxes or click the associated <uicontrol>Browse...</uicontrol>
@@ -24,25 +35,27 @@
             system.</li>
         </ol>
       </li>
+      <li>Use the <uicontrol>Default Source Language</uicontrol> drop-down to select a default
+        source language for your projects.</li>
       <li>To add new target languages to the default set: <ol>
           <li>click the <uicontrol>Add Target Language</uicontrol> button and the following dialog
             will appear: <image placement="break" href="../images/add_language.png" scale="70"
               align="center">
-              <alt><uicontrol>Add Language</uicontrol> dialog</alt>
+              <alt><uicontrol>Add Target Language</uicontrol> dialog</alt>
             </image>
           </li>
-          <li>Select a language from the <uicontrol>Language</uicontrol> drop-down list.</li>
-          <li>Click the <uicontrol>Add Language</uicontrol> button.</li>
+          <li>Select a language from the <uicontrol>Target Language</uicontrol> drop-down list.</li>
+          <li>Click the <uicontrol>Add Target Language</uicontrol> button.</li>
         </ol>
       </li>
       <li>To remove unnecessary languages from the default set: <ol>
           <li>Select the check boxes next to each language you want to remove.</li>
-          <li>Click the <uicontrol>Remove Selected Languages</uicontrol> button.</li>
+          <li>Click the <uicontrol>Remove Target Language</uicontrol> button.</li>
         </ol>
       </li>
 
     </ul>
-    <p>Click the <uicontrol>Save Preferences</uicontrol> button after making any change to the
-      default settings.</p>
+    <p>Click the <uicontrol>Save Settings</uicontrol> button after making any change to the default
+      settings.</p>
   </conbody>
 </concept>

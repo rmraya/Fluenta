@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Add Memory</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body class="dialogBody" onload="new AddMemoryDialog();">
+    <table>
+        <tr>
+            <td class="middle"><label for="nameInput">Memory Name</label></td>
+            <td class="fill_width middle" colspan="2"><input id="nameInput" class="table_input"></td>
+        </tr>
+        <tr>
+            <td class="middle"><label for="srcLangSelect">Source Language</label></td>
+            <td class="fill_width middle" colspan="2"><select id="srcLangSelect" class="table_select"></select></td>
+        </tr>
+        <tr>
+            <td><label for="descriptionInput">Memory Description</label></td>
+            <td colspan="2"> <textarea id="descriptionInput" class="table_input" rows="3"></textarea></td>
+        </tr>
+    </table>
+
+    <div class="buttonArea">
+        <div class="filler">&nbsp;</div>
+        <button id="addMemory">Add Memory</button>
+    </div>
+    <script src="../../js/addMemoryDialog.js"></script>
+</body>
+
+</html>

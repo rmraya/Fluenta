@@ -1,39 +1,203 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg viewBox="0 0 632.89001 261.97" version="1.1" width="632.89001" height="261.97" xmlns="http://www.w3.org/2000/svg">
-    <line style="stroke-width:2.24px;stroke:#3a6f79;" x1="230" y1="170" x2="230" y2="128.02" />
-    <polygon style="fill:#3a6f79;" points="224.43,129.65 235.57,129.65 230,120 " />
-    <line style="stroke-width:2.24px;stroke:#3a6f79;" x1="571.97998" y1="120" x2="571.97998" y2="161.98" />
-    <polygon style="fill:#3a6f79;" points="577.55,160.35 566.4,160.35 571.98,170 " />
-    <line style="stroke-width:2.24px;stroke:#3a6f79;" x1="120" y1="60" x2="161.98" y2="60" />
-    <polygon style="fill:#3a6f79;" points="160.35,54.43 160.35,65.57 170,60 " />
-    <line style="stroke-width:2.24px;stroke:#3a6f79;" x1="290" y1="60" x2="331.98001" y2="60" />
-    <polygon style="fill:#3a6f79;" points="330.35,54.43 330.35,65.57 340,60 " />
-    <line style="stroke-width:2.24px;stroke:#3a6f79;" x1="461.98001" y1="60" x2="503.95001" y2="60" />
-    <polygon style="fill:#3a6f79;" points="502.32,54.43 502.32,65.57 511.98,60 " />
-    <circle style="fill:#3a6f79;" cx="60" cy="60" r="60" />
-    <circle style="fill:#3a6f79;" cx="230" cy="60" r="60" />
-    <circle style="fill:#3a6f79;" cx="571.97998" cy="60" r="60" />
-    <rect style="fill:none;stroke:#3a6f79;stroke-miterlimit:10;" x="340.98999" y="15" width="120" height="90" />
-    <rect style="fill:none;stroke:#3a6f79;stroke-miterlimit:10;" x="169.92" y="170.97" width="120" height="90" />
-    <rect style="fill:none;stroke:#3a6f79;stroke-miterlimit:10;" x="511.89001" y="170.97" width="120" height="90" />
-    <text x="103.34582" y="62.509998" style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">
-        <tspan x="60.879997" y="62.509998" style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle"
-        >Create Project</tspan>
-    </text>
-    <text x="272.21307" y="62.880001" style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">
-        <tspan x="226.05" y="62.880001" style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle"
-        >Generate XLIFF</tspan>
-    </text>
-    <text x="400.77362" y="48.509998" style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#3a6f79">
-        <tspan x="400.77362" y="48.509998">Send XLIFF</tspan><tspan x="400.77362" y="63.509998">Out for</tspan><tspan x="400.77362" y="78.509995">Translation</tspan>
-    </text>
-    <text x="572.89478" y="56.549999" style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff">
-        <tspan x="572.89478" y="56.549999">Import</tspan><tspan x="572.89478" y="71.550003">Translated XLIFF</tspan>
-    </text>
-    <text x="228.90759" y="209.11719" style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#3a6f79">
-        <tspan x="228.90759" y="209">Update</tspan><tspan x="228.90759" y="224">DITA Content</tspan>
-    </text>
-    <text x="572" y="209" style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#3a6f79;">
-        <tspan x="572" y="209">Publish</tspan><tspan x="572" y="224">Translated DITA</tspan>
-    </text>
+<svg
+   viewBox="0 0 632.89001 261.97"
+   version="1.1"
+   width="632.89001"
+   height="261.97"
+   id="svg19"
+   sodipodi:docname="FluentaWorkflow.svg"
+   inkscape:export-filename="FluentaWorkflow.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs19" />
+  <sodipodi:namedview
+     id="namedview19"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.0810533"
+     inkscape:cx="326.9959"
+     inkscape:cy="181.30466"
+     inkscape:window-width="1408"
+     inkscape:window-height="781"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg19" />
+  <line
+     style="stroke-width:2.24px;stroke:#3a6f79;fill:#005393;fill-opacity:1"
+     x1="230"
+     y1="170"
+     x2="230"
+     y2="128.02"
+     id="line1" />
+  <polygon
+     style="fill:#005393;fill-opacity:1"
+     points="224.43,129.65 235.57,129.65 230,120 "
+     id="polygon1" />
+  <line
+     style="stroke-width:2.24px;stroke:#3a6f79;fill:#005393;fill-opacity:1"
+     x1="571.97998"
+     y1="120"
+     x2="571.97998"
+     y2="161.98"
+     id="line2" />
+  <polygon
+     style="fill:#005393;fill-opacity:1"
+     points="577.55,160.35 566.4,160.35 571.98,170 "
+     id="polygon2" />
+  <line
+     style="stroke-width:2.24px;stroke:#3a6f79;fill:#005393;fill-opacity:1"
+     x1="120"
+     y1="60"
+     x2="161.98"
+     y2="60"
+     id="line3" />
+  <polygon
+     style="fill:#005393;fill-opacity:1"
+     points="160.35,54.43 160.35,65.57 170,60 "
+     id="polygon3" />
+  <line
+     style="stroke-width:2.24px;stroke:#3a6f79;fill:#005393;fill-opacity:1"
+     x1="290"
+     y1="60"
+     x2="331.98001"
+     y2="60"
+     id="line4" />
+  <polygon
+     style="fill:#005393;fill-opacity:1"
+     points="330.35,54.43 330.35,65.57 340,60 "
+     id="polygon4" />
+  <line
+     style="stroke-width:2.24px;stroke:#3a6f79;fill:#005393;fill-opacity:1"
+     x1="461.98001"
+     y1="60"
+     x2="503.95001"
+     y2="60"
+     id="line5" />
+  <polygon
+     style="fill:#005393;fill-opacity:1"
+     points="502.32,54.43 502.32,65.57 511.98,60 "
+     id="polygon5" />
+  <circle
+     style="fill:#005393;fill-opacity:1"
+     cx="60"
+     cy="60"
+     r="60"
+     id="circle5" />
+  <circle
+     style="fill:#005393;fill-opacity:1"
+     cx="230"
+     cy="60"
+     r="60"
+     id="circle6" />
+  <circle
+     style="fill:#005393;fill-opacity:1"
+     cx="571.97998"
+     cy="60"
+     r="60"
+     id="circle7" />
+  <rect
+     style="fill:none;stroke:#005393;stroke-miterlimit:10;stroke-opacity:1"
+     x="340.98999"
+     y="15"
+     width="120"
+     height="90"
+     id="rect7" />
+  <rect
+     style="fill:none;stroke:#005393;stroke-miterlimit:10;stroke-opacity:1"
+     x="169.92"
+     y="170.97"
+     width="120"
+     height="90"
+     id="rect8" />
+  <rect
+     style="fill:none;stroke:#005393;stroke-miterlimit:10;stroke-opacity:1"
+     x="511.89001"
+     y="170.97"
+     width="120"
+     height="90"
+     id="rect9" />
+  <text
+     x="103.34582"
+     y="62.509998"
+     style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+     id="text9"><tspan
+       x="60.879997"
+       y="62.509998"
+       style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan9">Create Project</tspan></text>
+  <text
+     x="272.21307"
+     y="62.880001"
+     style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+     id="text10"><tspan
+       x="226.05"
+       y="62.880001"
+       style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan10">Generate XLIFF</tspan></text>
+  <text
+     x="400.77362"
+     y="48.509998"
+     style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#005393;fill-opacity:1"
+     id="text13"><tspan
+       x="400.77362"
+       y="48.509998"
+       id="tspan11"
+       style="fill:#005393;fill-opacity:1">Send XLIFF</tspan><tspan
+       x="400.77362"
+       y="63.509998"
+       id="tspan12"
+       style="fill:#005393;fill-opacity:1">Out for</tspan><tspan
+       x="400.77362"
+       y="78.509995"
+       id="tspan13"
+       style="fill:#005393;fill-opacity:1">Translation</tspan></text>
+  <text
+     x="572.89478"
+     y="56.549999"
+     style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff"
+     id="text15"><tspan
+       x="572.89478"
+       y="56.549999"
+       id="tspan14">Import</tspan><tspan
+       x="572.89478"
+       y="71.550003"
+       id="tspan15">Translated XLIFF</tspan></text>
+  <text
+     x="228.90759"
+     y="209.11719"
+     style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#005393;fill-opacity:1"
+     id="text17"><tspan
+       x="228.90759"
+       y="209"
+       id="tspan16"
+       style="fill:#005393;fill-opacity:1">Update</tspan><tspan
+       x="228.90759"
+       y="224"
+       id="tspan17"
+       style="fill:#005393;fill-opacity:1">DITA Content</tspan></text>
+  <text
+     x="572"
+     y="209"
+     style="font-style:normal;font-weight:normal;font-size:12px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#005393;fill-opacity:1"
+     id="text19"><tspan
+       x="572"
+       y="209"
+       id="tspan18"
+       style="fill:#005393;fill-opacity:1">Publish</tspan><tspan
+       x="572"
+       y="224"
+       id="tspan19"
+       style="fill:#005393;fill-opacity:1">Translated DITA</tspan></text>
 </svg>

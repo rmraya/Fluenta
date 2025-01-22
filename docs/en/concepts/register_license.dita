@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="register_license">
+    <title>Register a Subscription Key</title>
+    <shortdesc/>
+    <conbody>
+        <p>When you start the program after the trial period has ended or a subscription key has
+            expired, the <uicontrol>Register Subscription</uicontrol> dialog appears:</p>
+        <image href="../images/register_subscription.png" placement="break" scale="70"
+            align="center">
+            <alt><uicontrol>Register Susbcription</uicontrol> dialog</alt>
+        </image>
+        <p>If you don't have a subscription key, click the <uicontrol>Purchase
+                Subscription</uicontrol> button to open <xref
+                href="https://www.maxprograms.com/store/buy.html" format="html" scope="external"
+                >Maxprograms Online Store</xref> in your default browser and purchase a key.</p>
+        <p>Type your subscription key in the <uicontrol>Subscription Key</uicontrol> text box and
+            then click the <uicontrol>Register Subscription</uicontrol> button. On success, the
+                <uicontrol>Register Subscription</uicontrol> dialog closes and you will be able to
+            continue using Fluenta.</p>
+    </conbody>
+</concept>

@@ -3,7 +3,7 @@
 <concept id="concept_bbr_1vb_dt">
  <title>Create Memory</title>
  <conbody>
-  <p>Use the following parameters to create a memory from command line:</p>
+  <p>Use the following parameters to create a memory from the command line:</p>
   <table>
    <tgroup cols="4">
     <colspec colwidth="20*" align="center"/>
@@ -29,19 +29,15 @@
    </tgroup>
   </table>
   <p>Example:</p>
-  <codeblock translate="no">
-fluenta_cli.bat -addMem addMemory.json 
-  </codeblock>
-  <p>Where the content of <cmdname>addMemory.json</cmdname> should be like:</p>
+  <codeblock translate="no">fluenta_cli.cmd -addMem addMemory.json   </codeblock>
+  <p>Where the content of <filepath>addMemory.json</filepath> should be like:</p>
 
-  <codeblock translate="no">
-{ id:12345678, 
-  title:"JSON test", 
-  description:"memory created using JSON and CLI", 
-  srcLang:"en-US", 
-  tgtLang:["es","fr"]
-}
-</codeblock>
+  <codeblock translate="no" outputclass="language-json">{
+    "id": 12345678,
+    "title": "JSON test",
+    "description": "memory created using JSON and CLI",
+    "srcLang": "en-US"
+}</codeblock>
   <section>
    <title>JSON Value Pairs</title>
    <table>
@@ -82,12 +78,6 @@ fluenta_cli.bat -addMem addMemory.json
        <entry translate="no">srcLang</entry>
        <entry>String</entry>
        <entry>Source language code.</entry>
-       <entry>Yes</entry>
-      </row>
-      <row>
-       <entry translate="no">tgtLang</entry>
-       <entry>String Array</entry>
-       <entry>An array containing the target languages for the memory.</entry>
        <entry>Yes</entry>
       </row>
      </tbody>

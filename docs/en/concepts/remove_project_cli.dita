@@ -2,9 +2,8 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="remove_project_cli">
     <title>Remove Project</title>
-    <shortdesc/>
     <conbody>
-        <p>Use the following parameters to remove a project from command line:</p>
+        <p>Use the following parameters to remove a project from the command line:</p>
         <table>
             <tgroup cols="4">
                 <colspec colwidth="20*" align="center"/>
@@ -22,7 +21,7 @@
                 <tbody>
                     <row>
                         <entry translate="no">-del</entry>
-                        <entry>projectId</entry>
+                        <entry translate="no">projectId</entry>
                         <entry>Project identifier</entry>
                         <entry>Yes</entry>
                     </row>
@@ -30,9 +29,6 @@
             </tgroup>
         </table>
         <p>Example:</p>
-        <codeblock translate="no">
-            fluenta_cli.bat -del 12345678 
-        </codeblock>
-
+        <codeblock translate="no">fluenta_cli.cmd -del 12345678</codeblock>
     </conbody>
 </concept>

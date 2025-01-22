@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2023 Maxprograms.
+ * Copyright (c) 2015-2025 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -12,9 +12,8 @@
 
 package com.maxprograms.fluenta.models;
 
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,13 +22,11 @@ import org.json.JSONObject;
 
 import com.maxprograms.utils.TextUtils;
 
-public class ProjectEvent implements Serializable {
+public class ProjectEvent {
 
-	private static final long serialVersionUID = -8899002949209768303L;
-
-	public static final String XLIFF_CREATED = "XLIFF Created";
-	public static final String XLIFF_IMPORTED = "XLIFF Imported";
-	public static final String XLIFF_CANCELLED = "XLIFF Cancelled";
+	public static final String XLIFF_CREATED = "0";
+	public static final String XLIFF_IMPORTED = "1";
+	public static final String XLIFF_CANCELLED = "2";
 
 	private String language;
 	private Date date;

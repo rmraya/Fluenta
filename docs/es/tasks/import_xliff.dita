@@ -13,9 +13,11 @@
       <step>
         <cmd>En el menú principal, seleccione <menucascade>
             <uicontrol>Proyectos</uicontrol>
-            <uicontrol>Crear Proyecto</uicontrol>
-          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/left.png" placement="inline" alt="Crear Proyecto"/>Crear Proyecto</uicontrol> de la barra de herramientas de la vista <uicontrol>Proyectos</uicontrol>.</cmd>
-        <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/import_xliff.png" placement="break" scale="70" align="center">
+            <uicontrol>Importar XLIFF</uicontrol>
+          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/import.svg" placement="inline">
+              <alt>Importar XLIFF</alt>
+            </image>Importar XLIFF</uicontrol> de la barra de herramientas de la vista <uicontrol>Proyectos</uicontrol>.</cmd>
+        <stepresult>El Cuadro de diálogo <uicontrol>Importar XLIFF</uicontrol> aparece: <image href="../images/import_xliff.png" placement="break" scale="70" align="center">
             <alt>Cuadro de diálogo <uicontrol>Importar XLIFF</uicontrol></alt>
           </image> </stepresult>
       </step>
@@ -36,7 +38,9 @@
       </step>
       <step>
         <cmd>Haga clic en el botón <uicontrol>Importar XLIFF</uicontrol>.</cmd>
-        <stepresult>El estado del proceso se muestra en el panel de progreso y se activa el botón <uicontrol>Cancelar</uicontrol>.</stepresult>
+        <stepresult>El Cuadro de diálogo <uicontrol>Historial</uicontrol> aparece: <image href="../images/process_log.png" placement="break" scale="70" align="center">
+            <alt>Cuadro de diálogo <uicontrol>Historial</uicontrol></alt>
+          </image> Haga clic en el botón <uicontrol>Cancelar</uicontrol> para interrumpir la importación de XLIFF si es necesario.</stepresult>
       </step>
     </steps>
     <result>El archivo XLIFF se importa en el proyecto seleccionado. Se crea una versión traducida del contenido del proyecto en la carpeta de salida indicada.</result>

@@ -20,25 +20,15 @@
                 <cmd class="- topic/ph task/cmd ">In main menu, select <menucascade>
                         <uicontrol>Memories</uicontrol>
                         <uicontrol>Import TMX File</uicontrol>
-                    </menucascade> or click the <uicontrol><image href="../images/right.png"
+                    </menucascade> or click the <uicontrol><image href="../images/import.svg"
                             placement="inline" height="14" alt="Import TMX File"/>Import TMX
                         File</uicontrol> button in the <uicontrol>Memories</uicontrol> view
                     toolbar.</cmd>
-                <stepresult>The following dialog appears: <image href="../images/import_memory.png"
-                        placement="break" align="center" scale="70">
-                        <alt><uicontrol>Import TMX File</uicontrol> dialog</alt>
-                    </image>
-                </stepresult>
             </step>
             <step>
-                <cmd>Type the name of the TMX file to import in the <uicontrol>TMX File</uicontrol>
-                    text box or use the <uicontrol>Browse...</uicontrol> button next to it to select
-                    a TMX file from the file system.</cmd>
-            </step>
-            <step>
-                <cmd>Click the <uicontrol>Import TMX File</uicontrol> button.</cmd>
+                <cmd>In the file selection dialog that appears, select the TMX file to import.</cmd>
             </step>
         </steps>
-        <result>The TMX file is imported into the selected translation memory.</result>
+        <result>The selected TMX file is imported into the selected translation memory.</result>
     </taskbody>
 </task>

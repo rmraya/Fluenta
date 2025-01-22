@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Importar XLIFF</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body class="dialogBody" onload="new ImportXliffDialog();">
+    <table>
+        <tr>
+            <td style="padding-left: 4px; padding-right: 4px;">Proyecto</td>
+            <td id="projectDescription"></td>
+        </tr>
+        <tr>
+            <td class="middle">
+                <label for="xliffFile">Archivo XLIFF</label>
+            </td>
+            <td class="middle fill_width">
+                <input id="xliffFile" class="fill_width">
+            </td>
+            <td class="middle marginRight">
+                <button id="fileBrowseButton">Examinar...</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle">
+                <label for="outputFolder">Carpeta Destino</label>
+            </td>
+            <td class="middle fill_width">
+                <input id="outputFolder" class="fill_width">
+            </td>
+            <td class="middle marginRight">
+                <button id="folderBrowseButton">Examinar...</button>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td class="middle">
+                <input type="checkbox" id="updateMemory">
+            </td>
+            <td class="middle">
+                <label for="updateMemory">Actualizar memoria</label>
+            </td>
+
+        </tr>
+        <tr>
+            <td class="middle">
+                <input type="checkbox" id="acceptUnapproved">
+            </td>
+            <td class="middle">
+                <label for="acceptUnapproved">Aceptar traducciones no aprobadas</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle">
+                <input type="checkbox" id="ignoreTagErrors">
+            </td>
+            <td class="middle">
+                <label for="ignoreTagErrors">Ignorar errores de etiquetas</label>
+            </td>
+        </tr>
+    </table>
+
+    <div class="buttonArea">
+        <div class="filler">&nbsp;</div>
+        <button id="importXliff">Importar XLIFF</button>
+    </div>
+    <script src="../../js/importXliffDialog.js"></script>
+</body>
+
+</html>

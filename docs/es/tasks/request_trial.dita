@@ -1,82 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
-<task xml:lang="es" id="task_by2_htr_xt">
-  <title>Solicitar una Suscripción de Evaluación</title>
+<task xml:lang="es" id="new_subscription">
+  <title>Primer Registro - Solicitud de Evaluación</title>
   <shortdesc/>
   <taskbody>
-    <context>
-      <p>Puede evaluar el programa gratuitamente durante 30 días antes de adquirir una clave de suscripción. Todas las funciones están activadas durante el periodo de evaluación.</p>
-    </context>
     <steps>
       <step>
-        <cmd>Cuando se inicia el programa por primera vez, el siguiente cuadro de diálogo aparece:</cmd>
-        <stepresult>
-          <image href="../images/register_subscription.png" placement="break" scale="70" align="center">
-            <alt>Cuadro de diálogo <uicontrol>Manejo de Subscripciones</uicontrol></alt>
-          </image>
-        </stepresult>
+        <cmd>Cuando se abre Fluenta desde instaladores de suscripción por primera vez, o cuando la clave de suscripción no esté registrada, aparece el cuadro de diálogo <uicontrol>Registrar Suscripción</uicontrol>: <image href="../images/register_new_subscription.png" placement="break" scale="70" align="center">
+            <alt>Cuadro de diálogo Registrar Suscripción</alt>
+          </image> </cmd>
       </step>
       <step>
-        <cmd>Si su ordenador utiliza un servidor proxy para conectarse a Internet, siga estos pasos para configurar los ajustes del servidor proxy:</cmd>
-        <substeps>
-          <substep>
-            <cmd>Haga clic en el botón <uicontrol>Configuración de Proxy</uicontrol>.</cmd>
-            <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/proxy_settings.png" placement="break" scale="70" align="center">
-                <alt>Cuadro de diálogo <uicontrol>Configuración de Proxy</uicontrol></alt>
-              </image> </stepresult>
-          </substep>
-          <substep>
-            <cmd>Ingrese el nombre  o la IP del servidor proxy en el cuadro de texto <uicontrol>Servidor</uicontrol>.</cmd>
-          </substep>
-          <substep>
-            <cmd>Escriba el número de puerto proxy en el cuadro de texto <uicontrol>Puerto</uicontrol>.</cmd>
-          </substep>
-          <substep>
-            <cmd>Si su servidor proxy requiere autenticación, escriba el nombre de usuario proxy en el cuadro de texto <uicontrol>Usuario</uicontrol> y la contraseña correspondiente en el cuadro de texto <uicontrol>Contraseña</uicontrol>.</cmd>
-          </substep>
-          <substep>
-            <cmd>Haga clic en el botón <uicontrol>Guardar Configuración de Proxy</uicontrol>.</cmd>
-            <stepresult>Se guardan los ajustes de proxy seleccionados y se cierra el cuadro de diálogo.</stepresult>
-          </substep>
-        </substeps>
+        <cmd>Si dispone de una clave de suscripción, introdúzcala en el cuadro de texto <uicontrol>Clave de Suscripción</uicontrol> y haga clic en el botón <uicontrol>Registrar Suscripción</uicontrol>.</cmd>
+        <stepresult>Si el registro se realiza correctamente, aparecerá la pantalla principal.</stepresult>
       </step>
       <step>
-        <cmd>Haga clic en el botón <uicontrol>Solicitar Clave de Evaluación</uicontrol>.</cmd>
-        <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/request_evaluation.png" placement="break" scale="70" align="center">
-            <alt>Cuadro de diálogo <uicontrol>Solicitar Clave de Evaluación</uicontrol>.</alt>
+        <cmd>Si no dispone de una clave de suscripción y desea probar el programa durante 30 días, haga clic en el botón <uicontrol>Solicitar Clave de Evaluación</uicontrol>.</cmd>
+        <stepresult> El cuadro de diálogo <uicontrol>Solicitar Clave de Evaluación</uicontrol> aparece: <image href="../images/request_evaluation.png" placement="break" scale="70" align="center">
+            <alt>Cuadro de diálogo Solicitar Clave de Evaluación</alt>
           </image> </stepresult>
       </step>
       <step>
-        <cmd>Ingrese sus nombres en el cuadro de texto <uicontrol>Nombres</uicontrol>.</cmd>
-      </step>
-      <step>
-        <cmd>Ingrese sus apellidos en el cuadro de texto <uicontrol>Apellidos</uicontrol>.</cmd>
-      </step>
-      <step>
-        <cmd>Introduzca el nombre de su empresa en el cuadro de texto <uicontrol>Empresa</uicontrol>. <i>Este paso es opcional.</i></cmd>
-      </step>
-      <step>
-        <cmd>Escriba su dirección de correo electrónico en el cuadro de texto <uicontrol>Email</uicontrol>.</cmd>
-      </step>
-      <step>
-        <cmd>Escriba nuevamente su dirección de correo electrónico en el cuadro de texto <uicontrol>Repetir Email</uicontrol>.</cmd>
-      </step>
-      <step>
-        <cmd>Haga clic en el botón <uicontrol>Solicitar Clave de Evaluación</uicontrol>.</cmd>
-        <stepresult>Su solicitud de suscripción de evaluación se envía al Servidor de Registro. Se enviará un correo electrónico a la dirección indicada con una clave de suscripción de evaluación. <image href="../images/request_received.png" placement="break" scale="70" align="center">
-            <alt>Cuadro de diálogo <uicontrol>Solicitud Recibida</uicontrol></alt>
-          </image> </stepresult>
-      </step>
-      <step>
-        <cmd>Compruebe su correo electrónico y anote la nueva clave de suscripción de evaluación. Revise su filtro de spam si no recibe un correo electrónico con la clave de suscripción de evaluación en unos minutos.</cmd>
-      </step>
-      <step>
-        <cmd>Escriba su clave de evaluación en el cuadro de texto <uicontrol>Clave de Suscripción</uicontrol> del cuadro de diálogo <uicontrol>Manejo de Suscripciones</uicontrol>.</cmd>
-      </step>
-      <step>
-        <cmd>Haga clic en el botón <uicontrol>Registrar Suscripción</uicontrol>.</cmd>
+        <cmd>Introduzca los datos solicitados y haga clic en el botón <uicontrol>Solicitar Clave de Evaluación</uicontrol>.</cmd>
+        <stepresult>Si tiene éxito, se enviará un correo electrónico con la clave de evaluación solicitada a la dirección indicada y se mostrará el siguiente cuadro de diálogo: <image href="../images/request_received.png" placement="break" scale="70" align="center">
+            <alt>Cuadro de diálogo Solicitud Recibida</alt>
+          </image>Compruebe su correo electrónico y registre la clave de evaluación siguiendo las instrucciones indicadas anteriormente. </stepresult>
       </step>
     </steps>
-    <result>Su ordenador es habilitado para trabajar con la aplicación durante 30 días.</result>
   </taskbody>
 </task>

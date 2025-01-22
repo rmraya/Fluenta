@@ -4,7 +4,11 @@
   <title>Memorias de Traducción</title>
   <conbody>
     <p>La Memoria de Traducción (MT) es una tecnología lingüística que permite traducir segmentos (párrafos, frases u oraciones) de documentos mediante la búsqueda de segmentos similares en una base de datos y la sugerencia de coincidencias encontradas en las bases de datos como posibles traducciones.</p>
-    <p>Al crear un proyecto, se crea automáticamente una nueva memoria de traducción asociada al proyecto. Al importar un archivo XLIFF traducido, la memoria asociada al proyecto se rellena con las traducciones incluidas en el archivo XLIFF.</p>
+    <p>Al crear un proyecto, se crea automáticamente una nueva memoria de traducción asociada al proyecto. Al importar un archivo XLIFF traducido, la memoria asociada al proyecto se puede actualizar con las traducciones incluidas en el archivo XLIFF.</p>
     <p>Cuando se genera un nuevo archivo XLIFF tras añadir nuevos contenidos al proyecto, Fluenta puede reutilizar los datos almacenados en las memorias asociadas para traducir los contenidos recién añadidos, reduciendo así los costes de traducción.</p>
+    <p>La <uicontrol>Vista Memorias</uicontrol> en Fluenta contiene una lista de sus memorias de traducción existentes, y los botones de su barra de herramientas le permiten gestionar todas las tareas relacionadas con las memorias.</p>
+    <image href="../images/memories_view.png" placement="break" scalefit="yes">
+      <alt>Vista Memorias</alt>
+    </image>
   </conbody>
 </concept>

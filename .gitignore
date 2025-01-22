@@ -1,8 +1,6 @@
 .DS_Store
+.vscode
 jars/fluenta.jar
-jars/swt.jar
-docs/en/out
-docs/es/out
 out
 bin
 conf
@@ -10,8 +8,9 @@ include
 legal
 lib
 release
-docs/out
 dist
-.vscode/launch.json
-.vscode/settings.json
-.scannerwork
+js
+node_modules
+package-lock.json
+docs/en/out
+docs/es/out

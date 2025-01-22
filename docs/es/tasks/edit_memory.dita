@@ -8,11 +8,16 @@
     </context>
     <steps>
       <step>
+        <cmd>En la vista <uicontrol>Memorias</uicontrol>, seleccione la memoria que desea editar haciendo clic sobre ella.</cmd>
+      </step>
+      <step>
         <cmd>En el menú principal, seleccione <menucascade>
             <uicontrol>Memorias</uicontrol>
-            <uicontrol>Modificar Memoria</uicontrol>
-          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/edit.png" placement="inline" alt="Modificar Memoria"/>Modificar Memoria</uicontrol> de la barra de herramientas de la vista <uicontrol>Memorias</uicontrol>.</cmd>
-        <stepresult>El siguiente cuadro de diálogo aparece: <image href="../images/edit_memory.png" placement="break" scale="70" align="center" id="image_rwb_ptc_5s">
+            <uicontrol>Editar Memoria</uicontrol>
+          </menucascade> o haga clic en el botón <uicontrol><image height="14" href="../images/edit.svg" placement="inline">
+              <alt>Editar Memoria</alt>
+            </image>Editar Memoria</uicontrol> en la barra de herramientas de la vista <uicontrol>Memorias</uicontrol>.</cmd>
+        <stepresult>El Cuadro de diálogo <uicontrol>Editar Memoria</uicontrol> aparece: <image href="../images/edit_memory.png" placement="break" scale="70" align="center" id="image_rwb_ptc_5s">
             <alt>Cuadro de diálogo <uicontrol>Modificar Memoria</uicontrol></alt>
           </image> </stepresult>
       </step>

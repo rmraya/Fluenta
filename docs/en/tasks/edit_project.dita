@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="edit_project">
+    <title>Edit Project</title>
+    <taskbody>
+        <context>
+            <p>Follow these steps to edit a translation project.</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>In <uicontrol>Projects</uicontrol> view, select the project that you want to
+                    edit by clicking on it.</cmd>
+            </step>
+            <step>
+                <cmd>In main menu, select <menucascade>
+                        <uicontrol>Projects</uicontrol>
+                        <uicontrol>Edit Project</uicontrol>
+                </menucascade> or click the <uicontrol><image href="../images/edit.svg"
+                        height="14" placement="inline"><alt>Edit Project</alt></image>Edit
+                    Project</uicontrol> button in <uicontrol>Projects</uicontrol> view
+                    toolbar.</cmd>
+                <stepresult>The <uicontrol>Edit Project</uicontrol> dialog appears: <image
+                        placement="break" href="../images/edit_project.png" align="center"
+                        scale="70">
+                        <alt><uicontrol>Edit Project</uicontrol> dialog</alt>
+                </image>
+                </stepresult>
+            </step> <step>
+                <cmd>Edit all fields as required.</cmd>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Update Project</uicontrol> button.</cmd>
+            </step>
+        </steps>
+        <result>Selected project is updated and the list of projects in the
+                <uicontrol>Projects</uicontrol> view is updated to reflect the changes.</result>
+    </taskbody>
+</task>

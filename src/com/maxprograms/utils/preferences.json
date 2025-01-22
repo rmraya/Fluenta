@@ -1,0 +1,13 @@
+{
+  "lang": "en",
+  "defaultTheme": "system",
+  "defaultSrcLang": "en-US",
+  "defaultTgtLang": [
+    "fr",
+    "de",
+    "it",
+    "ja-JP",
+    "es"
+  ],
+  "translateComments": false
+}

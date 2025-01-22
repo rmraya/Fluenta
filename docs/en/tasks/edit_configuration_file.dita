@@ -6,18 +6,17 @@
         <steps>
             <step>
                 <cmd>In <uicontrol>XML Options</uicontrol> tab of the
-                    <uicontrol>Preferences</uicontrol> dialog, select the configuration file to edit.</cmd>
+                        <uicontrol>Settings</uicontrol> dialog, select the configuration file to
+                    edit.</cmd>
             </step>
             <step>
                 <cmd>Click the <uicontrol>Edit Configuration File</uicontrol> button.</cmd>
-                <stepresult>The following dialog appears: <image
-                        href="../images/grammar_configuration.png" placement="break" scale="70"
-                        align="center"/>
-                    
+                <stepresult>The following dialog appears: <image href="../images/dita_config.png"
+                        placement="break" scale="70" align="center"/>
                 </stepresult>
             </step>
             <step>
-                <cmd>Use the buttons in the <uicontrol>Grammar Configuration</uicontrol> dialog to update the configuration file.</cmd>
+                <cmd>Use the buttons in the dialog to update the configuration file.</cmd>
                 <choices>
                     <choice>Use the <uicontrol>Add Element</uicontrol> button to add a new element
                         to the configuration file.</choice>
@@ -25,10 +24,15 @@
                         properties of an existing element.</choice>
                     <choice>Use the <uicontrol>Remove Element</uicontrol> button to delete an
                         element from the configuration file.</choice>
-                </choices>                
+                </choices>
+                <info>The configuration file is automatically updated as you add, edit or remove
+                    elements.</info>
             </step>
             <step>
                 <cmd>Repeat the previous step until all elements are properly configured.</cmd>
+            </step>
+            <step>
+                <cmd>Close the configuration dialog.</cmd>
             </step> 
         </steps>
     </taskbody>

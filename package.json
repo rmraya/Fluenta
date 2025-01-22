@@ -1,0 +1,33 @@
+{
+  "name": "fluenta",
+  "productName": "Fluenta",
+  "version": "5.0.0",
+  "description": "Fluenta DITA Translation Manager",
+  "main": "js/fluenta.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && electron ."
+  },
+  "author": {
+    "name": "Rodolfo M. Raya",
+    "email": "rmraya@maxprograms.com",
+    "url": "https://www.maxprograms.com"
+  },
+  "homepage": "https://www.maxprograms.com/products/swordfish.html",
+  "license": "EPL-1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rmraya/Swordfish.git"
+  },
+  "devDependencies": {
+    "electron": "^34.0.0",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "typesbcp47": "^1.5.2",
+    "typesxml": "^1.6.3"
+  }
+}

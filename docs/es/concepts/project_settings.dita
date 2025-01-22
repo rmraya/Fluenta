@@ -3,28 +3,35 @@
 <concept xml:lang="es" id="concept_ryn_x2n_ts">
   <title>Opciones Generales</title>
   <conbody>
-    <p>La siguiente imagen muestra la pestaña <uicontrol>General</uicontrol> del cuadro de diálogo <uicontrol>Preferencias</uicontrol>:</p>
+    <p>La siguiente imagen muestra la pestaña <uicontrol>Opciones Generales</uicontrol> del cuadro de diálogo <uicontrol>Configuración</uicontrol>:</p>
     <image href="../images/project_options.png" placement="break" scale="65" align="center">
       <alt>Opciones relacionadas con proyectos</alt>
     </image>
     <ul>
       <li>Utilice la lista desplegable <uicontrol>Idioma de la Aplicación</uicontrol> para seleccionar el idioma que se utilizará en la interfaz gráfica de usuario (GUI).</li>
+      <li>Utilice la list desplegable <uicontrol>Tema</uicontrol> para controlar el aspecto predeterminado de la aplicación. <ul>
+          <li>Seleccione <uicontrol>Predeterminado del Sistema</uicontrol> para que su sistema operativo controle la combinación predeterminada de colores de texto y fondo (esta opción no es compatible con algunas distribuciones de Linux).</li>
+          <li>Seleccione <uicontrol>Oscuro</uicontrol> para trabajar con texto claro sobre fondo oscuro.</li>
+          <li>Seleccione <uicontrol>Claro</uicontrol> para trabajar con texto oscuro sobre fondo gris claro.</li>
+          <li>Seleccione <uicontrol>Alto Contraste</uicontrol> para obtener un tema oscuro con mayor contraste.</li>
+        </ul></li>
       <li>Si desea cambiar las ubicaciones de almacenamiento de sus proyectos o memorias, introduzca las rutas deseadas en los cuadros de texto <uicontrol>Carpeta de Proyectos</uicontrol> y <uicontrol>Carpeta de Memorias</uicontrol> o haga clic en los botones <uicontrol>Examinar...</uicontrol> asociados  para seleccionar carpetas del sistema de archivos.<note importance="high">Evite usar carpetas que puedan ser modificadas por otros programas mientras trabaja.</note> </li>
       <li>Para cambiar el archivo <xref href="../glossaries/SRX.dita">SRX</xref> (Segmentation Rules eXchange) predeterminado que Fluenta utiliza para segmentar archivos XLIFF: <ol>
           <li>Escriba el nombre del archivo SRX en el cuadro de texto <uicontrol>Archivo SRX Predeterminado</uicontrol> o utilice el botón <uicontrol>Examinar...</uicontrol> para seleccionar un archivo SRX del sistema de archivos.</li>
         </ol> </li>
+      <li>Utilice el menú desplegable <uicontrol>Idioma Origen Predeterminado</uicontrol> para seleccionar un idioma de origen predeterminado para sus proyectos.</li>
       <li>Para añadir nuevos idiomas al conjunto predeterminado: <ol>
           <li>Haga clic en el botón <uicontrol>Añadir Idioma Destino</uicontrol> y aparecerá el siguiente cuadro de diálogo: <image href="../images/add_language.png" placement="break" scale="70" align="center">
-              <alt>Cuadro de diálogo <uicontrol>Añadir Idioma</uicontrol></alt>
+              <alt>Cuadro de diálogo <uicontrol>Añadir Idioma Destino</uicontrol></alt>
             </image> </li>
-          <li>Seleccione un idioma de la lista desplegable <uicontrol>Idioma</uicontrol>.</li>
-          <li>Haga clic en el botón <uicontrol>Añadir Idioma</uicontrol>.</li>
+          <li>Seleccione un idioma de la lista desplegable <uicontrol>Idioma Destino</uicontrol>.</li>
+          <li>Haga clic en el botón <uicontrol>Añadir Idioma Destino</uicontrol>.</li>
         </ol> </li>
       <li>Para eliminar idiomas innecesarios del conjunto predeterminado: <ol>
           <li>Seleccione las casillas de verificación situadas junto a cada idioma que desee eliminar.</li>
-          <li>Haga clic en el botón <uicontrol>Eliminar Idiomas Seleccionados</uicontrol>.</li>
+          <li>Haga clic en el botón <uicontrol>Eliminar Idioma Destino</uicontrol>.</li>
         </ol> </li>
     </ul>
-    <p>Haga clic en el botón <uicontrol>Guardar Preferencias</uicontrol> después de hacer cambios en la configuración predeterminada.</p>
+    <p>Haga clic en el botón <uicontrol>Guardar Configuración</uicontrol> después de hacer cambios en la configuración predeterminada.</p>
   </conbody>
 </concept>

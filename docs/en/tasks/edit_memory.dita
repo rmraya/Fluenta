@@ -9,16 +9,20 @@
         </context>
         <steps>
             <step>
+                <cmd>In <uicontrol>Memories</uicontrol> view, select the memory that you want to
+                    edit by clicking on it.</cmd>
+            </step>
+            <step>
                 <cmd>In main menu, select <menucascade>
                         <uicontrol>Memories</uicontrol>
                         <uicontrol>Edit Memory</uicontrol>
-                    </menucascade> or click the <uicontrol><image href="../images/edit.png"
-                            placement="inline" height="14" alt="Edit Memory"/>Edit
+                    </menucascade> or click the <uicontrol><image href="../images/edit.svg"
+                            placement="inline" height="14"><alt>Edit Memory</alt></image>Edit
                         Memory</uicontrol> button in <uicontrol>Memories</uicontrol> view
                     toolbar.</cmd>
-                <stepresult>The following dialog appears: <image placement="break"
-                        href="../images/edit_memory.png" id="image_rwb_ptc_5s" align="center"
-                        scale="70">
+                <stepresult>The <uicontrol>Edit Memory</uicontrol> dialog appears: <image
+                        placement="break" href="../images/edit_memory.png" id="image_rwb_ptc_5s"
+                        align="center" scale="70">
                         <alt><uicontrol>Edit Memory</uicontrol> dialog</alt>
                     </image>
                 </stepresult>

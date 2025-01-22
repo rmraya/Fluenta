@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2023 Maxprograms.
+ * Copyright (c) 2015-2025 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -12,9 +12,12 @@
 
 package com.maxprograms.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Iterator;
@@ -26,7 +29,7 @@ public class Preferences {
 	private static Preferences instance;
 	private File preferencesFile;
 	private static File workDir;
-	private JSONObject preferences;
+	private JSONObject json;
 
 	public static Preferences getInstance() throws IOException {
 		if (instance == null) {
@@ -36,84 +39,107 @@ public class Preferences {
 	}
 
 	private Preferences() throws IOException {
-		preferencesFile = new File(getPreferencesFolder(), "preferences.json");
+		preferencesFile = new File(workDir, "preferences.json");
 		if (!preferencesFile.exists()) {
-			preferences = new JSONObject();
+			try (InputStream in = Preferences.class.getResourceAsStream("preferences.json")) {
+				try (InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
+					try (BufferedReader buffered = new BufferedReader(reader)) {
+						StringBuilder sb = new StringBuilder();
+						String line = "";
+						while ((line = buffered.readLine()) != null) {
+							if (!sb.isEmpty()) {
+								sb.append("\n");
+							}
+							sb.append(line);
+						}
+						json = new JSONObject(sb.toString());
+					}
+				}
+			}
+			File projectsFolder = new File(workDir, "projects");
+			File memoriesFolder = new File(workDir, "memories");
+			File srxFolder = new File(workDir, "srx");
+			File srxFile = new File(srxFolder, "default.srx");
+			json.put("projectsFolder", projectsFolder.getAbsolutePath());
+			json.put("memoriesFolder", memoriesFolder.getAbsolutePath());
+			json.put("srxFile", srxFile.getAbsolutePath());
 			savePreferences();
 		}
-		preferences = FileUtils.readJSON(preferencesFile);
+		json = FileUtils.readJSON(preferencesFile);
 	}
 
 	private void savePreferences() throws IOException {
 		try (FileOutputStream out = new FileOutputStream(preferencesFile)) {
-			out.write(preferences.toString(2).getBytes(StandardCharsets.UTF_8));
+			out.write(json.toString(2).getBytes(StandardCharsets.UTF_8));
 		}
 	}
 
 	public synchronized File getPreferencesFolder() throws IOException {
 		if (workDir == null) {
-			String os = System.getProperty("os.name").toLowerCase();
-			if (os.startsWith("mac")) {
-				workDir = new File(System.getProperty("user.home") + "/Library/Application Support/Fluenta-3/");
-			} else if (os.startsWith("windows")) {
-				workDir = new File(System.getenv("AppData") + "\\Fluenta-3\\");
+			String home = System.getenv("FLUENTA_HOME");
+			if (home != null) {
+				workDir = new File(home);
 			} else {
-				workDir = new File(System.getProperty("user.home") + "/.config/Fluenta-3/");
+				String os = System.getProperty("os.name").toLowerCase();
+				if (os.startsWith("mac")) {
+					workDir = new File(System.getProperty("user.home") + "/Library/Application Support/Fluenta-5/");
+				} else if (os.startsWith("windows")) {
+					workDir = new File(System.getenv("AppData") + "\\Fluenta-5\\");
+				} else {
+					workDir = new File(System.getProperty("user.home") + "/.config/Fluenta-5/");
+				}
 			}
 			if (!workDir.exists()) {
 				Files.createDirectories(workDir.toPath());
-				FileUtils.copyFolder(new File("catalog"), new File(workDir, "catalog"));
-				FileUtils.copyFolder(new File("xmlfilter"), new File(workDir, "xmlfilter"));
-				FileUtils.copyFolder(new File("srx"), new File(workDir, "srx"));
 			}
 		}
 		return workDir;
 	}
 
 	public synchronized void save(String group, String name, String value) throws IOException {
-		if (!preferences.has(group)) {
-			JSONObject json = new JSONObject();
-			preferences.put(group, json);
+		if (!json.has(group)) {
+			JSONObject jsonGroup = new JSONObject();
+			json.put(group, jsonGroup);
 		}
-		preferences.getJSONObject(group).put(name, value);
+		json.getJSONObject(group).put(name, value);
 		savePreferences();
 	}
 
 	public String get(String group, String name, String defaultValue) {
-		if (preferences.has(group)) {
-			JSONObject json = preferences.getJSONObject(group);
-			if (json.has(name)) {
-				return json.getString(name);
+		if (json.has(group)) {
+			JSONObject jsonGroup = json.getJSONObject(group);
+			if (jsonGroup.has(name)) {
+				return jsonGroup.getString(name);
 			}
 		}
 		return defaultValue;
 	}
 
 	public synchronized void save(String group, JSONObject table) throws IOException {
-		if (preferences.has(group)) {
-			JSONObject old = preferences.getJSONObject(group);
+		if (json.has(group)) {
+			JSONObject old = json.getJSONObject(group);
 			Iterator<String> it = table.keys();
 			while (it.hasNext()) {
 				String key = it.next();
 				old.put(key, table.getString(key));
 			}
-			preferences.put(group, old);
+			json.put(group, old);
 		} else {
-			preferences.put(group, table);
+			json.put(group, table);
 		}
 		savePreferences();
 	}
 
 	public JSONObject get(String group) {
-		if (preferences.has(group)) {
-			return preferences.getJSONObject(group);
+		if (json.has(group)) {
+			return json.getJSONObject(group);
 		}
 		return new JSONObject();
 	}
 
 	public synchronized void remove(String group) throws IOException {
-		if (preferences.has(group)) {
-			preferences.remove(group);
+		if (json.has(group)) {
+			json.remove(group);
 			savePreferences();
 		}
 	}
@@ -155,7 +181,7 @@ public class Preferences {
 
 	public String getApplicationLanguage() {
 		return get("application", "language", "en");
-	}	
+	}
 
 	public void setApplicationLanguage(String language) throws IOException {
 		save("application", "language", language);

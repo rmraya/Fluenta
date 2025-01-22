@@ -18,14 +18,14 @@
                 <cmd>In main menu, select <menucascade>
                         <uicontrol>Memories</uicontrol>
                         <uicontrol>Export TMX File</uicontrol>
-                    </menucascade> or click the <uicontrol><image href="../images/right.png"
+                    </menucascade> or click the <uicontrol><image href="../images/export.svg"
                             placement="inline" height="14" alt="Export TMX File"/>Export TMX
                         File</uicontrol> button in the <uicontrol>Memories</uicontrol> view
                     toolbar</cmd>
             </step>
             <step>
-                <cmd>In the file selection dialog appears, select a name and location for the TMX file that will contain the memory
-                    data.</cmd>
+                <cmd>In the file selection dialog that appears, select a name and location for the
+                    TMX file that will contain the memory data.</cmd>
             </step>
         </steps>
         <result>Memory data is exported in TMX format in the selected file.</result>

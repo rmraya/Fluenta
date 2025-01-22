@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Generate XLIFF</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body class="dialogBody" onload="new GenerateXliffDialog();">
+    <table>
+        <tr>
+            <td style="padding-left: 4px; padding-right: 4px;">Project</td>
+            <td id="projectDescription"></td>
+        </tr>
+        <tr>
+            <td class="middle">
+                <label for="xliffFolder">XLIFF Folder</label>
+            </td>
+            <td class="middle fill_width">
+                <input id="xliffFolder" class="fill_width">
+            </td>
+            <td class="middle marginRight">
+                <button id="folderBrowseButton">Browse...</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle">
+                <label for="ditavalFile">DITAVAL File</label>
+            </td>
+            <td class="middle fill_width">
+                <input id="ditavalFile" class="fill_width">
+            </td>
+            <td class="middle marginRight">
+                <button id="ditavalBrowseButton">Browse...</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle">
+                <label>XLIFF Version</label>
+            </td>
+            <td class="middle" colspan="2">
+                <div class="row">
+                    <input type="radio" id="1.2" name="xliff">
+                    <label for="1.2">1.2</label> <input type="radio" id="2.0" name="xliff" checked>
+                    <label for="2.0">2.0</label> <input type="radio" id="2.1" name="xliff">
+                    <label for="2.1">2.1</label>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="separator">&nbsp;</div>
+
+    <div id="rowContainer" class="dialogRow">
+        <div id="leftContainer">
+            <table class="dialogTable">
+                <tbody>
+                    <tr>
+                        <td class="middle">
+                            <input type="checkbox" id="reuseIce">
+                        </td>
+                        <td class="middle">
+                            <label for="reuseIce">Reuse ICE Matches</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="middle">
+                            <input type="checkbox" id="modifiedOnly">
+                        </td>
+                        <td class="middle">
+                            <label for="modifiedOnly">Modified Files Only</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="middle">
+                            <input type="checkbox" id="useTm">
+                        </td>
+                        <td class="middle">
+                            <label for="useTm">Use Translation Memories</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="middle">
+                            <input type="checkbox" id="paragraph">
+                        </td>
+                        <td class="middle">
+                            <label for="paragraph">Paragraph Segmentation</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="middle">
+                            <input type="checkbox" id="wordCount">
+                        </td>
+                        <td class="middle">
+                            <label for="wordCount">Generate Word Count</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="middle">
+                            <input type="checkbox" id="trackedChanges">
+                        </td>
+                        <td class="middle">
+                            <label for="trackedChanges">Ignore Tracked Changes</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="middle">
+                            <input type="checkbox" id="ignoreSvg">
+                        </td>
+                        <td class="middle">
+                            <label for="ignoreSvg">Ignore SVG Files</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="middle">
+                            <input type="checkbox" id="embed">
+                        </td>
+                        <td class="middle">
+                            <label for="embed">Embed Skeleton</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="rightContainer" class="divContainer bordered fill_width">
+            <table class="dialogTable">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="noWrap">Target Languages</th>
+                    </tr>
+                </thead>
+                <tbody id="langsBody">
+                    <tr></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="buttonArea">
+        <div class="filler">&nbsp;</div>
+        <button id="generateXliff">Generate XLIFF</button>
+    </div>
+    <script src="../../js/generateXliffDialog.js"></script>
+</body>
+
+</html>
