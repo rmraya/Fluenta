@@ -1,7 +1,7 @@
 {
   "name": "fluenta",
   "productName": "Fluenta",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "Fluenta DITA Translation Manager",
   "main": "js/fluenta.js",
   "directories": {
@@ -23,8 +23,8 @@
     "url": "https://github.com/rmraya/Swordfish.git"
   },
   "devDependencies": {
-    "electron": "^34.0.0",
-    "typescript": "^5.7.2"
+    "electron": "^34.2.0",
+    "typescript": "^5.7.3"
   },
   "dependencies": {
     "typesbcp47": "^1.5.2",

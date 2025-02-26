@@ -68,6 +68,7 @@ export class Fluenta {
     static javaErrors: boolean = false;
 
     static projectMemories: number[] = [];
+    static eventsMap: Map<string, string>;
 
     constructor() {
         if (!app.requestSingleInstanceLock()) {
@@ -105,6 +106,11 @@ export class Fluenta {
         app.on('window-all-closed', () => {
             app.quit();
         });
+
+        Fluenta.eventsMap = new Map<string, string>();
+        Fluenta.eventsMap.set('0', Fluenta.i18n.getString('fluenta', 'xliff_created'));
+        Fluenta.eventsMap.set('1', Fluenta.i18n.getString('fluenta', 'xliff_imported'));
+        Fluenta.eventsMap.set('2', Fluenta.i18n.getString('fluenta', 'xliff_cancelled'));
 
         ipcMain.on('get-theme', (event: IpcMainEvent) => {
             Fluenta.getTheme(event);
@@ -208,6 +214,12 @@ export class Fluenta {
         });
         ipcMain.on('show-project-status', (event: IpcMainEvent, projectId: number) => {
             Fluenta.showStatus(projectId);
+        });
+        ipcMain.on('mark-translated', (event: IpcMainEvent, arg: { project: Project, languages: string[] }) => {
+            Fluenta.markTranslated(arg.project, arg.languages);
+        });
+        ipcMain.on('cancel-xliff', (event: IpcMainEvent, arg: { project: Project, events: string[] }) => {
+            Fluenta.cancelXliff(arg.project, arg.events);
         });
         ipcMain.on('get-preferences', (event: IpcMainEvent) => {
             event.sender.send('set-preferences', Fluenta.preferences);
@@ -348,7 +360,7 @@ export class Fluenta {
         ipcMain.on('create-project', (event: IpcMainEvent, arg: any) => {
             Fluenta.createProject(arg);
         });
-        ipcMain.on('update-project', (event: IpcMainEvent, arg: any) => {
+        ipcMain.on('update-project', (event: IpcMainEvent, arg: Project) => {
             Fluenta.updateProject(arg);
         });
         ipcMain.on('show-generate-xliff', (event: IpcMainEvent, arg: { projectId: number, description: string }) => {
@@ -380,6 +392,106 @@ export class Fluenta {
         setTimeout(() => {
             Fluenta.checkUpdates(true);
         }, 2000);
+    }
+
+    static cancelXliff(project: Project, events: string[]) {
+        let modifiedLanguages: string[] = [];
+        for (let i: number = 0; i < events.length; i++) {
+            let event: string = events[i];
+            let language: string = event.split('_')[0];
+            let build: number = parseInt(event.split('_')[1]);
+            project.history.push({ date: Fluenta.newDate(), build: build, language: language, type: '2' });
+            if (modifiedLanguages.indexOf(language) === -1) {
+                modifiedLanguages.push(language);
+            }
+        }
+
+
+        // update language status
+        let languageStatus: Map<string, string> = new Map<string, string>();
+        let statusMap: Map<string, Map<number, string>> = new Map();
+        for (let event of project.history) {
+            let language = event.language;
+            let build = event.build;
+            let type = event.type;
+            let languageMap: Map<number, string> = statusMap.get(language);
+            if (!languageMap) {
+                statusMap.set(language, new Map<number, string>());
+            }
+            languageMap = statusMap.get(language);
+            if (type === '0') {
+                languageMap.set(build, '1'); // in progress
+            }
+            if (type === '1') {
+                languageMap.set(build, '2'); // completed
+            }
+            if (type === '2') {
+                languageMap.delete(build);
+            }
+        }
+        for (let tgtLang of project.tgtLanguages) {
+            let languageMap: Map<number, string> = statusMap.get(tgtLang);
+            if (languageMap.size === 0) {
+                languageStatus.set(tgtLang, '0'); // new
+            } else {
+                // get the status of the last build
+                let keys: number[] = Array.from(languageMap.keys());
+                keys = keys.sort((a, b) => a - b);
+                languageStatus.set(tgtLang, languageMap.get(keys[keys.length - 1]));
+            }
+        }
+        let keys: string[] = Array.from(languageStatus.keys());
+        let status: any = project.languageStatus;
+        for (let key of keys) {
+            if (modifiedLanguages.indexOf(key) !== -1) {
+                status[key] = languageStatus.get(key);
+            }
+        }
+        project.languageStatus = status;
+
+        Fluenta.saveProject(project);
+        let langMap: Map<string, string> = new Map<string, string>();
+        for (let lang of project.tgtLanguages) {
+            let language: Language = LanguageUtils.getLanguage(lang, Fluenta.preferences.lang);
+            langMap.set(language.code, language.description);
+        }
+        Fluenta.statusWindow.webContents.send('set-project', { project: project, languages: langMap, statusMap: Fluenta.getStatusMap(), eventsMap: Fluenta.eventsMap });
+    }
+
+    static newDate(): string {
+        let date: Date = new Date();
+        let year: string = date.getFullYear().toString();
+        let month: string = Fluenta.pad((date.getMonth() + 1).toString(), 2);
+        let day: string = Fluenta.pad(date.getDate().toString(), 2);
+
+        let hour: string = Fluenta.pad(date.getHours().toString(), 2);
+        let minute: string = Fluenta.pad(date.getMinutes().toString(), 2);
+
+        return (year + '-' + month + '-' + day + ' ' + hour + ':' + minute);
+    }
+
+    static pad(str: string, len: number): string {
+        while (str.length < len) {
+            str = '0' + str;
+        }
+        return str;
+    }
+
+    static markTranslated(project: Project, languages: string[]) {
+        let prj: Project = Fluenta.getProject(project.id);
+        for (let i: number = 0; i < languages.length; i++) {
+            let language: string = languages[i];
+            prj.languageStatus[language] = '2';
+        }
+        Fluenta.saveProject(prj);
+        Fluenta.getProjects();
+        project = Fluenta.getProject(project.id);
+        let langMap: Map<string, string> = new Map<string, string>();
+        for (let lang of project.tgtLanguages) {
+            let language: Language = LanguageUtils.getLanguage(lang, Fluenta.preferences.lang);
+            langMap.set(language.code, language.description);
+        }
+        Fluenta.statusWindow.webContents.send('set-project', { project: project, languages: langMap, statusMap: Fluenta.getStatusMap(), eventsMap: Fluenta.eventsMap });
     }
 
     static checkFolders() {
@@ -608,7 +720,7 @@ export class Fluenta {
         }
     }
 
-    static getXliffSettings(projectId: number): any {   
+    static getXliffSettings(projectId: number): any {
         let xliffSettingsFile: string = Fluenta.path.join(app.getPath('appData'), Fluenta.appFolder, 'projects', 'xliffSettings.json');
         if (existsSync(xliffSettingsFile)) {
             let data: Buffer = readFileSync(xliffSettingsFile);
@@ -869,31 +981,24 @@ export class Fluenta {
         }
     }
 
-    static updateProject(arg: any): void {
+    static updateProject(arg: Project): void {
+        Fluenta.saveProject(arg);
+        Fluenta.getProjects();
+        Fluenta.editProjectWindow.close();
+    }
+
+    static saveProject(project: Project): void {
         let projectsFile: string = Fluenta.path.join(app.getPath('appData'), Fluenta.appFolder, 'projects', 'projects.json');
         try {
             let data: Buffer = readFileSync(projectsFile);
             let projectsJson: any = JSON.parse(data.toString());
             let projects: Project[] = projectsJson.projects;
-            let project: Project = projects.find((project: Project) => project.id === arg.id);
-            project.title = arg.title;
-            project.description = arg.description;
-            project.map = arg.map;
-            project.srcLanguage = arg.srcLanguage;
-            project.tgtLanguages = arg.tgtLanguages;
-            let keys = Object.keys(project.languageStatus);
-            for (let lang of keys) {
-                if (project.tgtLanguages.indexOf(lang) === -1) {
-                    delete project.languageStatus[lang];
-                }
+            let newProjects: Project[] = [];
+            for (let i: number = 0; i < projects.length; i++) {
+                newProjects.push(projects[i].id === project.id ? project : projects[i]);
             }
-            project.memories = arg.memories;
-            project.lastUpdate = Fluenta.i18n.formatDate(new Date());
-            projectsJson.projects = projects;
-            writeFileSync(projectsFile, JSON.stringify(projectsJson, null, 2));
-            Fluenta.getProjects();
-            Fluenta.editProjectWindow.close();
-            Fluenta.mainWindow.focus();
+            let newProjectsJson: any = { projects: newProjects };
+            writeFileSync(projectsFile, JSON.stringify(newProjectsJson, null, 2));
         } catch (err) {
             if (err instanceof Error) {
                 dialog.showErrorBox('Error', err.message);
@@ -1361,10 +1466,10 @@ export class Fluenta {
                 }
             }
         }
-        if (!displayFound) {            
+        if (!displayFound) {
             let size: Size = screen.getPrimaryDisplay().workAreaSize;
             Fluenta.currentDefaults = { width: Math.round(size.width * 0.9), height: Math.round(size.height * 0.9), x: 0, y: 0 };
-            writeFileSync(defaultsFile, JSON.stringify(Fluenta.currentDefaults, null, 2));        
+            writeFileSync(defaultsFile, JSON.stringify(Fluenta.currentDefaults, null, 2));
         }
         this.mainWindow = new BrowserWindow({
             title: app.name,
@@ -1776,17 +1881,11 @@ export class Fluenta {
 
     static showStatus(projectId: number): void {
         let project: Project = this.getProject(projectId);
-        console.log(JSON.stringify(project, null, 2));
         let langMap: Map<string, string> = new Map<string, string>();
         for (let lang of project.tgtLanguages) {
             let language: Language = LanguageUtils.getLanguage(lang, Fluenta.preferences.lang);
             langMap.set(language.code, language.description);
         }
-        let eventsMap: Map<string, string> = new Map<string, string>();
-        eventsMap.set('0', Fluenta.i18n.getString('fluenta', 'xliff_created'));
-        eventsMap.set('1', Fluenta.i18n.getString('fluenta', 'xliff_imported'));
-        eventsMap.set('2', Fluenta.i18n.getString('fluenta', 'xliff_cancelled'));
-
         Fluenta.statusWindow = new BrowserWindow({
             parent: this.mainWindow,
             width: 600,
@@ -1804,7 +1903,7 @@ export class Fluenta {
         Fluenta.statusWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'statusDialog.html'));
         Fluenta.statusWindow.once('ready-to-show', () => {
             Fluenta.statusWindow.show();
-            Fluenta.statusWindow.webContents.send('set-project', { project: project, languages: langMap, statusMap: Fluenta.getStatusMap(), eventsMap: eventsMap });
+            Fluenta.statusWindow.webContents.send('set-project', { project: project, languages: langMap, statusMap: Fluenta.getStatusMap(), eventsMap: Fluenta.eventsMap });
         });
         Fluenta.statusWindow.on('close', () => {
             Fluenta.mainWindow.focus();
@@ -1930,10 +2029,6 @@ export class Fluenta {
         if (window) {
             window.webContents.selectAll();
         }
-    }
-
-    static showImportXliff(): void {
-        throw new Error("Method not implemented.");
     }
 
     static editSelectedProject(projectId: number) {

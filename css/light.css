@@ -498,6 +498,10 @@ svg {
 	padding-top: 4px;
 }
 
+.paddedLeft {
+	padding-left: 16px;
+}
+
 thead {
 	height: 26px;
 	background: var(--themeDark);

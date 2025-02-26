@@ -10,13 +10,6 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-interface StatusEvent {
-    date: string;
-    build: number;
-    language: string;
-    type: string;
-}
-
 class StatusDialog {
 
     electron = require('electron');
@@ -25,6 +18,8 @@ class StatusDialog {
     languages: Map<string, string>;
     statusMap: Map<string, string>;
     eventsMap: Map<string, string>;
+    selectedLanguages: Array<string> = new Array<string>();
+    selectedEvents: Array<string> = new Array<string>();
 
     constructor() {
         this.electron.ipcRenderer.send('get-theme');
@@ -42,6 +37,12 @@ class StatusDialog {
             document.getElementById('historyButton').classList.add('selectedTab');
             document.getElementById('statusTab').classList.add('hidden');
             document.getElementById('historyTab').classList.remove('hidden');
+        });
+        document.getElementById('markTranslated').addEventListener('click', () => {
+            this.markTranslated();
+        });
+        document.getElementById('cancelXliff').addEventListener('click', () => {
+            this.cancelXliff();
         });
         document.addEventListener('keydown', (event: KeyboardEvent) => {
             if (event.code === 'Escape') {
@@ -61,6 +62,23 @@ class StatusDialog {
         }, 300);
     }
 
+    markTranslated() {
+        if (this.selectedLanguages.length === 0) {
+            this.electron.ipcRenderer.send('show-message', { type: 'warning', group: 'statusDialog', key: 'selectLanguage' });
+            return;
+        }
+        this.electron.ipcRenderer.send('mark-translated', { project: this.project, languages: this.selectedLanguages });
+    }
+
+    cancelXliff() {
+        if (this.selectedEvents.length === 0) {
+            this.electron.ipcRenderer.send('show-message', { type: 'warning', group: 'statusDialog', key: 'selectXliff' });
+            return;
+        }
+        this.electron.ipcRenderer.send('cancel-xliff', { project: this.project, events: this.selectedEvents });
+    }
+
+
     buildTables() {
         let statusTableBody: HTMLTableSectionElement = document.getElementById('statusTableBody') as HTMLTableSectionElement;
         statusTableBody.innerHTML = '';
@@ -69,16 +87,32 @@ class StatusDialog {
             let row: HTMLTableRowElement = document.createElement('tr');
             let cell: HTMLTableCellElement = document.createElement('td');
             let checkbox: HTMLInputElement = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.id = key;
-            cell.appendChild(checkbox);
+            let status: string = this.project.languageStatus[key];
+            if (status !== '2' && status !== '4') {
+                checkbox.type = 'checkbox';
+                checkbox.id = key;
+                checkbox.addEventListener('change', (event: Event) => {
+                    let checkbox: HTMLInputElement = event.target as HTMLInputElement;
+                    if (checkbox.checked) {
+                        this.selectedLanguages.push(checkbox.id);
+                    } else {
+                        let index: number = this.selectedLanguages.indexOf(checkbox.id);
+                        if (index !== -1) {
+                            this.selectedLanguages.splice(index, 1);
+                        }
+                    }
+                });
+                cell.appendChild(checkbox);
+            } else {
+                cell.innerHTML = '&nbsp;';
+            }
             row.appendChild(cell);
 
             cell = document.createElement('td');
             cell.textContent = this.languages.get(key);
             row.appendChild(cell);
             cell = document.createElement('td');
-            cell.textContent = this.statusMap.get(this.project.languageStatus[key]);
+            cell.textContent = this.statusMap.get(status);
             row.appendChild(cell);
             statusTableBody.appendChild(row);
         }
@@ -91,6 +125,18 @@ class StatusDialog {
             if (item.type === '0' && this.canCancel(item.build, item.language)) {
                 let checkbox: HTMLInputElement = document.createElement('input');
                 checkbox.type = 'checkbox';
+                checkbox.id = item.language + '_' + item.build;
+                checkbox.addEventListener('change', (event: Event) => {
+                    let checkbox: HTMLInputElement = event.target as HTMLInputElement;
+                    if (checkbox.checked) {
+                        this.selectedEvents.push(checkbox.id);
+                    } else {
+                        let index: number = this.selectedEvents.indexOf(checkbox.id);
+                        if (index !== -1) {
+                            this.selectedEvents.splice(index, 1);
+                        }
+                    }
+                });
                 cell.appendChild(checkbox);
             } else {
                 cell.innerHTML = '&nbsp;';

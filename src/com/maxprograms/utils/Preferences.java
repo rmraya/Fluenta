@@ -39,6 +39,7 @@ public class Preferences {
 	}
 
 	private Preferences() throws IOException {
+		workDir = getPreferencesFolder();
 		preferencesFile = new File(workDir, "preferences.json");
 		if (!preferencesFile.exists()) {
 			try (InputStream in = Preferences.class.getResourceAsStream("preferences.json")) {

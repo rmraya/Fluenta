@@ -43,6 +43,7 @@ import com.maxprograms.converters.FileFormats;
 import com.maxprograms.converters.ILogger;
 import com.maxprograms.converters.Merge;
 import com.maxprograms.converters.TmxExporter;
+import com.maxprograms.converters.Utils;
 import com.maxprograms.converters.ditamap.DitaMap2Xliff;
 import com.maxprograms.converters.ditamap.Xliff2DitaMap;
 import com.maxprograms.fluenta.models.Memory;
@@ -55,7 +56,6 @@ import com.maxprograms.swordfish.tm.ITmEngine;
 import com.maxprograms.swordfish.tm.Match;
 import com.maxprograms.swordfish.tm.MatchQuality;
 import com.maxprograms.swordfish.tm.SqliteDatabase;
-import com.maxprograms.swordfish.tm.TMUtils;
 import com.maxprograms.utils.Preferences;
 import com.maxprograms.xliff2.FromXliff2;
 import com.maxprograms.xliff2.ToXliff2;
@@ -479,7 +479,7 @@ public class LocalController {
 					continue;
 				}
 				current = segments.get(i).getChild("source");
-				String pureText = TMUtils.pureText(current);
+				String pureText = Utils.pureText(current);
 				if (i + 1 < segments.size()) {
 					next = segments.get(i + 1).getChild("source");
 				} else {
@@ -491,8 +491,8 @@ public class LocalController {
 						continue;
 					}
 					Element newSource = newUnit.getChild("source");
-					if (pureText.equals(TMUtils.pureText(newSource))) {
-						double mismatches = wrongTags(current, newSource, 1.0);
+					if (pureText.equals(Utils.pureText(newSource))) {
+						double mismatches = Utils.wrongTags(current, newSource, 1.0);
 						if (mismatches > 0.0) {
 							continue;
 						}
@@ -501,7 +501,7 @@ public class LocalController {
 								continue;
 							}
 							Element e = leveraged.get(j - 1).getChild("source");
-							if (!TMUtils.pureText(previous).equals(TMUtils.pureText(e))) {
+							if (!Utils.pureText(previous).equals(Utils.pureText(e))) {
 								continue;
 							}
 						}
@@ -510,7 +510,7 @@ public class LocalController {
 								continue;
 							}
 							Element e = leveraged.get(j + 1).getChild("source");
-							if (!TMUtils.pureText(next).equals(TMUtils.pureText(e))) {
+							if (!Utils.pureText(next).equals(Utils.pureText(e))) {
 								continue;
 							}
 						}
@@ -1092,7 +1092,7 @@ public class LocalController {
 			throws SAXException, IOException, ParserConfigurationException, SQLException, URISyntaxException {
 
 		List<Element> result = new Vector<>();
-		List<Match> res = database.searchTranslation(TMUtils.pureText(seg.getChild("source")),
+		List<Match> res = database.searchTranslation(Utils.pureText(seg.getChild("source")),
 				srcLang, tgtLang, (int) fuzzyLevel, caseSensitive);
 
 		Iterator<Match> r = res.iterator();
@@ -1114,9 +1114,9 @@ public class LocalController {
 			alttrans.addContent(tgt);
 			alttrans.addContent("\n   ");
 			alttrans = fixTags(seg.getChild("source"), alttrans);
-			int quality = MatchQuality.similarity(TMUtils.pureText(seg.getChild("source")),
-					TMUtils.pureText(alttrans.getChild("source")));
-			double discount = wrongTags(alttrans.getChild("source"), seg.getChild("source"), penalty);
+			int quality = MatchQuality.similarity(Utils.pureText(seg.getChild("source")),
+					Utils.pureText(alttrans.getChild("source")));
+			double discount = Utils.wrongTags(alttrans.getChild("source"), seg.getChild("source"), penalty);
 			quality = (int) Math.floor(quality - discount);
 
 			alttrans.setAttribute("match-quality", "" + quality);
@@ -1207,50 +1207,6 @@ public class LocalController {
 				cleanCtype((Element) n);
 			}
 		}
-	}
-
-	private static double wrongTags(Element x, Element y, double tagPenalty) {
-		List<Element> tags = new Vector<>();
-		int count = 0;
-		int errors = 0;
-		List<XMLNode> content = x.getContent();
-		Iterator<XMLNode> i = content.iterator();
-		while (i.hasNext()) {
-			XMLNode n = i.next();
-			if (n.getNodeType() == XMLNode.ELEMENT_NODE) {
-				Element e = (Element) n;
-				tags.add(e);
-				count++;
-			}
-		}
-		content = y.getContent();
-		i = content.iterator();
-		int c2 = 0;
-		while (i.hasNext()) {
-			XMLNode n = i.next();
-			if (n.getNodeType() == XMLNode.ELEMENT_NODE) {
-				Element e = (Element) n;
-				c2++;
-				boolean found = false;
-				for (int j = 0; j < count; j++) {
-					if (e.equals(tags.get(j))) {
-						tags.set(j, null);
-						found = true;
-						break;
-					}
-				}
-				if (!found) {
-					errors++;
-				}
-			}
-		}
-		if (c2 > count) {
-			errors += c2 - count;
-		}
-		if (count > c2) {
-			errors += count - c2;
-		}
-		return errors * tagPenalty;
 	}
 
 	private Element fixTags(Element src, Element match) {

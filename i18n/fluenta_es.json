@@ -137,5 +137,9 @@
   "generateXliffDialog": {
     "selectXliffFolder": "Seleccione carpeta XLIFF",
     "selectLanguages": "Seleccione idiomas destino"
+  },
+  "statusDialog": {
+      "selectLanguage": "Seleccione idioma",
+      "selectXliff": "Seleccione archivo XLIFF"
   }
 }

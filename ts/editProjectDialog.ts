@@ -17,7 +17,7 @@ class EditProjectDialog {
     tgtLangs: LanguageInterface[] = [];
     selectedLanguages: LanguageInterface[] = [];
     memories: number[] = [];
-    projectId: number;
+    project: Project;
 
     constructor() {
         this.electron.ipcRenderer.send('get-theme');
@@ -63,7 +63,7 @@ class EditProjectDialog {
         });
         this.electron.ipcRenderer.on('set-project-languages', (event: Electron.IpcRendererEvent, arg: { srcLang: LanguageInterface, tgtLangs: LanguageInterface[] }) => {
             this.tgtLangs = arg.tgtLangs;
-            (document.getElementById('srcLangSelect')as HTMLSelectElement).value = arg.srcLang.code;
+            (document.getElementById('srcLangSelect') as HTMLSelectElement).value = arg.srcLang.code;
             this.displayTargetLanguages();
         });
         document.getElementById('selectMemories').addEventListener('click', () => {
@@ -133,13 +133,13 @@ class EditProjectDialog {
     }
 
     setProject(project: Project) {
-        this.projectId = project.id;
+        this.project = project;
         this.memories = project.memories;
         (document.getElementById('ditaMap') as HTMLInputElement).value = project.map;
         (document.getElementById('nameInput') as HTMLInputElement).value = project.title;
         (document.getElementById('descriptionInput') as HTMLTextAreaElement).value = project.description;
         (document.getElementById('srcLangSelect') as HTMLSelectElement).value = project.srcLanguage;
-        this.electron.ipcRenderer.send('get-project-languages', this.projectId);
+        this.electron.ipcRenderer.send('get-project-languages', this.project.id);
     }
 
     updateProject(): void {
@@ -157,21 +157,39 @@ class EditProjectDialog {
             this.electron.ipcRenderer.send('show-message', { type: 'warning', group: 'projectDialog', key: 'addTargetLanguage' });
             return;
         }
-        let description: string = (document.getElementById('descriptionInput') as HTMLTextAreaElement).value;
-        let srcLanguage: string = (document.getElementById('srcLangSelect') as HTMLSelectElement).value;
+        this.project.title = title;
+        this.project.description = (document.getElementById('descriptionInput') as HTMLTextAreaElement).value;
+        this.project.srcLanguage = (document.getElementById('srcLangSelect') as HTMLSelectElement).value;
         let tgtLanguages: string[] = [];
         for (let language of this.tgtLangs) {
             tgtLanguages.push(language.code);
         }
-        let project: any = {
-            id: this.projectId,
-            title: title,
-            description: description,
-            map: map,
-            srcLanguage: srcLanguage,
-            tgtLanguages: tgtLanguages,
-            memories: this.memories
-        };
-        this.electron.ipcRenderer.send('update-project', project);
+        this.project.tgtLanguages = tgtLanguages;
+        this.project.memories = this.memories;
+        this.project.map = map;
+        let newHistory: StatusEvent[] = [];
+        for (let entry of this.project.history) {
+            let found: boolean = false;
+            for (let language of this.tgtLangs) {
+                if (entry.language === language.code) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                newHistory.push(entry);
+            }
+        }
+        this.project.history = newHistory;
+        let newLanguageStatus: any = {};
+        for (let language of this.tgtLangs) {
+            if (this.project.languageStatus[language.code] === undefined) {
+                newLanguageStatus[language.code] = '0';
+            } else {
+                newLanguageStatus[language.code] = this.project.languageStatus[language.code];
+            }
+        }
+        this.project.languageStatus = newLanguageStatus;           
+        this.electron.ipcRenderer.send('update-project', this.project);
     }
 }

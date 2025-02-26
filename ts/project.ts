@@ -10,6 +10,13 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
+interface StatusEvent {
+    date: string;
+    build: number;
+    language: string;
+    type: string;
+}
+
 interface Project {
 
     id: number;
@@ -19,7 +26,7 @@ interface Project {
     languageStatus: any;
     srcLanguage: string;
     tgtLanguages: string[];
-    history: any[];
+    history: StatusEvent[];
     creationDate: string;
     lastUpdate: string;
     memories: number[];

@@ -139,5 +139,9 @@
     "elementConfigurationDialog": {
         "enterName": "Enter element name",
         "selectInlineType": "Select inline type"
+    },
+    "statusDialog": {
+        "selectLanguage": "Select language",
+        "selectXliff": "Select XLIFF file"
     }
 }
