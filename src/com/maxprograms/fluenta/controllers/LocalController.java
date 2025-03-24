@@ -145,48 +145,6 @@ public class LocalController {
 		}
 	}
 
-	public List<Project> getProjects() throws IOException, JSONException, ParseException {
-		if (projectsManager == null) {
-			Preferences preferences = Preferences.getInstance();
-			projectsManager = new ProjectsManager(preferences.getProjectsFolder());
-		}
-		return projectsManager.getProjects();
-	}
-
-	public void createProject(Project project) throws IOException, SAXException, ParserConfigurationException,
-			JSONException, ParseException {
-		if (projectsManager == null) {
-			Preferences preferences = Preferences.getInstance();
-			projectsManager = new ProjectsManager(preferences.getProjectsFolder());
-		}
-		projectsManager.add(project);
-		if (memoriesManager == null) {
-			Preferences preferences = Preferences.getInstance();
-			memoriesManager = new MemoriesManager(preferences.getMemoriesFolder());
-		}
-		Language sourceLang = LanguageUtils.getLanguage(project.getSrcLanguage());
-		Memory memory = new Memory(project.getId(), project.getTitle(), project.getDescription(),
-				new Date(), new Date(), sourceLang);
-		memoriesManager.add(memory);
-	}
-
-	public void createMemory(Memory memory) throws IOException, JSONException {
-		if (memoriesManager == null) {
-			Preferences preferences = Preferences.getInstance();
-			memoriesManager = new MemoriesManager(preferences.getMemoriesFolder());
-		}
-		memoriesManager.add(memory);
-	}
-
-	public List<Memory> getMemories()
-			throws IOException, JSONException, ParseException, SAXException, ParserConfigurationException {
-		if (memoriesManager == null) {
-			Preferences preferences = Preferences.getInstance();
-			memoriesManager = new MemoriesManager(preferences.getMemoriesFolder());
-		}
-		return memoriesManager.getMemories();
-	}
-
 	public void updateProject(Project project) throws JSONException, IOException, ParseException {
 		if (projectsManager == null) {
 			Preferences preferences = Preferences.getInstance();
@@ -1309,53 +1267,6 @@ public class LocalController {
 		}
 		cleanCtype(match);
 		return match;
-	}
-
-	public void removeProject(Project project) throws IOException, JSONException, ParseException {
-		Preferences preferences = Preferences.getInstance();
-		long id = project.getId();
-		File projectFolder = new File(preferences.getProjectsFolder(), "" + id);
-		deltree(projectFolder);
-		if (projectsManager == null) {
-			projectsManager = new ProjectsManager(preferences.getProjectsFolder());
-		}
-		projectsManager.remove(id);
-		try {
-			removeMemory(id);
-		} catch (IOException ioe) {
-			// do nothing
-		}
-	}
-
-	public void removeMemory(long id) throws IOException, JSONException, ParseException {
-		List<Project> projects = getProjects();
-		for (int i = 0; i < projects.size(); i++) {
-			List<Long> memories = projects.get(i).getMemories();
-			for (int j = 0; j < memories.size(); j++) {
-				if (memories.get(j) == id) {
-					throw new IOException(Messages.getString("LocalController.34"));
-				}
-			}
-		}
-		Preferences preferences = Preferences.getInstance();
-		File memoryFolder = new File(preferences.getMemoriesFolder(), "" + id);
-		deltree(memoryFolder);
-		if (memoriesManager == null) {
-			memoriesManager = new MemoriesManager(preferences.getMemoriesFolder());
-		}
-		memoriesManager.remove(id);
-	}
-
-	private void deltree(File file) throws IOException {
-		if (file.isDirectory()) {
-			File[] list = file.listFiles();
-			if (list != null) {
-				for (int i = 0; i < list.length; i++) {
-					deltree(list[i]);
-				}
-			}
-		}
-		Files.deleteIfExists(file.toPath());
 	}
 
 	public void exportTMX(Memory memory, String file) throws IOException, SQLException, JSONException, SAXException,
