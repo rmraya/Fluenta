@@ -85,7 +85,9 @@ export class Fluenta {
         Fluenta.i18n = new I18n(Fluenta.path.join(app.getAppPath(), 'i18n', 'fluenta_' + Fluenta.preferences.lang + '.json'));
         app.on('ready', () => {
             Fluenta.createWindow();
-            Fluenta.mainWindow.loadURL('file://' + Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'index.html'));
+            let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'index.html');
+            let fileUrl: URL = new URL('file://' + filePath);
+            Fluenta.mainWindow.loadURL(fileUrl.href);
             Fluenta.mainWindow.once('ready-to-show', () => {
                 Fluenta.mainWindow.setBounds(Fluenta.currentDefaults);
                 Fluenta.mainWindow.show();
@@ -251,8 +253,17 @@ export class Fluenta {
         ipcMain.on('remove-elements', (event: IpcMainEvent, arg: { filter: string, elements: string[] }) => {
             Fluenta.removeElements(arg.filter, arg.elements);
         });
+        ipcMain.on('browse-projects-folder', () => {
+            Fluenta.browseProjectsFolder();
+        });
+        ipcMain.on('browse-memories-folder', () => {
+            Fluenta.browseMemoriesFolder();
+        });
+        ipcMain.on('browse-srx-file', () => {
+            Fluenta.browseSrxFile();
+        });
         ipcMain.on('save-preferences', (event: IpcMainEvent, arg: Preferences) => {
-            Fluenta.savePreferences(arg);
+            Fluenta.savePreferences(arg, true);
         });
         ipcMain.on('close-generateXliff', () => {
             Fluenta.generateXliffWindow.close();
@@ -515,6 +526,39 @@ export class Fluenta {
         }
     }
 
+    static browseProjectsFolder(): void {
+        let folder: string[] = dialog.showOpenDialogSync(Fluenta.mainWindow, { properties: ['openDirectory', 'createDirectory'], defaultPath: Fluenta.preferences.projectsFolder });
+        if (folder) {
+            Fluenta.preferences.projectsFolder = folder[0];
+            Fluenta.savePreferences(Fluenta.preferences, false);
+            Fluenta.settingsWindow.webContents.send('set-preferences', Fluenta.preferences);
+        }
+    }
+
+    static browseMemoriesFolder(): void {
+        let folder: string[] = dialog.showOpenDialogSync(Fluenta.mainWindow, { properties: ['openDirectory', 'createDirectory'], defaultPath: Fluenta.preferences.memoriesFolder });
+        if (folder) {
+            Fluenta.preferences.memoriesFolder = folder[0];
+            Fluenta.savePreferences(Fluenta.preferences, false);
+            Fluenta.settingsWindow.webContents.send('set-preferences', Fluenta.preferences);
+        }
+    }
+
+    static browseSrxFile(): void {
+        let file: string[] = dialog.showOpenDialogSync(Fluenta.mainWindow, {
+            properties: ['openFile'], filters: [
+                { name: Fluenta.i18n.getString('fluenta', 'srxFiles'), extensions: ['srx'] },
+                { name: Fluenta.i18n.getString('fluenta', 'allFiles'), extensions: ['*'] }
+            ],
+            defaultPath: Fluenta.preferences.srxFile
+        });
+        if (file) {
+            Fluenta.preferences.srxFile = file[0];
+            Fluenta.savePreferences(Fluenta.preferences, false);
+            Fluenta.settingsWindow.webContents.send('set-preferences', Fluenta.preferences);
+        }
+    }
+
     static exportTMX(id: number, name: string) {
         let tmxFile: string = dialog.showSaveDialogSync(Fluenta.mainWindow, {
             filters: [
@@ -763,7 +807,9 @@ export class Fluenta {
             }
         });
         Fluenta.logsDialogWindow.setMenu(null);
-        Fluenta.logsDialogWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'logsDialog.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'logsDialog.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.logsDialogWindow.loadURL(fileUrl.href);
         Fluenta.logsDialogWindow.once('ready-to-show', () => {
             Fluenta.logsDialogWindow.show();
             Fluenta.cancelledProcess = false;
@@ -840,7 +886,9 @@ export class Fluenta {
             }
         });
         Fluenta.systemInfoWindow.setMenu(null);
-        Fluenta.systemInfoWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'systemInfo.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'systemInfo.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.systemInfoWindow.loadURL(fileUrl.href);
         Fluenta.systemInfoWindow.once('ready-to-show', () => {
             Fluenta.systemInfoWindow.show();
         });
@@ -1083,7 +1131,7 @@ export class Fluenta {
         }
     }
 
-    static getProjectLanguages(projectId: number): { srcLang: LanguageInterface, tgtLangs: LanguageInterface[] } {
+    static getProjectLanguages(projectId: number): { srcLang: LanguageInterface, tgtLangs: LanguageInterface[], removeText: string } {
         let project: Project = Fluenta.getProject(projectId);
         let langCodes: string[] = project.tgtLanguages;
         let languages: LanguageInterface[] = [];
@@ -1093,7 +1141,7 @@ export class Fluenta {
             languages.push(tgtLang);
         }
         let srcLang: LanguageInterface = LanguageUtils.getLanguage(project.srcLanguage, Fluenta.preferences.lang);
-        return { srcLang, tgtLangs: languages };
+        return { srcLang, tgtLangs: languages, removeText: Fluenta.i18n.getString('fluenta', 'removeLanguage') };
     }
 
     static setTargetLanguage(code: string): void {
@@ -1125,7 +1173,9 @@ export class Fluenta {
             }
         });
         Fluenta.addTargetLangWindow.setMenu(null);
-        Fluenta.addTargetLangWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'addTargetLanguage.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'addTargetLanguage.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.addTargetLangWindow.loadURL(fileUrl.href);
         Fluenta.addTargetLangWindow.once('ready-to-show', () => {
             Fluenta.addTargetLangWindow.show();
         });
@@ -1149,7 +1199,9 @@ export class Fluenta {
             }
         });
         Fluenta.generateXliffWindow.setMenu(null);
-        Fluenta.generateXliffWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'generateXliffDialog.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'generateXliffDialog.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.generateXliffWindow.loadURL(fileUrl.href);
         Fluenta.generateXliffWindow.once('ready-to-show', () => {
             Fluenta.generateXliffWindow.show();
             Fluenta.generateXliffWindow.webContents.send('set-project', { projectId: projectId, description: description });
@@ -1178,7 +1230,9 @@ export class Fluenta {
             }
         });
         Fluenta.importXliffWindow.setMenu(null);
-        Fluenta.importXliffWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'importXliffDialog.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'importXliffDialog.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.importXliffWindow.loadURL(fileUrl.href);
         Fluenta.importXliffWindow.once('ready-to-show', () => {
             Fluenta.importXliffWindow.show();
             Fluenta.importXliffWindow.webContents.send('set-project', { projectId: projectId, description: description });
@@ -1299,7 +1353,7 @@ export class Fluenta {
             let targetLanguage: Language = LanguageUtils.getLanguage(code, Fluenta.preferences.lang);
             targetLanguages.push(targetLanguage);
         }
-        event.sender.send('set-default-languages', { srcLang: sourceLanguage, tgtLangs: targetLanguages });
+        event.sender.send('set-default-languages', { srcLang: sourceLanguage, tgtLangs: targetLanguages, removeText: Fluenta.i18n.getString('fluenta', 'removeLanguage') });
     }
 
     static setHeights(window: string, width: number, height: number): void {
@@ -1604,7 +1658,9 @@ export class Fluenta {
             },
         });
         Fluenta.settingsWindow.setMenu(null);
-        Fluenta.settingsWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'settingsDialog.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'settingsDialog.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.settingsWindow.loadURL(fileUrl.href);
         Fluenta.settingsWindow.once('ready-to-show', () => {
             Fluenta.settingsWindow.show();
         });
@@ -1630,7 +1686,9 @@ export class Fluenta {
             }
         });
         Fluenta.addConfigurationFileWindow.setMenu(null);
-        Fluenta.addConfigurationFileWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'addConfigurationFile.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'addConfigurationFile.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.addConfigurationFileWindow.loadURL(fileUrl.href);
         Fluenta.addConfigurationFileWindow.once('ready-to-show', () => {
             Fluenta.addConfigurationFileWindow.show();
         });
@@ -1684,7 +1742,9 @@ export class Fluenta {
             }
         });
         Fluenta.editConfigurationFileWindow.setMenu(null);
-        Fluenta.editConfigurationFileWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'filterConfig.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'filterConfig.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.editConfigurationFileWindow.loadURL(fileUrl.href);
         Fluenta.editConfigurationFileWindow.once('ready-to-show', () => {
             Fluenta.editConfigurationFileWindow.show();
             Fluenta.editConfigurationFileWindow.setTitle(filter);
@@ -1779,7 +1839,9 @@ export class Fluenta {
             }
         });
         Fluenta.elementConfigWindow.setMenu(null);
-        Fluenta.elementConfigWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'elementConfig.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'elementConfig.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.elementConfigWindow.loadURL(fileUrl.href);
         Fluenta.elementConfigWindow.once('ready-to-show', () => {
             Fluenta.elementConfigWindow.show();
             Fluenta.elementConfigWindow.webContents.send('set-elementConfig', arg);
@@ -1900,7 +1962,9 @@ export class Fluenta {
             },
         });
         Fluenta.statusWindow.setMenu(null);
-        Fluenta.statusWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'statusDialog.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'statusDialog.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.statusWindow.loadURL(fileUrl.href);
         Fluenta.statusWindow.once('ready-to-show', () => {
             Fluenta.statusWindow.show();
             Fluenta.statusWindow.webContents.send('set-project', { project: project, languages: langMap, statusMap: Fluenta.getStatusMap(), eventsMap: Fluenta.eventsMap });
@@ -1910,7 +1974,7 @@ export class Fluenta {
         });
     }
 
-    static savePreferences(arg: Preferences): void {
+    static savePreferences(arg: Preferences, close: boolean): void {
         let preferencesFile: string = Fluenta.path.join(app.getPath('appData'), Fluenta.appFolder, 'preferences.json');
         writeFileSync(preferencesFile, JSON.stringify(arg, null, 2));
         if (app.isReady() && arg.lang !== Fluenta.preferences.lang) {
@@ -1953,7 +2017,9 @@ export class Fluenta {
         for (let window of windows) {
             window.webContents.send('set-theme', Fluenta.currentTheme);
         }
-        Fluenta.settingsWindow.close();
+        if (close) {
+            Fluenta.settingsWindow.close();
+        }
     }
 
     static loadPreferences(): void {
@@ -1989,7 +2055,9 @@ export class Fluenta {
             }
         });
         Fluenta.aboutWindow.setMenu(null);
-        Fluenta.aboutWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'about.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'about.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.aboutWindow.loadURL(fileUrl.href);
         Fluenta.aboutWindow.once('ready-to-show', () => {
             Fluenta.aboutWindow.show();
         });
@@ -2047,7 +2115,9 @@ export class Fluenta {
             }
         });
         Fluenta.editProjectWindow.setMenu(null);
-        Fluenta.editProjectWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'editProjectDialog.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'editProjectDialog.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.editProjectWindow.loadURL(fileUrl.href);
         Fluenta.editProjectWindow.once('ready-to-show', () => {
             Fluenta.editProjectWindow.show();
             Fluenta.editProjectWindow.webContents.send('set-project', selectedProject);
@@ -2073,7 +2143,9 @@ export class Fluenta {
             }
         });
         Fluenta.editMemoryWindow.setMenu(null);
-        Fluenta.editMemoryWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'editMemoryDialog.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'editMemoryDialog.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.editMemoryWindow.loadURL(fileUrl.href);
         Fluenta.editMemoryWindow.once('ready-to-show', () => {
             Fluenta.editMemoryWindow.show();
             Fluenta.editMemoryWindow.webContents.send('set-memory', selectedMemory);
@@ -2098,7 +2170,9 @@ export class Fluenta {
             }
         });
         Fluenta.addProjectWindow.setMenu(null);
-        Fluenta.addProjectWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'addProjectDialog.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'addProjectDialog.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.addProjectWindow.loadURL(fileUrl.href);
         Fluenta.addProjectWindow.once('ready-to-show', () => {
             Fluenta.addProjectWindow.show();
         });
@@ -2129,7 +2203,9 @@ export class Fluenta {
             }
         });
         Fluenta.projectMemoriesWindow.setMenu(null);
-        Fluenta.projectMemoriesWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'projectMemoriesDialog.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'projectMemoriesDialog.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.projectMemoriesWindow.loadURL(fileUrl.href);
         Fluenta.projectMemoriesWindow.once('ready-to-show', () => {
             Fluenta.projectMemoriesWindow.show();
         });
@@ -2153,7 +2229,9 @@ export class Fluenta {
             }
         });
         Fluenta.addMemoryWindow.setMenu(null);
-        Fluenta.addMemoryWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'addMemoryDialog.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'addMemoryDialog.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.addMemoryWindow.loadURL(fileUrl.href);
         Fluenta.addMemoryWindow.once('ready-to-show', () => {
             Fluenta.addMemoryWindow.show();
         });
@@ -2206,7 +2284,9 @@ export class Fluenta {
             }
         });
         Fluenta.licensesWindow.setMenu(null);
-        Fluenta.licensesWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'licenses.html'));
+        let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'licenses.html');
+        let fileUrl: URL = new URL('file://' + filePath);
+        Fluenta.licensesWindow.loadURL(fileUrl.href);
         Fluenta.licensesWindow.once('ready-to-show', () => {
             Fluenta.licensesWindow.show();
         });
@@ -2230,31 +2310,31 @@ export class Fluenta {
             case "XMLJava":
             case "BCP47J":
             case "TypesBCP47":
-                licenseFile = 'file://' + this.path.join(app.getAppPath(), 'html', 'licenses', 'EclipsePublicLicense1.0.html');
+                licenseFile = 'EclipsePublicLicense1.0.html';
                 title = 'Eclipse Public License 1.0';
                 break;
             case "electron":
-                licenseFile = 'file://' + this.path.join(app.getAppPath(), 'html', 'licenses', 'electron.txt');
+                licenseFile = 'electron.txt';
                 title = 'MIT License';
                 break;
             case "MapDB":
-                licenseFile = 'file://' + this.path.join(app.getAppPath(), 'html', 'licenses', 'Apache2.0.html');
+                licenseFile = 'Apache2.0.html';
                 title = 'Apache 2.0';
                 break;
             case "Java":
-                licenseFile = 'file://' + this.path.join(app.getAppPath(), 'html', 'licenses', 'java.html');
+                licenseFile = 'java.html';
                 title = 'GPL2 with Classpath Exception';
                 break;
             case "JSON":
-                licenseFile = 'file://' + this.path.join(app.getAppPath(), 'html', 'licenses', 'JSON.html');
+                licenseFile = 'JSON.html';
                 title = 'JSON.org License';
                 break;
             case "jsoup":
-                licenseFile = 'file://' + this.path.join(app.getAppPath(), 'html', 'licenses', 'jsoup.txt');
+                licenseFile = 'jsoup.txt';
                 title = 'MIT License';
                 break;
             case "DTDParser":
-                licenseFile = 'file://' + this.path.join(app.getAppPath(), 'html', 'licenses', 'LGPL2.1.txt');
+                licenseFile = 'LGPL2.1.txt';
                 title = 'LGPL 2.1';
                 break;
             default:
@@ -2274,7 +2354,9 @@ export class Fluenta {
             }
         });
         licenseWindow.setMenu(null);
-        licenseWindow.loadURL(licenseFile);
+        let filePath = this.path.join(app.getAppPath(), 'html', 'licenses', licenseFile);
+        let fileUrl: URL = new URL('file://' + filePath);
+        licenseWindow.loadURL(fileUrl.href);
         licenseWindow.once('ready-to-show', () => {
             licenseWindow.show();
         });
@@ -2369,7 +2451,9 @@ export class Fluenta {
                                 }
                             });
                             Fluenta.updatesWindow.setMenu(null);
-                            Fluenta.updatesWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'updates.html'));
+                            let filePath = Fluenta.path.join(app.getAppPath(), 'html', Fluenta.preferences.lang, 'updates.html');
+                            let fileUrl: URL = new URL('file://' + filePath);
+                            Fluenta.updatesWindow.loadURL(fileUrl.href);
                             Fluenta.updatesWindow.once('ready-to-show', () => {
                                 Fluenta.updatesWindow.show();
                             });

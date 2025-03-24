@@ -26,7 +26,7 @@ class AddMemoryDialog {
                 this.electron.ipcRenderer.send('set-height', { window: 'addMemoryDialog', width: document.body.clientWidth, height: document.body.clientHeight });
             }, 300);
         });
-        this.electron.ipcRenderer.on('set-default-languages', (event: Electron.IpcRendererEvent, arg: { srcLang: LanguageInterface, tgtLangs: LanguageInterface[] }) => {
+        this.electron.ipcRenderer.on('set-default-languages', (event: Electron.IpcRendererEvent, arg: { srcLang: LanguageInterface, tgtLangs: LanguageInterface[], removeText: string }) => {
             this.setDefaultLanguages(arg);
         });
         document.getElementById('addMemory').addEventListener('click', () => {

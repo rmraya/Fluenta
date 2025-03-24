@@ -50,6 +50,45 @@ a {
 	cursor: pointer;
 }
 
+.icon {
+	display: inline-block;
+	height: 24px;
+	width: 24px;
+	padding-top: 2px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+[data-title]:hover:after {
+	opacity: 1;
+	transition: all 0.1s ease 0.5s;
+	visibility: visible;
+}
+
+[data-title]:after {
+	content: attr(data-title);
+	color: var(--white);
+	background: var(--themePrimary);
+	border: 1px solid var(--themePrimary);
+	border-radius: 4px;
+	font-size: 1em;
+	text-align: center;
+	margin: 4px;
+	padding: 4px 8px;
+	white-space: nowrap;
+	position: absolute;
+	bottom: -2em;
+	left: 100%;
+	white-space: nowrap;
+	opacity: 0;
+	z-index: 99999;
+	visibility: hidden;
+}
+
+[data-title] {
+	position: relative;
+}
+
 a:hover {
 	text-decoration: underline;
 }

@@ -15,10 +15,10 @@ class EditProjectDialog {
     electron = require('electron');
 
     tgtLangs: LanguageInterface[] = [];
-    selectedLanguages: LanguageInterface[] = [];
     memories: number[] = [];
     project: Project;
-
+    removeText: string = '';
+    
     constructor() {
         this.electron.ipcRenderer.send('get-theme');
         this.electron.ipcRenderer.on('set-theme', (event: Electron.IpcRendererEvent, theme: string) => {
@@ -51,18 +51,21 @@ class EditProjectDialog {
         document.getElementById('addTarget').addEventListener('click', () => {
             this.electron.ipcRenderer.send('add-target-language', 'editProjectDialog');
         });
-        document.getElementById('removeTarget').addEventListener('click', () => {
-            this.removeTargetLanguages();
-        });
         document.getElementById('updateButton').addEventListener('click', () => {
             this.updateProject();
         });
         this.electron.ipcRenderer.on('add-language', (event: Electron.IpcRendererEvent, arg: LanguageInterface) => {
-            this.tgtLangs.push(arg);
-            this.displayTargetLanguages();
+            let filtered: LanguageInterface[] = this.tgtLangs.filter((lang: LanguageInterface) => {
+                return lang.code === arg.code;
+            });
+            if (filtered.length === 0) {
+                this.tgtLangs.push(arg);
+                this.displayTargetLanguages();
+            }
         });
-        this.electron.ipcRenderer.on('set-project-languages', (event: Electron.IpcRendererEvent, arg: { srcLang: LanguageInterface, tgtLangs: LanguageInterface[] }) => {
+        this.electron.ipcRenderer.on('set-project-languages', (event: Electron.IpcRendererEvent, arg: { srcLang: LanguageInterface, tgtLangs: LanguageInterface[], removeText: string  }) => {
             this.tgtLangs = arg.tgtLangs;
+            this.removeText = arg.removeText;
             (document.getElementById('srcLangSelect') as HTMLSelectElement).value = arg.srcLang.code;
             this.displayTargetLanguages();
         });
@@ -76,16 +79,12 @@ class EditProjectDialog {
         document.getElementById('ditaMap').focus();
     }
 
-    removeTargetLanguages() {
-        if (this.selectedLanguages.length === 0) {
-            this.electron.ipcRenderer.send('show-message', { type: 'warning', group: 'projectDialog', key: 'selectTargetLanguage' });
-            return
-        }
-        for (let language of this.selectedLanguages) {
-            let index: number = this.tgtLangs.indexOf(language);
-            this.tgtLangs.splice(index, 1);
-        }
-        this.selectedLanguages = [];
+    removeTargetLanguages(language: string): void {
+        let lang: LanguageInterface[] = this.tgtLangs.filter((lang: LanguageInterface) => {
+            return lang.code === language;
+        });
+        let index: number = this.tgtLangs.indexOf(lang[0]);
+        this.tgtLangs.splice(index, 1);
         this.displayTargetLanguages();
     }
 
@@ -108,27 +107,30 @@ class EditProjectDialog {
         for (let language of this.tgtLangs) {
             let row: HTMLTableRowElement = document.createElement('tr');
             targetLanguages.appendChild(row);
-            let cell: HTMLTableCellElement = document.createElement('td');
-            cell.style.width = '20px';
-            let checkBox: HTMLInputElement = document.createElement('input');
-            checkBox.type = 'checkbox';
-            checkBox.id = language.code;
-            cell.appendChild(checkBox);
+
+            let cell = document.createElement('td');
+            cell.style.width = '24px';
+            cell.classList.add('middle');
+            cell.classList.add('center');
+
+            let remove: HTMLAnchorElement = document.createElement('a');
+            remove.classList.add('icon');
+            remove.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"><path d="m400-325 80-80 80 80 51-51-80-80 80-80-51-51-80 80-80-80-51 51 80 80-80 80 51 51Zm-88 181q-29.7 0-50.85-21.15Q240-186.3 240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144H312Zm336-552H312v480h336v-480Zm-336 0v480-480Z"/></svg>';
+            remove.setAttribute('data-title', this.removeText);
+            remove.addEventListener('click', () => {
+                this.removeTargetLanguages(language.code);
+            });
+            remove.id = language.code;
+            cell.appendChild(remove);
             row.appendChild(cell);
+
             cell = document.createElement('td');
+            cell.classList.add('middle');
             let label: HTMLLabelElement = document.createElement('label');
             label.htmlFor = language.code;
             label.innerText = language.description;
             cell.appendChild(label);
             row.appendChild(cell);
-            checkBox.addEventListener('input', () => {
-                if (checkBox.checked) {
-                    this.selectedLanguages.push(language);
-                } else {
-                    let index: number = this.selectedLanguages.indexOf(language);
-                    this.selectedLanguages.splice(index, 1);
-                }
-            });
         }
     }
 
@@ -189,7 +191,7 @@ class EditProjectDialog {
                 newLanguageStatus[language.code] = this.project.languageStatus[language.code];
             }
         }
-        this.project.languageStatus = newLanguageStatus;           
+        this.project.languageStatus = newLanguageStatus;
         this.electron.ipcRenderer.send('update-project', this.project);
     }
 }
