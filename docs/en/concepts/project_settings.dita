@@ -12,7 +12,7 @@
       <li>Use the <uicontrol>Application Language</uicontrol> drop-down to select the language to
         use in the Graphical User Interface (GUI).</li>
       <li>Use the <uicontrol>Theme</uicontrol> drop-down to control the application's default
-        appearance. <ul>
+        appearance.<ul>
           <li>Select <uicontrol>System Default</uicontrol> to let your Operating System control the
             default text/background color combination (this option is not supported in some Linux
             distributions).</li>
@@ -48,10 +48,10 @@
           <li>Click the <uicontrol>Add Target Language</uicontrol> button.</li>
         </ol>
       </li>
-      <li>To remove unnecessary languages from the default set: <ol>
-          <li>Select the check boxes next to each language you want to remove.</li>
-          <li>Click the <uicontrol>Remove Target Language</uicontrol> button.</li>
-        </ol>
+      <li>To remove unnecessary languages from the default set, click the corresponding
+        <uicontrol>Remove Language</uicontrol> buttons (<image
+          href="../images/remove.svg" placement="inline" height="16"/>) on the
+        leftmost column.
       </li>
 
     </ul>

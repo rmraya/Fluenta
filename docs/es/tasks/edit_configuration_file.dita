@@ -16,7 +16,7 @@
         <choices>
           <choice>Utilice el botón <uicontrol>Añadir Elemento</uicontrol> para añadir un nuevo elemento al archivo de configuración.</choice>
           <choice>Utilice el botón <uicontrol>Modificar Elemento</uicontrol> para cambiar las propiedades de un elemento existente.</choice>
-          <choice>Utilice el botón <uicontrol>Eliminar Elemento</uicontrol> para eliminar un elemento del archivo de configuración.</choice>
+          <choice>Utilice el botón <uicontrol>Eliminar Elementos Seleccionados</uicontrol> para eliminar todos los elementos seleccionados del archivo de configuración.</choice>
         </choices>
         <info>El archivo de configuración se actualiza automáticamente a medida que se añaden, editan o eliminan elementos.</info>
       </step>

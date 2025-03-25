@@ -9,7 +9,7 @@
     </image>
     <ul>
       <li>Utilice la lista desplegable <uicontrol>Idioma de la Aplicación</uicontrol> para seleccionar el idioma que se utilizará en la interfaz gráfica de usuario (GUI).</li>
-      <li>Utilice la list desplegable <uicontrol>Tema</uicontrol> para controlar el aspecto predeterminado de la aplicación. <ul>
+      <li>Utilice la lista desplegable <uicontrol>Tema</uicontrol> para controlar el aspecto predeterminado de la aplicación.<ul>
           <li>Seleccione <uicontrol>Predeterminado del Sistema</uicontrol> para que su sistema operativo controle la combinación predeterminada de colores de texto y fondo (esta opción no es compatible con algunas distribuciones de Linux).</li>
           <li>Seleccione <uicontrol>Oscuro</uicontrol> para trabajar con texto claro sobre fondo oscuro.</li>
           <li>Seleccione <uicontrol>Claro</uicontrol> para trabajar con texto oscuro sobre fondo gris claro.</li>
@@ -27,10 +27,7 @@
           <li>Seleccione un idioma de la lista desplegable <uicontrol>Idioma Destino</uicontrol>.</li>
           <li>Haga clic en el botón <uicontrol>Añadir Idioma Destino</uicontrol>.</li>
         </ol> </li>
-      <li>Para eliminar idiomas innecesarios del conjunto predeterminado: <ol>
-          <li>Seleccione las casillas de verificación situadas junto a cada idioma que desee eliminar.</li>
-          <li>Haga clic en el botón <uicontrol>Eliminar Idioma Destino</uicontrol>.</li>
-        </ol> </li>
+      <li>Para eliminar los idiomas innecesarios del conjunto predeterminado, haga clic en los botones correspondientes de <uicontrol>Eliminar idioma</uicontrol> (<image height="16" href="../images/remove.svg" placement="inline"/>) en la columna situada más a la izquierda. </li>
     </ul>
     <p>Haga clic en el botón <uicontrol>Guardar Configuración</uicontrol> después de hacer cambios en la configuración predeterminada.</p>
   </conbody>

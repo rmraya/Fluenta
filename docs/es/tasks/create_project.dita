@@ -49,15 +49,7 @@
         </substeps>
       </step>
       <step>
-        <cmd>Si es necesario, elimine del conjunto de idiomas predeterminado aquellos que no vaya a utilizar.</cmd>
-        <substeps id="substeps_zsw_gfc_5s">
-          <substep>
-            <cmd>Seleccione las casillas de verificación situadas junto a cada idioma que desee eliminar.</cmd>
-          </substep>
-          <substep>
-            <cmd>Haga clic en el botón <uicontrol>Eliminar Idioma Destino</uicontrol>.</cmd>
-          </substep>
-        </substeps>
+        <cmd>Si desea eliminar idiomas destino del conjunto predeterminado, haga clic en los botones correspondientes de <uicontrol>Eliminar idioma</uicontrol> (<image height="16" href="../images/remove.svg" placement="inline"/>) en la columna situada más a la izquierda.</cmd>
       </step>
       <step>
         <cmd>Asocie las memorias adicionales existentes al nuevo proyecto si es necesario.</cmd>

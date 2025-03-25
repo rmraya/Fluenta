@@ -62,16 +62,10 @@
                 </substeps>
             </step>
             <step>
-                <cmd>Remove unnecessary languages from the default language set if required.</cmd>
-                <substeps id="substeps_zsw_gfc_5s">
-                    <substep>
-                        <cmd>Select the check boxes next to each language you want to remove.</cmd>
-                    </substep>
-                    <substep>
-                        <cmd>Click the <uicontrol>Remove Selected Languages</uicontrol>
-                            button.</cmd>
-                    </substep>
-                </substeps>
+                <cmd>If you want to remove target languages from the list, click the corresponding
+                        <uicontrol>Remove Language</uicontrol> buttons (<image
+                        href="../images/remove.svg" placement="inline" height="16"/>) on the
+                    leftmost column.</cmd>
             </step>
             <step>
                 <cmd>Associate existing additional memories with the new project if required.</cmd>

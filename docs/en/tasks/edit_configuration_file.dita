@@ -22,8 +22,8 @@
                         to the configuration file.</choice>
                     <choice>Use the <uicontrol>Edit Element</uicontrol> button to modify the
                         properties of an existing element.</choice>
-                    <choice>Use the <uicontrol>Remove Element</uicontrol> button to delete an
-                        element from the configuration file.</choice>
+                    <choice>Use the <uicontrol>Remove Selected Elements</uicontrol> button to delete
+                        all selected elements from the configuration file.</choice>
                 </choices>
                 <info>The configuration file is automatically updated as you add, edit or remove
                     elements.</info>
