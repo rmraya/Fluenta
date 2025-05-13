@@ -49,7 +49,7 @@
     "modifiedFilesOnly": true,
     "useTM": true,
     "generateCount": false,
-    "version": 2.0,
+    "version": "2.0",
     "paragraph": false,
     "ignoreTrackedChanges": false,
     "ignoreSVG": true,
