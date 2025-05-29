@@ -45,7 +45,8 @@
             <step>
                 <cmd>Use the <uicontrol>XLIFF Version</uicontrol> radio buttons to select the
                     version of XLIFF to generate, current supported options are
-                    <codeph>1.2</codeph>, <codeph>2.0</codeph> and <codeph>2.1</codeph>.</cmd>
+                    <codeph>1.2</codeph>, <codeph>2.0</codeph>, <codeph>2.1</codeph> and
+                        <codeph>2.2</codeph>.</cmd>
             </step>
             <step>
                 <cmd>Select the <uicontrol>Reuse ICE Matches</uicontrol> check box if you want to

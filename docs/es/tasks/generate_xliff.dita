@@ -28,7 +28,10 @@
         <cmd>Si necesita excluir algunos tópicos, introduzca el nombre de un archivo DITAVAL que desee utilizar para el procesamiento condicional en el cuadro de texto <uicontrol>Archivo DITAVAL</uicontrol> o utilice el botón <uicontrol>Examinar...</uicontrol> situado junto a él para seleccionar un archivo del sistema de archivos.</cmd>
       </step>
       <step>
-        <cmd>Utilice los botones de opción <uicontrol>Versión de XLIFF</uicontrol> para seleccionar la versión de XLIFF que desea generar; las opciones admitidas actualmente son <codeph>1.2</codeph>, <codeph>2.0</codeph> y <codeph>2.1</codeph>.</cmd>
+        <cmd>Utilice los botones de opción <uicontrol>Versión de XLIFF</uicontrol> para seleccionar
+          la versión de XLIFF que desea generar; las opciones admitidas actualmente son
+            <codeph>1.2</codeph>, <codeph>2.0</codeph>, <codeph>2.1</codeph> y
+          <codeph>2.2</codeph>.</cmd>
       </step>
       <step>
         <cmd>Seleccione la casilla <uicontrol>Reutilizar coincidencias ICE</uicontrol> si desea comparar el contenido actual con el contenido disponible la última vez que se generó un archivo XLIFF y reutilizar todas las traducciones existentes.</cmd>

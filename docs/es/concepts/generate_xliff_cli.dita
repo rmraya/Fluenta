@@ -124,7 +124,9 @@
             <row>
               <entry translate="no">version</entry>
               <entry>Texto</entry>
-              <entry>Seleccione la versión de XLIFF a generar. Valores: <codeph>1.2</codeph>, <codeph>2.0</codeph> o <codeph>2.1</codeph>. Valor predeterminado: <codeph>2.0</codeph></entry>
+              <entry>Seleccione la versión de XLIFF a generar. Valores: <codeph>1.2</codeph>,
+                  <codeph>2.0</codeph>, <codeph>2.1</codeph> o <codeph>2.2</codeph>. Valor
+                predeterminado: <codeph>2.1</codeph></entry>
               <entry>No</entry>
             </row>
             <row>

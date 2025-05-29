@@ -131,7 +131,8 @@
        <entry translate="no">version</entry>
        <entry>String</entry>
        <entry>Selects the version of XLIFF to generate. Values: <codeph>1.2</codeph>,
-         <codeph>2.0</codeph> or <codeph>2.1</codeph>. Default value: <codeph>2.0</codeph></entry>
+         <codeph>2.0</codeph>, <codeph>2.1</codeph> or <codeph>2.2</codeph>. Default value:
+         <codeph>2.1</codeph></entry>
        <entry>No</entry>
       </row>
       <row>
