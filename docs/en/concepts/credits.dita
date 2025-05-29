@@ -18,21 +18,6 @@
                                                   License 1.0</xref></li>
                                 </ul>
                         </li>
-                        <li><p translate="no"><b>DTDParser</b></p>
-                                <ul>
-                                        <li>Formerly available from <xref
-                                                  href="http://wutka.com/dtdparser.html"
-                                                  format="html" scope="external"
-                                                  >http://wutka.com/dtdparser.html</xref></li>
-                                        <li>Published under two licenses: <xref
-                                                  href="https://raw.githubusercontent.com/rmraya/OpenXLIFF/master/licenses/dtd/ASL_LICENSE"
-                                                  format="html" scope="external">Apache Style
-                                                  License</xref> and <xref
-                                                  href="https://raw.githubusercontent.com/rmraya/OpenXLIFF/master/licenses/dtd/LICENSE"
-                                                  format="html" scope="external">LGPL
-                                                2.1</xref></li>
-                                </ul>
-                        </li>
                         <li><p translate="no"><b>Electron</b></p>
                                 <ul>
                                         <li>Available from <xref

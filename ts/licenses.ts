@@ -54,9 +54,6 @@ class Licenses {
         document.getElementById('jsoup').addEventListener('click', () => {
             this.openLicense('jsoup');
         });
-        document.getElementById('DTDParser').addEventListener('click', () => {
-            this.openLicense('DTDParser');
-        });
         setTimeout(() => {
             this.electron.ipcRenderer.send('set-height', { window: 'licenses', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 300);

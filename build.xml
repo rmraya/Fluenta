@@ -5,7 +5,6 @@
     <property name="build.compiler" value="javac10+" />
     <path id="Fluenta.classpath">
         <pathelement location="jars/bcp47j.jar" />
-        <pathelement location="jars/dtd.jar" />
         <pathelement location="jars/json.jar" />
         <pathelement location="jars/jsoup.jar" />
         <pathelement location="jars/mapdb.jar" />
