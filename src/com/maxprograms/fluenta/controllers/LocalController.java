@@ -612,7 +612,7 @@ public class LocalController {
 			if (!tagErrors.isEmpty()) {
 				String message = Messages.getString("LocalController.14") + "\n\n";
 				String report = TagErrorsReport.run(workDocument);
-				MessageFormat mf = new MessageFormat(Messages.getString(message));
+				MessageFormat mf = new MessageFormat(message);
 				logger.displayError(mf.format(new String[] { report }));
 				return;
 			}

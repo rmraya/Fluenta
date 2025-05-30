@@ -123,6 +123,9 @@ class GenerateXliffDialog {
         if ((document.getElementById('2.1') as HTMLInputElement).checked) {
             version = '2.1';
         }
+        if ((document.getElementById('2.2') as HTMLInputElement).checked) {
+            version = '2.2';
+        }
         let reuseICE: boolean = (document.getElementById('reuseIce') as HTMLInputElement).checked;
         let modifiedOnly: boolean = (document.getElementById('modifiedOnly') as HTMLInputElement).checked;
         let useTM: boolean = (document.getElementById('useTm') as HTMLInputElement).checked;
@@ -163,6 +166,9 @@ class GenerateXliffDialog {
         }
         if (arg.version === '2.1') {
             (document.getElementById('2.1') as HTMLInputElement).checked = true;
+        }
+        if (arg.version === '2.2') {
+            (document.getElementById('2.2') as HTMLInputElement).checked = true;
         }
         if (arg.useICE) {
             (document.getElementById('reuseIce') as HTMLInputElement).checked = true;

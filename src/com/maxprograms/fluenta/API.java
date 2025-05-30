@@ -108,7 +108,7 @@ public class API {
 		if (jsonObject.has("generateCount")) {
 			generateCount = jsonObject.getBoolean("generateCount");
 		}
-		String version = "2.0";
+		String version = "2.1";
 		if (jsonObject.has("version")) {
 			version = jsonObject.getString("version");
 		}
