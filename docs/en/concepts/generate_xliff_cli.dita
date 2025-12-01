@@ -102,15 +102,16 @@
       <row>
        <entry translate="no">useICE</entry>
        <entry>Boolean</entry>
-       <entry>Selects wheteher existing ICE matches should be reused. Default
-        <codeph>false</codeph></entry>
+       <entry>Selects whether existing ICE matches should be reused. Default
+                <codeph>false</codeph></entry>
        <entry>No</entry>
       </row>
       <row>
        <entry translate="no">modifiedFilesOnly</entry>
        <entry>Boolean</entry>
-       <entry>Selects wether topics that have not changed since the last translation cycle should be
-        included in the generated XLIFF files. Default value: <codeph>false</codeph></entry>
+       <entry>Selects whether topics that have not changed since the last translation cycle should
+                be included in the generated XLIFF files. Default value:
+                <codeph>false</codeph></entry>
        <entry>No</entry>
       </row>
       <row>
@@ -138,22 +139,22 @@
       <row>
        <entry translate="no">paragraph</entry>
        <entry>Boolean</entry>
-       <entry>Selects wether paragraph segmentation should be used instead of sentence segmentation.
-        Default value: <codeph>false</codeph></entry>
+       <entry>Selects whether paragraph segmentation should be used instead of sentence
+                segmentation. Default value: <codeph>false</codeph></entry>
        <entry>No</entry>
       </row>
       <row>
        <entry translate="no">ignoreTrackedChanges</entry>
        <entry>Boolean</entry>
-       <entry>Selects wether tracked changes from Oxygen XML Editor should be ignored. Default
-        value: <codeph>false</codeph></entry>
+       <entry>Selects whether tracked changes from Oxygen XML Editor should be ignored. Default
+                value: <codeph>false</codeph></entry>
        <entry>No</entry>
       </row>
       <row>
        <entry translate="no">ignoreSVG</entry>
        <entry>Boolean</entry>
-       <entry>Selects wether translatable SVG files should be ignored when generating XLIFF. Default
-        value: <codeph>false</codeph></entry>
+       <entry>Selects whether translatable SVG files should be ignored when generating XLIFF.
+                Default value: <codeph>false</codeph></entry>
        <entry>No</entry>
       </row>
       <row>
