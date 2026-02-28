@@ -21,13 +21,15 @@ You can subscribe to [Maxprograms Support](https://groups.io/g/maxprograms/) at 
 
 ### Subscriptions
 
-Subscriptions are available for technical support, bug fixes, and feature requests. By subscribing to a support plan, you contribute to the continuous improvement of Fluenta. Your subscription fees pay for code development costs and ensure the quality and reliability of the software.
+Ready to use installers and technical support for Fluenta are available as yearly subscriptions at [Maxprograms Online Store](https://www.maxprograms.com/store/buy.html).
 
-Subscription Keys are available at [Maxprograms Online Store](https://www.maxprograms.com/store/buy.html). Subscription Keys cannot be shared or transferred to different machines.
+The version of Fluenta included in the official installers from [Fluenta's Home Page](https://www.maxprograms.com/products/fluenta.html) can be used at no cost for 30 days requesting a free Evaluation Key.
 
-The version of Fluenta included in the official installers from [Fluenta's Downloads Page](https://www.maxprograms.com/products/fluentadownload.html) can be used at no cost for 30 days requesting a free Evaluation Key.
+Subscription Keys cannot be shared or transferred to different machines.
 
-Subscription version includes unlimited email support at [tech@maxprograms.com](mailto:tech@maxprograms.com).
+Installers may occasionally be updated before the corresponding source code changes appear in this repository. Source code updates are published later, once they are ready for release. This timing difference is expected and does not affect the availability or completeness of the open source code.
+
+Subscription version includes unlimited email support at <tech@maxprograms.com>.
 
 ### Differences sumary
 
